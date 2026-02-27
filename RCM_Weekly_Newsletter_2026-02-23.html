@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RCM Pulse Weekly | February 23, 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #FAFAFA;
+      --color-surface: #FFFFFF;
+      --color-text: #1A1A2E;
+      --color-text-secondary: #4A4A68;
+      --color-text-muted: #8888A0;
+      --color-accent: #0F5FE0;
+      --color-accent-light: #E8F0FE;
+      --color-accent-dark: #0A4ABF;
+      --color-border: #E8E8EE;
+      --color-highlight: #FFF8E1;
+      --color-highlight-border: #F5C518;
+      --color-success: #0D9F6E;
+      --color-success-light: #E6F9F1;
+      --color-danger: #DC3545;
+      --color-danger-light: #FDE8EA;
+      --color-kpi-green: #0D9F6E;
+      --color-kpi-amber: #D97706;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+      --max-width: 720px;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ========== LAYOUT ========== */
+    .newsletter-wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      padding: 48px 0 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .header-logo {
+      width: 40px;
+      height: 40px;
+      background: var(--color-accent);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.5px;
+    }
+
+    .header-subtitle {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      font-weight: 400;
+      margin-top: 4px;
+    }
+
+    .header-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+    }
+
+    .header-meta span { display: flex; align-items: center; gap: 4px; }
+    .meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-muted); }
+
+    /* ========== TABLE OF CONTENTS ========== */
+    .toc {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .toc-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+    .toc-list li a {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--color-text);
+      font-size: 0.925rem;
+      font-weight: 450;
+      padding: 6px 0;
+      transition: color 0.2s;
+    }
+
+    .toc-list li a:hover { color: var(--color-accent); }
+
+    .toc-num {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      min-width: 20px;
+    }
+
+    /* ========== SECTIONS ========== */
+    .section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section:last-of-type { border-bottom: none; }
+
+    .section-number {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--color-text);
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+
+    .section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    .section p {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .section p strong { color: var(--color-text); font-weight: 600; }
+
+    .section ul, .section ol {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .section li {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.65;
+    }
+
+    .section li strong { color: var(--color-text); font-weight: 600; }
+
+    /* ========== STAT HIGHLIGHT CARDS ========== */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .stat-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-card .stat-value {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      line-height: 1.1;
+    }
+
+    .stat-card .stat-value.danger { color: var(--color-danger); }
+    .stat-card .stat-value.success { color: var(--color-success); }
+
+    .stat-card .stat-label {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* ========== CALLOUT BOXES ========== */
+    .callout {
+      border-left: 3px solid var(--color-accent);
+      background: var(--color-accent-light);
+      padding: 16px 20px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 24px 0;
+    }
+
+    .callout p {
+      font-size: 0.9rem;
+      color: var(--color-text);
+      margin: 0;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    .callout.warning {
+      border-left-color: var(--color-highlight-border);
+      background: var(--color-highlight);
+    }
+
+    .callout.action {
+      border-left-color: var(--color-success);
+      background: var(--color-success-light);
+    }
+
+    .callout-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .callout .callout-label { color: var(--color-accent); }
+    .callout.warning .callout-label { color: var(--color-kpi-amber); }
+    .callout.action .callout-label { color: var(--color-success); }
+
+    /* ========== TABLES ========== */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 24px 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    thead { background: var(--color-bg); }
+
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-text);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    td strong { color: var(--color-text); font-weight: 600; }
+
+    /* ========== KPI TABLE ========== */
+    .kpi-target { color: var(--color-kpi-green); font-weight: 600; }
+    .kpi-warning { color: var(--color-kpi-amber); font-weight: 600; }
+
+    /* ========== CHECKLIST ========== */
+    .checklist { list-style: none; padding: 0; margin: 24px 0; }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.925rem;
+      color: var(--color-text-secondary);
+      line-height: 1.55;
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .check-box {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-accent);
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+
+    .checklist li strong { color: var(--color-text); }
+
+    /* ========== BIG STAT ========== */
+    .big-stat {
+      text-align: center;
+      padding: 48px 24px;
+      background: linear-gradient(135deg, #0A4ABF 0%, #0F5FE0 100%);
+      border-radius: var(--radius-lg);
+      margin: 32px 0;
+      color: #fff;
+    }
+
+    .big-stat .stat-number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .big-stat .stat-desc {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ========== SOURCES ========== */
+    .sources {
+      margin-top: 16px;
+      padding-top: 16px;
+    }
+
+    .sources-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .sources a {
+      font-size: 0.8rem;
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .sources a:hover { color: var(--color-accent-dark); text-decoration: underline; }
+    .sources .sep { color: var(--color-text-muted); margin: 0 6px; font-size: 0.75rem; }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      padding: 40px 0 48px;
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .footer-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--color-border);
+      margin: 0 auto 24px;
+    }
+
+    .footer p { margin-bottom: 8px; }
+
+    .footer-sources {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      max-width: 560px;
+      margin: 16px auto 0;
+      line-height: 1.6;
+    }
+
+    /* ========== VENDOR TAGS ========== */
+    .vendor-group { margin: 16px 0; }
+
+    .vendor-group-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .vendor-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .vendor-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      background: var(--color-accent-light);
+      color: var(--color-accent-dark);
+      border: 1px solid transparent;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 600px) {
+      .newsletter-wrapper { padding: 0 16px; }
+      .header { padding: 32px 0 28px; }
+      .header h1 { font-size: 1.6rem; }
+      .section { padding: 36px 0; }
+      .section h2 { font-size: 1.3rem; }
+      .stat-row { grid-template-columns: 1fr 1fr; }
+      .stat-card .stat-value { font-size: 1.5rem; }
+      .big-stat .stat-number { font-size: 2.2rem; }
+      .big-stat { padding: 36px 20px; }
+      .header-meta { flex-direction: column; gap: 4px; }
+      .meta-dot { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="newsletter-wrapper">
+
+  <!-- ====== HEADER ====== -->
+  <header class="header">
+    <div class="header-brand">
+      <div class="header-logo">RP</div>
+      <h1>RCM Pulse Weekly</h1>
+    </div>
+    <div class="header-subtitle">Revenue Cycle Management Intelligence for Medical Practices</div>
+    <div class="header-meta">
+      <span>February 23, 2026</span>
+      <div class="meta-dot"></div>
+      <span>Volume 1, Issue 2</span>
+    </div>
+  </header>
+
+  <!-- ====== TABLE OF CONTENTS ====== -->
+  <nav class="toc">
+    <div class="toc-label">In This Issue</div>
+    <ol class="toc-list">
+      <li><a href="#ma-disruption"><span class="toc-num">01</span> Medicare Advantage Market Disruption: 10% of Enrollees Forced to Switch</a></li>
+      <li><a href="#radv-audits"><span class="toc-num">02</span> RADV Audits Accelerate: Payment Year 2020 Reviews Now Underway</a></li>
+      <li><a href="#autonomous-coding"><span class="toc-num">03</span> The Autonomous Coding Revolution: AI Medical Coding Market Update</a></li>
+      <li><a href="#coding-guidelines"><span class="toc-num">04</span> ICD-10 and CPT 2026: Critical Guideline Changes You May Have Missed</a></li>
+      <li><a href="#denial-prevention"><span class="toc-num">05</span> Denial Management in 2026: Upstream Prevention Replaces Downstream Recovery</a></li>
+      <li><a href="#clean-claims"><span class="toc-num">06</span> Clean Claims: The 95% vs. 99% Performance Gap</a></li>
+      <li><a href="#klas-rankings"><span class="toc-num">07</span> KLAS 2026: Best-in-Class RCM Vendor Rankings Released</a></li>
+      <li><a href="#action-items"><span class="toc-num">08</span> This Week's Action Items</a></li>
+    </ol>
+  </nav>
+
+  <!-- ====== SECTION 1: MA DISRUPTION ====== -->
+  <section class="section" id="ma-disruption">
+    <div class="section-number">Section 01</div>
+    <h2>Medicare Advantage Market Disruption &mdash; What It Means for Your Practice</h2>
+
+    <p>One in 10 Medicare Advantage enrollees were forced to disenroll from their health plan heading into 2026 due to insurer exits from the market &mdash; a <strong>tenfold increase from historical averages</strong>. The three largest MA payers made dramatic cuts to their footprints:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Payer</th><th>States Dropped</th><th>Counties Dropped</th><th>Key Changes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>UnitedHealthcare</strong></td>
+            <td>1 state</td>
+            <td>109 counties</td>
+            <td>Dropped most remote patient monitoring coverage effective January 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Humana</strong></td>
+            <td>3 states</td>
+            <td>194 counties</td>
+            <td>Reduced OTC benefits for special needs plans</td>
+          </tr>
+          <tr>
+            <td><strong>Aetna</strong></td>
+            <td>1 state</td>
+            <td>100 counties</td>
+            <td>Cut allowances for OTC health/wellness items in non-SNP plans</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The Financial Drivers</h3>
+    <p>These cuts are a direct response to a <strong>20% decline in government reimbursement from 2023 to 2026 levels</strong>. At the same time, payers raised deductibles, increased out-of-pocket maximums, and trimmed previously standard benefits to preserve margins.</p>
+
+    <p>Cigna exited the Medicare Advantage market entirely in 2024, signaling the severity of the financial pressure on MA plan operations.</p>
+
+    <h3>What This Means for Practices</h3>
+    <p><strong>Expect authorization delays and denials to increase.</strong> Payers under financial pressure intensify prior authorization requirements, documentation scrutiny, downcoding, and post-payment audits to reduce spend. Verify patient eligibility and benefits at every encounter &mdash; plan changes are creating gaps in coverage that patients may not yet understand.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-value danger">10%</div>
+        <div class="stat-label">MA enrollees forced to switch plans</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value danger">&minus;20%</div>
+        <div class="stat-label">Government reimbursement decline (2023&ndash;2026)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">71%</div>
+        <div class="stat-label">Providers cite eligibility verification as top challenge</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-label">Key Insight</span>
+      <p>Practices should expect heightened payer scrutiny across all MA plans in 2026. Front-end eligibility verification has never been more critical. 71% of providers now cite real-time insurance verification as their primary daily challenge.</p>
+    </div>
+
+    <div class="sources">
+      <div class="sources-label">Sources</div>
+      <a href="https://www.healthcaredive.com/news/medicare-advantage-plans-2026-unitedhealthcare-humana-aetna/801761/" target="_blank">Healthcare Dive</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.beckerspayer.com/payer/medicare-advantage/10-of-medicare-advantage-enrollees-forced-to-switch-plans-for-2026-study/" target="_blank">Becker's Payer Issues</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.modernhealthcare.com/insurance/mh-aetna-unitedhealth-humana-medicare-advantage-plans-2026/" target="_blank">Modern Healthcare</a>
+    </div>
+  </section>
+
+  <!-- ====== SECTION 2: RADV AUDITS ====== -->
+  <section class="section" id="radv-audits">
+    <div class="section-number">Section 02</div>
+    <h2>RADV Audits Accelerate &mdash; Payment Year 2020 Reviews Now Underway</h2>
+
+    <p>CMS began Payment Year 2020 RADV (Risk Adjustment Data Validation) audits in <strong>February 2026</strong>, implementing an accelerated schedule that will audit <strong>all eligible MA plans annually</strong> with new audits initiated approximately every three months.</p>
+
+    <h3>Critical Documentation Requirements</h3>
+    <p>Each diagnosis submitted for risk adjustment must meet specific requirements:</p>
+
+    <ul>
+      <li><strong>Face-to-face encounter documentation</strong> from the payment year</li>
+      <li><strong>Medical records signed by an appropriate provider</strong> with credentials clearly documented</li>
+      <li><strong>Clear clinical evidence</strong> supporting the diagnosis (vague or presumptive language will not suffice)</li>
+    </ul>
+
+    <p>Plans may submit <strong>up to two medical records per audited condition</strong>, but CMS only needs one valid record to support the diagnosis and payment. The five-month medical record submission window has been restored.</p>
+
+    <h3>AI-Assisted Review by CMS</h3>
+    <p>CMS announced it will use <strong>artificial intelligence as a support tool</strong> for medical coders during RADV audits. However, AI will support &mdash; not replace &mdash; human-certified medical coders, and <strong>all coding decisions affecting overpayments will be made by humans</strong>.</p>
+
+    <h3>What Practices Must Do Now</h3>
+    <p>If you provide services to Medicare Advantage patients, expect documentation requests from MA plans conducting internal validation before CMS audits. Common issues that trigger denials:</p>
+
+    <ul>
+      <li>Missing provider signatures or credentials</li>
+      <li>Diagnoses documented only in assessment/plan without supporting clinical findings</li>
+      <li>Use of "history of" language for conditions that should be coded as current</li>
+      <li>Unsigned amendments or late entries</li>
+    </ul>
+
+    <div class="callout action">
+      <span class="callout-label">Action Required</span>
+      <p>Review your encounter documentation templates now. Ensure every chronic condition carries forward with supporting clinical evidence and examination findings at each visit, not just in the assessment/plan.</p>
+    </div>
+
+    <div class="sources">
+      <div class="sources-label">Sources</div>
+      <a href="https://www.raapidinc.com/blogs/radv-audits-2026/" target="_blank">RAAPID RADV Audits 2026</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.wolterskluwer.com/en/expert-insights/cms-guidelines-for-radv-audits" target="_blank">Wolters Kluwer RADV Guidelines</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.chartrequest.com/articles/radv-audits-2025" target="_blank">ChartRequest</a>
+    </div>
+  </section>
+
+  <!-- ====== SECTION 3: AUTONOMOUS CODING ====== -->
+  <section class="section" id="autonomous-coding">
+    <div class="section-number">Section 03</div>
+    <h2>The Autonomous Coding Revolution &mdash; AI Goes Beyond Suggestions</h2>
+
+    <p>More than <strong>70% of health systems plan to expand AI-driven automation in their revenue cycle by 2026</strong>, with autonomous medical coding at the top of the priority list, according to Black Book Research.</p>
+
+    <h3>What "Autonomous" Actually Means</h3>
+    <p>Traditional AI coding tools make suggestions that human coders review and approve. <strong>Autonomous coding platforms code the complete chart and send it directly to billing</strong> with no human approval and no validation queue.</p>
+
+    <p>The technology shift in 2026 is the rise of <strong>agentic AI</strong> &mdash; platforms that operate like an AI employee, autonomously reviewing charts, extracting clinical details, and assigning codes with clear explanations.</p>
+
+    <h3>Leading Autonomous Coding Platforms in 2026</h3>
+
+    <div class="vendor-group">
+      <div class="vendor-group-label">Top Autonomous Coding Vendors</div>
+      <div class="vendor-tags">
+        <span class="vendor-tag">CodaMetrix</span>
+        <span class="vendor-tag">Nym</span>
+        <span class="vendor-tag">Fathom</span>
+        <span class="vendor-tag">aiHealth</span>
+        <span class="vendor-tag">Maverick AI</span>
+      </div>
+    </div>
+
+    <ul>
+      <li><strong>CodaMetrix</strong> &mdash; Rated #1 Best in KLAS in 2026 for AI-Powered Contextual Coding Automation. Built to improve coding quality and performance across specialties.</li>
+      <li><strong>Nym</strong> &mdash; Multispecialty autonomous coding platform that deciphers clinical language in patient charts and assigns medical codes in seconds with zero human intervention.</li>
+      <li><strong>Fathom</strong> &mdash; Recognized as the #1 solution for Reducing the Cost of Care in the 2025 KLAS Emerging Solutions Top 20 Report.</li>
+      <li><strong>aiHealth</strong> &mdash; Delivers up to <strong>95% coding accuracy</strong> for office-based and surgical coding in outpatient ambulatory settings.</li>
+      <li><strong>Maverick AI</strong> &mdash; Autonomously generates compliant codes and transmits directly to billing in seconds, with <strong>87%+ of reports complete without human effort</strong>.</li>
+    </ul>
+
+    <h3>The ROI Case</h3>
+    <p>Early adopters report:</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-value success">70%</div>
+        <div class="stat-label">Reduction in manual coding labor</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value success">59%</div>
+        <div class="stat-label">Drop in coding-related denials</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">Seconds</div>
+        <div class="stat-label">Coding turnaround time (vs. hours)</div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <span class="callout-label">Bottom Line</span>
+      <p>Autonomous coding is no longer experimental &mdash; it's becoming the competitive standard. Practices not evaluating these platforms risk falling behind on both efficiency and accuracy benchmarks.</p>
+    </div>
+
+    <div class="sources">
+      <div class="sources-label">Sources</div>
+      <a href="https://nym.health/" target="_blank">Nym Health</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.codametrix.com" target="_blank">CodaMetrix</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.aptarro.com/insights/top-ai-in-medical-coding-software" target="_blank">Aptarro AI Coding 2026</a>
+      <span class="sep">&bull;</span>
+      <a href="https://medcaremso.com/blog/ai-in-medical-coding/" target="_blank">MedCare AI Guide</a>
+    </div>
+  </section>
+
+  <!-- ====== SECTION 4: CODING GUIDELINES ====== -->
+  <section class="section" id="coding-guidelines">
+    <div class="section-number">Section 04</div>
+    <h2>ICD-10 and CPT 2026 &mdash; Critical Guideline Changes You May Have Missed</h2>
+
+    <h3>ICD-10-CM FY2026 Guideline Updates</h3>
+    <p>The ICD-10-CM Official Guidelines for Coding and Reporting were updated for fiscal year 2026, effective October 1, 2025. Key changes include:</p>
+
+    <p><strong>BMI Coding Restriction</strong><br>
+    "BMI codes should only be assigned when there is an associated, reportable diagnosis (such as obesity or anorexia) documented by the patient's provider." Standalone BMI codes without a linked diagnosis are no longer compliant.</p>
+
+    <p><strong>HIV Coding Revision</strong><br>
+    In FY 2026, assign <strong>Z21</strong> (asymptomatic HIV) for HIV-positive patients being treated with antiretroviral medication "in the absence of any additional documentation of HIV disease, HIV-related illness or AIDS."</p>
+
+    <p><strong>Type 2 Diabetes in Remission</strong><br>
+    A new code <strong>E11.A</strong> (Type 2 diabetes mellitus without complications in remission) should be assigned when the provider's documentation indicates the diabetes mellitus is in remission. This aligns coding with clinical reality for patients achieving remission through lifestyle or pharmaceutical intervention.</p>
+
+    <p><strong>Multiple Sites Guidance</strong><br>
+    ICD-10-CM added new guidance defining "multiple sites." Coders should follow chapter-specific guidelines for assigning codes for multiple sites. If there are no chapter-specific guidelines, assign codes for individual sites when documented. If specific sites are not documented, assign the code for multiple sites.</p>
+
+    <h3>CPT 2026 Revisions</h3>
+
+    <p><strong>Thoracic Endovascular Aortic Repair (33880&ndash;33886)</strong><br>
+    This code family was extensively revised. Codes now apply to the <strong>entire thoracic aorta</strong>, not just the descending thoracic aorta. Three codes deleted (33884, 33889, 33891), four revised (33880, 33881, 33883, 33886), and one new code added (33882). Immediate coder retraining required for radiology and interventional practices.</p>
+
+    <div class="callout">
+      <span class="callout-label">Key Insight</span>
+      <p>These guideline changes affect how you code common conditions. Verify your coding team has updated workflows for BMI, diabetes remission, and the revised thoracic aorta procedures.</p>
+    </div>
+
+    <div class="sources">
+      <div class="sources-label">Sources</div>
+      <a href="https://www.aapc.com/blog/92967-coding-update-fy-2026-icd-10-cm-official-guidelines-released/" target="_blank">AAPC FY 2026 Guidelines</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.wolterskluwer.com/en/expert-insights/2026-icd-10-code-updates" target="_blank">Wolters Kluwer</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.aapc.com/blog/93858-cpt-2026-revises-endovascular-repair-of-thoracic-aorta-coding/" target="_blank">AAPC CPT 2026</a>
+    </div>
+  </section>
+
+  <!-- ====== SECTION 5: DENIAL PREVENTION ====== -->
+  <section class="section" id="denial-prevention">
+    <div class="section-number">Section 05</div>
+    <h2>Denial Management in 2026 &mdash; Upstream Prevention Replaces Downstream Recovery</h2>
+
+    <p>Denial management is undergoing a strategic transformation. The focus is moving <strong>upstream</strong>, with AI-driven denial risk scoring models flagging claims with <strong>greater than 70% denial risk before submission</strong>. This prevents denials rather than chasing them after they occur.</p>
+
+    <h3>The 2026 Denial Landscape</h3>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-value danger">41%</div>
+        <div class="stat-label">Providers face denial rates of at least 10%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">51&ndash;75</div>
+        <div class="stat-label">Hours per week managing denials</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value danger">3&ndash;4%</div>
+        <div class="stat-label">Net revenue lost to denials/underpayments</div>
+      </div>
+    </div>
+
+    <p>Nearly <strong>two-thirds of surveyed RCM leaders</strong> identified denials and underpayments as their <strong>single largest barrier to revenue growth in 2026</strong>, reflecting a shift from operational challenges to payer-driven financial pressure.</p>
+
+    <h3>The Shift to Prevention</h3>
+    <p>Traditional denial management is reactive: submit claim → receive denial → appeal. The 2026 model is proactive:</p>
+
+    <ol>
+      <li><strong>AI pre-submission scoring</strong> identifies high-risk claims</li>
+      <li><strong>Automated claim scrubbing</strong> catches errors before submission</li>
+      <li><strong>Predictive analytics</strong> flag payer-specific denial patterns</li>
+      <li><strong>Rules engines</strong> validate claims against payer-specific requirements in real time</li>
+    </ol>
+
+    <h3>Key Technologies Driving Denial Prevention</h3>
+    <ul>
+      <li><strong>Automated denial follow-up and resolution:</strong> 66% of respondents identified this as "very important" for their 2026 RCM AI strategy</li>
+      <li><strong>Automated claim validation tools</strong></li>
+      <li><strong>Denial management dashboards</strong> with root-cause analytics</li>
+      <li><strong>AI-based predictive denial scoring models</strong></li>
+    </ul>
+
+    <h3>The Prior Authorization Complication</h3>
+    <p>The CMS Interoperability &amp; Prior Authorization Rule goes live in 2026, requiring payers to respond faster and use APIs. <strong>Providers not equipped for electronic prior authorization risk denials for "non-compliant submissions."</strong></p>
+
+    <div class="callout warning">
+      <span class="callout-label">Warning</span>
+      <p>Payers under financial pressure will intensify downcoding, prior authorization requirements, and documentation scrutiny in 2026. Analysis shows denial activity increasingly occurs outside traditional remittance reporting and extends months beyond payment.</p>
+    </div>
+
+    <div class="sources">
+      <div class="sources-label">Sources</div>
+      <a href="https://www.prnewswire.com/news-releases/adonis-2026-revenue-cycle-management-report-payer-denials-and-reimbursement-pressure-now-the-top-drivers-of-healthcare-revenue-risk-302691779.html" target="_blank">Adonis 2026 RCM Report</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.prnewswire.com/news-releases/sift-healthcare-releases-fourth-annual-denials-insights-report-identifying-nine-critical-payer-trends-shaping-reimbursement-risk-in-2026-302697889.html" target="_blank">Sift Healthcare</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.mbwrcm.com/the-revenue-cycle-blog/healthcare-denial-trends-in-2026" target="_blank">MBW Denial Trends</a>
+    </div>
+  </section>
+
+  <!-- ====== SECTION 6: CLEAN CLAIMS ====== -->
+  <section class="section" id="clean-claims">
+    <div class="section-number">Section 06</div>
+    <h2>Clean Claims &mdash; The 95% vs. 99% Performance Gap</h2>
+
+    <p>The industry standard for clean claim rates is <strong>98%</strong>, but performance varies dramatically across practices. Some organizations achieve an impressive <strong>99.9% clean claim rate</strong>, while others struggle to exceed 90%.</p>
+
+    <h3>The Financial Impact of the Performance Gap</h3>
+    <p>Research shows that <strong>claim scrubbing saves practices $25 per claim</strong>, and practices using scrubbing software see <strong>50% fewer denials</strong>. Clean claims get paid <strong>3 times faster</strong> than ones with errors.</p>
+
+    <p>For a practice submitting 1,000 claims per month:</p>
+    <ul>
+      <li>At 90% clean claims: 100 denials &times; $25 rework cost = <strong>$2,500/month in preventable costs</strong></li>
+      <li>At 95% clean claims: 50 denials &times; $25 = $1,250/month</li>
+      <li>At 99% clean claims: 10 denials &times; $25 = $250/month</li>
+    </ul>
+
+    <p>The difference between 90% and 99% clean claims is <strong>$27,000 annually in direct rework costs</strong>, plus the revenue cycle velocity loss from delayed payments.</p>
+
+    <h3>Best Practices for 95%+ Clean Claim Rates</h3>
+
+    <p><strong>1. Implement AI-Powered Claim Scrubbing</strong><br>
+    Properly implemented claim scrubbing technology ensures a <strong>minimum 95% first-pass clean claim acceptance rate</strong>. AI combined with human oversight has transformed medical coding accuracy.</p>
+
+    <p><strong>2. Integrate EHR and Billing Systems</strong><br>
+    Integration minimizes errors, speeds up clean claim submission, and boosts compliance, cash flow, and transparency.</p>
+
+    <p><strong>3. Develop Consistent Templates</strong><br>
+    Standardized templates for patient registration and charge capture reduce variability and error rates.</p>
+
+    <p><strong>4. Train Staff on Scrubbing Software</strong><br>
+    Train all billing staff on scrubbing software features, teach staff how to interpret and fix errors, and provide ongoing education when software updates or changes occur.</p>
+
+    <p><strong>5. Double-Check Demographics and Insurance</strong><br>
+    The majority of denials stem from front-end errors: incorrect patient information, outdated insurance details, missing authorizations.</p>
+
+    <h3>Technology ROI</h3>
+    <p>Organizations using automated claim scrubbing report:</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-value success">95&ndash;99.9%</div>
+        <div class="stat-label">Clean claim rates achieved</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value success">50%</div>
+        <div class="stat-label">Reduction in denials</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value success">3x</div>
+        <div class="stat-label">Faster payment cycles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">$25</div>
+        <div class="stat-label">Savings per claim (rework avoided)</div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <span class="callout-label">Bottom Line</span>
+      <p>The clean claim rate gap between top performers and average performers is driven by technology adoption and front-end discipline. Moving from 90% to 98% clean claims can generate six-figure annual savings for mid-sized practices.</p>
+    </div>
+
+    <div class="sources">
+      <div class="sources-label">Sources</div>
+      <a href="https://www.nextech.com/blog/claims-scrubbing-medical-billing" target="_blank">Nextech Claims Scrubbing</a>
+      <span class="sep">&bull;</span>
+      <a href="https://medxpertservices.com/blog/claim-scrubbing-in-medical-billing/" target="_blank">MedXpert</a>
+      <span class="sep">&bull;</span>
+      <a href="https://k38consulting.com/healthcare-revenue-cycle-management-2026/" target="_blank">K38 Consulting</a>
+    </div>
+  </section>
+
+  <!-- ====== SECTION 7: KLAS RANKINGS ====== -->
+  <section class="section" id="klas-rankings">
+    <div class="section-number">Section 07</div>
+    <h2>KLAS 2026 &mdash; Best-in-Class RCM Vendor Rankings Released</h2>
+
+    <p>KLAS Research released its annual "Best in KLAS" report on February 4, 2026, ranking healthcare technology vendors and service providers across more than 140 market segments based on feedback from clinicians and administrators.</p>
+
+    <h3>End-to-End Revenue Cycle Outsourcing Rankings</h3>
+    <p>The highest-performing vendors for end-to-end RCM outsourcing in 2026:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Vendor</th><th>Overall Performance Score</th><th>Client Satisfaction Highlights</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ensemble</strong></td>
+            <td class="kpi-target">95.1 / 100</td>
+            <td>Highest client satisfaction across all metrics</td>
+          </tr>
+          <tr>
+            <td><strong>Guidehouse</strong></td>
+            <td class="kpi-target">93.8 / 100</td>
+            <td>Strong execution and client outcomes</td>
+          </tr>
+          <tr>
+            <td><strong>Optum</strong></td>
+            <td class="kpi-warning">61.9 / 100</td>
+            <td>Mid-tier performance</td>
+          </tr>
+          <tr>
+            <td><strong>R1 RCM</strong></td>
+            <td class="kpi-warning">55.6 / 100</td>
+            <td>Clients report low satisfaction due to long-standing issues and slow execution</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Additional RCM Categories Evaluated</h3>
+    <p>KLAS 2026 evaluated vendors across multiple revenue cycle segments:</p>
+    <ul>
+      <li><strong>Chargemaster Management</strong></li>
+      <li><strong>Contract Management</strong></li>
+      <li><strong>EHR Revenue Cycle Optimization</strong></li>
+      <li><strong>Prior Authorization</strong> (introduced as a standalone technology category for the first time in 2026)</li>
+    </ul>
+
+    <h3>Key Takeaways for Practices</h3>
+    <p>Ensemble and Guidehouse dominate the end-to-end outsourcing market with client satisfaction scores <strong>35&ndash;40 points higher</strong> than R1 RCM, the largest RCM vendor by market share. This gap illustrates that size does not guarantee performance.</p>
+
+    <p><strong>Prior Authorization Technology</strong> is now recognized as a distinct category in KLAS rankings, reflecting the market's recognition that PA workflow automation is mission-critical infrastructure, not an optional add-on.</p>
+
+    <div class="callout">
+      <span class="callout-label">Key Insight</span>
+      <p>Vendor selection should prioritize client satisfaction and execution quality over brand recognition. The performance gap between top-tier and bottom-tier vendors exceeds 30 points &mdash; a gap that translates directly to revenue cycle outcomes.</p>
+    </div>
+
+    <div class="sources">
+      <div class="sources-label">Sources</div>
+      <a href="https://klasresearch.com/report/2026-best-in-klas-awards-software-and-services/3906" target="_blank">KLAS 2026 Awards</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.beckershospitalreview.com/finance/the-25-best-rcm-tools-in-2026-per-klas/" target="_blank">Becker's Best RCM Tools</a>
+      <span class="sep">&bull;</span>
+      <a href="https://www.techtarget.com/revcyclemanagement/news/366631505/KLAS-ranks-key-end-to-end-RCM-outsourcing-vendors" target="_blank">TechTarget</a>
+    </div>
+  </section>
+
+  <!-- ====== SECTION 8: ACTION ITEMS ====== -->
+  <section class="section" id="action-items">
+    <div class="section-number">Section 08</div>
+    <h2>This Week's Action Items</h2>
+
+    <ul class="checklist">
+      <li>
+        <div class="check-box"></div>
+        <div><strong>Verify MA patient eligibility at every encounter</strong> &mdash; 10% of MA enrollees were forced to switch plans for 2026; coverage gaps are widespread</div>
+      </li>
+      <li>
+        <div class="check-box"></div>
+        <div><strong>Review RADV documentation standards</strong> &mdash; Payment Year 2020 audits began in February; ensure encounter notes include face-to-face documentation with clear clinical evidence and provider signatures/credentials</div>
+      </li>
+      <li>
+        <div class="check-box"></div>
+        <div><strong>Evaluate autonomous coding platforms</strong> &mdash; CodaMetrix, Nym, Fathom, aiHealth, and Maverick AI are delivering 70%+ labor reductions and 59% drops in coding denials</div>
+      </li>
+      <li>
+        <div class="check-box"></div>
+        <div><strong>Update coding workflows for FY2026 ICD-10 guideline changes</strong> &mdash; BMI coding restrictions, HIV code Z21 usage, diabetes remission code E11.A, and multiple sites guidance</div>
+      </li>
+      <li>
+        <div class="check-box"></div>
+        <div><strong>Audit your clean claim rate</strong> &mdash; If below 95%, implement AI-powered claim scrubbing; the performance gap between 90% and 99% costs mid-sized practices $27,000+ annually</div>
+      </li>
+      <li>
+        <div class="check-box"></div>
+        <div><strong>Shift denial management upstream</strong> &mdash; Implement AI-driven pre-submission denial risk scoring to prevent denials rather than appealing them</div>
+      </li>
+      <li>
+        <div class="check-box"></div>
+        <div><strong>Assess KLAS-ranked vendors if considering RCM outsourcing</strong> &mdash; Ensemble (95.1/100) and Guidehouse (93.8/100) significantly outperform R1 RCM (55.6/100) in client satisfaction</div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ====== BIG STAT ====== -->
+  <div class="big-stat">
+    <div class="stat-number">70%</div>
+    <div class="stat-desc">The reduction in manual coding labor achieved by autonomous AI coding platforms in early-adopter practices, with coding-related denials dropping 59% and turnaround time reduced from hours to seconds. Autonomous coding is no longer experimental; it's becoming the competitive standard.</div>
+  </div>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer">
+    <div class="footer-divider"></div>
+    <p><strong>RCM Pulse Weekly</strong></p>
+    <p>Revenue Cycle Management Intelligence for Medical Practices</p>
+    <p>Next issue: Week of March 2, 2026</p>
+    <div class="footer-sources">
+      Generated from public domain sources including CMS.gov, AAPC, HFMA, AHA, KLAS Research, Becker's Healthcare, RevCycleIntelligence, Healthcare IT News, Healthcare Dive, Modern Healthcare, AHIP, and payer-published policy updates. All data and statistics are sourced from publicly available reports and publications.
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

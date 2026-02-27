@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCM Pulse Weekly - Newsletter Archive</title>
+    <meta name="description" content="Weekly insights on Revenue Cycle Management for medical practices">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #dbeafe;
+            --text: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --bg: #f9fafb;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 20px;
+            margin-bottom: 24px;
+        }
+        .description {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+        .stats {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 32px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .newsletter-list {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+        .newsletter-item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+        .newsletter-item:last-child {
+            border-bottom: none;
+        }
+        .newsletter-item:hover {
+            transform: translateX(4px);
+        }
+        .newsletter-item a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .newsletter-item a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        .newsletter-meta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .newsletter-date {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        .newsletter-volume {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .newsletter-topics {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        .subscribe-note {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+        .subscribe-note p {
+            color: var(--text);
+            margin: 0;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 16px;
+            }
+            h1 {
+                font-size: 36px;
+            }
+            .stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .newsletter-list {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RCM Pulse Weekly</h1>
+            <p class="subtitle">Revenue Cycle Management Insights for Medical Practices</p>
+            <p class="description">
+                Stay ahead of Medicare changes, coding updates, payer policies, and AI-powered RCM automation.
+                Published every Friday with actionable insights for practice administrators and revenue cycle leaders.
+            </p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Issues</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Topics/Week</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">Weekly</div>
+                    <div class="stat-label">Fridays</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="subscribe-note">
+            <p><strong>📬 New issues every Friday</strong> — Automatically generated with the latest RCM intelligence from CMS, AAPC, HFMA, major payers, and industry sources.</p>
+        </div>
+
+        <div class="newsletter-list">
+            <h2 class="section-title">Latest Issues</h2>
+
+            <div class="newsletter-item">
+                <a href="RCM_Weekly_Newsletter_2026-02-23.html">Medicare Advantage Market Disruption & RADV Audit Acceleration</a>
+                <div class="newsletter-meta">
+                    <span class="newsletter-date">February 23, 2026</span>
+                    <span class="newsletter-volume">Volume 1, Issue 2</span>
+                </div>
+                <div class="newsletter-topics">
+                    MA plan switching • RADV audits • Autonomous coding • ICD-10 2026 changes • Denial prevention
+                </div>
+            </div>
+
+            <div class="newsletter-item">
+                <a href="RCM_Weekly_Newsletter_2026-02-16.html">Launch Issue</a>
+                <div class="newsletter-meta">
+                    <span class="newsletter-date">February 16, 2026</span>
+                    <span class="newsletter-volume">Volume 1, Issue 1</span>
+                </div>
+            </div>
+
+            <!-- New issues will be automatically added here by the generation script -->
+        </div>
+
+        <footer>
+            <p><strong>RCM Pulse Weekly</strong> is researched from public domain sources including CMS.gov, AAPC, HFMA, major payer portals, and industry publications.</p>
+            <p style="margin-top: 12px;">Generated weekly using AI research and analysis • Self-contained HTML • No tracking or cookies</p>
+        </footer>
+    </div>
+</body>
+</html>

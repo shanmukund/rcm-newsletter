@@ -1,0 +1,60 @@
+"""
+RCM Newsletter Weekly Generation Script
+Runs automatically via Windows Task Scheduler every Friday
+"""
+import subprocess
+import sys
+from datetime import datetime
+from pathlib import Path
+
+def main():
+    """Generate weekly RCM newsletter using Claude Code CLI"""
+    project_dir = Path(__file__).parent
+    log_file = project_dir / f"newsletter_generation_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+
+    print(f"Starting RCM Newsletter generation at {datetime.now()}")
+    print(f"Project directory: {project_dir}")
+    print(f"Log file: {log_file}")
+
+    # Command to run Claude Code CLI with the newsletter generation prompt
+    # This assumes claude CLI is available in PATH
+    prompt = "Generate the next weekly RCM newsletter following the full workflow"
+
+    try:
+        # Run claude command with the prompt
+        result = subprocess.run(
+            ["claude", "code", "-p", str(project_dir), prompt],
+            capture_output=True,
+            text=True,
+            timeout=600  # 10 minute timeout
+        )
+
+        # Write output to log file
+        with open(log_file, "w", encoding="utf-8") as f:
+            f.write(f"=== RCM Newsletter Generation Log ===\n")
+            f.write(f"Started: {datetime.now()}\n")
+            f.write(f"\n--- STDOUT ---\n{result.stdout}\n")
+            f.write(f"\n--- STDERR ---\n{result.stderr}\n")
+            f.write(f"\nReturn code: {result.returncode}\n")
+
+        if result.returncode == 0:
+            print("[SUCCESS] Newsletter generated successfully!")
+            print(f"Check log: {log_file}")
+            return 0
+        else:
+            print(f"[ERROR] Generation failed with code {result.returncode}")
+            print(f"Check log: {log_file}")
+            return result.returncode
+
+    except subprocess.TimeoutExpired:
+        print("[ERROR] Newsletter generation timed out after 10 minutes")
+        return 1
+    except FileNotFoundError:
+        print("[ERROR] Claude CLI not found. Please ensure 'claude' is in your PATH")
+        return 1
+    except Exception as e:
+        print(f"[ERROR] Unexpected error: {e}")
+        return 1
+
+if __name__ == "__main__":
+    sys.exit(main())
