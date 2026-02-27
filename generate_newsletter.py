@@ -40,7 +40,33 @@ def main():
         if result.returncode == 0:
             print("[SUCCESS] Newsletter generated successfully!")
             print(f"Check log: {log_file}")
-            return 0
+
+            # Update index.html with new newsletter
+            print("\n[UPDATE] Updating index page...")
+            try:
+                subprocess.run(["python", "update_index.py"], cwd=project_dir, check=True)
+            except subprocess.CalledProcessError as e:
+                print(f"[WARNING] Failed to update index: {e}")
+
+            # Auto-publish to GitHub Pages
+            print("\n[PUBLISH] Publishing to GitHub Pages...")
+            try:
+                # Git add new files
+                subprocess.run(["git", "add", "."], cwd=project_dir, check=True)
+
+                # Git commit
+                commit_msg = f"Add newsletter for {datetime.now().strftime('%Y-%m-%d')}"
+                subprocess.run(["git", "commit", "-m", commit_msg], cwd=project_dir, check=True)
+
+                # Git push to publish
+                subprocess.run(["git", "push"], cwd=project_dir, check=True)
+
+                print("[SUCCESS] Newsletter published to https://shanmukund.github.io/rcm-newsletter/")
+                return 0
+            except subprocess.CalledProcessError as e:
+                print(f"[WARNING] Failed to publish to GitHub: {e}")
+                print("[INFO] Newsletter generated but not published - manual push required")
+                return 0  # Still consider it success since newsletter was generated
         else:
             print(f"[ERROR] Generation failed with code {result.returncode}")
             print(f"Check log: {log_file}")

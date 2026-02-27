@@ -1,0 +1,14 @@
+# Commands to push to GitHub
+# Run these after creating your repository on GitHub
+
+cd "c:/Users/shanm/OneDrive/Desktop/RCM newsletter blog"
+
+# Connect to GitHub (replace REPO_NAME with your actual repository name)
+git remote add origin https://github.com/shanmukund/rcm-newsletter.git
+
+# Push to GitHub
+git push -u origin main
+
+# You may be prompted to authenticate with GitHub
+# Use a Personal Access Token (PAT) instead of your password
+# Create one at: https://github.com/settings/tokens
