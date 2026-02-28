@@ -1,7 +1,7 @@
-# Custom Domain Setup: www.revcyclerx.com
+# Custom Domain Setup: www.vaqyaweekly.com
 
 ## Overview
-This guide will help you connect your custom domain **www.revcyclerx.com** to your GitHub Pages newsletter site.
+This guide will help you connect your custom domain **www.vaqyaweekly.com** to your GitHub Pages newsletter site.
 
 ---
 
@@ -11,12 +11,12 @@ This guide will help you connect your custom domain **www.revcyclerx.com** to yo
 
 1. **Porkbun** (~$8/year)
    - Visit: https://porkbun.com
-   - Search: `revcyclerx.com`
+   - Search: `vaqyaweekly.com`
    - Great value, simple interface
 
 2. **Namecheap** (~$9/year)
    - Visit: https://www.namecheap.com
-   - Search: `revcyclerx.com`
+   - Search: `vaqyaweekly.com`
    - Excellent support, free WHOIS privacy
 
 3. **Cloudflare** (~$9/year at-cost)
@@ -30,7 +30,7 @@ This guide will help you connect your custom domain **www.revcyclerx.com** to yo
    - Clean interface
 
 ### What to Buy
-- **Domain:** `revcyclerx.com` (this automatically includes www.revcyclerx.com)
+- **Domain:** `vaqyaweekly.com` (this automatically includes www.vaqyaweekly.com)
 - **WHOIS Privacy:** YES (usually free, protects your personal info)
 - **Auto-renew:** YES (so you don't lose your domain)
 
@@ -53,8 +53,8 @@ After purchasing, log into your domain registrar and add these DNS records:
 | CNAME | www | shanmukund.github.io | 3600 |
 
 ### What These Mean:
-- **A records** - Point the root domain (revcyclerx.com) to GitHub's servers
-- **CNAME record** - Points www.revcyclerx.com to your GitHub Pages site
+- **A records** - Point the root domain (vaqyaweekly.com) to GitHub's servers
+- **CNAME record** - Points www.vaqyaweekly.com to your GitHub Pages site
 - **TTL** - Time to live (3600 = 1 hour)
 
 ### Platform-Specific Instructions
@@ -95,13 +95,13 @@ The CNAME file has already been created. Let's push it:
 ```bash
 cd "c:/Users/shanm/OneDrive/Desktop/RCM newsletter blog"
 git add CNAME
-git commit -m "Add custom domain: www.revcyclerx.com"
+git commit -m "Add custom domain: www.vaqyaweekly.com"
 git push
 ```
 
 ### Update GitHub Settings
 1. Go to: https://github.com/shanmukund/rcm-newsletter/settings/pages
-2. Under "Custom domain", enter: `www.revcyclerx.com`
+2. Under "Custom domain", enter: `www.vaqyaweekly.com`
 3. Click "Save"
 4. Wait 24-48 hours for DNS to propagate
 5. Once DNS is verified, check "Enforce HTTPS"
@@ -113,7 +113,7 @@ git push
 ### Check DNS Propagation (15 min - 48 hours)
 ```bash
 # Check if DNS is configured
-nslookup www.revcyclerx.com
+nslookup www.vaqyaweekly.com
 
 # Should show:
 # Address: 185.199.108.153 (or one of the other GitHub IPs)
@@ -121,15 +121,15 @@ nslookup www.revcyclerx.com
 
 ### Online Tools
 - https://dnschecker.org - Check DNS propagation globally
-- Enter: `www.revcyclerx.com`
+- Enter: `www.vaqyaweekly.com`
 - Look for GitHub's IP addresses
 
 ### Test Your Site
 After DNS propagates (usually 1-24 hours):
-- http://www.revcyclerx.com → Should redirect to HTTPS and show your newsletter
-- https://www.revcyclerx.com → Should show your newsletter
-- http://revcyclerx.com → Should redirect to www version
-- https://revcyclerx.com → Should redirect to www version
+- http://www.vaqyaweekly.com → Should redirect to HTTPS and show your newsletter
+- https://www.vaqyaweekly.com → Should show your newsletter
+- http://vaqyaweekly.com → Should redirect to www version
+- https://vaqyaweekly.com → Should redirect to www version
 
 ---
 
@@ -140,13 +140,13 @@ After domain is working, you may want to update:
 
 1. **Social media profiles** - Update your website link
 2. **Email signatures** - Use your new domain
-3. **Business cards** - Add www.revcyclerx.com
+3. **Business cards** - Add www.vaqyaweekly.com
 4. **Newsletter footer** - Update "Visit our website" links
 
 ### Update Index.html (Optional)
 You can add your domain to the index page:
 ```html
-<p>Visit us at <a href="https://www.revcyclerx.com">www.revcyclerx.com</a></p>
+<p>Visit us at <a href="https://www.vaqyaweekly.com">www.vaqyaweekly.com</a></p>
 ```
 
 ---
@@ -185,7 +185,7 @@ You can add your domain to the index page:
 
 ### www doesn't work but root does (or vice versa)
 - Check CNAME record points to `shanmukund.github.io`
-- GitHub Pages CNAME file should have `www.revcyclerx.com`
+- GitHub Pages CNAME file should have `www.vaqyaweekly.com`
 - Set up redirect at domain registrar if needed
 
 ---
@@ -205,9 +205,9 @@ You can add your domain to the index page:
 
 ---
 
-## Domain Alternatives (If revcyclerx.com is Taken)
+## Domain Alternatives (If vaqyaweekly.com is Taken)
 
-If `revcyclerx.com` is not available, try:
+If `vaqyaweekly.com` is not available, try:
 - `rcmpulse.com`
 - `revcycle-rx.com`
 - `revcyclerx.io`
@@ -226,7 +226,7 @@ If `revcyclerx.com` is not available, try:
 - [ ] Add custom domain in GitHub Pages settings
 - [ ] Wait 1-24 hours for DNS propagation
 - [ ] Enable "Enforce HTTPS" in GitHub after verification
-- [ ] Test www.revcyclerx.com in browser
+- [ ] Test www.vaqyaweekly.com in browser
 - [ ] Update social media and marketing materials
 
 ---
