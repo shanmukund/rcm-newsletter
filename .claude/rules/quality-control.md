@@ -5,12 +5,14 @@
 After generating every newsletter issue, run this checklist before delivering to the user:
 
 ### Content Verification
-- [ ] All 8 sections present with section numbers, headlines, and sources
+- [ ] All 10 sections present with section numbers, headlines, and sources
 - [ ] Every section includes at least one data point or statistic
 - [ ] All three emphasis pillars represented (workflow automation, AI, technology/velocity)
 - [ ] Sources cited are from the required source categories (government, AAPC, payers, industry pubs)
 - [ ] All statistics and figures match the research data -- no hallucinated numbers
-- [ ] Action items in Section 8 directly tie back to content covered in the issue
+- [ ] Independent Practice Watch (Section 8) includes a "Where You Should Be" benchmark with specific targets
+- [ ] Specialty RCM Spotlight (Section 9) covers at minimum Primary Care, Cardiology, Orthopedics, and Oncology
+- [ ] Action items in Section 10 directly tie back to content covered in the issue
 - [ ] Big Stat closing block is present with a compelling, sourced figure
 
 ### Design Verification

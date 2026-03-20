@@ -17,15 +17,16 @@ def main():
     print(f"Log file: {log_file}")
 
     # Command to run Claude Code CLI with the newsletter generation prompt
-    # This assumes claude CLI is available in PATH
+    claude_exe = r"C:\Users\shanm\.local\bin\claude.exe"
     prompt = "Generate the next weekly RCM newsletter following the full workflow"
 
     try:
-        # Run claude command with the prompt
+        # Run claude in non-interactive print mode (-p) with the project dir as cwd
         result = subprocess.run(
-            ["claude", "code", "-p", str(project_dir), prompt],
+            [claude_exe, "-p", prompt],
             capture_output=True,
             text=True,
+            cwd=str(project_dir),
             timeout=600  # 10 minute timeout
         )
 

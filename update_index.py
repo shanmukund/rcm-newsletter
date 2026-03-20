@@ -3,25 +3,37 @@ Auto-update index.html with new newsletter entries
 Run this after generating each newsletter to update the archive page
 """
 import re
+import math
 from pathlib import Path
 from datetime import datetime
 
-def extract_newsletter_info(md_file):
+def extract_newsletter_info(md_file, date_obj):
     """Extract title, date, and topics from newsletter markdown"""
     with open(md_file, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Extract volume and issue from first line (e.g., "# Volume 1, Issue 2")
-    volume_match = re.search(r'Volume (\d+), Issue (\d+)', content)
-    volume = volume_match.group(1) if volume_match else "1"
-    issue = volume_match.group(2) if volume_match else "?"
+    # Volume = month number, Issue = week of month (ceil(day/7))
+    volume = date_obj.month
+    issue = math.ceil(date_obj.day / 7)
 
-    # Extract first headline as title (after the volume/issue header)
-    title_match = re.search(r'\n##\s+(.+)', content)
-    title = title_match.group(1) if title_match else "Weekly Newsletter"
+    # Extract subtitle (the "Revenue Cycle Management ... for Medical Practices" line)
+    title_match = re.search(r'^#{1,3}\s+(Revenue Cycle.+)', content, re.MULTILINE)
+    title = title_match.group(1).strip() if title_match else "RCM Pulse Weekly"
 
-    # Extract topics from section headers
-    topics = re.findall(r'\n##\s+\d+\.\s+(.+?)(?:\n|$)', content)
+    # Extract topics from "In This Issue" numbered list
+    toc_match = re.search(
+        r'## (?:IN THIS ISSUE|In This Issue)(.*?)(?=\n---|\n## )',
+        content, re.DOTALL | re.IGNORECASE
+    )
+    topics = []
+    if toc_match:
+        for item in re.findall(r'0?\d+\.\s+(.+)', toc_match.group(1)):
+            # Strip markdown links [text](url)
+            item = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', item).strip()
+            # Skip "action items" line
+            if item and not re.search(r'action items|this week', item, re.IGNORECASE):
+                topics.append(item)
+
     topics_str = " • ".join(topics[:5]) if topics else "RCM updates and insights"
 
     return {
@@ -53,7 +65,7 @@ def update_index_html(newsletter_files):
         formatted_date = date_obj.strftime("%B %d, %Y")
 
         # Get newsletter info
-        info = extract_newsletter_info(md_file)
+        info = extract_newsletter_info(md_file, date_obj)
 
         # Build HTML filename
         html_file = md_file.stem + ".html"

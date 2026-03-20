@@ -27,7 +27,7 @@ These themes must thread through every issue -- not confined to a single section
 2. **AI Use and Adoption** — Autonomous coding, ambient documentation, AI denial management, agentic AI workflows, generative AI for appeals, predictive analytics
 3. **Technology to Improve Revenue Velocity and Efficiency** — RPA, clean claims rate optimization, Days in A/R reduction, KPI dashboards, EHR/PM system integrations, FHIR APIs
 
-## Content Structure (8 Sections Per Issue)
+## Content Structure (10 Sections Per Issue)
 
 1. **Regulatory/Payment Updates** — CMS rules, fee schedule changes, payer policy shifts
 2. **Prior Authorization / Payer Relations** — PA reform, payer commitments, denial trends
@@ -36,7 +36,9 @@ These themes must thread through every issue -- not confined to a single section
 5. **Revenue Velocity / KPIs** — Benchmarks, strategies, operational best practices
 6. **Technology Spotlight** — Vendor news, KLAS rankings, tech stack evolution, RPA market
 7. **Compliance Corner** — Price transparency, interoperability, audit prep, regulatory deadlines
-8. **This Week's Action Items** — Specific, actionable checklist tied to the issue's content
+8. **Independent Practice Watch** � RCM challenges and opportunities specific to independent (non-hospital-owned) physician practices. Covers how the week's regulatory, payer, and technology changes affect solo and small-group practices differently from large health systems. Includes a "Where You Should Be" benchmark showing where independent practices stand vs. industry targets and what to prioritize next.
+9. **Specialty RCM Spotlight** � Quick-hit updates for major specialties covering billing changes, coding updates, payer policy shifts, or reimbursement trends relevant that week. Always include at minimum: Primary Care, Cardiology, Orthopedics, and Oncology � add others (Radiology, Neurology, Mental Health, Gastroenterology, etc.) when relevant news warrants. Format as a scannable table or short labeled subsections per specialty, each with at least one data point or update.
+10. **This Week's Action Items** — Specific, actionable checklist tied to the issue's content
 
 Each section must include:
 - A section number label (e.g., "Section 01")

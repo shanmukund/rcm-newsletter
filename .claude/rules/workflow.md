@@ -15,9 +15,11 @@ Search broadly across all source categories for the latest RCM developments. Cov
 8. Revenue velocity improvement strategies
 9. Healthcare IT news related to billing/RCM
 10. CMS interoperability and price transparency rule updates
+11. Independent medical practice trends — financial pressures, consolidation vs. independence data, RCM benchmarks for solo/small-group practices, and technology adoption gaps vs. health systems
+12. Specialty-specific RCM news — billing, coding, reimbursement, and payer policy updates for Primary Care, Cardiology, Orthopedics, Oncology, Radiology, Neurology, Mental Health, and Gastroenterology
 
 ### Step 2: Content Assembly
-- Map research findings to the 8-section structure defined in content-strategy.md
+- Map research findings to the 10-section structure defined in content-strategy.md
 - Ensure all three emphasis pillars are represented across sections
 - Extract key statistics for stat cards and tables
 - Draft callout boxes for the most actionable or urgent insights
@@ -55,8 +57,8 @@ c:/Users/shanm/OneDrive/Desktop/RCM newsletter blog/
 
 ## Volume and Issue Tracking
 
-- Volume increments annually (Volume 1 = 2026)
-- Issue increments weekly within the volume
+- **Volume = month number** (e.g., February = Volume 2, March = Volume 3)
+- **Issue = week of month** calculated as ceil(day / 7) (e.g., March 9 = Issue 2, March 16 = Issue 3)
 - Track in the header meta: "Volume X, Issue Y"
 - Next issue date noted in the footer
 
