@@ -23,7 +23,8 @@ def main():
     try:
         # Run claude in non-interactive print mode (-p) with the project dir as cwd
         result = subprocess.run(
-            [claude_exe, "-p", prompt],
+            [claude_exe, "-p", prompt,
+             "--allowedTools", "WebSearch,WebFetch,Read,Write,Edit,Bash"],
             capture_output=True,
             text=True,
             cwd=str(project_dir),
