@@ -3,10 +3,26 @@
 ## Layout
 
 - Single-column layout, max-width 720px, centered
-- 24px horizontal padding on desktop, 16px on mobile
+- 32px horizontal padding on desktop, 20px on mobile
 - 48px vertical padding between sections (36px on mobile)
 - Sections separated by 1px border (#E8E8EE)
 - No sidebar, no multi-column body layout
+
+## Page Background & Card Styling
+
+The newsletter renders as a white card floating above a textured page background:
+
+- **Body background:** `#ECEEF6` base color with two layers:
+  1. A radial gradient glow at the top: `radial-gradient(ellipse 160% 32% at 50% 0%, rgba(15,95,224,0.10) 0%, transparent 65%)`
+  2. A subtle dot texture via SVG data URL: `url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.3' fill='%230F5FE0' opacity='0.055'/%3E%3C/svg%3E")`
+  - `background-attachment: fixed` so texture stays fixed while scrolling
+  - Body padding: `48px 16px 72px`
+- **Top accent stripe:** Fixed `body::before` — 3px tall, full width, gradient from `#0A4ABF` to `#0F5FE0` to `#60a5fa`, `z-index: 999`
+- **Newsletter wrapper (the white card):**
+  - `background: #ffffff`
+  - `border-top: 3px solid var(--color-accent)` — accent cap at top of card
+  - `border-radius: 0 0 8px 8px` — rounded bottom corners only
+  - `box-shadow: 0 0 0 1px rgba(15,95,224,0.07), 0 8px 40px rgba(15,95,224,0.09), 0 2px 8px rgba(0,0,0,0.05)`
 
 ## Typography
 
