@@ -338,6 +338,7 @@
             z-index: 1;
         }
         .unite.ov-top, .unite.ov-bot { z-index: 3; }
+        .unite.ov-top .fc:empty, .unite.ov-bot .fc:empty { background: transparent; }
         .unite .fc {
             position: absolute;
             width: 100%;
@@ -458,7 +459,7 @@
             </p>
             <div class="stats">
                 <div class="stat">
-                    <div class="stat-number">5</div>
+                    <div class="stat-number">6</div>
                     <div class="stat-label">Issues</div>
                 </div>
                 <div class="stat">
@@ -495,7 +496,7 @@
             
 
             <div class="newsletter-item">
-                <a href="RCM_Weekly_Newsletter_2026-04-07.html">Revenue Cycle Management Intelligence for Medical Practices</a>
+                <a href="RCM_Weekly_Newsletter_2026-04-07.html">Price Transparency Enforcement Live &mdash; Agentic AI Goes Mainstream in RCM</a>
                 <div class="newsletter-meta">
                     <span class="newsletter-date">April 7, 2026</span>
                     <span class="newsletter-volume">Volume 4, Issue 1</span>
@@ -506,7 +507,7 @@
             </div>
 
             <div class="newsletter-item">
-                <a href="RCM_Weekly_Newsletter_2026-03-30.html">Revenue Cycle Management Intelligence for Medical Practices</a>
+                <a href="RCM_Weekly_Newsletter_2026-03-30.html">CY2027 MA Final Rule &mdash; AI Becomes the RCM Operating System</a>
                 <div class="newsletter-meta">
                     <span class="newsletter-date">March 30, 2026</span>
                     <span class="newsletter-volume">Volume 3, Issue 5</span>
@@ -517,7 +518,7 @@
             </div>
 
             <div class="newsletter-item">
-                <a href="RCM_Weekly_Newsletter_2026-03-23.html">Revenue Cycle Management Intelligence for Medical Practices</a>
+                <a href="RCM_Weekly_Newsletter_2026-03-23.html">$782M CMS Electronic Attachments Rule &mdash; HIMSS26 Agentic AI Arms Race</a>
                 <div class="newsletter-meta">
                     <span class="newsletter-date">March 23, 2026</span>
                     <span class="newsletter-volume">Volume 3, Issue 4</span>
@@ -528,7 +529,7 @@
             </div>
 
             <div class="newsletter-item">
-                <a href="RCM_Weekly_Newsletter_2026-03-20.html">Revenue Cycle Management Intelligence for Medical Practices</a>
+                <a href="RCM_Weekly_Newsletter_2026-03-20.html">CMS PFS 3.26% Rate Increase &mdash; AHIP Voluntary PA Reforms Live</a>
                 <div class="newsletter-meta">
                     <span class="newsletter-date">March 20, 2026</span>
                     <span class="newsletter-volume">Volume 3, Issue 3</span>
@@ -539,7 +540,7 @@
             </div>
 
             <div class="newsletter-item">
-                <a href="RCM_Weekly_Newsletter_2026-03-09.html">Revenue Cycle Management Intelligence for Medical Practices</a>
+                <a href="RCM_Weekly_Newsletter_2026-03-09.html">MA Plans Cut Benefits &mdash; 80% Real-Time PA Mandate &mdash; RPA Reaches 50&ndash;75% of Hospitals</a>
                 <div class="newsletter-meta">
                     <span class="newsletter-date">March 09, 2026</span>
                     <span class="newsletter-volume">Volume 3, Issue 2</span>
@@ -550,7 +551,7 @@
             </div>
 
             <div class="newsletter-item">
-                <a href="RCM_Weekly_Newsletter_2026-03-02.html">Revenue Cycle Management Intelligence for Medical Practices</a>
+                <a href="RCM_Weekly_Newsletter_2026-03-02.html">PFS 3.26% Rate Increase &mdash; PA Reform Takes Effect &mdash; AI-Powered RCM Reaches Critical Mass</a>
                 <div class="newsletter-meta">
                     <span class="newsletter-date">March 02, 2026</span>
                     <span class="newsletter-volume">Volume 3, Issue 1</span>
@@ -703,6 +704,7 @@
                     { transform: 'rotateX(0deg)' }
                 ]).onfinish = function () {
                     put('fcB', nxt);
+                    put('fcOT', null); put('fcOB', null);
                     idx = nextIdx;
                     document.getElementById('fCtr').textContent = (idx + 1) + ' / ' + items.length;
                     busy = false;
@@ -722,6 +724,7 @@
                     { transform: 'rotateX(0deg)' }
                 ]).onfinish = function () {
                     put('fcT', nxt);
+                    put('fcOT', null); put('fcOB', null);
                     idx = nextIdx;
                     document.getElementById('fCtr').textContent = (idx + 1) + ' / ' + items.length;
                     busy = false;
