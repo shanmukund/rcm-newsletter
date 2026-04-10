@@ -23,6 +23,12 @@ The newsletter renders as a white card floating above a textured page background
   - `border-top: 3px solid var(--color-accent)` — accent cap at top of card
   - `border-radius: 0 0 8px 8px` — rounded bottom corners only
   - `box-shadow: 0 0 0 1px rgba(15,95,224,0.07), 0 8px 40px rgba(15,95,224,0.09), 0 2px 8px rgba(0,0,0,0.05)`
+  - `position: relative; z-index: 1` — sits above the animated bubble layer
+- **Floating bubbles background:** Animated translucent circles drifting upward behind the white card
+  - `<div id="bubbles-bg" aria-hidden="true"></div>` placed immediately before `.newsletter-wrapper` in `<body>`
+  - CSS: `#bubbles-bg` is `position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:0`
+  - CSS: `.bubble` uses `@keyframes bubble-rise` — rises from below viewport with translateY + translateX drift, fades in/out via opacity
+  - JS (inline `<script>` before `</body>`): generates 34 bubbles with random size (18–108px), position, duration (9–23s), negative delay to pre-populate screen, horizontal drift, and opacity (0.07–0.20) using brand blue colors (`rgba(15,95,224,...)`, `rgba(10,74,191,...)`, `rgba(96,165,250,...)`)
 
 ## Typography
 

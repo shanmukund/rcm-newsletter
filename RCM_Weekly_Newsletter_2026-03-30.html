@@ -75,6 +75,33 @@
         0 0 0 1px rgba(15,95,224,0.07),
         0 8px 40px rgba(15,95,224,0.09),
         0 2px 8px rgba(0,0,0,0.05);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========== FLOATING BUBBLES BACKGROUND ========== */
+    #bubbles-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -150px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: bubble-rise var(--dur, 14s) var(--delay, 0s) linear infinite;
+    }
+
+    @keyframes bubble-rise {
+      0%   { transform: translateY(0) translateX(0) scale(0.75); opacity: 0; }
+      8%   { opacity: var(--max-op, 0.16); }
+      88%  { opacity: var(--max-op, 0.16); }
+      100% { transform: translateY(calc(-100vh - 200px)) translateX(var(--dx, 40px)) scale(1.15); opacity: 0; }
     }
 
     /* ========== HEADER ========== */
@@ -518,6 +545,8 @@
   </style>
 </head>
 <body>
+
+<div id="bubbles-bg" aria-hidden="true"></div>
 
 <div class="newsletter-wrapper">
 
@@ -1148,6 +1177,43 @@
     <div class="footer-sources">Sources aggregated from CMS.gov, AAPC, AHA, AHIP, Modern Healthcare, Becker&rsquo;s Healthcare, RevCycleIntelligence, MedCity News, STAT News, GlobeNewswire, KLAS Research, and vendor publications. All statistics sourced from public domain research.</div>
   </footer>
 
-</div>
+</div><!-- end newsletter-wrapper -->
+
+<script>
+(function() {
+  var bg = document.getElementById('bubbles-bg');
+  if (!bg) return;
+  var colors = [
+    'rgba(15,95,224,VAL)',
+    'rgba(10,74,191,VAL)',
+    'rgba(96,165,250,VAL)',
+    'rgba(15,95,224,VAL)',
+    'rgba(56,132,255,VAL)'
+  ];
+  for (var i = 0; i < 34; i++) {
+    var el = document.createElement('div');
+    el.className = 'bubble';
+    var size = Math.round(18 + Math.random() * 90);
+    var left = Math.round(Math.random() * 100);
+    var dur = (9 + Math.random() * 14).toFixed(1);
+    var delay = -(Math.random() * 22).toFixed(1);
+    var dx = ((Math.random() - 0.5) * 120).toFixed(1);
+    var op = (0.07 + Math.random() * 0.13).toFixed(2);
+    var colorTemplate = colors[Math.floor(Math.random() * colors.length)];
+    var color = colorTemplate.replace('VAL', op);
+    el.style.cssText = [
+      'width:' + size + 'px',
+      'height:' + size + 'px',
+      'left:' + left + '%',
+      'background:' + color,
+      '--dur:' + dur + 's',
+      '--delay:' + delay + 's',
+      '--dx:' + dx + 'px',
+      '--max-op:' + op
+    ].join(';');
+    bg.appendChild(el);
+  }
+})();
+</script>
 </body>
 </html>
