@@ -1,0 +1,74 @@
+name: Weekly RCM Newsletter — Auto-Generate
+
+on:
+  # Runs every Friday at 9:00 AM Eastern (2:00 PM UTC)
+  schedule:
+    - cron: '0 14 * * 5'
+
+  # Manual backup trigger — run anytime from GitHub → Actions tab
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual run (optional)'
+        required: false
+        default: 'Manual trigger'
+
+jobs:
+  generate-newsletter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name  "RCM Newsletter Bot"
+          git config user.email "newsletter-bot@vaqya.com"
+
+      - name: Generate newsletter with Claude Code
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          timeout_minutes: 50
+          prompt: |
+            Generate the next weekly RCM Pulse Weekly newsletter following ALL rules in .claude/rules/.
+
+            Steps to follow exactly:
+            1. Determine the correct date: use the upcoming Monday (or nearest weekday) as the newsletter date.
+               Calculate volume (= month number) and issue (= ceil(day/7)) per workflow.md.
+            2. Run web searches across all 12 research areas defined in workflow.md — cover
+               CMS/Medicare, AAPC coding, AI/automation, payer policy, PA reform, revenue velocity,
+               workflow automation, healthcare IT, interoperability, AND independent practice trends,
+               AND specialty-specific RCM news (Primary Care, Cardiology, Orthopedics, Oncology, etc.)
+            3. Draft the Markdown file: RCM_Weekly_Newsletter_YYYY-MM-DD.md
+            4. Generate the HTML file: RCM_Weekly_Newsletter_YYYY-MM-DD.html
+               — read the most recent HTML file first and use it as the structural template
+               — apply the full design from design-template.md (colors, typography, components)
+            5. Update index.html: add the new issue at the TOP of the newsletter list with a
+               descriptive title (not the generic subtitle), correct date, volume/issue, and topics.
+               Also update the Issues count stat.
+            6. Run the quality-control.md checklist. Fix anything that fails before finishing.
+            7. Stage and commit ALL changed/new files:
+               git add RCM_Weekly_Newsletter_YYYY-MM-DD.md RCM_Weekly_Newsletter_YYYY-MM-DD.html index.html
+               git commit -m "Add newsletter for YYYY-MM-DD (Volume X, Issue Y)"
+
+            IMPORTANT: Do not skip the research step. Every section needs real, sourced statistics
+            from the current week. Do not reuse content from previous issues.
+
+      - name: Push to GitHub Pages
+        run: |
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Confirm deployment
+        run: |
+          echo "Newsletter published successfully."
+          echo "Latest commit: $(git log -1 --oneline)"
