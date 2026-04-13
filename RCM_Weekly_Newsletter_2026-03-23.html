@@ -546,7 +546,7 @@
 </head>
 <body>
 
-<div id="bubbles-bg" aria-hidden="true"></div>
+<canvas id="bubbles-bg" aria-hidden="true"></canvas>
 
 <div class="newsletter-wrapper">
 
@@ -1325,41 +1325,154 @@
 (function() {
   var bg = document.getElementById('bubbles-bg');
   if (!bg) return;
-  var colors = [
-    'rgba(220,53,69,VAL)',
-    'rgba(255,120,0,VAL)',
-    'rgba(255,200,0,VAL)',
-    'rgba(34,160,60,VAL)',
-    'rgba(0,190,190,VAL)',
-    'rgba(15,95,224,VAL)',
-    'rgba(99,60,210,VAL)',
-    'rgba(180,0,200,VAL)',
-    'rgba(255,30,130,VAL)',
-    'rgba(255,80,50,VAL)'
-  ];
-  for (var i = 0; i < 34; i++) {
-    var el = document.createElement('div');
-    el.className = 'bubble';
-    var size = Math.round(18 + Math.random() * 90);
-    var left = Math.round(Math.random() * 100);
-    var dur = (9 + Math.random() * 14).toFixed(1);
-    var delay = -(Math.random() * 22).toFixed(1);
-    var dx = ((Math.random() - 0.5) * 120).toFixed(1);
-    var op = (0.28 + Math.random() * 0.22).toFixed(2);
-    var colorTemplate = colors[Math.floor(Math.random() * colors.length)];
-    var color = colorTemplate.replace('VAL', op);
-    el.style.cssText = [
-      'width:' + size + 'px',
-      'height:' + size + 'px',
-      'left:' + left + '%',
-      'background:' + color,
-      '--dur:' + dur + 's',
-      '--delay:' + delay + 's',
-      '--dx:' + dx + 'px',
-      '--max-op:' + op
-    ].join(';');
-    bg.appendChild(el);
+
+  // Replace div with canvas
+  var cv = document.createElement('canvas');
+  cv.setAttribute('aria-hidden','true');
+  cv.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:0;';
+  bg.parentNode.replaceChild(cv, bg);
+  var ctx = cv.getContext('2d');
+
+  function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Rainbow hue stops
+  var HUES = [0,20,45,80,160,200,250,280,320,345];
+  function randHue() {
+    return HUES[Math.floor(Math.random()*HUES.length)] + (Math.random()*24-12);
   }
+
+  function makeBubble(fromBottom) {
+    var r = 10 + Math.random() * 46;
+    var x = r + Math.random() * (cv.width - 2*r);
+    var y = fromBottom ? cv.height + r + Math.random()*180 : Math.random()*cv.height;
+    return {
+      x:x, y:y, r:r,
+      hue: randHue(),
+      sat: 78 + Math.random()*20,
+      lit: 52 + Math.random()*20,
+      op: 0.32 + Math.random()*0.26,
+      vx: (Math.random()-0.5)*0.8,
+      vy: -(0.38 + Math.random()*0.55)
+    };
+  }
+
+  var bubbles = [];
+  for (var i=0;i<28;i++) bubbles.push(makeBubble(false));
+
+  var splats = [];
+  var MAX_SPLATS = 220;
+
+  function burst(cx, cy, hueA, hueB) {
+    if (splats.length > MAX_SPLATS) return;
+    var n = 7 + Math.floor(Math.random()*5);
+    for (var k=0;k<n;k++) {
+      var angle = Math.random()*Math.PI*2;
+      var spd   = 1.8 + Math.random()*3.8;
+      // mix hues: parent hues + midpoint + shifted variants
+      var hueOptions = [hueA, hueB, (hueA+hueB)/2, hueA+60, hueB-60, hueA-45, hueB+45];
+      var hue = hueOptions[Math.floor(Math.random()*hueOptions.length)];
+      splats.push({
+        x:cx, y:cy,
+        r: 3 + Math.random()*9,
+        hue: hue,
+        sat: 85 + Math.random()*15,
+        lit: 55 + Math.random()*25,
+        vx: Math.cos(angle)*spd,
+        vy: Math.sin(angle)*spd,
+        op: 0.85,
+        life: 1.0,
+        decay: 0.016 + Math.random()*0.024
+      });
+    }
+  }
+
+  var last = 0;
+  function tick(now) {
+    var dt = Math.min((now - last)/16, 3);
+    last = now;
+    ctx.clearRect(0,0,cv.width,cv.height);
+
+    // --- move bubbles ---
+    for (var i=0;i<bubbles.length;i++) {
+      var b = bubbles[i];
+      b.x += b.vx*dt;
+      b.y += b.vy*dt;
+      // wrap horizontally
+      if (b.x < -b.r) b.x = cv.width + b.r;
+      if (b.x > cv.width+b.r) b.x = -b.r;
+      // recycle off top
+      if (b.y + b.r < -40) {
+        var nb = makeBubble(true);
+        b.x=nb.x; b.y=nb.y; b.r=nb.r; b.hue=nb.hue; b.sat=nb.sat; b.lit=nb.lit; b.op=nb.op; b.vx=nb.vx; b.vy=nb.vy;
+      }
+    }
+
+    // --- collision detection (O(n²), fine for n=28) ---
+    for (var i=0;i<bubbles.length-1;i++) {
+      for (var j=i+1;j<bubbles.length;j++) {
+        var a=bubbles[i], b=bubbles[j];
+        var dx=b.x-a.x, dy=b.y-a.y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        var minD=a.r+b.r;
+        if (dist < minD && dist > 0.01) {
+          // splatter at contact midpoint
+          burst((a.x+b.x)/2, (a.y+b.y)/2, a.hue, b.hue);
+          // elastic-ish bounce
+          var nx=dx/dist, ny=dy/dist;
+          var dv = (a.vx-b.vx)*nx + (a.vy-b.vy)*ny;
+          if (dv > 0) {
+            a.vx -= dv*nx; a.vy -= dv*ny;
+            b.vx += dv*nx; b.vy += dv*ny;
+          }
+          // separate so they don't stick
+          var sep=(minD-dist)/2+0.5;
+          a.x -= nx*sep; a.y -= ny*sep;
+          b.x += nx*sep; b.y += ny*sep;
+          // new random hue after collision
+          a.hue = randHue();
+          b.hue = randHue();
+        }
+      }
+    }
+
+    // --- draw bubbles ---
+    for (var i=0;i<bubbles.length;i++) {
+      var b=bubbles[i];
+      // filled circle
+      ctx.beginPath();
+      ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+      ctx.fillStyle = 'hsla('+b.hue+','+b.sat+'%,'+b.lit+'%,'+b.op+')';
+      ctx.fill();
+      // glass highlight
+      var g=ctx.createRadialGradient(b.x-b.r*0.32,b.y-b.r*0.32,b.r*0.04,b.x,b.y,b.r);
+      g.addColorStop(0,'rgba(255,255,255,0.30)');
+      g.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.beginPath();
+      ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+      ctx.fillStyle=g;
+      ctx.fill();
+    }
+
+    // --- update & draw splats ---
+    for (var i=splats.length-1;i>=0;i--) {
+      var s=splats[i];
+      s.x += s.vx*dt;
+      s.y += s.vy*dt;
+      s.vy += 0.05*dt; // gentle gravity
+      s.vx *= 0.97;    // drag
+      s.life -= s.decay*dt;
+      if (s.life<=0) { splats.splice(i,1); continue; }
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,Math.max(0.5,s.r*s.life),0,Math.PI*2);
+      ctx.fillStyle='hsla('+s.hue+','+s.sat+'%,'+s.lit+'%,'+(s.life*s.op)+')';
+      ctx.fill();
+    }
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 })();
 </script>
 </body>
