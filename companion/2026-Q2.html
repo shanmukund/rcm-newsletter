@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Revenue Cycle Report &mdash; Q2 2026 | Cardiology | Vaqya RCM Insights</title>
+  <meta name="description" content="Q2 2026 Cardiology RCM deep-dive: CPT overhaul, PCI restructure, Ambulatory Specialty Model, site-of-service math, and RPM opportunity. By Vaqya.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Georgia:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #1B3A6B;
+      --blue:        #185FA5;
+      --blue-light:  #E6F1FB;
+      --red:         #A32D2D;
+      --red-light:   #FCEBEB;
+      --green:       #3B6D11;
+      --green-light: #EAF3DE;
+      --purple:      #3C3489;
+      --purple-light:#EEEDFE;
+      --body-text:   #1C1C1C;
+      --muted:       #5F5E5A;
+      --surface:     #F4F6F8;
+      --border:      #DDE2EA;
+      --max-width:   600px;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--body-text);
+      background-color: #EAEEf6;
+      background-image:
+        radial-gradient(ellipse 160% 28% at 50% 0%, rgba(27,58,107,0.10) 0%, transparent 65%),
+        url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.2' fill='%231B3A6B' opacity='0.05'/%3E%3C/svg%3E");
+      background-attachment: fixed;
+      padding: 48px 16px 72px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #1B3A6B 0%, #185FA5 55%, #5b9bd5 100%);
+      z-index: 999;
+    }
+
+    /* ===== WRAPPER ===== */
+    .wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      background: #ffffff;
+      border-top: 3px solid var(--navy);
+      border-radius: 0 0 8px 8px;
+      box-shadow:
+        0 0 0 1px rgba(27,58,107,0.07),
+        0 8px 40px rgba(27,58,107,0.10),
+        0 2px 8px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ===== MASTHEAD ===== */
+    .masthead {
+      padding: 28px 32px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pub-name {
+      font-family: Arial, 'Helvetica Neue', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .newsletter-title {
+      font-family: Arial, 'Helvetica Neue', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .masthead-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .issue-date {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .specialty-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--blue-light);
+      color: #0C447C;
+      border-radius: 999px;
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+    }
+    .specialty-tag::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #185FA5; }
+
+    /* ===== CONTENT BODY ===== */
+    .content {
+      padding: 28px 32px 0;
+    }
+
+    .opening-para {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--body-text);
+      margin-bottom: 24px;
+    }
+    .opening-para strong {
+      color: var(--navy);
+    }
+
+    /* ===== SCENARIO BLOCK ===== */
+    .scenario {
+      background: var(--surface);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 6px 6px 0;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+    .scenario-label {
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .scenario p {
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--body-text);
+    }
+
+    /* ===== BODY PARAGRAPHS ===== */
+    .body-para {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--body-text);
+      margin-bottom: 20px;
+    }
+
+    /* ===== SECTION LABEL ===== */
+    .section-label {
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 32px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ===== PRESSURE NUGGETS ===== */
+    .nuggets {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .nugget {
+      background: #FAFAFA;
+      border-radius: 6px;
+      border-left: 4px solid var(--blue);
+      padding: 14px 16px;
+    }
+    .nugget.warning { border-left-color: var(--red); }
+    .nugget.opportunity { border-left-color: var(--green); }
+    .nugget.policy { border-left-color: var(--purple); }
+
+    .nugget-tag {
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+    .nugget.warning .nugget-tag { color: var(--red); }
+    .nugget.opportunity .nugget-tag { color: var(--green); }
+    .nugget.policy .nugget-tag { color: var(--purple); }
+
+    .nugget-title {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .nugget-body {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #3a3a3a;
+      margin-bottom: 10px;
+    }
+    .nugget-stat {
+      display: inline-block;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--blue-light);
+      color: var(--blue);
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+    .nugget.warning .nugget-stat { background: var(--red-light); color: var(--red); }
+    .nugget.opportunity .nugget-stat { background: var(--green-light); color: var(--green); }
+    .nugget.policy .nugget-stat { background: var(--purple-light); color: var(--purple); }
+
+    /* ===== RCM ACTIONS ===== */
+    .actions-block {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 4px;
+    }
+    .action-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .action-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .action-item:first-child { padding-top: 0; }
+    .action-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .action-content {}
+    .action-title {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+    .action-body {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #3a3a3a;
+    }
+
+    /* ===== CTA BLOCK ===== */
+    .cta-block {
+      border: 0.5px solid var(--navy);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .cta-text {}
+    .cta-headline {
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .cta-body {
+      font-size: 13px;
+      line-height: 1.65;
+      color: #3a3a3a;
+    }
+    .cta-btn {
+      flex-shrink: 0;
+      display: inline-block;
+      background: var(--navy);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: #122d56; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 0 32px 28px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .footer p + p { margin-top: 6px; }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .footer .next-quarter {
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    /* ===== BACK LINK ===== */
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+    .back-link a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .back-link a:hover { text-decoration: underline; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      body { padding: 24px 12px 48px; }
+      .wrapper { border-radius: 0 0 6px 6px; }
+      .masthead, .content { padding-left: 20px; padding-right: 20px; }
+      .footer { padding-left: 20px; padding-right: 20px; }
+      .newsletter-title { font-size: 18px; }
+      .cta-block { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="pub-name">Vaqya RCM Insights &nbsp;&middot;&nbsp; Q2 2026</div>
+    <div class="newsletter-title">The Revenue Cycle Report</div>
+    <div class="masthead-meta">
+      <span class="issue-date">April 2026</span>
+      <span class="specialty-tag">Specialty Spotlight &nbsp;|&nbsp; Cardiology</span>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- OPENING PARAGRAPH -->
+    <p class="opening-para" style="margin-top:24px;">
+      This quarter we focus on cardiology &mdash; a specialty at the epicenter of the most consequential coding overhaul in over a decade. The 2026 CPT changes weren&rsquo;t just an update. They rewired how interventional, diagnostic, and EP services are reported, valued, and paid. Six months in, the practices that prepared are pulling ahead. Those that didn&rsquo;t are living in their AR reports.
+    </p>
+
+    <!-- SCENARIO BLOCK -->
+    <div class="scenario">
+      <div class="scenario-label">A Scenario from the Field</div>
+      <p>A four-physician interventional cardiology group has been billing PCI the same way for years. When the 2026 code changes took effect, their coders recognized the new complex PCI codes but weren&rsquo;t trained on the revised documentation requirements &mdash; specifically, that operative reports must now describe lesion location, vessel segments, and bifurcation involvement with enough specificity to support the new code family. Three months in, they&rsquo;re seeing a spike in technical denials and partial payments. The procedures are more complex than ever. The revenue doesn&rsquo;t reflect it.</p>
+    </div>
+
+    <!-- BODY NARRATIVE -->
+    <p class="body-para">
+      This is the story of 2026 for cardiology practices: a year where doing the right clinical work is no longer enough. The coding infrastructure behind that work has to keep up &mdash; or revenue quietly leaks out through downcodes, denials, and missed complexity capture.
+    </p>
+    <p class="body-para">
+      The 2026 changes didn&rsquo;t arrive in a vacuum. They land on top of the 2.5% efficiency adjustment cutting procedural RVUs, a mandatory new heart failure payment model for cardiologists in major metro areas, and the WISeR AI prior authorization pilot running in Arizona, New Jersey, Ohio, Oklahoma, Texas, and Washington. For cardiology practices in the Southwest, this isn&rsquo;t an abstract policy conversation. It&rsquo;s this quarter&rsquo;s cash flow.
+    </p>
+
+    <!-- PRESSURE NUGGETS -->
+    <div class="section-label">The Pressure Points This Quarter</div>
+    <div class="nuggets">
+
+      <div class="nugget">
+        <div class="nugget-tag">Coding Volume</div>
+        <div class="nugget-title">418 CPT changes &mdash; cardiology bears the biggest burden</div>
+        <div class="nugget-body">The 2026 CPT set brought 288 new codes, 84 deletions, and 46 revisions. Cardiology is disproportionately affected. The PCI family was fully restructured &mdash; legacy add-on codes eliminated, new complex PCI and chronic total occlusion (CTO) codes added, and lower extremity revascularization expanded from 16 codes to 46. Every change requires updated coder training, documentation workflows, and billing system configuration. Practices that haven&rsquo;t audited their claims since January are likely undercoding complex cases.</div>
+        <span class="nugget-stat">LER codes: 16 &rarr; 46 &nbsp;&middot;&nbsp; Complex PCI: new dedicated code family</span>
+      </div>
+
+      <div class="nugget warning">
+        <div class="nugget-tag">Site of Service</div>
+        <div class="nugget-title">Facility-based cardiology services down 7% &mdash; office-based up 5%</div>
+        <div class="nugget-body">The 2026 fee schedule&rsquo;s practice expense recalibration hit facility-based cardiovascular services hard. Pacemaker implants, TAVR, PCI, and ablation performed in hospital settings saw indirect practice expense reductions of roughly 10%. Meanwhile, office-based non-facility services received a 5% bump. For cardiology groups splitting work between employed hospital settings and independent ASCs or offices, the site-of-service math has materially shifted. The good news: cardiac catheter ablation was added to the ASC covered procedures list &mdash; a long-advocated win creating new volume and revenue opportunity.</div>
+        <span class="nugget-stat">Facility-based: &minus;7% &nbsp;&middot;&nbsp; Non-facility: +5% &nbsp;&middot;&nbsp; Ablation now covered in ASC</span>
+      </div>
+
+      <div class="nugget policy">
+        <div class="nugget-tag">Mandatory Risk Model</div>
+        <div class="nugget-title">The Ambulatory Specialty Model &mdash; a mandatory risk arrangement for heart failure</div>
+        <div class="nugget-body">CMS finalized a mandatory five-year Ambulatory Specialty Model (ASM) for heart failure, affecting cardiologists in selected metro areas who treated at least 20 traditional Medicare HF patients. It&rsquo;s a two-sided risk arrangement: payment adjustments of &minus;9% to +9% on Medicare Part B reimbursements in the first payment year. This isn&rsquo;t optional &mdash; it&rsquo;s mandatory. Practices in qualifying CBSAs that haven&rsquo;t mapped their HF patient panel, tracked quality metrics, or stress-tested financials under the downside risk scenario are flying blind.</div>
+        <span class="nugget-stat">Risk range: &minus;9% to +9% on Part B &nbsp;&middot;&nbsp; Five-year mandatory term</span>
+      </div>
+
+      <div class="nugget opportunity">
+        <div class="nugget-tag">Opportunity</div>
+        <div class="nugget-title">Remote physiologic monitoring &mdash; a genuine revenue expansion</div>
+        <div class="nugget-body">New RPM codes for 2026 &mdash; including 99445 and 99470 &mdash; expand what cardiology practices can bill for device data capture and real-time patient interaction, with lower minimum-day thresholds than before. For practices managing patients with implanted devices, wearables, or remote cardiac monitors, this is recurring monthly revenue most groups are leaving uncaptured. Combined with the AI-coronary plaque assessment code now elevated to Category I, technology-enabled services are being recognized in ways they weren&rsquo;t two years ago.</div>
+        <span class="nugget-stat">New RPM codes lower threshold to 2 days vs. prior 16-day minimum</span>
+      </div>
+
+    </div><!-- /nuggets -->
+
+    <!-- RCM ACTIONS -->
+    <div class="section-label" style="margin-top:32px;">Three Actions for This Quarter</div>
+    <div class="actions-block">
+      <div class="action-item">
+        <div class="action-num">1</div>
+        <div class="action-content">
+          <div class="action-title">Run a mid-year PCI and LER coding audit &mdash; immediately.</div>
+          <div class="action-body">Six months of claims under the new code structure is enough data to reveal patterns. Pull your interventional claims from January through June. Are complex PCI cases being coded to the new complexity codes or defaulting to the old simple-stent code? Are LER procedures landing in the right one of the 46 new categories? Undercoding on a single complex PCI can mean $400&ndash;$800 in lost reimbursement per case. At volume, that&rsquo;s a material number.</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">2</div>
+        <div class="action-content">
+          <div class="action-title">Map your site-of-service exposure and accelerate ASC volume where you can.</div>
+          <div class="action-body">If a meaningful share of your ablation, cath, or peripheral intervention volume is currently facility-based, the 7% practice expense reduction is a standing drag on your revenue. Now that cardiac catheter ablation is on the ASC covered procedures list, evaluate whether shifting appropriate cases to your ASC or an independent facility improves your net reimbursement. The math often favors the move.</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">3</div>
+        <div class="action-content">
+          <div class="action-title">Start billing RPM if you have the patient panel to support it.</div>
+          <div class="action-body">If your practice manages patients with implanted cardiac devices, remote monitors, or wearable cardiac trackers and you aren&rsquo;t billing 99445 and 99470, you&rsquo;re leaving monthly recurring revenue on the table. The new codes require real-time interaction with the patient or caregiver &mdash; build that touch into your device clinic workflow and you&rsquo;ve created a billable encounter you were already having.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA BLOCK -->
+    <div class="section-label" style="margin-top:32px;">Work with Vaqya</div>
+    <div class="cta-block">
+      <div class="cta-text">
+        <div class="cta-headline">Is your cardiology billing keeping pace with the 2026 changes?</div>
+        <div class="cta-body">Vaqya&rsquo;s RCM team works with physician practices across specialties &mdash; including cardiology groups navigating the new PCI code family, ASM risk arrangements, and the WISeR prior auth environment in Arizona. If your denials are up or your AR is growing, let&rsquo;s look at why.</div>
+      </div>
+      <a href="https://vaqya.com/contact" target="_blank" class="cta-btn">Let&rsquo;s talk &rarr;</a>
+    </div>
+
+    <div class="divider"></div>
+
+  </div><!-- /content -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p class="next-quarter">Next quarter: Rheumatology &mdash; biologic buy-and-bill margins, prior auth complexity, biosimilar billing risk, and CCM opportunity.</p>
+    <p>Sources: ACC &middot; SCAI &middot; CMS 2026 MPFS Final Rule &middot; Cardiovascular Business &middot; Cardiac Interventions Today &middot; HealthCell &middot; IMO Health &middot; StreamlineMD</p>
+    <p style="margin-top:12px;">Vaqya LLC &nbsp;&middot;&nbsp; Sun City, AZ &nbsp;&middot;&nbsp; <a href="https://vaqya.com" target="_blank">vaqya.com</a></p>
+  </div>
+
+</div><!-- /wrapper -->
+
+<div class="back-link" style="margin-top:20px;">
+  <a href="../index.html">&larr; Back to RCM Pulse Weekly</a>
+</div>
+
+</body>
+</html>
