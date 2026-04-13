@@ -1184,11 +1184,16 @@
   var bg = document.getElementById('bubbles-bg');
   if (!bg) return;
   var colors = [
+    'rgba(220,53,69,VAL)',
+    'rgba(255,120,0,VAL)',
+    'rgba(255,200,0,VAL)',
+    'rgba(34,160,60,VAL)',
+    'rgba(0,190,190,VAL)',
     'rgba(15,95,224,VAL)',
-    'rgba(10,74,191,VAL)',
-    'rgba(96,165,250,VAL)',
-    'rgba(15,95,224,VAL)',
-    'rgba(56,132,255,VAL)'
+    'rgba(99,60,210,VAL)',
+    'rgba(180,0,200,VAL)',
+    'rgba(255,30,130,VAL)',
+    'rgba(255,80,50,VAL)'
   ];
   for (var i = 0; i < 34; i++) {
     var el = document.createElement('div');
@@ -1198,7 +1203,7 @@
     var dur = (9 + Math.random() * 14).toFixed(1);
     var delay = -(Math.random() * 22).toFixed(1);
     var dx = ((Math.random() - 0.5) * 120).toFixed(1);
-    var op = (0.15 + Math.random() * 0.20).toFixed(2);
+    var op = (0.28 + Math.random() * 0.22).toFixed(2);
     var colorTemplate = colors[Math.floor(Math.random() * colors.length)];
     var color = colorTemplate.replace('VAL', op);
     el.style.cssText = [
