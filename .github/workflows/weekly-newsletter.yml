@@ -21,6 +21,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      issues: write
 
     steps:
       - name: Checkout repository
@@ -34,11 +35,10 @@ jobs:
           git config user.email "newsletter-bot@vaqya.com"
 
       - name: Generate newsletter with Claude Code
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          timeout_minutes: 50
-          direct_prompt: |
+          prompt: |
             Generate the next weekly RCM Pulse Weekly newsletter following ALL rules in .claude/rules/.
 
             Steps to follow exactly:
@@ -73,3 +73,28 @@ jobs:
         run: |
           echo "Newsletter published successfully."
           echo "Latest commit: $(git log -1 --oneline)"
+
+      - name: Alert on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Newsletter automation failed — ${new Date().toISOString().slice(0,10)}`,
+              body: [
+                '## Newsletter generation failed',
+                '',
+                `**Run:** [View logs](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+                `**Triggered by:** ${context.eventName}`,
+                `**Date:** ${new Date().toUTCString()}`,
+                '',
+                '### Immediate action required',
+                '1. Click the run link above and check which step failed',
+                '2. If the Claude step failed: check that `ANTHROPIC_API_KEY` secret is valid',
+                '3. Trigger a manual run from the Actions tab once the issue is resolved',
+                '4. Or generate this week\'s newsletter manually by asking Claude Code: *"generate the next weekly newsletter"*',
+              ].join('\n'),
+              labels: ['automation', 'urgent'],
+            });
