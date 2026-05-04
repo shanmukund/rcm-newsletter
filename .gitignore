@@ -30,3 +30,22 @@ desktop.ini
 
 # Don't track the workspace file
 *.code-workspace
+
+# Non-newsletter files — keep out of automated commits
+*.docx
+*.doc
+*.xlsx
+*.xls
+Certificate_*.html
+*_mockup.html
+create_task.bat
+run_newsletter_generation.bat
+setup_schedule.ps1
+generate_newsletter.py
+update_index.py
+github_push_commands.txt
+hosting_options.md
+setup_github_pages.md
+SETUP_COMPLETE.md
+SCHEDULING_INSTRUCTIONS.md
+CUSTOM_DOMAIN_SETUP.md

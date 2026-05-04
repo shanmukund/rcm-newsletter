@@ -34,37 +34,89 @@ jobs:
           git config user.name  "RCM Newsletter Bot"
           git config user.email "newsletter-bot@vaqya.com"
 
+      - name: Compute newsletter date
+        id: dates
+        run: |
+          # The newsletter is always dated the NEXT Monday from today.
+          # Running on Friday: next Monday is 3 days away.
+          TODAY=$(date -u +%Y-%m-%d)
+          DAY_OF_WEEK=$(date -u +%u)   # 1=Mon … 5=Fri … 7=Sun
+          DAYS_UNTIL_MONDAY=$(( (8 - DAY_OF_WEEK) % 7 ))
+          if [ "$DAYS_UNTIL_MONDAY" -eq 0 ]; then DAYS_UNTIL_MONDAY=7; fi
+          NEWSLETTER_DATE=$(date -u -d "+${DAYS_UNTIL_MONDAY} days" +%Y-%m-%d)
+          MONTH=$(date -u -d "$NEWSLETTER_DATE" +%-m)
+          DAY=$(date -u -d "$NEWSLETTER_DATE" +%-d)
+          ISSUE=$(( (DAY - 1) / 7 + 1 ))
+          echo "today=$TODAY"                          >> "$GITHUB_OUTPUT"
+          echo "newsletter_date=$NEWSLETTER_DATE"      >> "$GITHUB_OUTPUT"
+          echo "volume=$MONTH"                         >> "$GITHUB_OUTPUT"
+          echo "issue=$ISSUE"                          >> "$GITHUB_OUTPUT"
+          echo "md_file=RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.md"   >> "$GITHUB_OUTPUT"
+          echo "html_file=RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.html" >> "$GITHUB_OUTPUT"
+          echo "--- Computed dates ---"
+          echo "Today (UTC):        $TODAY"
+          echo "Newsletter date:    $NEWSLETTER_DATE"
+          echo "Volume / Issue:     $MONTH / $ISSUE"
+
+      - name: Skip if newsletter already exists
+        id: check
+        run: |
+          HTML="${{ steps.dates.outputs.html_file }}"
+          if [ -f "$HTML" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Newsletter $HTML already exists — skipping generation."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "Newsletter $HTML not found — proceeding with generation."
+          fi
+
       - name: Generate newsletter with Claude Code
+        if: steps.check.outputs.exists == 'false'
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
-            Generate the next weekly RCM Pulse Weekly newsletter following ALL rules in .claude/rules/.
+            Generate the RCM Pulse Weekly newsletter for the issue below.
+            Follow ALL rules in .claude/rules/ exactly.
 
-            Steps to follow exactly:
-            1. Determine the correct date: use the upcoming Monday (or nearest weekday) as the newsletter date.
-               Calculate volume (= month number) and issue (= ceil(day/7)) per workflow.md.
-            2. Run web searches across all 12 research areas defined in workflow.md — cover
-               CMS/Medicare, AAPC coding, AI/automation, payer policy, PA reform, revenue velocity,
-               workflow automation, healthcare IT, interoperability, AND independent practice trends,
-               AND specialty-specific RCM news (Primary Care, Cardiology, Orthopedics, Oncology, etc.)
-            3. Draft the Markdown file: RCM_Weekly_Newsletter_YYYY-MM-DD.md
-            4. Generate the HTML file: RCM_Weekly_Newsletter_YYYY-MM-DD.html
-               — read the most recent HTML file first and use it as the structural template
+            === DATES (DO NOT CHANGE THESE) ===
+            Newsletter date : ${{ steps.dates.outputs.newsletter_date }}
+            Volume          : ${{ steps.dates.outputs.volume }}
+            Issue           : ${{ steps.dates.outputs.issue }}
+            Markdown file   : ${{ steps.dates.outputs.md_file }}
+            HTML file       : ${{ steps.dates.outputs.html_file }}
+
+            === STEPS ===
+            1. Run web searches across all 12 research areas in workflow.md — cover CMS/Medicare,
+               AAPC coding, AI/automation, payer policy, PA reform, revenue velocity, workflow
+               automation, healthcare IT, interoperability, independent practice trends, AND
+               specialty-specific RCM news (Primary Care, Cardiology, Orthopedics, Oncology, etc.)
+
+            2. Write the Markdown file: ${{ steps.dates.outputs.md_file }}
+
+            3. Generate the HTML file: ${{ steps.dates.outputs.html_file }}
+               — read the most recent HTML file in the repo first and use it as the structural template
                — apply the full design from design-template.md (colors, typography, components)
-            5. Update index.html: add the new issue at the TOP of the newsletter list with a
-               descriptive title (not the generic subtitle), correct date, volume/issue, and topics.
-               Also update the Issues count stat.
-            6. Run the quality-control.md checklist. Fix anything that fails before finishing.
-            7. Stage and commit ALL changed/new files:
-               git add RCM_Weekly_Newsletter_YYYY-MM-DD.md RCM_Weekly_Newsletter_YYYY-MM-DD.html index.html
-               git commit -m "Add newsletter for YYYY-MM-DD (Volume X, Issue Y)"
 
-            IMPORTANT: Do not skip the research step. Every section needs real, sourced statistics
-            from the current week. Do not reuse content from previous issues.
+            4. Update index.html:
+               — add the new issue entry at the TOP of the newsletter list
+               — use a descriptive title (NOT just "RCM Pulse Weekly") that names the 2–3 biggest stories
+               — set the correct date, volume, and issue number
+               — increment the Issues count stat by 1
+
+            5. Run the quality-control.md checklist. Fix anything that fails.
+
+            6. Commit ONLY these three files (nothing else — do not add any other files):
+               git add ${{ steps.dates.outputs.md_file }} ${{ steps.dates.outputs.html_file }} index.html
+               git commit -m "Add newsletter for ${{ steps.dates.outputs.newsletter_date }} (Volume ${{ steps.dates.outputs.volume }}, Issue ${{ steps.dates.outputs.issue }})"
+
+            IMPORTANT: Use the exact dates above. Do not infer or recalculate the date.
+            Do not skip the research step. Every section needs real, sourced statistics.
+            Do not reuse content from previous issues.
 
       - name: Push to GitHub Pages
+        if: steps.check.outputs.exists == 'false'
         run: |
           git push origin main
         env:
@@ -72,7 +124,7 @@ jobs:
 
       - name: Confirm deployment
         run: |
-          echo "Newsletter published successfully."
+          echo "Run complete."
           echo "Latest commit: $(git log -1 --oneline)"
 
       - name: Alert on failure
@@ -94,8 +146,8 @@ jobs:
                 '### Immediate action required',
                 '1. Click the run link above and check which step failed',
                 '2. If the Claude step failed: check that `ANTHROPIC_API_KEY` secret is valid',
-                '3. Trigger a manual run from the Actions tab once the issue is resolved',
-                '4. Or generate this week\'s newsletter manually by asking Claude Code: *"generate the next weekly newsletter"*',
+                '3. Trigger a manual run from the Actions tab once fixed',
+                '4. Or generate manually: ask Claude Code *"generate the next weekly newsletter"*',
               ].join('\n'),
               labels: ['automation', 'urgent'],
             });
