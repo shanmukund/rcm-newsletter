@@ -37,26 +37,17 @@ jobs:
       - name: Compute newsletter date
         id: dates
         run: |
-          # The newsletter is always dated the NEXT Monday from today.
-          # Running on Friday: next Monday is 3 days away.
-          TODAY=$(date -u +%Y-%m-%d)
-          DAY_OF_WEEK=$(date -u +%u)   # 1=Mon … 5=Fri … 7=Sun
-          DAYS_UNTIL_MONDAY=$(( (8 - DAY_OF_WEEK) % 7 ))
-          if [ "$DAYS_UNTIL_MONDAY" -eq 0 ]; then DAYS_UNTIL_MONDAY=7; fi
-          NEWSLETTER_DATE=$(date -u -d "+${DAYS_UNTIL_MONDAY} days" +%Y-%m-%d)
-          MONTH=$(date -u -d "$NEWSLETTER_DATE" +%-m)
-          DAY=$(date -u -d "$NEWSLETTER_DATE" +%-d)
+          # Newsletter is dated today — the Friday it publishes.
+          NEWSLETTER_DATE=$(date -u +%Y-%m-%d)
+          MONTH=$(date -u +%-m)
+          DAY=$(date -u +%-d)
           ISSUE=$(( (DAY - 1) / 7 + 1 ))
-          echo "today=$TODAY"                          >> "$GITHUB_OUTPUT"
-          echo "newsletter_date=$NEWSLETTER_DATE"      >> "$GITHUB_OUTPUT"
-          echo "volume=$MONTH"                         >> "$GITHUB_OUTPUT"
-          echo "issue=$ISSUE"                          >> "$GITHUB_OUTPUT"
-          echo "md_file=RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.md"   >> "$GITHUB_OUTPUT"
+          echo "newsletter_date=$NEWSLETTER_DATE"        >> "$GITHUB_OUTPUT"
+          echo "volume=$MONTH"                           >> "$GITHUB_OUTPUT"
+          echo "issue=$ISSUE"                            >> "$GITHUB_OUTPUT"
+          echo "md_file=RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.md"     >> "$GITHUB_OUTPUT"
           echo "html_file=RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.html" >> "$GITHUB_OUTPUT"
-          echo "--- Computed dates ---"
-          echo "Today (UTC):        $TODAY"
-          echo "Newsletter date:    $NEWSLETTER_DATE"
-          echo "Volume / Issue:     $MONTH / $ISSUE"
+          echo "Newsletter date: $NEWSLETTER_DATE  (Volume $MONTH, Issue $ISSUE)"
 
       - name: Skip if newsletter already exists
         id: check

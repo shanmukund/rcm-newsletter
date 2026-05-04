@@ -22,7 +22,7 @@ RCM_Weekly_Newsletter_YYYY-MM-DD.md    # Content (Markdown)
 RCM_Weekly_Newsletter_YYYY-MM-DD.html  # Published version (self-contained HTML)
 ```
 
-Date uses the Monday of the newsletter week. Volume increments yearly (Volume 1 = 2026), issue increments weekly.
+Date uses the Friday the newsletter publishes. Volume = month number, issue = ceil(day/7).
 
 ## Rules (Detailed Specifications)
 

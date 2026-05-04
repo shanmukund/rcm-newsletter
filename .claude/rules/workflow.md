@@ -15,8 +15,8 @@ Search broadly across all source categories for the latest RCM developments. Cov
 8. Revenue velocity improvement strategies
 9. Healthcare IT news related to billing/RCM
 10. CMS interoperability and price transparency rule updates
-11. Independent medical practice trends — financial pressures, consolidation vs. independence data, RCM benchmarks for solo/small-group practices, and technology adoption gaps vs. health systems
-12. Specialty-specific RCM news — billing, coding, reimbursement, and payer policy updates for Primary Care, Cardiology, Orthopedics, Oncology, Radiology, Neurology, Mental Health, and Gastroenterology
+11. Independent medical practice trends ï¿½ financial pressures, consolidation vs. independence data, RCM benchmarks for solo/small-group practices, and technology adoption gaps vs. health systems
+12. Specialty-specific RCM news ï¿½ billing, coding, reimbursement, and payer policy updates for Primary Care, Cardiology, Orthopedics, Oncology, Radiology, Neurology, Mental Health, and Gastroenterology
 
 ### Step 2: Content Assembly
 - Map research findings to the 10-section structure defined in content-strategy.md
@@ -46,7 +46,7 @@ RCM_Weekly_Newsletter_YYYY-MM-DD.md
 RCM_Weekly_Newsletter_YYYY-MM-DD.html
 ```
 
-Date is the Monday of the newsletter week (or the nearest weekday if generated mid-week).
+Date is the Friday the newsletter is published. When running via GitHub Actions automation, the date is injected â€” do not recalculate it.
 
 ## File Location
 
