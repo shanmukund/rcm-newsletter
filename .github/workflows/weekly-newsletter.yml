@@ -1,13 +1,10 @@
 name: Weekly RCM Newsletter — Auto-Generate
 
 on:
-  # Primary run: every Friday at 9:00 AM Eastern (2:00 PM UTC)
-  # Backup run:  every Saturday at 9:00 AM Eastern (2:00 PM UTC) — retries if Friday failed
-  schedule:
-    - cron: '0 14 * * 5'
-    - cron: '0 14 * * 6'
-
-  # Manual backup trigger — run anytime from GitHub → Actions tab
+  # Schedule triggers removed 2026-05-19 — newsletter generation moved to
+  # Anthropic-hosted scheduled remote agent (claude.ai routines).
+  # Recurring routine: trig_011MyvQ9AcDW2LQyHJNFTUxw (Fri+Sat 9 AM Phoenix).
+  # This workflow remains available as a manual fallback only.
   workflow_dispatch:
     inputs:
       reason:
