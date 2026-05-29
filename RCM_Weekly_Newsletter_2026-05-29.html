@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCM Pulse Weekly | May 29, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--color-bg: #FAFAFA;
+--color-surface: #FFFFFF;
+--color-text: #1A1A2E;
+--color-text-secondary: #4A4A68;
+--color-text-muted: #8888A0;
+--color-accent: #0F5FE0;
+--color-accent-light: #E8F0FE;
+--color-accent-dark: #0A4ABF;
+--color-border: #E8E8EE;
+--color-highlight: #FFF8E1;
+--color-highlight-border: #F5C518;
+--color-success: #0D9F6E;
+--color-success-light: #E6F9F1;
+--color-danger: #DC3545;
+--color-danger-light: #FDE8EA;
+--color-kpi-green: #0D9F6E;
+--color-kpi-amber: #D97706;
+--radius-sm: 6px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+--shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+--shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+--max-width: 720px;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+background-color: #ECEEF6;
+background-image:
+radial-gradient(ellipse 160% 32% at 50% 0%, rgba(15,95,224,0.10) 0%, transparent 65%),
+url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.3' fill='%230F5FE0' opacity='0.055'/%3E%3C/svg%3E");
+background-attachment: fixed;
+color: var(--color-text);
+line-height: 1.7;
+-webkit-font-smoothing: antialiased;
+padding: 48px 16px 72px;
+min-height: 100vh;
+}
+body::before {
+content: '';
+position: fixed;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, #0A4ABF 0%, #0F5FE0 55%, #60a5fa 100%);
+z-index: 999;
+}
+.newsletter-wrapper {
+max-width: var(--max-width);
+margin: 0 auto;
+padding: 0 32px;
+background: #ffffff;
+border-top: 3px solid var(--color-accent);
+border-radius: 0 0 8px 8px;
+box-shadow: 0 0 0 1px rgba(15,95,224,0.07), 0 8px 40px rgba(15,95,224,0.09), 0 2px 8px rgba(0,0,0,0.05);
+position: relative;
+z-index: 1;
+}
+#bubbles-bg {
+position: fixed; top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none; overflow: hidden; z-index: 0;
+}
+.bubble {
+position: absolute; bottom: -150px; border-radius: 50%; opacity: 0;
+animation: bubble-rise var(--dur, 14s) var(--delay, 0s) linear infinite;
+}
+@keyframes bubble-rise {
+0% { transform: translateY(0) translateX(0) scale(0.75); opacity: 0; }
+8% { opacity: var(--max-op, 0.16); }
+88% { opacity: var(--max-op, 0.16); }
+100% { transform: translateY(calc(-100vh - 200px)) translateX(var(--dx, 40px)) scale(1.15); opacity: 0; }
+}
+.header { padding: 48px 0 40px; text-align: center; border-bottom: 1px solid var(--color-border); }
+.header-brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.header-logo { width: 40px; height: 40px; background: var(--color-accent); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; letter-spacing: -0.5px; }
+.header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.5px; }
+.header-subtitle { font-size: 0.9rem; color: var(--color-text-muted); font-weight: 400; margin-top: 4px; }
+.header-meta { display: inline-flex; align-items: center; gap: 16px; margin-top: 16px; font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+.header-meta span { display: flex; align-items: center; gap: 4px; }
+.meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-muted); }
+.toc { padding: 32px 0; border-bottom: 1px solid var(--color-border); }
+.toc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 16px; }
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.toc-list li a { display: flex; align-items: baseline; gap: 12px; text-decoration: none; color: var(--color-text); font-size: 0.925rem; font-weight: 450; padding: 6px 0; transition: color 0.2s; }
+.toc-list li a:hover { color: var(--color-accent); }
+.toc-num { font-size: 0.75rem; font-weight: 600; color: var(--color-accent); min-width: 20px; }
+.section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+.section:last-of-type { border-bottom: none; }
+.section-number { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-accent); font-weight: 600; margin-bottom: 8px; }
+.section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.55rem; font-weight: 700; line-height: 1.3; color: var(--color-text); margin-bottom: 20px; letter-spacing: -0.3px; }
+.section h3 { font-size: 1rem; font-weight: 600; color: var(--color-text); margin-top: 32px; margin-bottom: 12px; }
+.section p { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 16px; }
+.section p strong { color: var(--color-text); font-weight: 600; }
+.section ul, .section ol { padding-left: 20px; margin-bottom: 16px; }
+.section li { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 10px; line-height: 1.65; }
+.section li strong { color: var(--color-text); font-weight: 600; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 20px; text-align: center; }
+.stat-card .stat-value { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; font-weight: 700; color: var(--color-accent); line-height: 1.1; }
+.stat-card .stat-value.danger { color: var(--color-danger); }
+.stat-card .stat-value.success { color: var(--color-success); }
+.stat-card .stat-label { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 6px; line-height: 1.4; }
+.callout { border-left: 3px solid var(--color-accent); background: var(--color-accent-light); padding: 16px 20px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 24px 0; }
+.callout p { font-size: 0.9rem; color: var(--color-text); margin: 0; font-weight: 500; line-height: 1.6; }
+.callout.warning { border-left-color: var(--color-highlight-border); background: var(--color-highlight); }
+.callout.action { border-left-color: var(--color-success); background: var(--color-success-light); }
+.callout-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 4px; display: block; }
+.callout .callout-label { color: var(--color-accent); }
+.callout.warning .callout-label { color: var(--color-kpi-amber); }
+.callout.action .callout-label { color: var(--color-success); }
+.table-wrap { overflow-x: auto; margin: 24px 0; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+thead { background: var(--color-bg); }
+th { padding: 12px 16px; text-align: left; font-weight: 600; color: var(--color-text); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid var(--color-border); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--color-border); color: var(--color-text-secondary); line-height: 1.5; }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--color-text); font-weight: 600; }
+.kpi-target { color: var(--color-kpi-green); font-weight: 600; }
+.kpi-warning { color: var(--color-kpi-amber); font-weight: 600; }
+.tech-stack { margin: 24px 0; display: flex; flex-direction: column; gap: 8px; }
+.stack-layer { display: flex; align-items: center; gap: 16px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.stack-label { min-width: 130px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 4px; text-align: center; }
+.stack-label.gen-ai { background: #1A1A2E; color: #fff; }
+.stack-label.ai-ml { background: #0F5FE0; color: #fff; }
+.stack-label.rpa { background: var(--color-accent-light); color: var(--color-accent-dark); }
+.stack-label.counter-ai { background: #DC3545; color: #fff; }
+.stack-desc { font-size: 0.88rem; color: var(--color-text-secondary); }
+.checklist { list-style: none; padding: 0; margin: 24px 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 0.925rem; color: var(--color-text-secondary); line-height: 1.55; }
+.checklist li:last-child { border-bottom: none; }
+.check-box { flex-shrink: 0; width: 20px; height: 20px; border: 2px solid var(--color-accent); border-radius: 4px; margin-top: 2px; }
+.checklist li strong { color: var(--color-text); }
+.big-stat { text-align: center; padding: 48px 24px; background: linear-gradient(135deg, #0A4ABF 0%, #0F5FE0 100%); border-radius: var(--radius-lg); margin: 32px 0; color: #fff; }
+.big-stat .stat-number { font-family: 'Playfair Display', Georgia, serif; font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+.big-stat .stat-desc { font-size: 0.95rem; opacity: 0.9; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+.sources { margin-top: 16px; padding-top: 16px; }
+.sources-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 6px; }
+.sources a { font-size: 0.8rem; color: var(--color-accent); text-decoration: none; transition: color 0.2s; }
+.sources a:hover { color: var(--color-accent-dark); text-decoration: underline; }
+.sources .sep { color: var(--color-text-muted); margin: 0 6px; font-size: 0.75rem; }
+.footer { padding: 40px 0 48px; text-align: center; color: var(--color-text-muted); font-size: 0.82rem; line-height: 1.7; }
+.footer-divider { width: 48px; height: 2px; background: var(--color-border); margin: 0 auto 24px; }
+.footer p { margin-bottom: 8px; }
+@media (max-width: 600px) {
+.newsletter-wrapper { padding: 0 20px; }
+.header { padding: 32px 0 28px; }
+.header h1 { font-size: 1.6rem; }
+.section { padding: 36px 0; }
+.section h2 { font-size: 1.3rem; }
+.stat-row { grid-template-columns: 1fr 1fr; }
+.stat-card .stat-value { font-size: 1.5rem; }
+.big-stat .stat-number { font-size: 2.2rem; }
+.big-stat { padding: 36px 20px; }
+.header-meta { flex-direction: column; gap: 4px; }
+.meta-dot { display: none; }
+.stack-label { min-width: 100px; font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+<canvas id="bubbles-bg" aria-hidden="true"></canvas>
+<div class="newsletter-wrapper">
+
+<header class="header">
+<div class="header-brand">
+<div class="header-logo">RP</div>
+<h1>RCM Pulse Weekly</h1>
+</div>
+<div class="header-subtitle">Revenue Cycle Management Intelligence for Medical Practices</div>
+<div class="header-meta">
+<span>May 29, 2026</span>
+<div class="meta-dot"></div>
+<span>Volume 5, Issue 5</span>
+</div>
+</header>
+
+<nav class="toc">
+<div class="toc-label">In This Issue</div>
+<ol class="toc-list">
+<li><a href="#regulatory"><span class="toc-num">01</span> CMS Proposes $775 Billion Medicaid Shake-Up: State-Directed Payments Capped at Medicare Rates &mdash; What Practices Billing Medicaid Must Know Now</a></li>
+<li><a href="#prior-auth"><span class="toc-num">02</span> UnitedHealthcare Eliminates Prior Authorization for 30% of Services Affecting 50 Million Members &mdash; Echocardiograms, Outpatient Surgery &amp; Therapies Among First to Go</a></li>
+<li><a href="#ai-automation"><span class="toc-num">03</span> Innovaccer Acquires CaduceusHealth in $66M Deal to Build the First Autonomous RCM Platform &mdash; Agentic AI Takes On $5 Billion in Annual Patient Charges</a></li>
+<li><a href="#coding"><span class="toc-num">04</span> CPT 2026 AI-Assisted Diagnostic Codes Now Live: Billable Codes for Lung Nodule Detection, Stroke AI &amp; Mammogram Comparison &mdash; Are You Capturing Them?</a></li>
+<li><a href="#revenue-velocity"><span class="toc-num">05</span> The 97% Clean Claims Benchmark: Every Point Below Costs 0.3&ndash;0.5 Days in AR &mdash; And the Automation Stack That Gets You There</a></li>
+<li><a href="#tech-spotlight"><span class="toc-num">06</span> Autonomous Coding Achieves 98% NLP Accuracy as Agentic AI Expands &mdash; The RCM Tech Consolidation Wave Accelerates in Q2 2026</a></li>
+<li><a href="#compliance"><span class="toc-num">07</span> CMS Price Transparency Enforcement Now Active: MRFs Must Include Median Allowed Amounts, Type 2 NPIs &amp; CEO Attestation</a></li>
+<li><a href="#independent-practice"><span class="toc-num">08</span> Independent Practice Watch: The 2026 Margin Compression Survival Guide &mdash; Fighting Back Against 60% Never-Resubmitted Denials &amp; 16-Hour PA Weeks</a></li>
+<li><a href="#specialty"><span class="toc-num">09</span> Specialty RCM Spotlight: Primary Care, Cardiology, Orthopedics, Oncology, Mental Health, Radiology, Neurology, Gastroenterology</a></li>
+<li><a href="#action-items"><span class="toc-num">10</span> This Week&rsquo;s Action Items</a></li>
+</ol>
+</nav>
+
+<!-- SECTION 01 -->
+<section class="section" id="regulatory">
+<div class="section-number">Section 01</div>
+<h2>CMS Proposes $775 Billion Medicaid Shake-Up: State-Directed Payments Capped at Medicare Rates &mdash; What Practices Billing Medicaid Must Know Now</h2>
+<p>On May 20, 2026, CMS published a landmark proposed rule (<strong>CMS-2449-P</strong>) that would fundamentally restructure how states fund Medicaid supplemental payments &mdash; and how much physicians in Medicaid-heavy practices can expect to receive. The proposed rule targets <strong>state-directed payments (SDPs)</strong> and certain targeted fee-for-service supplemental payments, proposing to cap them at Medicare rate equivalents and phase out entire payment categories over time.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">$775B</div>
+<div class="stat-label">Projected 10-year savings if rule is finalized</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">$510B</div>
+<div class="stat-label">Federal savings component over 10 years</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">100%</div>
+<div class="stat-label">Medicare rate cap for expansion state Medicaid SDPs</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">Jul 21</div>
+<div class="stat-label">Comment deadline for CMS-2449-P</div>
+</div>
+</div>
+
+<h3>What Is Being Proposed</h3>
+<p>The rule proposes to extend limits on total payment rates for <strong>all state-directed payments</strong> across service categories, tying payment levels to Medicare rates. Specifically:</p>
+<ul>
+<li>Cap state-directed payments at <strong>100% of Medicare rates</strong> in Medicaid expansion states</li>
+<li>Cap at <strong>110% of Medicare rates</strong> in non-expansion states</li>
+<li>Apply caps for rating periods beginning on or after <strong>July 4, 2025</strong></li>
+<li>Phase out &ldquo;uniform increase&rdquo; payment arrangements entirely over time</li>
+</ul>
+
+<h3>Why This Matters for Independent Practices</h3>
+<p>Many independent physician groups &mdash; particularly in primary care, behavioral health, FQHC-adjacent specialties, and rural medicine &mdash; derive meaningful revenue from Medicaid managed care plans whose supplemental rates currently exceed Medicare baselines. If finalized as proposed:</p>
+<ul>
+<li>Practices in expansion states billing MCOs that currently receive above-Medicare Medicaid rates will face reimbursement reductions</li>
+<li>The phase-out of uniform increase arrangements removes a funding layer that has historically propped up primary care reimbursement in many states</li>
+<li>Rural hospitals and safety-net practices face the most concentrated financial exposure</li>
+</ul>
+
+<h3>Concurrent Fee Schedule Pressure</h3>
+<p>The CY 2026 Physician Fee Schedule maintains its two-tier APM conversion factor structure: qualifying APM participants receive <strong>3.77%</strong> versus <strong>3.26% for non-APM participants</strong>. Combined with the across-the-board <strong>&minus;2.5% efficiency adjustment</strong>, non-APM practices face a compounding Medicare reimbursement headwind entering the second half of 2026.</p>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>If your practice has a Medicaid payer mix above 20%, pull your state&rsquo;s current Medicaid managed care contract rates and compare them to the Medicare equivalent. Identify which service lines rely on state-directed payment supplements. The comment deadline is July 21 &mdash; and the financial modeling is worth doing now regardless of the final rule outcome.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/newsroom/fact-sheets/medicaid-managed-care-state-directed-payments-medicaid-fee-service-targeted-medicaid-practitioner" target="_blank">CMS &mdash; Medicaid State Directed Payments Proposed Rule CMS-2449-P</a>
+<span class="sep">&middot;</span>
+<a href="https://www.aha.org/news/headline/2026-05-20-cms-issues-proposed-rule-medicaid-supplemental-payments" target="_blank">AHA News &mdash; CMS Issues Proposed Rule on Medicaid Supplemental Payments</a>
+<span class="sep">&middot;</span>
+<a href="https://www.federalregister.gov/documents/2026/05/22/2026-10292/medicaid-program-medicaid-managed-care-state-directed-payments-and-medicaid-fee-for-service-targeted" target="_blank">Federal Register Vol. 91 No. 97, May 22, 2026</a>
+<span class="sep">&middot;</span>
+<a href="https://ccf.georgetown.edu/2026/05/28/cms-triples-harmful-impact-of-hr-1-medicaid-provider-cuts-in-state-directed-payment-proposed-rule/" target="_blank">Georgetown CCF &mdash; CMS Triples Harmful Impact of HR 1 Medicaid Provider Cuts</a>
+<span class="sep">&middot;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2026-medicare-physician-fee-schedule-final-rule-cms-1832-f" target="_blank">CMS &mdash; CY 2026 Physician Fee Schedule Final Rule CMS-1832-F</a>
+</div>
+</section>
+
+<!-- SECTION 02 -->
+<section class="section" id="prior-auth">
+<div class="section-number">Section 02</div>
+<h2>UnitedHealthcare Eliminates Prior Authorization for 30% of Services Affecting 50 Million Members &mdash; Echocardiograms, Outpatient Surgery &amp; Therapies Among First to Go</h2>
+<p>In the most significant single-payer prior authorization reduction in U.S. healthcare history, UnitedHealthcare announced on <strong>May 5, 2026</strong> that it will eliminate prior authorization requirements for approximately <strong>30% of services</strong> that currently require advance approval, with full implementation by year-end 2026. The announcement affects approximately <strong>50 million members</strong> across commercial, Medicare Advantage, and employer-sponsored plans.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value success">30%</div>
+<div class="stat-label">PA services eliminated by UHC by year-end 2026</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">50M</div>
+<div class="stat-label">Members affected across all plan types</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">6.5M</div>
+<div class="stat-label">Fewer PA requests industry-wide in 2026 (AHIP)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">11%</div>
+<div class="stat-label">Industry-wide reduction in total PA volume (AHIP 2026)</div>
+</div>
+</div>
+
+<h3>What Is Being Eliminated</h3>
+<p>UHC identified several high-friction categories as the first wave of PA eliminations:</p>
+<ul>
+<li>Select <strong>outpatient surgeries</strong> (full list to be published on UHCProvider.com before changes take effect)</li>
+<li><strong>Diagnostic tests</strong> including echocardiograms and select imaging studies</li>
+<li>Certain <strong>outpatient therapies</strong> &mdash; physical therapy, occupational therapy, and speech-language pathology</li>
+<li><strong>Chiropractic care</strong> services</li>
+</ul>
+
+<h3>Industry-Wide PA Reduction Scoreboard</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Payer</th><th>2026 PA Action</th><th>Members Impacted</th><th>Timeline</th></tr></thead>
+<tbody>
+<tr><td><strong>UnitedHealthcare</strong></td><td>Eliminate PA for 30% of services</td><td>~50 million</td><td><span class="kpi-target">By year-end 2026</span></td></tr>
+<tr><td><strong>Cigna</strong></td><td>Migrated to CoverMyMeds; 70%+ medical PA standardized</td><td>~20 million commercial</td><td><span class="kpi-target">Completed</span></td></tr>
+<tr><td><strong>Aetna</strong></td><td>95%+ of eligible PAs approved within 24 hrs; 88% volume standardized</td><td>~39 million</td><td>Ongoing</td></tr>
+<tr><td><strong>Humana</strong></td><td>3-tier PA reform; Gold Carding for qualifying providers</td><td>~16 million Medicare Adv.</td><td>Q1&ndash;Q2 2026</td></tr>
+<tr><td><strong>Industry (AHIP)</strong></td><td>11% reduction in total PA volume = 6.5M fewer PA requests</td><td>All major plans</td><td>2025&ndash;2026</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>CMS Early Adopter Initiative (May 13, 2026)</h3>
+<p>On May 13, CMS launched a new <strong>Early Adopter Initiative</strong> to facilitate <strong>electronic prior authorization (ePA) adoption</strong> ahead of the 2027 regulatory deadline (CMS-0057-F). The initiative accelerates implementation of HL7 FHIR-based ePA APIs across Medicare Advantage, Medicaid MCOs, CHIP, and Marketplace plans. The 2026 benchmark already in effect: impacted payers must issue PA decisions within <strong>72 hours for standard requests</strong> and <strong>24 hours for expedited requests</strong>.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Log into UHCProvider.com and download the updated PA requirement list for your specialty. If you bill echocardiograms, outpatient therapy, or select outpatient surgery, identify the elimination timeline and update your scheduling team&rsquo;s authorization workflow before the changes take effect. Practices with high diagnostic imaging or therapy volumes can recover 20&ndash;35 minutes per avoided PA request &mdash; and should update intake workflows now.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.unitedhealthgroup.com/newsroom/2026/2026-05-05-uhc-cuts-prior-authorization-requirements-by-30-percent.html" target="_blank">UnitedHealth Group &mdash; UHC Cuts Prior Authorization Requirements by 30% (May 5, 2026)</a>
+<span class="sep">&middot;</span>
+<a href="https://www.uhc.com/news-articles/newsroom/prior-authorization-reform" target="_blank">UHCProvider.com &mdash; Prior Authorization Reform</a>
+<span class="sep">&middot;</span>
+<a href="https://www.fiercehealthcare.com/payers/unitedhealthcare-reduce-prior-auth-requirements-30" target="_blank">Fierce Healthcare &mdash; UHC to Reduce Prior Auth Requirements by 30%</a>
+<span class="sep">&middot;</span>
+<a href="https://pcghealthpolicy.com/2026/05/27/prior-authorization-in-2026/amp/" target="_blank">PCG Health Policy &mdash; Prior Authorization in 2026</a>
+<span class="sep">&middot;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/2026-cms-interoperability-standards-prior-authorization-drugs-proposed-rule" target="_blank">CMS &mdash; 2026 Interoperability Standards and Prior Authorization for Drugs Proposed Rule</a>
+</div>
+</section>
+
+<!-- SECTION 03 -->
+<section class="section" id="ai-automation">
+<div class="section-number">Section 03</div>
+<h2>Innovaccer Acquires CaduceusHealth in $66M Deal to Build the First Autonomous RCM Platform &mdash; Agentic AI Takes On $5 Billion in Annual Patient Charges</h2>
+<p>The largest RCM AI acquisition of 2026 closed on <strong>May 21, 2026</strong>: Innovaccer announced its asset acquisition of <strong>CaduceusHealth</strong> &mdash; a nationally recognized revenue cycle management services provider serving nearly <strong>4,000 providers</strong> and managing <strong>$5 billion in gross patient charges annually</strong> across every major EHR system. The deal, reported at approximately <strong>$66 million</strong>, marks Innovaccer&rsquo;s fifth acquisition and represents the clearest signal yet that the RCM market is consolidating around autonomous AI platforms.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">$66M</div>
+<div class="stat-label">Reported acquisition price (Innovaccer + CaduceusHealth)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">4,000</div>
+<div class="stat-label">Providers served by CaduceusHealth</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">$5B</div>
+<div class="stat-label">Annual gross patient charges managed</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">59%</div>
+<div class="stat-label">Healthcare executives who haven&rsquo;t yet implemented AI in RCM</div>
+</div>
+</div>
+
+<h3>Why This Deal Is Different</h3>
+<p>Most prior RCM acquisitions combined complementary services into a larger managed billing operation. The Innovaccer-CaduceusHealth deal explicitly targets <strong>autonomous revenue cycle operation</strong> &mdash; AI systems that replace human billing staff rather than assisting them. The combined platform, Innovaccer&rsquo;s Flow suite, is now positioned as the first AI-native platform that unifies scheduling, patient engagement, and end-to-end revenue cycle management into a single operating layer for ambulatory care.</p>
+
+<h3>The Agentic AI Shift</h3>
+<p>Unlike earlier AI tools that flagged issues for human review, <strong>agentic AI systems</strong> autonomously execute multi-step RCM tasks &mdash; eligibility check through claim submission through denial triage &mdash; escalating to humans only for flagged exceptions above defined confidence thresholds.</p>
+
+<div class="tech-stack">
+<div class="stack-layer">
+<span class="stack-label gen-ai">Agentic AI</span>
+<span class="stack-desc">Full autonomous RCM execution: eligibility &rarr; coding &rarr; claim submission &rarr; denial triage without human initiation &mdash; Innovaccer Flow, AKASA (90&ndash;120 day ROI)</span>
+</div>
+<div class="stack-layer">
+<span class="stack-label gen-ai">Generative AI</span>
+<span class="stack-desc">Appeal writing, ambient documentation, CDI improvement &mdash; AKASA, Notable, Thoughtful AI (60&ndash;90 day ROI)</span>
+</div>
+<div class="stack-layer">
+<span class="stack-label ai-ml">AI / ML</span>
+<span class="stack-desc">Autonomous coding, denial prediction before submission, underpayment detection &mdash; Fathom, Nym Health, Waystar (30&ndash;60 day ROI)</span>
+</div>
+<div class="stack-layer">
+<span class="stack-label rpa">RPA</span>
+<span class="stack-desc">Eligibility verification, claim status, payment posting &mdash; Waystar, Availity, clearinghouse automation (30&ndash;45 day ROI)</span>
+</div>
+</div>
+
+<p>Traditional claims processing takes <strong>30 to 45 days</strong>; AI-powered systems compress that to <strong>2 to 7 business days</strong> &mdash; a transformation that directly improves cash flow for the thousands of practices managing collections monthly.</p>
+
+<div class="callout">
+<span class="callout-label">Bottom Line</span>
+<p>The Innovaccer-CaduceusHealth deal defines the end-state the RCM market is building toward: autonomous AI that manages billing from charge capture to collections. Practices watching this acquisition should ask their current RCM vendor one question: &ldquo;What is your autonomous RCM roadmap for practices under 20 physicians?&rdquo; The answer will tell you whether your current vendor sees you as part of their future.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.businesswire.com/news/home/20260521277422/en/Innovaccer-Acquires-CaduceusHealth-to-Make-Revenue-Cycle-Autonomous" target="_blank">BusinessWire &mdash; Innovaccer Acquires CaduceusHealth to Make Revenue Cycle Autonomous (May 21, 2026)</a>
+<span class="sep">&middot;</span>
+<a href="https://www.healthcareitnews.com/news/innovaccer-acquires-caduceushealth-eye-toward-autonomous-rcm" target="_blank">Healthcare IT News &mdash; Innovaccer Acquires CaduceusHealth with Eye Toward Autonomous RCM</a>
+<span class="sep">&middot;</span>
+<a href="https://hitconsultant.net/2026/05/21/innovaccer-acquires-caduceushealth/" target="_blank">HIT Consultant &mdash; Innovaccer Acquires CaduceusHealth to Build Autonomous AI Revenue Cycle Platform</a>
+<span class="sep">&middot;</span>
+<a href="https://www.oliverwyman.com/our-expertise/perspectives/health/2026/may/ai-impact-revenue-cycle-healthcare.html" target="_blank">Oliver Wyman &mdash; How AI Is Transforming Revenue Cycle Management Right Now (May 2026)</a>
+<span class="sep">&middot;</span>
+<a href="https://www.experian.com/blogs/healthcare/rcm-and-ai/" target="_blank">Experian Health &mdash; AI in Healthcare RCM: 2026 Opportunities and Insights</a>
+</div>
+</section>
+
+<!-- SECTION 04 -->
+<section class="section" id="coding">
+<div class="section-number">Section 04</div>
+<h2>CPT 2026 AI-Assisted Diagnostic Codes Now Live: Billable Codes for Lung Nodule Detection, Stroke AI &amp; Mammogram Comparison &mdash; Are You Capturing Them?</h2>
+<p>CPT 2026 introduced several coding advances that are directly billable today &mdash; yet most practices have not updated their superbills or chargemasters to capture them. Five months into the CPT 2026 cycle, revenue from new AI-assisted diagnostic codes remains largely uncaptured at independent practices.</p>
+
+<h3>New Radiology AI Category I Codes (CPT 2026)</h3>
+<p>The AMA CPT 2026 code set includes new <strong>Category I codes</strong> for AI tools performing specific diagnostic functions:</p>
+<ul>
+<li><strong>Lung nodule detection on chest CT</strong> &mdash; AI analysis of CT scan for pulmonary nodule identification</li>
+<li><strong>Stroke sign detection on brain MRI/CT</strong> &mdash; AI-assisted identification of acute stroke indicators</li>
+<li><strong>Automated comparison of prior mammograms</strong> &mdash; AI-driven comparison analysis supporting radiologist review</li>
+</ul>
+<p>These codes require physician attestation that the AI tool was used and that the physician reviewed the AI output as part of the clinical decision. Practices that have integrated AI diagnostic tools but have not billed the corresponding CPT codes are leaving newly established revenue on the table.</p>
+
+<h3>Telehealth Code Restructuring &mdash; CPT 98016 Replaces G2012</h3>
+<p>A new telemedicine subsection added <strong>17 codes</strong> for synchronous evaluation and management across new and established patients. Key transition: <strong>CPT 98016</strong> replaces <strong>HCPCS G2012</strong> for brief virtual check-ins. Practices still billing G2012 should update billing systems immediately to avoid rejections.</p>
+
+<h3>AMA Appendix S &mdash; AI Classification Framework</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>AI Category</th><th>Definition</th><th>Billing Implication</th></tr></thead>
+<tbody>
+<tr><td><strong>Assistive AI</strong></td><td>Provides alerts/suggestions; clinician retains full decision authority</td><td>No separate billable code; embedded in E/M</td></tr>
+<tr><td><strong>Augmentative AI</strong></td><td>Performs analysis that augments but does not replace clinical judgment</td><td>New Category III codes in imaging &amp; physiology</td></tr>
+<tr><td><strong>Autonomous AI</strong></td><td>Executes clinical task independently; human review of output only</td><td>Category I codes where approved; attestation required</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Behavioral Health Coding &mdash; Protected From Efficiency Cut</h3>
+<p>CMS specifically <strong>exempted behavioral health and psychiatry services</strong> from the &minus;2.5% RVU efficiency adjustment in CY 2026, including psychotherapy codes, psychiatric E/M, behavioral health integration (BHI) codes, and remote mental health service G-codes. Digital mental health bundles and BHI codes received <strong>stronger payment structures</strong> in the 2026 fee schedule.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>If your practice employs AI diagnostic tools &mdash; even as a licensed module within your EHR or PACS &mdash; review whether those tools qualify for the new CPT 2026 Category I billing codes. The attestation requirement is straightforward: document that the AI was used, identify the tool, and note that you reviewed its output. Missed billing on AI-assisted reads is pure revenue leakage from a capability you are already paying for.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.aapc.com/codes/" target="_blank">AAPC Codify &mdash; CPT 2026 Coding Updates and Revisions</a>
+<span class="sep">&middot;</span>
+<a href="https://promdmedicalbilling.com/2026-icd-10-and-cpt-code-updates-for-medical-billing/" target="_blank">ProMD Medical Billing &mdash; 2026 ICD-10 and CPT Code Updates</a>
+<span class="sep">&middot;</span>
+<a href="https://www.acr.org/News-and-Publications/2026-radiology-coding-updates-now-available" target="_blank">ACR &mdash; 2026 Radiology Coding Updates Now Available</a>
+<span class="sep">&middot;</span>
+<a href="https://www.tebra.com/theintake/getting-paid/icd-10-coding-updates" target="_blank">Tebra &mdash; Boost Financial Health with 2025 and 2026 Coding Updates</a>
+<span class="sep">&middot;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2026-medicare-physician-fee-schedule-final-rule-cms-1832-f" target="_blank">CMS &mdash; CY 2026 Physician Fee Schedule Final Rule CMS-1832-F</a>
+</div>
+</section>
+
+<!-- SECTION 05 -->
+<section class="section" id="revenue-velocity">
+<div class="section-number">Section 05</div>
+<h2>The 97% Clean Claims Benchmark: Every Point Below Costs 0.3&ndash;0.5 Days in AR &mdash; And the Automation Stack That Gets You There</h2>
+<p>The 2026 RCM benchmark consensus has tightened the clean claims standard: <strong>97% is now the practice-of-choice target</strong>, with top performers reaching 98&ndash;99%+. Every percentage point below the target adds <strong>0.3 to 0.5 days to your AR aging</strong> &mdash; and every point above removes the same, compounding across the full claims volume.</p>
+
+<h3>2026 RCM KPI Dashboard</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>KPI</th><th>Best Practice Target</th><th>Warning Level</th><th>Typical Range</th></tr></thead>
+<tbody>
+<tr><td>Clean Claims Rate</td><td><span class="kpi-target">97%+</span></td><td><span class="kpi-warning">&lt;95%</span></td><td>85&ndash;96%</td></tr>
+<tr><td>Days in AR (Physician Groups)</td><td><span class="kpi-target">30&ndash;40 days</span></td><td><span class="kpi-warning">&gt;45 days</span></td><td>30&ndash;60 days</td></tr>
+<tr><td>Days in AR (Multi-Specialty)</td><td><span class="kpi-target">28&ndash;40 days</span></td><td><span class="kpi-warning">&gt;50 days</span></td><td>30&ndash;50 days</td></tr>
+<tr><td>Days in AR (Top Performers)</td><td><span class="kpi-target">&lt;25 days</span></td><td>&mdash;</td><td>&mdash;</td></tr>
+<tr><td>First-Pass Resolution Rate</td><td><span class="kpi-target">95%+</span></td><td><span class="kpi-warning">&lt;90%</span></td><td>80&ndash;94%</td></tr>
+<tr><td>Denial Rate</td><td><span class="kpi-target">&lt;5%</span></td><td><span class="kpi-warning">&gt;10%</span></td><td>5&ndash;15%</td></tr>
+<tr><td>AR Over 90 Days</td><td><span class="kpi-target">&lt;10% of AR</span></td><td><span class="kpi-warning">&gt;20%</span></td><td>8&ndash;25%</td></tr>
+<tr><td>Charge-to-Submission Lag</td><td><span class="kpi-target">&lt;5 days</span></td><td><span class="kpi-warning">&gt;7 days</span></td><td>3&ndash;12 days</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The Compounding Impact of Charge-to-Submission Lag</h3>
+<p>HFMA benchmarks the charge-to-submission lag at <strong>under 5 days</strong> as best practice. Reducing charge-to-submission from 10 days to 4 days removes <strong>6 full days from average Days in AR</strong>. For a practice with $500,000 in monthly charges and a 35-day AR, shaving 6 days off the average adds approximately <strong>$100,000 in accelerated collections per month</strong> &mdash; cash previously delayed by internal process gaps, not payer behavior.</p>
+
+<h3>The Denial Economics That Drive the Urgency</h3>
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">$25</div>
+<div class="stat-label">Average cost to rework a single denied claim</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">60%</div>
+<div class="stat-label">Denied claims never resubmitted (industry average)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">~90%</div>
+<div class="stat-label">Denials that are preventable at the point of submission</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">42%</div>
+<div class="stat-label">Denial rate reduction achievable with real-time eligibility automation</div>
+</div>
+</div>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Calculate your practice&rsquo;s current Days in AR and clean claims rate this week. If your CCR is below 95%, identify the top 3 denial reason codes by volume and trace them back to the point in the workflow where they originate. Most practices will find the root cause is upstream &mdash; in scheduling, registration, or documentation &mdash; not in billing. Fix the source, not the downstream denial.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.mbwrcm.com/the-revenue-cycle-blog/improving-days-in-ar-a-best-practices-guide-to-improve-your-revenue-cycle" target="_blank">MBWRCM &mdash; How to Reduce Days in AR: 2026 Benchmarks + 12 Proven Strategies</a>
+<span class="sep">&middot;</span>
+<a href="https://www.plutushealthinc.com/post/revenue-cycle-management-kpi" target="_blank">Plutus Health &mdash; RCM KPI Guide 2026: Key Metrics, Benchmarks &amp; Quick-Win Strategies</a>
+<span class="sep">&middot;</span>
+<a href="https://claimmaxrcm.com/what-is-clean-claim-in-medical-billing/" target="_blank">ClaimMaxRCM &mdash; What Is a Clean Claim in Medical Billing? 2026 Complete Guide</a>
+<span class="sep">&middot;</span>
+<a href="https://www.revenuesynergy.com/resources/medical-billing-benchmarks.html" target="_blank">Revenue Synergy &mdash; 2026 Medical Billing Benchmarks by Specialty</a>
+<span class="sep">&middot;</span>
+<a href="https://www.r1rcm.com/articles/5-revenue-cycle-metrics-profitable-practices-are-measuring/" target="_blank">R1 RCM &mdash; Five Revenue Cycle Metrics Profitable Practices Are Measuring</a>
+</div>
+</section>
+
+<!-- SECTION 06 -->
+<section class="section" id="tech-spotlight">
+<div class="section-number">Section 06</div>
+<h2>Autonomous Coding Achieves 98% NLP Accuracy as Agentic AI Expands &mdash; The RCM Tech Consolidation Wave Accelerates in Q2 2026</h2>
+<p>The Q2 2026 RCM technology market is characterized by two parallel dynamics: <strong>consolidation at the top</strong> (platform vendors acquiring point solutions to offer end-to-end autonomous workflows) and <strong>commoditization at the bottom</strong> (basic eligibility and claim status automation now available through any clearinghouse). Practices that fail to distinguish between these tiers risk paying platform prices for commodity capabilities.</p>
+
+<h3>Autonomous Coding &mdash; State of the Market</h3>
+<p>NLP-based autonomous coding systems now achieve <strong>98% coding accuracy</strong> across high-volume encounter types when trained on practice-specific documentation patterns. The value proposition has shifted from accuracy (which has crossed the clinical acceptance threshold) to scope &mdash; which specialties, encounter types, and documentation styles the system handles without human touchback.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Vendor</th><th>EHR Integration</th><th>Specialty Depth</th><th>Touchback Rate</th><th>Key Differentiator</th></tr></thead>
+<tbody>
+<tr><td><strong>Fathom</strong></td><td>Epic App Orchard (native)</td><td>Broad multi-specialty</td><td>&lt;10% routine visits</td><td>Epic-native; no integration project required</td></tr>
+<tr><td><strong>Nym Health</strong></td><td>Epic, Cerner, Athena</td><td>Multi-specialty</td><td>&lt;12% complex cases</td><td>Clinical NLU depth</td></tr>
+<tr><td><strong>CodaMetrix</strong></td><td>Epic, Cerner</td><td>Surgical/procedural</td><td>&lt;15% complex procedures</td><td>Procedural coding strength</td></tr>
+<tr><td><strong>Innovaccer Flow</strong></td><td>All major EHRs via CaduceusHealth</td><td>Ambulatory broad</td><td>Varies by specialty</td><td>Full-stack RCM platform</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>What Agentic AI Can Do Now</h3>
+<p>The most advanced practices are running agentic AI systems that execute full RCM workflows without human initiation: eligibility check to PA initiation to CDI suggestion to coding to claim scrub to submission in a single automated chain. Denial received to reason code parsed to correction identified to claim amended to resubmitted &mdash; within hours. According to the Getprosper.AI RCM Automation Guide (May 2026), practices achieve <strong>46% reductions in coding time</strong> for complex cases and accuracy rates of <strong>90%+ in targeted clinical domains</strong>.</p>
+
+<h3>RCM Vendor Landscape &mdash; Q2 2026</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Category</th><th>Leading Vendors</th><th>Q2 2026 Trend</th></tr></thead>
+<tbody>
+<tr><td>Full-Stack Autonomous RCM</td><td>Innovaccer Flow, AKASA</td><td>Consolidating via acquisition</td></tr>
+<tr><td>Clearinghouse / Claim Mgmt</td><td>Waystar, Availity, Quadax</td><td>Expanding AI denial prediction</td></tr>
+<tr><td>Autonomous Coding</td><td>Fathom, Nym Health, CodaMetrix</td><td>Entering native EHR ecosystems</td></tr>
+<tr><td>Denial Management</td><td>Aspirion, Experian Health, Enter Health</td><td>AI prediction + human expertise hybrid</td></tr>
+<tr><td>Patient Financial Engagement</td><td>Waystar, Cedar, Patientco</td><td>Automating statements + payment plans</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>The RCM technology consolidation wave in Q2 2026 is creating a bifurcated market. Winning vendors are building full-stack platforms that own the entire claim lifecycle &mdash; and acquiring human expertise to train and validate their AI. Practices evaluating vendors should prioritize platform players that can grow from automation to autonomy, rather than point solutions that will require replacement as the market matures.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://hitconsultant.net/2026/04/02/ambient-ai-roi-autonomous-coding-rcm-denial-prevention/" target="_blank">HIT Consultant &mdash; Why the Real ROI of Ambient AI Is Autonomous Coding (April 2026)</a>
+<span class="sep">&middot;</span>
+<a href="https://www.getprosper.ai/blog/rcm-automation-healthcare-guide" target="_blank">Getprosper.AI &mdash; RCM Automation in Healthcare: May 2026 Guide</a>
+<span class="sep">&middot;</span>
+<a href="https://blog.quadax.com/ai-and-beyond-whats-ahead-for-healthcare-rcm-in-2026" target="_blank">Quadax &mdash; AI and Beyond: What&rsquo;s Ahead for Healthcare RCM in 2026</a>
+<span class="sep">&middot;</span>
+<a href="https://innovaccer.com/resources/blogs/selecting-agentic-ai-healthcare" target="_blank">Innovaccer &mdash; Top 12 AI RCM Solutions 2026 for Healthcare</a>
+<span class="sep">&middot;</span>
+<a href="https://www.healthcarefinancenews.com/news/payer-denials-and-prior-authorization-delays-are-top-rcm-concerns" target="_blank">Healthcare Finance News &mdash; Payer Denials and Prior Authorization Delays Are Top RCM Concerns</a>
+</div>
+</section>
+
+<!-- SECTION 07 -->
+<section class="section" id="compliance">
+<div class="section-number">Section 07</div>
+<h2>CMS Price Transparency Enforcement Now Active: MRFs Must Include Median Allowed Amounts, Type 2 NPIs &amp; CEO Attestation</h2>
+<p>CMS formalized a new round of hospital price transparency requirements in the <strong>CY 2026 OPPS/ASC Final Rule</strong> (November 2025), with compliance technically required by January 1, 2026, and <strong>enforcement active as of April 1, 2026</strong>. Practices operating as hospital outpatient departments or ASC-affiliated entities need to verify compliance with the updated machine-readable file (MRF) standards.</p>
+
+<h3>What Changed in the 2026 Price Transparency Update</h3>
+<p>Three specific additions to hospital MRF requirements are now enforceable:</p>
+<ul>
+<li><strong>Median Allowed Amounts Required</strong> &mdash; Hospitals must replace the estimated allowed amount with the <strong>median allowed amount</strong> and add the <strong>10th and 90th percentile allowed amounts</strong>. This shifts transparency from theoretical charges to actual negotiated amounts.</li>
+<li><strong>Type 2 NPI Required</strong> &mdash; Hospitals must include <strong>Type 2 NPIs</strong> specifically for codes 27 (hospital unit) and 28 (hospital), enabling CMS to cross-reference MRFs against health plan transparency files for consistency.</li>
+<li><strong>CEO Attestation Required</strong> &mdash; Hospital MRFs must include a formal attestation that all standard charge information is &ldquo;true, accurate, and complete,&rdquo; along with the <strong>name of the CEO, President, or designated senior official</strong> &mdash; creating explicit executive accountability.</li>
+</ul>
+
+<h3>Health Plan Transparency in Coverage Updates</h3>
+<p>CMS proposed updates to the <strong>Transparency in Coverage (TiC) rules</strong> for health plans (December 2025), aiming to make payer and TPA pricing data more standardized and accessible. As TiC data accuracy improves, <strong>underpayment detection</strong> becomes more actionable for practices with contract analytics tools &mdash; AI platforms can now compare payer MRF rates against your remittances to identify systematic underpayment patterns.</p>
+
+<h3>Ongoing HIPAA Enforcement &mdash; Tracking Technologies</h3>
+<p>The Office for Civil Rights (OCR) continues its enforcement campaign targeting <strong>third-party tracking pixels</strong> embedded in practice websites and patient portals. OCR has issued penalties ranging from <strong>$50,000 to $1.9 million</strong> in 2025&ndash;2026 enforcement actions. Practices that have not audited their patient-facing digital properties remain exposed.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>If your practice operates under a hospital outpatient department or ASC facility arrangement, confirm your MRF was updated by April 1, 2026 with median allowed amounts, Type 2 NPIs, and the CEO attestation statement. For independent practices, audit your patient portal and website for third-party tracking scripts &mdash; free tools like Blacklight (themarkup.org) scan public-facing pages without technical expertise required.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/newsroom/fact-sheets/cy-2026-opps-ambulatory-surgical-center-final-rule-hospital-price-transparency-policy-changes" target="_blank">CMS &mdash; CY 2026 OPPS/ASC Final Rule: Hospital Price Transparency Policy Changes</a>
+<span class="sep">&middot;</span>
+<a href="https://hallrender.com/2025/12/04/actions-required-cms-finalizes-another-round-of-price-transparency-updates/" target="_blank">Hall Render &mdash; Actions Required: CMS Finalizes Another Round of Price Transparency Updates</a>
+<span class="sep">&middot;</span>
+<a href="https://www.hfma.org/price-transparency/cmss-latest-transparency-rule-aims-to-make-price-estimates-more-exact/" target="_blank">HFMA &mdash; CMS&rsquo;s Latest Transparency Rule Aims to Make Price Estimates More Exact</a>
+<span class="sep">&middot;</span>
+<a href="https://www.zelis.com/blog/cms-proposes-major-updates-to-health-care-price-transparency-rules/" target="_blank">Zelis &mdash; CMS Proposes Major Updates to Healthcare Price Transparency Rules</a>
+<span class="sep">&middot;</span>
+<a href="https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency" target="_blank">CMS &mdash; Hospital Price Transparency</a>
+</div>
+</section>
+
+<!-- SECTION 08 -->
+<section class="section" id="independent-practice">
+<div class="section-number">Section 08</div>
+<h2>Independent Practice Watch: The 2026 Margin Compression Survival Guide &mdash; Fighting Back Against 60% Never-Resubmitted Denials &amp; 16-Hour PA Weeks</h2>
+<p>Independent physician practices &mdash; solo and small-group groups without hospital system backing &mdash; are navigating the tightest margin compression environment in a decade. But 2026 is also the year when practice-scale AI tools have become accessible enough to close the gap. The practices outperforming are not the ones spending the most on technology &mdash; they are the ones with the tightest process accountability on three metrics: <strong>denial resubmission rate, charge-to-submission lag, and PA tracking completion</strong>.</p>
+
+<h3>The Margin Compression Reality</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Pressure Factor</th><th>Independent Practice Impact</th></tr></thead>
+<tbody>
+<tr><td>Denied claims never resubmitted</td><td><strong class="kpi-warning">60%</strong> &mdash; revenue permanently lost</td></tr>
+<tr><td>Average denial rework cost</td><td><strong>$25</strong> per claim</td></tr>
+<tr><td>Weekly PA administrative burden</td><td><strong>16 hours</strong> per practice average</td></tr>
+<tr><td>PA time as FTE equivalent</td><td>~<strong>0.4 FTE</strong> at a typical small practice</td></tr>
+<tr><td>Non-APM Medicare conversion factor</td><td><strong>3.26%</strong> vs. 3.77% for APM participants</td></tr>
+<tr><td>Medicaid supplemental payment risk</td><td>Proposed cap at Medicare rates under CMS-2449-P</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The Independence Renaissance</h3>
+<p>Despite the pressures, 2026 is showing a genuine <strong>independent practice renaissance</strong> &mdash; driven by site-neutral payment reforms that have narrowed the reimbursement gap between hospital-owned and independent clinics. Independent practices that have deployed even basic RPA automation (automated eligibility checks, automated claim status) are recovering <strong>$15,000&ndash;$45,000 annually in previously unrecovered denials</strong> per physician. UHC&rsquo;s 30% PA cut benefits independent practices disproportionately: they lacked the leverage to negotiate PA exemptions individually, but now get them automatically.</p>
+
+<h3>Where You Should Be &mdash; Independent Practice Benchmarks 2026</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>Where Most Independents Are</th><th>Where You Should Be</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>Clean Claims Rate</td><td>88&ndash;93%</td><td><span class="kpi-target">97%+</span></td><td><strong>HIGH</strong></td></tr>
+<tr><td>Days in AR</td><td>38&ndash;55 days</td><td><span class="kpi-target">30&ndash;40 days</span></td><td><strong>HIGH</strong></td></tr>
+<tr><td>PA Hours per Week</td><td>14&ndash;20 hrs</td><td><span class="kpi-target">&lt;8 hrs (with ePA tools)</span></td><td>MEDIUM</td></tr>
+<tr><td>Denial Resubmission Rate</td><td>35&ndash;45%</td><td><span class="kpi-target">85%+</span></td><td><strong>CRITICAL</strong></td></tr>
+<tr><td>Revenue per Physician (Primary Care)</td><td>$285K&ndash;$340K</td><td><span class="kpi-target">$380K+ (MGMA benchmark)</span></td><td><strong>HIGH</strong></td></tr>
+<tr><td>AI/Automation Adoption</td><td>15% fully integrated</td><td><span class="kpi-target">63% industry average</span></td><td>MEDIUM-HIGH</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>The single biggest recoverable revenue opportunity for most independent practices in 2026 is the <strong>60% never-resubmitted denial pool</strong>. A structured denial resubmission workflow &mdash; categorize, assign, deadline, resubmit within 30 days &mdash; can recover $30,000&ndash;$80,000 annually per physician at most practices, with no additional technology investment. Start there.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.doctorsmanagement.com/blog/the-2026-private-practice-playbook-how-independent-groups-are-surviving-margin-compression/" target="_blank">Doctors Management &mdash; The 2026 Private Practice Playbook: Surviving Margin Compression</a>
+<span class="sep">&middot;</span>
+<a href="https://www.mgis.com/blog/2026-trends-the-independent-practice-renaissance-what-brokers-need-to-know/" target="_blank">MGIS &mdash; 2026 Trends: The Independent Practice Renaissance</a>
+<span class="sep">&middot;</span>
+<a href="https://www.hpiinc.com/resources/prime-blogs/revenue-resiliency-in-2026-how-strong-rcm-strategy-can-help-physician-groups-survive/" target="_blank">Health Prime &mdash; Revenue Resiliency in 2026: How Strong RCM Strategy Helps Physician Groups Survive</a>
+<span class="sep">&middot;</span>
+<a href="https://ventrahealth.com/2026-rcm-trend-report/" target="_blank">Ventra Health &mdash; 2026 RCM Trends: Challenges and Opportunities</a>
+<span class="sep">&middot;</span>
+<a href="https://www.adsc.com/blog/5-kpis-every-practice-administrator-should-be-tracking-in-2026" target="_blank">ADSC &mdash; 5 KPIs Every Practice Administrator Should Be Tracking in 2026</a>
+</div>
+</section>
+
+<!-- SECTION 09 -->
+<section class="section" id="specialty">
+<div class="section-number">Section 09</div>
+<h2>Specialty RCM Spotlight: Primary Care, Cardiology, Orthopedics, Oncology, Mental Health, Radiology, Neurology, Gastroenterology</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Specialty</th><th>Key Update</th><th>Data Point</th><th>Action</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Primary Care</strong></td>
+<td>G2211 complexity add-on and APCM G-codes expanding billable revenue; CPT 98016 replaces G2012 for virtual check-ins</td>
+<td>G2211 adds $16&ndash;$27 per eligible E/M visit</td>
+<td>Audit E/M documentation for G2211 eligibility; update virtual visit billing to CPT 98016 immediately</td>
+</tr>
+<tr>
+<td><strong>Cardiology</strong></td>
+<td>UHC eliminating PA for echocardiograms by year-end; ASM mandatory model preparation window closing Jan 2027</td>
+<td>~8,600 cardiologists face &plusmn;9&ndash;12% payment adjustments beginning 2029</td>
+<td>Confirm ASM CBSA status; notify UHC PA elimination; establish episode cost tracking now</td>
+</tr>
+<tr>
+<td><strong>Orthopedics</strong></td>
+<td>&minus;2.5% CMS efficiency adjustment applies to surgical services; billing accuracy more critical as margin narrows</td>
+<td>Every missed code costs more to recover post-adjustment in 2026</td>
+<td>Audit bundled surgical coding, implant documentation, and fracture care claims for specificity gaps</td>
+</tr>
+<tr>
+<td><strong>Oncology</strong></td>
+<td>Multi-code antineoplastic therapy now standard (Z51.0 + Z51.1&ndash;); PA reductions from UHC create opportunity for combination regimen approvals</td>
+<td>Combination chemo + immunotherapy patients require both codes assigned for PA appeal strength</td>
+<td>Update superbill templates for multi-drug therapy combinations; leverage PA reductions for complex regimen management</td>
+</tr>
+<tr>
+<td><strong>Mental Health</strong></td>
+<td>Behavioral health services <strong>exempt</strong> from &minus;2.5% efficiency adjustment; BHI codes and digital mental health bundles strengthened</td>
+<td>Mental health codes receiving stronger payment structure in CY 2026 fee schedule</td>
+<td>Confirm BHI coding compliance; evaluate digital mental health bundles for applicable patient populations</td>
+</tr>
+<tr>
+<td><strong>Radiology</strong></td>
+<td>New CPT 2026 Category I codes for AI-assisted lung nodule detection, stroke identification, and mammogram comparison now billable</td>
+<td>Practices with AI diagnostic tools missing new CPT codes = direct revenue leakage</td>
+<td>Add AI-assisted diagnostic CPT codes to chargemaster; establish physician attestation documentation protocol</td>
+</tr>
+<tr>
+<td><strong>Neurology</strong></td>
+<td>&minus;2.5% efficiency cut impacts diagnostic EMG and nerve conduction studies; neuro documentation requirements tightening</td>
+<td>Diagnostic imaging and interventional testing face full efficiency adjustment impact</td>
+<td>Review neurology superbill for documentation completeness; ensure EMG/NCS reports meet medical necessity standards</td>
+</tr>
+<tr>
+<td><strong>Gastroenterology</strong></td>
+<td>CMS efficiency adjustment affects diagnostic endoscopy; colonoscopy screening codes stable but therapeutic procedure documentation under scrutiny</td>
+<td>GI diagnostic procedures face margin pressure from efficiency cuts and increased payer documentation reviews</td>
+<td>Audit therapeutic vs. diagnostic colonoscopy coding; confirm pre-procedure documentation supports appropriate code assignment</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>Specialty-Specific Denial Drivers &mdash; 2026 Watch List</h3>
+<ul>
+<li><strong>Primary Care:</strong> Insufficient documentation for G2211 complexity add-on; telehealth modifier errors post-G2012 transition to CPT 98016</li>
+<li><strong>Cardiology:</strong> Echocardiogram PA denials in the pre-elimination window; ASM episode attribution errors for heart failure patients</li>
+<li><strong>Orthopedics:</strong> Implant cost documentation incomplete; bundled service unbundling flags triggering NCCI edit denials</li>
+<li><strong>Oncology:</strong> Missing secondary codes for combination therapy; PA denial on off-label indications without clinical documentation</li>
+<li><strong>Mental Health:</strong> E/M vs. psychotherapy time documentation split; BHI billing without care plan documentation</li>
+<li><strong>Radiology:</strong> AI-assisted diagnostic codes without physician attestation; modifier 26/TC split billing errors</li>
+</ul>
+
+<div class="callout">
+<span class="callout-label">Bottom Line</span>
+<p>Specialty-specific billing accuracy has never had higher stakes. The &minus;2.5% efficiency adjustment means every missed code costs more than it would have last year. The most impactful specialty RCM investment in the next 90 days is a targeted coding audit of the 10 highest-volume CPT codes in your practice &mdash; denials in this set account for 70%+ of most specialty practices&rsquo; recoverable revenue gap.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.healthquestbilling.com/medicare-pfs-changes-2026/" target="_blank">HealthQuestBilling &mdash; Medicare PFS Changes 2026: What Cardiology, Orthopedics and Radiology Must Fix Now</a>
+<span class="sep">&middot;</span>
+<a href="https://www.acr.org/News-and-Publications/2026-radiology-coding-updates-now-available" target="_blank">ACR &mdash; 2026 Radiology Coding Updates Now Available</a>
+<span class="sep">&middot;</span>
+<a href="https://www.medicalbillersandcoders.com/blog/why-specialty-specific-rcm-is-survival-strategy/" target="_blank">Medical Billers and Coders &mdash; Why Specialty-Specific RCM Is the Survival Strategy for 2026</a>
+<span class="sep">&middot;</span>
+<a href="https://medcaremso.com/guide/neurology-medical-billing-and-compliance-guide/" target="_blank">Medcare MSO &mdash; Neurology Medical Billing and Compliance Guide 2026</a>
+<span class="sep">&middot;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2026-medicare-physician-fee-schedule-final-rule-cms-1832-f" target="_blank">CMS &mdash; CY 2026 Physician Fee Schedule Final Rule CMS-1832-F</a>
+</div>
+</section>
+
+<!-- SECTION 10 -->
+<section class="section" id="action-items">
+<div class="section-number">Section 10</div>
+<h2>This Week&rsquo;s Action Items</h2>
+
+<ul class="checklist">
+<li>
+<div class="check-box"></div>
+<span><strong>File Comments on CMS-2449-P if You Bill Medicaid</strong> &mdash; Comment deadline is July 21, 2026. Calculate your Medicaid payer mix and compare current managed care rates to Medicare equivalents. If your practice would be materially affected by the proposed payment cap, submit comments through the Federal Register or through your state medical association.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Download UHC&rsquo;s Updated PA Elimination List</strong> &mdash; Log into UHCProvider.com and retrieve the updated prior authorization requirement list for your specialty. If you bill echocardiograms, outpatient therapy, or select outpatient surgery, identify the elimination timeline and update your scheduling team&rsquo;s authorization workflow before the changes take effect.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Audit CPT 2026 AI-Assisted Diagnostic Code Capture</strong> &mdash; If your practice uses any AI diagnostic tool (even as a module within your PACS, EHR, or imaging system), verify whether it qualifies for the new CPT 2026 Category I codes. Check your chargemaster and superbill for these codes and establish the physician attestation documentation standard this week.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Update Virtual Visit Billing from G2012 to CPT 98016</strong> &mdash; If your practice bills brief virtual check-ins, confirm your billing system has transitioned from HCPCS G2012 to CPT 98016. Continued use of G2012 for new visits will generate rejections from payers that have already implemented the CPT 2026 code set.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Calculate Your Denial Resubmission Rate</strong> &mdash; Pull 90 days of denial data and calculate: denied claims resubmitted &divide; total denied claims. If this number is below 70%, identify the top 3 denial codes by volume and assign specific resubmission ownership and deadlines. The 60% industry never-resubmission rate is a solvable problem &mdash; and recovering these claims requires process discipline, not new technology.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Verify Price Transparency MRF Compliance (Hospital-Affiliated Practices)</strong> &mdash; If your practice bills under a hospital or ASC facility agreement, confirm the machine-readable file was updated by April 1, 2026 with median allowed amounts, Type 2 NPIs, and CEO attestation. Enforcement is now active.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Audit Third-Party Tracking Pixels on Patient-Facing Properties</strong> &mdash; Run a Blacklight scan (themarkup.org) on your practice website and patient portal login page. If tracking pixels are present touching scheduling or login flows without a signed BAA, remove them or obtain the BAA this week. HIPAA enforcement penalties range from $50,000 to $1.9 million.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Ask Your RCM Vendor One Question</strong> &mdash; Evaluate your current RCM vendor&rsquo;s autonomous AI roadmap: &ldquo;What is your plan to deploy agentic AI for practices under 20 physicians?&rdquo; The Innovaccer-CaduceusHealth acquisition signals rapid market consolidation. If your vendor cannot articulate a specific timeline, evaluate whether your current platform will remain competitive over the next 18&ndash;24 months.</span>
+</li>
+</ul>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>The denial resubmission gap and the CPT 2026 AI-assisted diagnostic code capture gap are this week&rsquo;s highest-ROI recovery opportunities &mdash; both recoverable with zero additional technology spend. Start there before evaluating any new vendor.</p>
+</div>
+</section>
+
+<!-- BIG STAT -->
+<div class="big-stat">
+<div class="stat-number">50 Million</div>
+<div class="stat-desc">UnitedHealthcare&rsquo;s elimination of prior authorization requirements for 30% of services affects 50 million members across commercial, Medicare Advantage, and employer plans &mdash; the largest single PA reduction by a major U.S. insurer in history. For practices with high outpatient surgery and diagnostic imaging volumes, recovering the administrative hours previously consumed by these authorizations is now a concrete operational opportunity, not a future aspiration.<br><br><em>Source: UnitedHealth Group Newsroom &mdash; UHC Cuts Prior Authorization Requirements by 30% (May 5, 2026)</em></div>
+</div>
+
+<footer class="footer">
+<div class="footer-divider"></div>
+<p><strong>RCM Pulse Weekly</strong> is researched from public domain sources including CMS.gov, OIG.gov, AAPC, HFMA, MGMA, major payer portals, and industry publications.</p>
+<p>Published weekly by Vaqya &nbsp;&bull;&nbsp; Next issue: June 5, 2026 &nbsp;&bull;&nbsp; No tracking or cookies</p>
+<p style="margin-top: 12px;"><a href="index.html" style="color: var(--color-accent); text-decoration: none;">Back to Archive</a></p>
+</footer>
+
+</div>
+
+<script>
+(function() {
+var bg = document.getElementById('bubbles-bg');
+if (!bg) return;
+var cv = document.createElement('canvas');
+cv.setAttribute('aria-hidden','true');
+cv.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:0;';
+bg.parentNode.replaceChild(cv, bg);
+var ctx = cv.getContext('2d');
+function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+var HUES = [0,20,45,80,160,200,250,280,320,345];
+function randHue() {
+return HUES[Math.floor(Math.random()*HUES.length)] + (Math.random()*24-12);
+}
+function makeBubble(fromBottom) {
+var r = 10 + Math.random() * 46;
+var x = r + Math.random() * (cv.width - 2*r);
+var y = fromBottom ? cv.height + r + Math.random()*180 : Math.random()*cv.height;
+return {
+x:x, y:y, r:r,
+hue: randHue(),
+sat: 78 + Math.random()*20,
+lit: 52 + Math.random()*20,
+op: 0.32 + Math.random()*0.26,
+vx: (Math.random()-0.5)*0.8,
+vy: -(0.38 + Math.random()*0.55)
+};
+}
+var bubbles = [];
+for (var i=0;i<28;i++) bubbles.push(makeBubble(false));
+var splats = [];
+var MAX_SPLATS = 220;
+function burst(cx, cy, hueA, hueB) {
+if (splats.length > MAX_SPLATS) return;
+var n = 7 + Math.floor(Math.random()*5);
+for (var k=0;k<n;k++) {
+var angle = Math.random()*Math.PI*2;
+var spd = 1.8 + Math.random()*3.8;
+var hueOptions = [hueA, hueB, (hueA+hueB)/2, hueA+60, hueB-60, hueA-45, hueB+45];
+var hue = hueOptions[Math.floor(Math.random()*hueOptions.length)];
+splats.push({
+x:cx, y:cy,
+r: 3 + Math.random()*9,
+hue: hue,
+sat: 85 + Math.random()*15,
+lit: 55 + Math.random()*25,
+vx: Math.cos(angle)*spd,
+vy: Math.sin(angle)*spd,
+op: 0.85,
+life: 1.0,
+decay: 0.016 + Math.random()*0.024
+});
+}
+}
+var last = 0;
+function tick(now) {
+var dt = Math.min((now - last)/16, 3);
+last = now;
+ctx.clearRect(0,0,cv.width,cv.height);
+for (var i=0;i<bubbles.length;i++) {
+var b = bubbles[i];
+b.x += b.vx*dt;
+b.y += b.vy*dt;
+if (b.x < -b.r) b.x = cv.width + b.r;
+if (b.x > cv.width+b.r) b.x = -b.r;
+if (b.y + b.r < -40) {
+var nb = makeBubble(true);
+b.x=nb.x; b.y=nb.y; b.r=nb.r; b.hue=nb.hue; b.sat=nb.sat; b.lit=nb.lit; b.op=nb.op; b.vx=nb.vx; b.vy=nb.vy;
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+for (var j=i+1;j<bubbles.length;j++) {
+var a=bubbles[i], b=bubbles[j];
+var dx=b.x-a.x, dy=b.y-a.y;
+var dist=Math.sqrt(dx*dx+dy*dy);
+var minD=a.r+b.r;
+if (dist < minD && dist > 0.01) {
+burst((a.x+b.x)/2, (a.y+b.y)/2, a.hue, b.hue);
+var nx=dx/dist, ny=dy/dist;
+var dv = (a.vx-b.vx)*nx + (a.vy-b.vy)*ny;
+if (dv > 0) {
+a.vx -= dv*nx; a.vy -= dv*ny;
+b.vx += dv*nx; b.vy += dv*ny;
+}
+var sep=(minD-dist)/2+0.5;
+a.x -= nx*sep; a.y -= ny*sep;
+b.x += nx*sep; b.y += ny*sep;
+a.hue = randHue();
+b.hue = randHue();
+}
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+var b=bubbles[i];
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle = 'hsla('+b.hue+','+b.sat+'%,'+b.lit+'%,'+b.op+')';
+ctx.fill();
+var g=ctx.createRadialGradient(b.x-b.r*0.32,b.y-b.r*0.32,b.r*0.04,b.x,b.y,b.r);
+g.addColorStop(0,'rgba(255,255,255,0.30)');
+g.addColorStop(1,'rgba(255,255,255,0)');
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+}
+for (var i=splats.length-1;i>=0;i--) {
+var s=splats[i];
+s.x += s.vx*dt;
+s.y += s.vy*dt;
+s.vy += 0.05*dt;
+s.vx *= 0.97;
+s.life -= s.decay*dt;
+if (s.life<=0) { splats.splice(i,1); continue; }
+ctx.beginPath();
+ctx.arc(s.x,s.y,Math.max(0.5,s.r*s.life),0,Math.PI*2);
+ctx.fillStyle='hsla('+s.hue+','+s.sat+'%,'+s.lit+'%,'+(s.life*s.op)+')';
+ctx.fill();
+}
+requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
