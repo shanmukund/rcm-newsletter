@@ -1,0 +1,125 @@
+name: Verify Newsletter Published — Watchdog
+
+# Watchdog layer added 2026-07-10 after the Jul 10 Friday routine run failed silently.
+# Checks that the current week's issue is committed AND live on www.vaqyaweekly.com.
+# Runs entirely in GitHub's cloud — independent of any local machine and of the
+# claude.ai routine (trig_011MyvQ9AcDW2LQyHJNFTUxw) it is watching.
+#
+# Tokens: uses ONLY the auto-provisioned GITHUB_TOKEN (issued fresh per run,
+# never expires, nothing to rotate). No PATs, no API keys, no secrets.
+#
+# Alerting: on a miss it (1) opens/refreshes a GitHub issue labeled `urgent`
+# (GitHub emails the repo owner) and (2) fails the run (GitHub sends a
+# workflow-failure email). Two independent email paths per miss.
+
+on:
+  schedule:
+    # Cron is UTC. Phoenix is UTC-7 year-round (no DST).
+    - cron: '0 20 * * 5'   # Friday  1:00 PM Phoenix — 4h after the 9 AM routine
+    - cron: '0 17 * * 6'   # Saturday 10:00 AM Phoenix — 1h after the Saturday backup
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compute expected issue date (most recent Friday)
+        id: expected
+        run: |
+          DOW=$(date -u +%u)   # 1=Mon ... 5=Fri 6=Sat 7=Sun
+          if [ "$DOW" = "5" ]; then
+            FRIDAY=$(date -u +%Y-%m-%d)
+          else
+            OFFSET=$(( (DOW - 5 + 7) % 7 ))
+            FRIDAY=$(date -u -d "-${OFFSET} days" +%Y-%m-%d)
+          fi
+          echo "friday=$FRIDAY" >> "$GITHUB_OUTPUT"
+          echo "html_file=RCM_Weekly_Newsletter_${FRIDAY}.html" >> "$GITHUB_OUTPUT"
+          echo "Expected issue: RCM_Weekly_Newsletter_${FRIDAY}.html"
+
+      - name: Check file committed to repo
+        id: repo_check
+        run: |
+          if [ -f "${{ steps.expected.outputs.html_file }}" ]; then
+            echo "in_repo=true" >> "$GITHUB_OUTPUT"
+            echo "OK: file exists in repo."
+          else
+            echo "in_repo=false" >> "$GITHUB_OUTPUT"
+            echo "MISSING: file not in repo."
+          fi
+
+      - name: Check issue live on vaqyaweekly.com
+        id: live_check
+        run: |
+          URL="https://www.vaqyaweekly.com/${{ steps.expected.outputs.html_file }}"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" -L "$URL")
+          echo "HTTP $STATUS for $URL"
+          if [ "$STATUS" = "200" ]; then
+            echo "live=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "live=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Alert on missed publication
+        if: steps.repo_check.outputs.in_repo == 'false' || steps.live_check.outputs.live == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const friday = '${{ steps.expected.outputs.friday }}';
+            const inRepo = '${{ steps.repo_check.outputs.in_repo }}' === 'true';
+            const live   = '${{ steps.live_check.outputs.live }}' === 'true';
+            const title  = `🚨 MISSED PUBLICATION — newsletter for ${friday} is not live`;
+            const body = [
+              '## The weekly newsletter did not publish on schedule',
+              '',
+              `**Expected issue:** RCM_Weekly_Newsletter_${friday}.html`,
+              `**Committed to repo:** ${inRepo ? 'yes' : 'NO'}`,
+              `**Live on vaqyaweekly.com:** ${live ? 'yes' : 'NO'}`,
+              `**Checked at:** ${new Date().toUTCString()}`,
+              '',
+              '### Recover NOW (Friday publication is the commitment)',
+              '1. Check the claude.ai routine run history (trig_011MyvQ9AcDW2LQyHJNFTUxw)',
+              '2. Backfill immediately: open Claude in the repo and say:',
+              `   > Set NEWSLETTER_DATE_OVERRIDE=${friday} then read NEWSLETTER_PROMPT.md and execute it.`,
+              '3. Or trigger the manual fallback: Actions → "Weekly RCM Newsletter — Auto-Generate" → Run workflow',
+              '',
+              `[Watchdog run logs](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+            ].join('\n');
+
+            // Refresh existing open alert for this date instead of duplicating it
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'missed-publication',
+            });
+            const match = existing.data.find(i => i.title.includes(friday));
+            if (match) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: match.number,
+                body: `Still not published as of ${new Date().toUTCString()}.\n\n${body}`,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title, body, labels: ['missed-publication', 'urgent'],
+              });
+            }
+
+      - name: Fail run if not published (triggers failure email)
+        if: steps.repo_check.outputs.in_repo == 'false' || steps.live_check.outputs.live == 'false'
+        run: |
+          echo "::error::Newsletter for ${{ steps.expected.outputs.friday }} is NOT published."
+          exit 1
+
+      - name: All clear
+        if: steps.repo_check.outputs.in_repo == 'true' && steps.live_check.outputs.live == 'true'
+        run: echo "Newsletter for ${{ steps.expected.outputs.friday }} is committed and live. ✔"

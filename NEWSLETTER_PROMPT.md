@@ -167,6 +167,24 @@ Print:
 
 ---
 
+## Watchdog / verification layer (added 2026-07-10 after a silent Friday miss)
+
+Friday publication is the commitment. The Saturday 9 AM routine run is **failure recovery, not a publication day** — a Friday miss is a P1 and should be backfilled the same day, not left for Saturday.
+
+Three independent layers watch every issue:
+
+| Layer | What | When | Alerts |
+|---|---|---|---|
+| 1. Generator | claude.ai routine `trig_011MyvQ9AcDW2LQyHJNFTUxw` runs this file | Fri + Sat 9 AM Phoenix | — |
+| 2. Cloud watchdog | GitHub Action `.github/workflows/verify-newsletter.yml` — checks the expected `RCM_Weekly_Newsletter_<friday>.html` is committed AND returns HTTP 200 on www.vaqyaweekly.com | Fri 1 PM + Sat 10 AM Phoenix (cron, GitHub-hosted — independent of any local machine) | Opens/updates a `missed-publication` GitHub issue **and** fails the run — two email paths. Uses only the auto-issued `GITHUB_TOKEN` (fresh per run, never expires, no secrets to rotate). |
+| 3. Local subagent | Cowork scheduled task `verify-newsletter-published` (`~/.claude/scheduled-tasks/`) — fetches the live URL, checks origin/main, and on a miss immediately executes this file as a backfill for the missed date | Fri + Sat 1:30 PM local | Chat notification; auto-backfills on miss (runs only while the Cowork app is open — layer 2 is the machine-independent guarantee) |
+
+Manual fallback remains: GitHub Actions → "Weekly RCM Newsletter — Auto-Generate" → Run workflow (workflow_dispatch).
+
+If a watchdog fires: check the routine's run history on claude.ai for root cause, backfill via the override below, and close the GitHub issue only after the live URL returns 200.
+
+---
+
 ## Manual / backfill override
 
 When you need to generate an off-cycle issue (missed Friday, mid-week catch-up):
