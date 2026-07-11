@@ -140,11 +140,20 @@ if [ "$RUN_MODE" = "backfill" ]; then COMMIT_MSG="$COMMIT_MSG — backfill"; fi
 git commit -m "$COMMIT_MSG"
 ```
 
-### STEP 11 — Push
+### STEP 11 — Push (with long backoff — a transient 403 must NOT kill the run)
+
+The 2026-07-10 Friday run was lost to a transient GitHub authorization blip: `git push` returned 403 ("Permission denied") for ~40 seconds, the run retried 4 times in that same window, gave up, and the issue missed Friday. The same token had write access minutes later. **Never give up on a push in under 30 minutes.**
 
 ```bash
 git pull --rebase origin main
-git push origin main
+PUSH_OK=""
+for wait in 0 60 120 240 480 960; do
+  sleep $wait
+  if git push origin main 2>&1; then PUSH_OK=1; break; fi
+  echo "Push failed; will retry after next backoff interval..."
+  git pull --rebase origin main || true
+done
+[ -n "$PUSH_OK" ] || { echo "PUSH FAILED after ~31 minutes of backoff retries — likely real auth/permission problem, not transient"; exit 1; }
 ```
 
 ### STEP 12 — Final summary
