@@ -181,6 +181,8 @@ Three independent layers watch every issue:
 
 Manual fallback remains: GitHub Actions → "Weekly RCM Newsletter — Auto-Generate" → Run workflow (workflow_dispatch).
 
+**Credentials (hard rule — no expiring tokens in unattended automation):** the routine's git push uses a **classic GitHub PAT with No expiration** (`repo` scope, rotated 2026-07-10; lives only inside the trigger config, never in this repo). The GitHub Action watchdog uses the auto-issued `GITHUB_TOKEN` (fresh per run, never expires). If the routine ever hits an auth failure: regenerate a classic no-expiration token at github.com/settings/tokens and rotate it into the trigger via `RemoteTrigger action:update` — never use a fine-grained PAT (mandatory expiry = guaranteed future silent failure; this exact failure mode was the suspected cause of the 2026-07-10 miss).
+
 If a watchdog fires: check the routine's run history on claude.ai for root cause, backfill via the override below, and close the GitHub issue only after the live URL returns 200.
 
 ---
