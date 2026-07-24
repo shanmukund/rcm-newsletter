@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCM Pulse Weekly | July 24, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--color-bg: #FAFAFA;
+--color-surface: #FFFFFF;
+--color-text: #1A1A2E;
+--color-text-secondary: #4A4A68;
+--color-text-muted: #8888A0;
+--color-accent: #0F5FE0;
+--color-accent-light: #E8F0FE;
+--color-accent-dark: #0A4ABF;
+--color-border: #E8E8EE;
+--color-highlight: #FFF8E1;
+--color-highlight-border: #F5C518;
+--color-success: #0D9F6E;
+--color-success-light: #E6F9F1;
+--color-danger: #DC3545;
+--color-danger-light: #FDE8EA;
+--color-kpi-green: #0D9F6E;
+--color-kpi-amber: #D97706;
+--radius-sm: 6px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+--shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+--shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+--max-width: 720px;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+background-color: #ECEEF6;
+background-image:
+radial-gradient(ellipse 160% 32% at 50% 0%, rgba(15,95,224,0.10) 0%, transparent 65%),
+url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.3' fill='%230F5FE0' opacity='0.055'/%3E%3C/svg%3E");
+background-attachment: fixed;
+color: var(--color-text);
+line-height: 1.7;
+-webkit-font-smoothing: antialiased;
+padding: 48px 16px 72px;
+min-height: 100vh;
+}
+body::before {
+content: '';
+position: fixed;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, #0A4ABF 0%, #0F5FE0 55%, #60a5fa 100%);
+z-index: 999;
+}
+.newsletter-wrapper {
+max-width: var(--max-width);
+margin: 0 auto;
+padding: 0 32px;
+background: #ffffff;
+border-top: 3px solid var(--color-accent);
+border-radius: 0 0 8px 8px;
+box-shadow: 0 0 0 1px rgba(15,95,224,0.07), 0 8px 40px rgba(15,95,224,0.09), 0 2px 8px rgba(0,0,0,0.05);
+position: relative;
+z-index: 1;
+}
+#bubbles-bg {
+position: fixed; top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none; overflow: hidden; z-index: 0;
+}
+.bubble {
+position: absolute; bottom: -150px; border-radius: 50%; opacity: 0;
+animation: bubble-rise var(--dur, 14s) var(--delay, 0s) linear infinite;
+}
+@keyframes bubble-rise {
+0% { transform: translateY(0) translateX(0) scale(0.75); opacity: 0; }
+8% { opacity: var(--max-op, 0.16); }
+88% { opacity: var(--max-op, 0.16); }
+100% { transform: translateY(calc(-100vh - 200px)) translateX(var(--dx, 40px)) scale(1.15); opacity: 0; }
+}
+.header { padding: 48px 0 40px; text-align: center; border-bottom: 1px solid var(--color-border); }
+.header-brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.header-logo { width: 40px; height: 40px; background: var(--color-accent); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; letter-spacing: -0.5px; }
+.header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.5px; }
+.header-subtitle { font-size: 0.9rem; color: var(--color-text-muted); font-weight: 400; margin-top: 4px; }
+.header-meta { display: inline-flex; align-items: center; gap: 16px; margin-top: 16px; font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+.header-meta span { display: flex; align-items: center; gap: 4px; }
+.meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-muted); }
+.toc { padding: 32px 0; border-bottom: 1px solid var(--color-border); }
+.toc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 16px; }
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.toc-list li a { display: flex; align-items: baseline; gap: 12px; text-decoration: none; color: var(--color-text); font-size: 0.925rem; font-weight: 450; padding: 6px 0; transition: color 0.2s; }
+.toc-list li a:hover { color: var(--color-accent); }
+.toc-num { font-size: 0.75rem; font-weight: 600; color: var(--color-accent); min-width: 20px; }
+.section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+.section:last-of-type { border-bottom: none; }
+.section-number { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-accent); font-weight: 600; margin-bottom: 8px; }
+.section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.55rem; font-weight: 700; line-height: 1.3; color: var(--color-text); margin-bottom: 20px; letter-spacing: -0.3px; }
+.section h3 { font-size: 1rem; font-weight: 600; color: var(--color-text); margin-top: 32px; margin-bottom: 12px; }
+.section p { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 16px; }
+.section p strong { color: var(--color-text); font-weight: 600; }
+.section ul, .section ol { padding-left: 20px; margin-bottom: 16px; }
+.section li { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 10px; line-height: 1.65; }
+.section li strong { color: var(--color-text); font-weight: 600; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 20px; text-align: center; }
+.stat-card .stat-value { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; font-weight: 700; color: var(--color-accent); line-height: 1.1; }
+.stat-card .stat-value.danger { color: var(--color-danger); }
+.stat-card .stat-value.success { color: var(--color-success); }
+.stat-card .stat-label { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 6px; line-height: 1.4; }
+.callout { border-left: 3px solid var(--color-accent); background: var(--color-accent-light); padding: 16px 20px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 24px 0; }
+.callout p { font-size: 0.9rem; color: var(--color-text); margin: 0; font-weight: 500; line-height: 1.6; }
+.callout.warning { border-left-color: var(--color-highlight-border); background: var(--color-highlight); }
+.callout.action { border-left-color: var(--color-success); background: var(--color-success-light); }
+.callout-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 4px; display: block; }
+.callout .callout-label { color: var(--color-accent); }
+.callout.warning .callout-label { color: var(--color-kpi-amber); }
+.callout.action .callout-label { color: var(--color-success); }
+.table-wrap { overflow-x: auto; margin: 24px 0; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+thead { background: var(--color-bg); }
+th { padding: 12px 16px; text-align: left; font-weight: 600; color: var(--color-text); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid var(--color-border); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--color-border); color: var(--color-text-secondary); line-height: 1.5; }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--color-text); font-weight: 600; }
+.kpi-target { color: var(--color-kpi-green); font-weight: 600; }
+.kpi-warning { color: var(--color-kpi-amber); font-weight: 600; }
+.tech-stack { margin: 24px 0; display: flex; flex-direction: column; gap: 8px; }
+.stack-layer { display: flex; align-items: center; gap: 16px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.stack-label { min-width: 130px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 4px; text-align: center; }
+.stack-label.gen-ai { background: #1A1A2E; color: #fff; }
+.stack-label.ai-ml { background: #0F5FE0; color: #fff; }
+.stack-label.rpa { background: var(--color-accent-light); color: var(--color-accent-dark); }
+.stack-desc { font-size: 0.88rem; color: var(--color-text-secondary); }
+.checklist { list-style: none; padding: 0; margin: 24px 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 0.925rem; color: var(--color-text-secondary); line-height: 1.55; }
+.checklist li:last-child { border-bottom: none; }
+.check-box { flex-shrink: 0; width: 20px; height: 20px; border: 2px solid var(--color-accent); border-radius: 4px; margin-top: 2px; }
+.checklist li strong { color: var(--color-text); }
+.big-stat { text-align: center; padding: 48px 24px; background: linear-gradient(135deg, #0A4ABF 0%, #0F5FE0 100%); border-radius: var(--radius-lg); margin: 32px 0; color: #fff; }
+.big-stat .stat-number { font-family: 'Playfair Display', Georgia, serif; font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+.big-stat .stat-desc { font-size: 0.95rem; opacity: 0.9; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+.sources { margin-top: 16px; padding-top: 16px; }
+.sources-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 6px; }
+.sources a { font-size: 0.8rem; color: var(--color-accent); text-decoration: none; transition: color 0.2s; }
+.sources a:hover { color: var(--color-accent-dark); text-decoration: underline; }
+.sources .sep { color: var(--color-text-muted); margin: 0 6px; font-size: 0.75rem; }
+.footer { padding: 40px 0 48px; text-align: center; color: var(--color-text-muted); font-size: 0.82rem; line-height: 1.7; }
+.footer-divider { width: 48px; height: 2px; background: var(--color-border); margin: 0 auto 24px; }
+.footer p { margin-bottom: 8px; }
+@media (max-width: 600px) {
+.newsletter-wrapper { padding: 0 20px; }
+.header { padding: 32px 0 28px; }
+.header h1 { font-size: 1.6rem; }
+.section { padding: 36px 0; }
+.section h2 { font-size: 1.3rem; }
+.stat-row { grid-template-columns: 1fr 1fr; }
+.stat-card .stat-value { font-size: 1.5rem; }
+.big-stat .stat-number { font-size: 2.2rem; }
+.big-stat { padding: 36px 20px; }
+.header-meta { flex-direction: column; gap: 4px; }
+.meta-dot { display: none; }
+.stack-label { min-width: 100px; font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+<canvas id="bubbles-bg" aria-hidden="true"></canvas>
+<div class="newsletter-wrapper">
+
+<header class="header">
+<div class="header-brand">
+<div class="header-logo">RP</div>
+<h1>RCM Pulse Weekly</h1>
+</div>
+<div class="header-subtitle">Revenue Cycle Management Intelligence for Medical Practices</div>
+<div class="header-meta">
+<span>July 24, 2026</span>
+<div class="meta-dot"></div>
+<span>Volume 7, Issue 4</span>
+</div>
+</header>
+
+<nav class="toc">
+<div class="toc-label">In This Issue</div>
+<ol class="toc-list">
+<li><a href="#regulatory"><span class="toc-num">01</span> CY 2027 PFS Comment Window: Ambulatory Specialty Model Refinements, Telehealth Expansion, and MSSP Overhaul &mdash; How to Submit Before September&nbsp;14</a></li>
+<li><a href="#prior-auth"><span class="toc-num">02</span> Payer PA Reform Mid-Year Scorecard: Aetna 88% Standardized, UHC July Policy Drops, Cigna 70% by Year-End &mdash; and the 7-Day Decision Clock Now Has Teeth</a></li>
+<li><a href="#ai-automation"><span class="toc-num">03</span> Candid Health&rsquo;s $120M Series D Signals Autonomous RCM Has Arrived: AI RCM Market Hits $21.49B in 2026, Growing at 27% CAGR</a></li>
+<li><a href="#coding"><span class="toc-num">04</span> FY 2027 ICD-10-CM Is 10 Weeks Out: Oncology Radiation Code Overhaul, GI MVP Quality Measures, and the October 1 Coding Cliff</a></li>
+<li><a href="#revenue-velocity"><span class="toc-num">05</span> 97% or Bust: How Top-Performing Practices Sustain Clean Claim Rates Above the 95% Baseline &mdash; and What&rsquo;s Pulling the Industry Average Down</a></li>
+<li><a href="#tech-spotlight"><span class="toc-num">06</span> KLAS 2026 RCM Suites Report: Waystar Earns Overall &lsquo;A,&rsquo; Deep Adopters Say Vendor Partnership Decides Whether Consolidation Pays Off</a></li>
+<li><a href="#compliance"><span class="toc-num">07</span> CMS Launches July 2026 Price Transparency Enforcement Dataset &mdash; Machine-Readable File Standards Tighten with Actual Payment Data Now Required</a></li>
+<li><a href="#independent-practice"><span class="toc-num">08</span> Independent Practice Watch: $210.4B Medical Group Market, Cost-to-Collect 3&ndash;8% Benchmark, and Why AI Is Now the Entry Fee &mdash; Not the Differentiator</a></li>
+<li><a href="#specialty"><span class="toc-num">09</span> Specialty RCM Spotlight: Cardiology ASM Rural Adjustment, Orthopedics 7-Day PA Clock, Oncology Radiation Level Codes, GI MVP Rollout, Mental Health NQTL Enforcement</a></li>
+<li><a href="#action-items"><span class="toc-num">10</span> This Week&rsquo;s Action Items</a></li>
+</ol>
+</nav>
+
+<!-- SECTION 01 -->
+<section class="section" id="regulatory">
+<div class="section-number">Section 01</div>
+<h2>CY 2027 PFS Comment Window: Ambulatory Specialty Model Refinements, Telehealth Expansion, and MSSP Overhaul &mdash; How to Submit Before September 14</h2>
+<p>With the CY 2027 Physician Fee Schedule Proposed Rule published in the Federal Register on July 16, 2026, the comment window is now open through <strong>September 14, 2026</strong>. Last week&rsquo;s coverage focused on the headline conversion factor cuts (&minus;1.68% for non-APM physicians) and same-day E/M bundling. This week&rsquo;s focus is on three provisions that are equally consequential but less covered: Ambulatory Specialty Model refinements, Medicare Shared Savings Program restructuring, and the broadest telehealth expansion Medicare has ever proposed.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">Sep 14</div>
+<div class="stat-label">Comment deadline for the CY 2027 PFS Proposed Rule &mdash; 52 days to file substantive specialty-specific comments</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">Jan 1</div>
+<div class="stat-label">2027 effective date for the Ambulatory Specialty Model &mdash; cardiology groups are already in Year 1 enrollment</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">Rural+</div>
+<div class="stat-label">New rural adjustment proposed for ASM participants serving high proportions of rural Medicare beneficiaries</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">Perm.</div>
+<div class="stat-label">Proposed permanent removal of geographic restrictions for behavioral health telehealth &mdash; audio-only included</div>
+</div>
+</div>
+
+<h3>Ambulatory Specialty Model (ASM) Refinements</h3>
+<p>The ASM &mdash; CMS&rsquo;s first mandatory specialist accountability model, effective January 1, 2027 &mdash; receives targeted technical refinements in the proposed rule. A new <strong>rural adjustment</strong> will apply for practices serving high proportions of rural Medicare beneficiaries. A <strong>voluntary PRO (patient-reported outcome) data submission</strong> option earns a quality measure score bonus. Clarifications address ASM participant exceptions due to TIN changes or redesignated cardiovascular specialty types, and selected subspecialties are excluded from mandatory participation. Quality measure scoring methodology is also clarified for practices that lack historical benchmarks in the first model year.</p>
+
+<h3>Medicare Shared Savings Program (MSSP) Restructuring</h3>
+<p>CMS proposes updated benchmarking methodology for ACOs entering their second or third agreement periods, enhanced risk adjustment, and quality reporting streamlining. The proposed rule shifts toward regional trend adjustments that may reduce ACO savings calculations for practices in high-cost regions &mdash; a material revenue impact for primary care-heavy ACO participants. These provisions deserve substantive comment from ACO participants before September 14.</p>
+
+<h3>Telehealth Expansion Proposals</h3>
+<p>The 2027 PFS proposes the most sweeping Medicare telehealth expansion since the COVID-19 public health emergency: permanent removal of geographic restrictions for behavioral and mental health telehealth, permanent coverage of audio-only visits for behavioral health, expanded eligible practitioner types (marriage and family therapists, mental health counselors), and extension of existing telehealth flexibilities through 2027 pending further rulemaking. For practices with behavioral health services or telehealth-heavy workflows, these proposals represent a structural revenue opportunity &mdash; but only if billing teams have correct place-of-service codes and modifier protocols in place before January 1, 2027.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>September 14 is 52 days away. Practices affected by the ASM (cardiology, interventional), MSSP benchmarking changes (ACO participants), or behavioral health telehealth expansion should file substantive comments now. CMS uses specialty-specific comment data to calibrate final rule provisions &mdash; late comments carry less weight in the rulemaking record.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.federalregister.gov/documents/2026/07/16/2026-14327/medicare-and-medicaid-programs-cy-2027-payment-policies-under-the-physician-fee-schedule-and-other" target="_blank">Federal Register &mdash; CY 2027 PFS Proposed Rule (July 16, 2026)</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule" target="_blank">CMS.gov &mdash; CY 2027 PFS Proposed Rule Fact Sheet</a><span class="sep">&bull;</span>
+<a href="https://www.appliedpolicy.com/cms-issues-cy-2027-physician-fee-schedule-proposed-rule-with-reduced-physician-payment-rates-telehealth-expansions-and-mssp-reforms/" target="_blank">Applied Policy &mdash; CMS Issues CY 2027 PFS with Telehealth Expansions and MSSP Reforms</a><span class="sep">&bull;</span>
+<a href="https://www.vbca.com/insights/2027-physician-fee-schedule-proposed-rule/" target="_blank">VBCA &mdash; CY2027 PFS: What Specialists Should Watch</a><span class="sep">&bull;</span>
+<a href="https://www.ecgmc.com/insights/blog/cms-issues-cy-2027-medicare-physician-fee-schedule-proposed-rule" target="_blank">ECG Management Consultants &mdash; CMS Issues CY 2027 Medicare PFS Proposed Rule</a>
+</div>
+</section>
+
+<!-- SECTION 02 -->
+<section class="section" id="prior-auth">
+<div class="section-number">Section 02</div>
+<h2>Payer PA Reform Mid-Year Scorecard: Aetna 88% Standardized, UHC July Policy Drops, Cigna 70% by Year-End &mdash; and the 7-Day Decision Clock Now Has Teeth</h2>
+<p>The mid-year PA reform picture is coming into focus. Following CMS&rsquo;s September 2025 finalized Prior Authorization Reform Rule &mdash; cutting standard decision windows from 14 to <strong>7 calendar days</strong> and mandating electronic PA for Medicare Advantage and commercial payers &mdash; payers are executing on their 2025 AHIP pledge commitments at uneven rates. Practices need to track both the payer-specific standardization progress and the workflow changes required by the new decision timeline.</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Payer</th>
+<th>PA Standardization Status</th>
+<th>Key July 2026 Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Aetna</strong></td>
+<td><span class="kpi-target">88% standardized &mdash; leading the field</span></td>
+<td>New PA requirements for select musculoskeletal procedures in MA plans</td>
+</tr>
+<tr>
+<td><strong>UnitedHealthcare</strong></td>
+<td>Committed to 70%+ by year-end; rural/CAH exemptions announced</td>
+<td>July 2026 policy drops: incontinence &amp; respiratory PA requirement updates</td>
+</tr>
+<tr>
+<td><strong>Cigna</strong></td>
+<td>Committed to 70%+ by year-end; expanding rolling additions</td>
+<td>Additional services added quarterly on a rolling basis</td>
+</tr>
+<tr>
+<td><strong>Elevance Health</strong></td>
+<td>Participating in new standardization framework</td>
+<td>Working toward Jan. 1, 2027 electronic PA deadline</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>UHC&rsquo;s July 2026 Policy Update</h3>
+<p>UnitedHealthcare released its July 2026 policy and protocol overview with medical policy updates affecting Medicare, Medicaid, Exchange, and commercial plans. Key July additions include updated PA requirements for incontinence-related services and respiratory procedures. Practices should pull the full July 2026 UHC provider bulletin and cross-reference their top-volume procedure codes against the updated PA requirement list.</p>
+
+<h3>The 7-Day Decision Clock</h3>
+<p>CMS&rsquo;s Prior Authorization Reform Rule sets standard PA decision deadlines at <strong>7 calendar days</strong> (down from 14). Practices that built workflows around 14-day expected decision windows need to recalibrate: schedulers must pre-submit PA requests at least 10 business days before services to maintain buffer; expedited requests must receive decisions within 72 hours under most payer policies; electronic PA submission is now a practical requirement for reliable clock tracking; and payers must now provide more specific denial reasons in writing &mdash; creating a cleaner basis for appeals.</p>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>Payers are required to establish a framework for electronic prior authorization by <strong>January 1, 2027</strong> &mdash; less than six months away. Practices still running fax-based PA workflows must negotiate ePA integration with their EHR or RCM platform vendor before year-end. The 7-day decision clock is already in effect for most payers: fax workflows cannot reliably track compliance with that timeline.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.uhcprovider.com/en/resource-library/news/2026/policy-protocol-overview-jul-2026.html" target="_blank">UHCprovider.com &mdash; July Monthly Policy Overview 2026</a><span class="sep">&bull;</span>
+<a href="https://www.fiercehealthcare.com/payers/unitedhealthcare-aetna-tout-progress-standardize-prior-authorization-part-industry-wide" target="_blank">FierceHealthcare &mdash; UHC, Aetna Tout Progress on Prior Auth Standardization</a><span class="sep">&bull;</span>
+<a href="https://www.benefitspro.com/2026/04/24/aetna-cigna-elevance-and-unitedhealth-back-new-prior-authorization-standards-push/" target="_blank">BenefitsPro &mdash; Aetna, Cigna, Elevance, UnitedHealth Back New PA Standards Push</a><span class="sep">&bull;</span>
+<a href="https://medcitynews.com/2025/12/prior-authorization-commitment-2026/" target="_blank">MedCity News &mdash; What to Expect from PA Commitments in 2026</a><span class="sep">&bull;</span>
+<a href="https://medicotechllc.com/prior-authorization-medical-billing-2026-cms-rules/" target="_blank">Medicotech &mdash; Prior Authorization in Medical Billing: 2026 CMS Rules</a>
+</div>
+</section>
+
+<!-- SECTION 03 -->
+<section class="section" id="ai-automation">
+<div class="section-number">Section 03</div>
+<h2>Candid Health&rsquo;s $120M Series D Signals Autonomous RCM Has Arrived: AI RCM Market Hits $21.49B in 2026, Growing at 27% CAGR</h2>
+<p>July 22, 2026 was a landmark week for AI-native revenue cycle management. Candid Health announced a <strong>$120 million Series D funding round</strong> led by Sixth Street Growth &mdash; valuing the company at 3x its February 2025 Series C valuation. On the same day, SNS Insider sized the AI in RCM market at <strong>$21.49 billion in 2026</strong>, growing at a <strong>27.10% CAGR</strong> to reach $71.27 billion by 2031 and $225.87 billion by 2035.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value success">$120M</div>
+<div class="stat-label">Candid Health Series D raised July 22, 2026 &mdash; largest pure-play autonomous RCM raise of the year</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">$21.49B</div>
+<div class="stat-label">AI in RCM market size in 2026 (SNS Insider, July 22), growing at 27.10% CAGR</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">190%</div>
+<div class="stat-label">Candid Health year-over-year annual contracted run-rate revenue growth in 2025</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">70%</div>
+<div class="stat-label">Drop in coding-related denials on autonomously coded cases vs. manually coded (CodaMetrix/OHSU)</div>
+</div>
+</div>
+
+<h3>Candid Health: What $120M Buys in Autonomous RCM</h3>
+<p>Candid Health operates as the financial system of record and core RCM platform for hundreds of U.S. healthcare providers across dozens of specialties. The company posted <strong>190% year-over-year annual contracted run-rate revenue growth</strong> and <strong>180% net dollar retention</strong> in 2025 &mdash; demonstrating that provider organizations are expanding usage of the platform after initial adoption, not just renewing. The $120M funding round (participants: Sixth Street Growth, Oak HC/FT, 8VC, Y Combinator) will fund expansion into additional specialties and deeper EHR integration. Candid has now raised more than $219 million total.</p>
+
+<h3>Where AI Is and Isn&rsquo;t Autonomous in 2026</h3>
+<div class="tech-stack">
+<div class="stack-layer">
+<span class="stack-label gen-ai">Fully Auto</span>
+<span class="stack-desc">Eligibility verification, pre-submission claim scrubbing, coding for high-volume standard E/M and radiology encounters, payment posting, denial triage and prioritization &mdash; autonomous execution, no human initiation required</span>
+</div>
+<div class="stack-layer">
+<span class="stack-label ai-ml">AI-Assisted</span>
+<span class="stack-desc">Clinical denial appeal drafting (human must approve), complex multi-procedure coding, payer policy interpretation for novel situations, new code application in the first 90 days post-effective date</span>
+</div>
+<div class="stack-layer">
+<span class="stack-label rpa">Human-Owned</span>
+<span class="stack-desc">Medical necessity determinations for clinical appeals, compliance accountability documentation, payer escalation for systematic denial patterns, contract renegotiation triggers</span>
+</div>
+</div>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>Practices switching to AI-native RCM partners see denial rates fall to approximately <strong>5.7%</strong> compared to double-digit averages in manual environments. Oregon Health &amp; Science University Hospital, working with CodaMetrix on radiology coding, reported a <strong>70% drop in coding-related denials</strong> on autonomously coded cases vs. manually coded ones. The ROI on autonomous coding is now measurable and reproducible &mdash; not a theoretical projection.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.businesswire.com/news/home/20260721951537/en/Candid-Health-Raises-%24120M-Led-by-Sixth-Street-Growth-to-Fuel-Autonomous-Revenue-Cycle-Management-in-Healthcare" target="_blank">BusinessWire &mdash; Candid Health Raises $120M Series D (July 22, 2026)</a><span class="sep">&bull;</span>
+<a href="https://sixthstreet.com/investment_announce/candid-health-raises-120m-led-by-sixth-street-growth-to-fuel-autonomous-revenue-cycle-management-in-healthcare/" target="_blank">Sixth Street &mdash; Candid Health $120M Series D Announcement</a><span class="sep">&bull;</span>
+<a href="https://www.globenewswire.com/news-release/2026/07/22/3331134/0/en/AI-in-Revenue-Cycle-Management-Market-Size-to-Reach-225-87-Billion-by-2035-SNS-Insider.html" target="_blank">GlobeNewswire &mdash; AI in RCM Market to Reach $225.87B by 2035 (SNS Insider, July 22, 2026)</a><span class="sep">&bull;</span>
+<a href="https://asprcmsolutions.com/blog/reducing-claim-denials-70/" target="_blank">ASP RCM Solutions &mdash; Autonomous Coding Platforms Reducing Claim Denials by 70%</a><span class="sep">&bull;</span>
+<a href="https://hitconsultant.net/2026/07/23/candid-health-raises-120m-series-d-sixth-street-growth-autonomous-rcm/" target="_blank">HIT Consultant &mdash; Candid Health Raises $120M Series D (July 23, 2026)</a>
+</div>
+</section>
+
+<!-- SECTION 04 -->
+<section class="section" id="coding">
+<div class="section-number">Section 04</div>
+<h2>FY 2027 ICD-10-CM Is 10 Weeks Out: Oncology Radiation Code Overhaul, GI MVP Quality Measures, and the October 1 Coding Cliff</h2>
+<p>The October 1, 2026 ICD-10-CM and ICD-10-PCS effective date is <strong>10 weeks away</strong>. Practices that begin coder training in September face a compressed window that overlaps with the typically busy fall revenue cycle. Three specialty-specific changes are driving the most urgent pre-implementation workflow reviews: oncology radiation therapy code restructuring, gastroenterology&rsquo;s new MIPS Value Pathway, and Q3 2026 NCCI edit updates that must be loaded before they generate post-submission rejections.</p>
+
+<h3>Oncology Radiation Therapy Code Restructuring</h3>
+<p>One of the most significant coding changes for FY 2027 is the overhaul of radiation therapy delivery codes. The previous <strong>simple/intermediate/complex delivery designations have been revised into Level 1, Level 2, and Level 3</strong>. Separately, <strong>IMRT (Intensity-Modulated Radiation Therapy) codes have been deleted</strong> &mdash; IMRT will now be consolidated into the three delivery levels. Oncology coding staff who continue billing discontinued IMRT codes after October 1 will receive claim rejections, not just denials. Training must begin now.</p>
+
+<h3>Gastroenterology MIPS Value Pathway (MVP)</h3>
+<p>CMS introduced a Gastroenterology MVP including <strong>11 MIPS quality measures</strong> specifically relevant to GI practices, replacing generic MIPS measures with poor alignment to GI practice patterns. Practices participating and performing well earn payment bonuses. The key opportunity: the GI MVP includes colonoscopy quality, IBD management, and GERD outcomes measures &mdash; documentation that most GI practices are already capturing clinically. Confirm with your EHR vendor that these 11 measures are being recorded in a MIPS-reportable format.</p>
+
+<h3>FY 2027 ICD-10-CM Preparation Timeline</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Recommended Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Download updated ICD-10-CM/PCS files from CMS.gov</td>
+<td><span class="kpi-target">By August 1, 2026</span></td>
+</tr>
+<tr>
+<td>Update EHR/PM system code tables</td>
+<td><span class="kpi-target">By September 1, 2026</span></td>
+</tr>
+<tr>
+<td>Train coders on new and revised codes (especially oncology radiation levels)</td>
+<td><span class="kpi-target">September 1&ndash;15, 2026</span></td>
+</tr>
+<tr>
+<td>Audit sample claims using new code set</td>
+<td><span class="kpi-warning">September 15&ndash;30, 2026</span></td>
+</tr>
+<tr>
+<td>Go-live with FY 2027 codes</td>
+<td><span class="kpi-warning">October 1, 2026</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>Unupdated claim scrubbing tools are passing Q3 2026 NCCI edit violations that get rejected post-submission. AAPC&rsquo;s Codify posted Q3 2026 NCCI updates in early July. Run a sample batch of your top-10 procedure code pairs through your scrubber and compare against the Q3 edit table before the end of July. Each post-submission rejection costs an average of $25.20 to rework.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.aapc.com/codes/" target="_blank">AAPC Codify &mdash; Q3 2026 Updates (CPT, HCPCS, MPFS, NCCI)</a><span class="sep">&bull;</span>
+<a href="https://www.oncologynewscentral.com/oncology/oncology-reimbursement-undergoes-significant-overhaul-critical-changes-to-know" target="_blank">Oncology News Central &mdash; Oncology Reimbursement Undergoes Significant Overhaul</a><span class="sep">&bull;</span>
+<a href="https://annexmed.com/oncology-coding-billing-guidelines" target="_blank">Annex Med &mdash; Essential Oncology Coding and Billing Guidelines 2026</a><span class="sep">&bull;</span>
+<a href="https://www.cloudrcmsolutions.com/gastroenterology-billing-guide-2026/" target="_blank">Cloud RCM Solutions &mdash; Gastroenterology Billing Guide 2026</a><span class="sep">&bull;</span>
+<a href="https://www.medusind.com/resources/blog/2026-medical-billing-and-coding-updates-what-you-need-to-know-about-new-icd-10-cm-and-cpt-codes" target="_blank">Medusind &mdash; 2026 Medical Billing and Coding Updates</a>
+</div>
+</section>
+
+<!-- SECTION 05 -->
+<section class="section" id="revenue-velocity">
+<div class="section-number">Section 05</div>
+<h2>97% or Bust: How Top-Performing Practices Sustain Clean Claim Rates Above the 95% Baseline &mdash; and What&rsquo;s Pulling the Industry Average Down</h2>
+<p>The RCM performance gap between the top quartile and the industry average has widened in 2026. The culprit is not one failure &mdash; it is three sequential automation gaps that compound across the billing workflow. Practices at the top are capturing 89%+ of billed revenue in the first submission cycle. Practices at the industry average are capturing 72% &mdash; a 17-point gap that multiplies monthly and annually.</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Top Performer</th>
+<th>Industry Target</th>
+<th>Warning Zone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Clean Claim Rate</strong></td>
+<td><span class="kpi-target">97%+</span></td>
+<td>95%+</td>
+<td><span class="kpi-warning">Below 90%</span></td>
+</tr>
+<tr>
+<td><strong>Denial Rate</strong></td>
+<td><span class="kpi-target">Below 3%</span></td>
+<td>Below 5%</td>
+<td><span class="kpi-warning">Above 8%</span></td>
+</tr>
+<tr>
+<td><strong>Days in AR</strong></td>
+<td><span class="kpi-target">Under 24</span></td>
+<td>Under 28</td>
+<td><span class="kpi-warning">Above 35</span></td>
+</tr>
+<tr>
+<td><strong>Cost to Collect</strong></td>
+<td><span class="kpi-target">3.0&ndash;4.5%</span></td>
+<td>Below 6%</td>
+<td><span class="kpi-warning">Above 8%</span></td>
+</tr>
+<tr>
+<td><strong>Net Collection Rate</strong></td>
+<td><span class="kpi-target">98%+</span></td>
+<td>95%+</td>
+<td><span class="kpi-warning">Below 90%</span></td>
+</tr>
+<tr>
+<td><strong>First-Pass Resolution Rate</strong></td>
+<td><span class="kpi-target">Above 92%</span></td>
+<td>Above 85%</td>
+<td><span class="kpi-warning">Below 75%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>The Three Sequential Automation Gaps</h3>
+<p><strong>Gap 1 &mdash; Front-End Eligibility Failures:</strong> Practices that verify eligibility at scheduling but not at the time of service lose 12&ndash;18% of eligibility-related denials to coverage changes between the two dates. Real-time eligibility verification at check-in via 270/271 transaction automation eliminates this denial category before the claim is ever submitted &mdash; the single highest-ROI front-end investment available in 2026.</p>
+<p><strong>Gap 2 &mdash; Pre-Submission Scrubbing Gaps:</strong> Claim scrubbing tools not updated with Q3 2026 NCCI edits, payer-specific edit libraries, and FY 2027 ICD-10 preview codes are passing claims that get rejected post-submission. Each rejected claim costs an average of $25.20 to rework. At 5,000 claims per month, a 3% undetected rejection rate generates $3,780/month &mdash; or $45,360 annually &mdash; in rework labor alone.</p>
+<p><strong>Gap 3 &mdash; Denial Work Queue Prioritization:</strong> Manual denial queues are worked in submission order, not value order. AI-based prioritization routes high-value, high-probability-of-overturn denials to the top of the queue, recovers 15&ndash;25% more denial dollars with the same staff, and captures timely-filing-at-risk claims before they expire. This is the fastest path to Days-in-AR reduction without adding headcount.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p><strong>The Revenue Velocity Formula:</strong> Clean Claim Rate &times; First-Pass Resolution Rate = Revenue Velocity Index. A practice with a 97% clean claim rate and 92% first-pass resolution rate captures <strong>89.2% of billed revenue in the first submission cycle</strong>. A practice at 90%/80% captures only <strong>72%</strong> &mdash; a 17-point gap that compounds every month of the year.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.plutushealthinc.com/whitepaper/the-2026-rcm-index" target="_blank">Plutus Health &mdash; 2026 RCM Index: Industry Benchmarks and Trends Report</a><span class="sep">&bull;</span>
+<a href="https://stealthagents.com/research/ai-revenue-cycle-management-automation-statistics-2026" target="_blank">Stealth Agents &mdash; AI RCM Automation Statistics 2026</a><span class="sep">&bull;</span>
+<a href="https://droidal.com/whitepapers/healthcare-rcm-benchmarks-insights/" target="_blank">Droidal &mdash; Healthcare RCM Benchmarks and Insights 2026</a><span class="sep">&bull;</span>
+<a href="https://www.onemedbilling.com/blog-details/revenue-cycle-management-best-practices" target="_blank">One Med Billing &mdash; 12 Revenue Cycle Management Best Practices for 2026</a><span class="sep">&bull;</span>
+<a href="https://www.rmcdelivers.com/strengthen-your-revenue-cycle-controls-now-a-practical-guide-before-h2-2026/" target="_blank">RMC Delivers &mdash; Strengthen Your Revenue Cycle Controls Now: H2 2026 Guide</a>
+</div>
+</section>
+
+<!-- SECTION 06 -->
+<section class="section" id="tech-spotlight">
+<div class="section-number">Section 06</div>
+<h2>KLAS 2026 RCM Suites Report: Waystar Earns Overall &lsquo;A,&rsquo; Deep Adopters Say Vendor Partnership Decides Whether Consolidation Pays Off</h2>
+<p>KLAS Research released its inaugural <strong>Revenue Cycle Management Suites 2026</strong> report on July 21, 2026 &mdash; the first KLAS study examining outcomes specifically for &ldquo;deep adopters,&rdquo; defined as healthcare organizations using at least three distinct RCM technology solutions from a single vendor. The headline finding upends common assumptions: among deep adopters, <strong>vendor partnership quality &mdash; not product feature sets &mdash; is the primary predictor of whether consolidation delivers ROI</strong>.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value success">A</div>
+<div class="stat-label">Waystar&rsquo;s overall KLAS grade &mdash; highest in the 2026 RCM Suites Report (released July 21, 2026)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">76–100%</div>
+<div class="stat-label">Waystar clients reporting lower cost-to-collect and improved collections performance in KLAS interviews</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">97%</div>
+<div class="stat-label">Waystar AI denial prevention engine accuracy in predicting claim rejections before submission</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">$21.49B</div>
+<div class="stat-label">AI in RCM market size in 2026 &mdash; growing 27.10% CAGR to $71.27B by 2031</div>
+</div>
+</div>
+
+<h3>KLAS 2026 Findings: The Partnership Quality Variable</h3>
+<p>The report covers Waystar, Experian Health, FinThrive, and Availity, drawing on interviews conducted over the past 12 months. Waystar earned the overall &ldquo;A&rdquo; grade driven by strong strategic partnership quality, cohesive UI across acquired modules, price bundling that reduces per-transaction costs, and high adoption of AI-generated appeals letters by billing staff.</p>
+<p>Among deep adopters, KLAS found that vendors with strong partnership scores delivered: faster implementation timelines (2&ndash;3 months vs. 6&ndash;9 months); higher AI feature adoption rates (because vendor teams actively trained staff); lower billing staff attrition; and more responsive support for payer policy changes and NCCI edit updates. For practices evaluating RCM platform consolidation, the KLAS finding is a procurement signal: <strong>reference-check partnership quality with current clients, not just feature demos</strong>.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>Waystar introduced an AI-based denial prevention engine that predicts claim rejections with <strong>97% accuracy</strong> before submission, cross-referencing claim data against payer-specific edit libraries, prior denial patterns, and real-time payer policy feeds. This is the class of capability separating A-rated RCM platforms from legacy suites in the 2026 market.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://hitconsultant.net/2026/07/22/klas-2026-revenue-cycle-management-suites-report-insights/" target="_blank">HIT Consultant &mdash; KLAS 2026 RCM Suites Report: Waystar Leads Market (July 22, 2026)</a><span class="sep">&bull;</span>
+<a href="https://healthsystemcio.com/2026/07/21/rcm-suite-consolidation-partnership/" target="_blank">Health System CIO &mdash; Deep RCM Adopters Say Vendor Partnership Decides ROI (July 21, 2026)</a><span class="sep">&bull;</span>
+<a href="http://www.prnewswire.com/news-releases/waystar-earns-overall-a-rating-from-klas-for-revenue-cycle-suites-cementing-its-platform-advantage-in-a-fragmented-market-302831321.html" target="_blank">PRNewswire &mdash; Waystar Earns Overall &lsquo;A&rsquo; Rating from KLAS</a><span class="sep">&bull;</span>
+<a href="https://www.globenewswire.com/news-release/2026/07/22/3331134/0/en/AI-in-Revenue-Cycle-Management-Market-Size-to-Reach-225-87-Billion-by-2035-SNS-Insider.html" target="_blank">GlobeNewswire &mdash; AI in RCM Market to Reach $225.87B by 2035 (SNS Insider, July 22, 2026)</a><span class="sep">&bull;</span>
+<a href="https://revcycleai.com/blog/waystar-vendor-deep-dive/" target="_blank">RevCycleAI &mdash; Waystar Vendor Deep Dive 2026</a>
+</div>
+</section>
+
+<!-- SECTION 07 -->
+<section class="section" id="compliance">
+<div class="section-number">Section 07</div>
+<h2>CMS Launches July 2026 Price Transparency Enforcement Dataset &mdash; Machine-Readable File Standards Tighten with Actual Payment Data Now Required</h2>
+<p>CMS launched a <strong>monthly public-use price transparency enforcement dataset</strong> in July 2026 &mdash; a direct escalation of its hospital price transparency enforcement posture. This is the first time CMS has published enforcement activity data in a structured, machine-readable format, tracking enforcement actions and outcomes by hospital with CMS-assigned identifiers, action types, and dates.</p>
+
+<h3>What&rsquo;s in the July 2026 Enforcement Dataset</h3>
+<p>The dataset includes hospital name and CMS identifier, location and address, type of action (warning letter, civil monetary penalty, compliance letter), date of action or outcome, and current compliance status. The practical implication: practices with hospital-outpatient billing relationships &mdash; owned ASCs, joint ventures, affiliated health systems &mdash; need to verify their hospital partners are compliant. Enforcement against a hospital partner affects contracted payer relationships and revenue cycle credentialing.</p>
+
+<h3>Machine-Readable File (MRF) Standard Upgrades</h3>
+<p>The CY 2026 OPPS/ASC Final Rule enforcement (effective April 1, 2026) added critical MRF requirements. Hospitals reporting percentage-based or algorithm-based rates (rather than clean dollar figures) must now <strong>derive and encode EDI 835 statistics</strong> from their remittance data &mdash; specifically the 10th percentile of actual allowed amounts. <strong>Estimated allowed amounts are being replaced with actual payment data</strong> as the required data element. The CY 2027 OPPS proposed rule also includes a Request for Information on further standardizing MRF comparability and contract-semantics data &mdash; the clearest signal yet that enforcement will tighten around data quality, not just file existence.</p>
+
+<h3>Downstream Impact for Physician Practices</h3>
+<p>While MRF requirements nominally apply to hospitals, physician practices are affected in two ways. First, MRF data reveals what hospital outpatient departments are actually collecting from payers &mdash; creating payer contract negotiation leverage for independent practices. Second, practices in markets with compliant hospital MRFs face increasing patient and payer expectations for comparable cost estimates on physician office services. Practices that proactively publish their own service pricing data are ahead of what will become a compliance requirement as CMS extends transparency rules to physician settings.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Check the CMS July 2026 price transparency enforcement dataset for any hospital in your network or joint venture. If a partner facility is under a warning letter or civil monetary penalty, address the compliance gap jointly before it affects your payer credentialing or contracting status. The dataset is now monthly &mdash; add it to your compliance calendar.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency" target="_blank">CMS.gov &mdash; Hospital Price Transparency</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/price-transparency/cmss-latest-transparency-rule-aims-to-make-price-estimates-more-exact/" target="_blank">HFMA &mdash; CMS&rsquo;s Latest Transparency Rule: Price Estimates More Specific</a><span class="sep">&bull;</span>
+<a href="https://www.stroudwater.com/cmss-cy-2026-updates-to-hospital-price-transparency-and-machine-readable-file-requirements/" target="_blank">Stroudwater Associates &mdash; CMS CY 2026 Updates to Hospital Price Transparency and MRF Requirements</a><span class="sep">&bull;</span>
+<a href="https://www.onhealthcare.tech/p/sometimes-interoperability-is-just" target="_blank">On Healthcare Tech &mdash; CMS CY 2027 Imaging Site-Neutral Cut, MRF, 835 Allowed-Amount Percentiles</a><span class="sep">&bull;</span>
+<a href="https://www.aha.org/news/headline/2026-01-21-cms-webinar-discuss-2026-hospital-price-transparency-requirements" target="_blank">AHA News &mdash; CMS Webinar on 2026 Hospital Price Transparency Requirements</a>
+</div>
+</section>
+
+<!-- SECTION 08 -->
+<section class="section" id="independent-practice">
+<div class="section-number">Section 08</div>
+<h2>Independent Practice Watch: $210.4B Medical Group Market, Cost-to-Collect 3&ndash;8% Benchmark, and Why AI Is Now the Entry Fee &mdash; Not the Differentiator</h2>
+<p>The U.S. medical group practice management sector is projected to reach <strong>$210.4 billion in 2026</strong>, growing at a 9.5% CAGR since 2020. For independent practices, this headline conceals a bifurcation: health system-owned groups are capturing an increasing share, while independent physician groups face rising costs, shrinking payer leverage, and an AI adoption gap that is widening into a structural disadvantage. In 2026, AI has crossed the threshold from differentiator to <strong>entry fee</strong> &mdash; the baseline cost of competing in the physician billing market.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">$210.4B</div>
+<div class="stat-label">U.S. medical group practice management market in 2026 &mdash; growing 9.5% CAGR since 2020</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">84%</div>
+<div class="stat-label">Medical groups reporting higher operating costs in 2026 (MGMA)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">47%</div>
+<div class="stat-label">Medical groups reporting higher revenue in 2026 &mdash; more than half face margin compression</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">3&ndash;8%</div>
+<div class="stat-label">Cost-to-collect benchmark range for independent practices; large health systems average 2.5&ndash;5%</div>
+</div>
+</div>
+
+<h3>The AI Adoption Gap</h3>
+<p>Practices without AI-enabled eligibility verification, automated claim scrubbing, and denial analytics are not competing on innovation &mdash; they are competing at a structural cost disadvantage. Practices that have deployed AI as a workflow foundation are reaching 95&ndash;97% clean claim rates; those relying on manual workflows sustain 85&ndash;90% rates and absorb 15&ndash;25% more rework cost per claim. The cost-to-collect gap between the top quartile (3&ndash;4.5%) and the industry warning zone (above 8%) is almost entirely explained by AI and automation adoption, not volume or specialty mix.</p>
+
+<h3>The Consolidation Leverage Gap</h3>
+<p>Consolidated healthcare organizations negotiate more favorable payer reimbursement rates due to market influence. Independent practices lack equivalent leverage. The mitigation strategy in 2026 is two-pronged: join a clinically integrated network or independent practice association (IPA) to pool contracting leverage, and deploy AI-enabled billing to close the cost-efficiency gap with consolidated competitors.</p>
+
+<h3>Where You Should Be &mdash; 2026 Independent Practice Benchmarks</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Action if Below Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Clean Claim Rate</strong></td>
+<td><span class="kpi-target">95%+ (target 97%)</span></td>
+<td>Audit front-end eligibility and pre-submission scrubbing gaps</td>
+</tr>
+<tr>
+<td><strong>Denial Rate</strong></td>
+<td><span class="kpi-target">Below 5%</span></td>
+<td>Deploy payer analytics to identify systematic denial patterns by payer and code</td>
+</tr>
+<tr>
+<td><strong>Days in AR</strong></td>
+<td><span class="kpi-target">Under 28 (target under 24)</span></td>
+<td>Automate payment posting and statement cycles; prioritize high-AR payers</td>
+</tr>
+<tr>
+<td><strong>Cost to Collect</strong></td>
+<td><span class="kpi-target">Below 6%</span></td>
+<td>Evaluate AI-native RCM platform vs. current manual workflows</td>
+</tr>
+<tr>
+<td><strong>Net Collection Rate</strong></td>
+<td><span class="kpi-target">Above 95%</span></td>
+<td>Review timely filing deadlines across all payers; audit write-offs for avoidable losses</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.mgis.com/blog/2026-trends-the-independent-practice-renaissance-what-brokers-need-to-know/" target="_blank">MGIS &mdash; 2026 Trends: The Future of Independent Practice</a><span class="sep">&bull;</span>
+<a href="https://www.doctorsmanagement.com/blog/the-2026-private-practice-playbook-how-independent-groups-are-surviving-margin-compression/" target="_blank">Doctors Management &mdash; The 2026 Private Practice Playbook</a><span class="sep">&bull;</span>
+<a href="https://droidal.com/whitepapers/healthcare-rcm-benchmarks-insights/" target="_blank">Droidal &mdash; Healthcare RCM Benchmarks and Insights 2026</a><span class="sep">&bull;</span>
+<a href="https://www.plutushealthinc.com/post/revenue-cycle-management-kpi" target="_blank">Plutus Health &mdash; RCM KPI Guide 2026</a><span class="sep">&bull;</span>
+<a href="https://revguard.co/medical-practice-management/" target="_blank">Rev Guard &mdash; Medical Practice Management: A 2026 Financial Guide</a>
+</div>
+</section>
+
+<!-- SECTION 09 -->
+<section class="section" id="specialty">
+<div class="section-number">Section 09</div>
+<h2>Specialty RCM Spotlight: Cardiology ASM Rural Adjustment, Orthopedics 7-Day PA Clock, Oncology Radiation Level Codes, GI MVP Rollout, Mental Health NQTL Enforcement</h2>
+
+<h3>Primary Care</h3>
+<p>The CY 2027 PFS proposes permanent extension of behavioral health telehealth, including audio-only visits, which affects primary care practices with integrated behavioral health panels. Primary care practices participating in MSSP ACOs should review the proposed benchmarking changes &mdash; regional trend adjustments may reduce shared savings distributions for high-cost markets. Comment deadline: <strong>September 14, 2026</strong>. Also: MSSP quality reporting streamlining reduces administrative burden for participating primary care practices, one positive element in an otherwise austere proposed rule.</p>
+
+<h3>Cardiology</h3>
+<p>The CY 2027 PFS proposes targeted ASM refinements for cardiovascular specialists: a <strong>rural adjustment</strong> for practices serving high proportions of rural Medicare beneficiaries, a <strong>voluntary PRO data submission</strong> option earning a quality measure score bonus, and subspecialty exclusions for certain cardiovascular subtypes from mandatory ASM participation. Cardiology groups not satisfied with their Year 1 ASM model parameters should file substantive comments by September 14 &mdash; the rural adjustment and subspecialty exclusion provisions are the clearest path to payment protection for high-rural-share cardiovascular practices.</p>
+
+<h3>Orthopedics</h3>
+<p>The September 2025 Prior Authorization Reform Rule&rsquo;s <strong>7-calendar-day standard decision window</strong> is now fully in effect for most payers. Orthopedic practices depending heavily on PA for total joint arthroplasties (CPT 27447, 27130) and spine procedures face the highest immediate exposure. Practices still running fax-based PA workflows cannot reliably track 7-day clock compliance. Electronic PA capability is now a practical necessity. Mismanaged PA timelines are the #1 driver of orthopedic denial spikes in H2 2026 &mdash; and denials triggered by expired PA windows are generally not appealable.</p>
+
+<h3>Oncology</h3>
+<p>The FY 2027 coding overhaul delivers the largest oncology billing change in several years: radiation therapy delivery codes shifting from simple/intermediate/complex to <strong>Level 1, Level 2, Level 3</strong>, with IMRT codes deleted and consolidated into the delivery levels. Training cannot wait for September. Additionally, <strong>patient navigation support codes</strong> receive reinforced and new financial support in the 2026 policy framework &mdash; a billing revenue opportunity for community oncology practices that provide structured navigation services and have not yet billed for them.</p>
+
+<h3>Gastroenterology</h3>
+<p>CMS&rsquo;s new Gastroenterology MIPS Value Pathway (MVP) includes <strong>11 specialty-relevant quality measures</strong> &mdash; replacing generic MIPS measures with poor alignment to GI practice patterns. Participation with strong performance earns payment bonuses. GI practices switching to the MVP should confirm with their EHR vendor that colonoscopy quality, IBD management, and GERD outcomes measures are documented in a MIPS-reportable format. The GI MVP also simplifies improvement activities reporting for most GI practice types &mdash; a meaningful reduction in compliance burden.</p>
+
+<h3>Mental Health / Behavioral Health</h3>
+<p>The 2024 MHPAEA Final Rule&rsquo;s expanded nonquantitative treatment limitation (NQTL) requirements are fully in effect for 2026. Payers must now provide comparative analyses demonstrating that limitations on mental health benefits are <strong>no more restrictive than those applied to comparable medical/surgical benefits</strong>. Behavioral health practices have clearer legal grounds to push back on arbitrary session limits and prior authorization denials. When a payer denies a psychiatric visit that would have been approved for a comparable medical service, request the NQTL comparative analysis in writing &mdash; payers are legally required to provide it. Also: the CY 2027 PFS proposes permanent audio-only behavioral health telehealth coverage, creating a durable revenue base for patients without video access.</p>
+
+<h3>Radiology</h3>
+<p>UnitedHealthcare&rsquo;s January 2026 PA update removed select imaging CPT codes from prior authorization requirements. Radiology practices billing UHC should verify their top-volume imaging codes against the updated PA requirement list &mdash; submitting PA requests for codes that no longer require authorization wastes administrative time and delays scheduling. Also: the CY 2027 PFS includes a site-neutral imaging payment proposal that may reduce reimbursement for hospital-based radiology while creating competitive parity for independent radiology groups. Independent radiology practices should model their reimbursement exposure under the proposed site-neutral rates before September 14.</p>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.vbca.com/insights/2027-physician-fee-schedule-proposed-rule/" target="_blank">VBCA &mdash; CY2027 PFS: What Specialists Should Watch</a><span class="sep">&bull;</span>
+<a href="https://linear.health/blog/prior-authorization-mri-imaging" target="_blank">Linear Health &mdash; Prior Authorization for MRI and Imaging 2026</a><span class="sep">&bull;</span>
+<a href="https://www.adsc.com/blog/2026-orthopedic-billing-guidelines-whats-changed-and-what-to-watch-for" target="_blank">ADSC &mdash; 2026 Orthopedic Billing Guidelines: What&rsquo;s Changed</a><span class="sep">&bull;</span>
+<a href="https://www.oncologynewscentral.com/oncology/nearly-forty-percent-of-oncologists-face-potential-payment-cuts" target="_blank">Oncology News Central &mdash; Brace for Impact: Efficiency Cuts and Site-of-Service Policies Target Oncology</a><span class="sep">&bull;</span>
+<a href="https://www.247medicalbillingservices.com/blog/the-complete-2026-guide-to-mental-health-billing-compliance-parity-laws-time-based-codes-documentation" target="_blank">247 Medical Billing Services &mdash; Complete 2026 Guide to Mental Health Billing Compliance</a><span class="sep">&bull;</span>
+<a href="https://www.cloudrcmsolutions.com/gastroenterology-billing-guide-2026/" target="_blank">Cloud RCM Solutions &mdash; Gastroenterology Billing Guide 2026</a>
+</div>
+</section>
+
+<!-- SECTION 10 -->
+<section class="section" id="action-items">
+<div class="section-number">Section 10</div>
+<h2>This Week&rsquo;s Action Items</h2>
+<ul class="checklist">
+<li>
+<div class="check-box"></div>
+<span><strong>File your CY 2027 PFS comment by September 14, 2026.</strong> If your practice is affected by the ASM (cardiology, interventional), MSSP benchmarking changes (ACO participants), or behavioral health telehealth expansion, submit substantive comments now. September 14 is 52 days away. CMS uses specialty-specific comment data to calibrate final rule provisions &mdash; late comments carry less weight.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Pull the UHC July 2026 policy update and cross-reference your top-25 procedure codes.</strong> UnitedHealthcare&rsquo;s July policy update includes changes to incontinence and respiratory PA requirements across Medicare, Medicaid, Exchange, and commercial plans. A single missed policy change generates systematic denials across every affected claim. Available at uhcprovider.com.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Verify your claim scrubbing tool has Q3 2026 NCCI edits loaded.</strong> AAPC&rsquo;s Codify posted Q3 2026 NCCI updates in early July. Run a sample batch of your top-10 procedure code pairs through your scrubber and compare against the Q3 edit table. Unupdated scrubbers are passing claims that will be rejected post-submission at $25.20 rework cost per claim.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Begin FY 2027 ICD-10-CM training now &mdash; do not wait for September.</strong> Oncology practices should schedule radiation therapy Level 1/2/3 coding training immediately. Download updated code files from CMS.gov. October 1 is 10 weeks away; training started in September compresses the window into go-live week. Update EHR/PM code tables by September 1.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>Audit your PA workflow against the 7-day decision window.</strong> Orthopedic, radiology, and any high-PA-volume practice should measure the average time from service scheduling to PA submission. If the gap exceeds 3 business days, you are exposed to 7-day clock violations on expedited cases. Electronic PA integration is now the operational baseline &mdash; fax workflows cannot track compliance with this timeline.</span>
+</li>
+<li>
+<div class="check-box"></div>
+<span><strong>For practices evaluating RCM platform consolidation: reference-check vendor partnership quality.</strong> The KLAS 2026 RCM Suites Report (July 21) found that partnership quality &mdash; not product features &mdash; predicts whether deep adoption delivers ROI. Ask vendors specifically about their NCCI edit update cadence, payer policy feed refresh rate, and escalation process for new systematic denial patterns.</span>
+</li>
+</ul>
+</section>
+
+<!-- BIG STAT -->
+<div class="big-stat">
+<div class="stat-number">$225.87B</div>
+<div class="stat-desc">The projected size of the AI in Revenue Cycle Management market by 2035 &mdash; up from $21.49 billion in 2026, growing at a 27.10% CAGR. This is not a speculative forecast: Candid Health raised $120 million in autonomous RCM funding this week alone. Waystar earned an &lsquo;A&rsquo; from KLAS for AI-driven denial prevention at 97% accuracy. CodaMetrix reduced coding-related denials 70% through autonomous coding. The practices waiting for AI to become &ldquo;standard&rdquo; are already watching early adopters capture the revenue velocity advantage. The window to be an early majority adopter &mdash; not a laggard &mdash; is closing. (Source: SNS Insider, July 22, 2026)</div>
+</div>
+
+<footer class="footer">
+<div class="footer-divider"></div>
+<p><strong>RCM Pulse Weekly</strong> &mdash; Revenue Cycle Management Intelligence for Medical Practices</p>
+<p>Published every Friday &middot; Volume 7, Issue 4 &middot; July 24, 2026</p>
+<p>Next issue: July 31, 2026</p>
+<p style="margin-top:12px; font-size:0.78rem;">All sources are publicly available. Content is for informational purposes only and does not constitute legal, compliance, or billing advice. Verify all regulatory information with primary CMS sources before acting.</p>
+</footer>
+
+</div><!-- end .newsletter-wrapper -->
+
+<script>
+(function() {
+var bg = document.getElementById('bubbles-bg');
+if (!bg) return;
+var cv = document.createElement('canvas');
+cv.setAttribute('aria-hidden','true');
+cv.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:0;';
+bg.parentNode.replaceChild(cv, bg);
+var ctx = cv.getContext('2d');
+function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+var HUES = [0,20,45,80,160,200,250,280,320,345];
+function randHue() {
+return HUES[Math.floor(Math.random()*HUES.length)] + (Math.random()*24-12);
+}
+function makeBubble(fromBottom) {
+var r = 10 + Math.random() * 46;
+var x = r + Math.random() * (cv.width - 2*r);
+var y = fromBottom ? cv.height + r + Math.random()*180 : Math.random()*cv.height;
+return {
+x:x, y:y, r:r,
+hue: randHue(),
+sat: 78 + Math.random()*20,
+lit: 52 + Math.random()*20,
+op: 0.32 + Math.random()*0.26,
+vx: (Math.random()-0.5)*0.8,
+vy: -(0.38 + Math.random()*0.55)
+};
+}
+var bubbles = [];
+for (var i=0;i<28;i++) bubbles.push(makeBubble(false));
+var splats = [];
+var MAX_SPLATS = 220;
+function burst(cx, cy, hueA, hueB) {
+if (splats.length > MAX_SPLATS) return;
+var n = 7 + Math.floor(Math.random()*5);
+for (var k=0;k<n;k++) {
+var angle = Math.random()*Math.PI*2;
+var spd = 1.8 + Math.random()*3.8;
+var hueOptions = [hueA, hueB, (hueA+hueB)/2, hueA+60, hueB-60, hueA-45, hueB+45];
+var hue = hueOptions[Math.floor(Math.random()*hueOptions.length)];
+splats.push({
+x:cx, y:cy,
+r: 3 + Math.random()*9,
+hue: hue,
+sat: 85 + Math.random()*15,
+lit: 55 + Math.random()*25,
+vx: Math.cos(angle)*spd,
+vy: Math.sin(angle)*spd,
+op: 0.85,
+life: 1.0,
+decay: 0.016 + Math.random()*0.024
+});
+}
+}
+var last = 0;
+function tick(now) {
+var dt = Math.min((now - last)/16, 3);
+last = now;
+ctx.clearRect(0,0,cv.width,cv.height);
+for (var i=0;i<bubbles.length;i++) {
+var b = bubbles[i];
+b.x += b.vx*dt;
+b.y += b.vy*dt;
+if (b.x < -b.r) b.x = cv.width + b.r;
+if (b.x > cv.width+b.r) b.x = -b.r;
+if (b.y < -b.r) {
+var nb = makeBubble(true);
+bubbles[i] = nb;
+continue;
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+for (var j=i+1;j<bubbles.length;j++) {
+var a=bubbles[i], b=bubbles[j];
+var dx=b.x-a.x, dy=b.y-a.y;
+var dist=Math.sqrt(dx*dx+dy*dy);
+var minD=a.r+b.r;
+if (dist < minD && dist > 0.01) {
+burst((a.x+b.x)/2, (a.y+b.y)/2, a.hue, b.hue);
+var nx=dx/dist, ny=dy/dist;
+var dv = (a.vx-b.vx)*nx + (a.vy-b.vy)*ny;
+if (dv > 0) {
+a.vx -= dv*nx; a.vy -= dv*ny;
+b.vx += dv*nx; b.vy += dv*ny;
+}
+var sep=(minD-dist)/2+0.5;
+a.x -= nx*sep; a.y -= ny*sep;
+b.x += nx*sep; b.y += ny*sep;
+a.hue = randHue();
+b.hue = randHue();
+}
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+var b=bubbles[i];
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle = 'hsla('+b.hue+','+b.sat+'%,'+b.lit+'%,'+b.op+')';
+ctx.fill();
+var g=ctx.createRadialGradient(b.x-b.r*0.32,b.y-b.r*0.32,b.r*0.04,b.x,b.y,b.r);
+g.addColorStop(0,'rgba(255,255,255,0.30)');
+g.addColorStop(1,'rgba(255,255,255,0)');
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+}
+for (var i=splats.length-1;i>=0;i--) {
+var s=splats[i];
+s.x += s.vx*dt;
+s.y += s.vy*dt;
+s.vy += 0.05*dt;
+s.vx *= 0.97;
+s.life -= s.decay*dt;
+if (s.life<=0) { splats.splice(i,1); continue; }
+ctx.beginPath();
+ctx.arc(s.x,s.y,Math.max(0.5,s.r*s.life),0,Math.PI*2);
+ctx.fillStyle='hsla('+s.hue+','+s.sat+'%,'+s.lit+'%,'+(s.life*s.op)+')';
+ctx.fill();
+}
+requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
