@@ -38,8 +38,8 @@ jobs:
 
       - name: Compute newsletter date
         id: dates
-        run: |
-          NEWSLETTER_DATE=$(date -u +%Y-%m-%d)
+        run: |NEWSLETTER_DATE="${{ github.event.inputs.newsletter_date }}"
+          if [ -z "$NEWSLETTER_DATE" ]; then NEWSLETTER_DATE=$(date -u +%Y-%m-%d); fi
           MONTH=$(date -u +%-m)
           DAY=$(date -u +%-d)
           ISSUE=$(( (DAY - 1) / 7 + 1 ))
