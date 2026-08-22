@@ -41,8 +41,8 @@ jobs:
         run: |
           NEWSLETTER_DATE="${{ github.event.inputs.newsletter_date }}"
           if [ -z "$NEWSLETTER_DATE" ]; then NEWSLETTER_DATE=$(date -u +%Y-%m-%d); fi
-          MONTH=$(date -u +%-m)
-          DAY=$(date -u +%-d)
+          MONTH=$(date -u -d "$NEWSLETTER_DATE" +%-m)
+DAY=$(date -u -d "$NEWSLETTER_DATE" +%-d)
           ISSUE=$(( (DAY - 1) / 7 + 1 ))
           echo "newsletter_date=$NEWSLETTER_DATE"        >> "$GITHUB_OUTPUT"
           echo "volume=$MONTH"                           >> "$GITHUB_OUTPUT"
