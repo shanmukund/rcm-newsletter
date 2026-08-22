@@ -10,7 +10,10 @@ on:
       reason:
         description: 'Reason for manual run (optional)'
         required: false
-        default: 'Manual trigger'
+        default: 'Manual trigger'      newsletter_date:
+        description: 'Override date (YYYY-MM-DD, blank = today)'
+        required: false
+        default: ''
 
 jobs:
   generate-newsletter:
