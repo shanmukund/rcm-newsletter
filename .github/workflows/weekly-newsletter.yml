@@ -1,7 +1,8 @@
 name: Weekly RCM Newsletter — Auto-Generate
+name: Weekly RCM Newsletter — Auto-Generate
 
 on:
-    schedule:
+  schedule:
     - cron: '0 16 * * 5'
     - cron: '0 16 * * 6'
   workflow_dispatch:
@@ -35,7 +36,6 @@ jobs:
       - name: Compute newsletter date
         id: dates
         run: |
-          # Newsletter is dated today — the Friday it publishes.
           NEWSLETTER_DATE=$(date -u +%Y-%m-%d)
           MONTH=$(date -u +%-m)
           DAY=$(date -u +%-d)
@@ -65,6 +65,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: --dangerously-skip-permissions
           prompt: |
             Generate the RCM Pulse Weekly newsletter for the issue below.
             Follow ALL rules in .claude/rules/ exactly.
@@ -111,7 +112,7 @@ jobs:
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          claude_args: --dangerously-skip-permissions
+
       - name: Confirm deployment
         run: |
           echo "Run complete."
@@ -135,9 +136,8 @@ jobs:
                 '',
                 '### Immediate action required',
                 '1. Click the run link above and check which step failed',
-                '2. If the Claude step failed: check that `ANTHROPIC_API_KEY` secret is valid',
+                '2. If the Claude step failed: check that ANTHROPIC_API_KEY secret is valid',
                 '3. Trigger a manual run from the Actions tab once fixed',
-                '4. Or generate manually: ask Claude Code *"generate the next weekly newsletter"*',
               ].join('\n'),
               labels: ['automation', 'urgent'],
             });
