@@ -2,8 +2,10 @@
 
 This file is the **source of truth** for the weekly newsletter generation.
 
-- **Recurring cowork routine** (`trig_011MyvQ9AcDW2LQyHJNFTUxw`, Fri+Sat 9 AM Phoenix) reads this file and executes it. To change how the newsletter is generated, edit this file and commit — no need to update the routine config.
+- **The GitHub Actions workflow** `.github/workflows/weekly-newsletter.yml` (Fri + Sat 9 AM Phoenix) reads this file and executes it. To change how the newsletter is generated, edit this file and commit — no need to touch the workflow.
+- The workflow **computes the dates and performs the push itself**. When it invokes you it hands you the date, volume, and issue number; you skip Step 1 and stop after Step 10.
 - For **off-cycle backfills**, see the "Manual / backfill override" section at the bottom.
+- The claude.ai routine `trig_011MyvQ9AcDW2LQyHJNFTUxw` was the generator from 2026-05-19 until **2026-08-22, when it was disabled**. Do not re-enable it without reading the outage note in the watchdog section below.
 
 ---
 
@@ -15,6 +17,10 @@ You are generating an issue of the **RCM Pulse Weekly** newsletter for the GitHu
 
 ### STEP 1 — Compute the newsletter date
 
+**If your prompt already gave you the newsletter date, volume, and issue number, skip this step entirely and use those values.** The GitHub Actions workflow computes them before it starts you, and a backfill run targets a date that is not today — recalculating from `date` would silently overwrite it with the wrong week.
+
+Only when no date was supplied:
+
 ```bash
 TODAY_WD=$(date -u +%u)                                  # 1=Mon ... 7=Sun
 
@@ -23,7 +29,7 @@ if [ "$TODAY_WD" = "5" ]; then
   NEWSLETTER_DATE=$(date -u +%Y-%m-%d)
   RUN_MODE="primary"
 elif [ "$TODAY_WD" = "6" ]; then
-  # Saturday — backup retry for yesterday's Friday
+  # Saturday — backup retry for yesterday's Friday. Never a Saturday-dated issue.
   NEWSLETTER_DATE=$(date -u -d "yesterday" +%Y-%m-%d)
   RUN_MODE="backup"
 elif [ -n "$NEWSLETTER_DATE_OVERRIDE" ]; then
@@ -31,7 +37,7 @@ elif [ -n "$NEWSLETTER_DATE_OVERRIDE" ]; then
   NEWSLETTER_DATE="$NEWSLETTER_DATE_OVERRIDE"
   RUN_MODE="backfill"
 else
-  echo "ERROR: routine fired on a day other than Fri/Sat with no NEWSLETTER_DATE_OVERRIDE set." >&2
+  echo "ERROR: fired on a day other than Fri/Sat with no NEWSLETTER_DATE_OVERRIDE set." >&2
   exit 1
 fi
 
@@ -44,6 +50,8 @@ NEXT_FRIDAY=$(date -u -d "$NEWSLETTER_DATE + 7 days" +"%B %-d, %Y")
 
 echo "Mode=$RUN_MODE  Date=$NEWSLETTER_DATE  Volume=$MONTH  Issue=$ISSUE"
 ```
+
+Every derived value — `MONTH`, `DAY`, `ISSUE`, `NEXT_FRIDAY`, the formatted header date — must come from `$NEWSLETTER_DATE`, never from "today". Deriving the issue number from today's date while writing a backfill is how the 2026-08-07 and 2026-08-14 issues both shipped stamped "Issue 4".
 
 ### STEP 2 — Idempotency check
 
@@ -99,6 +107,7 @@ Write `$HTML_FILE`. Populate header, TOC, all 10 sections, Big Stat block, foote
 - Include `<span class="newsletter-date">` (formatted date) and `<span class="newsletter-volume">Volume $MONTH, Issue $ISSUE</span>`
 - Include a bullet-separated topics summary in `.newsletter-topics`
 - Find the existing `<div class="stat-number">N</div>` immediately followed by `<div class="stat-label">Issues</div>` and **increment N by 1**
+- On a **backfill**, insert in date order rather than at the top, so the list stays reverse-chronological
 
 ### STEP 8 — Self-audit
 
@@ -128,6 +137,8 @@ echo "Verification passed."
 
 If any check fails, exit 1. **Do not commit a broken issue.**
 
+The GitHub Actions workflow re-runs every one of these checks itself after you finish, plus a date/volume/issue stamp check. It does not take your word for any of it. Passing them here just means the run gets that far.
+
 ### STEP 10 — Commit
 
 Commit **only these three files** — no logs, no drafts, no other changes:
@@ -140,70 +151,89 @@ if [ "$RUN_MODE" = "backfill" ]; then COMMIT_MSG="$COMMIT_MSG — backfill"; fi
 git commit -m "$COMMIT_MSG"
 ```
 
-### STEP 11 — Push (with long backoff — a transient 403 must NOT kill the run)
+**If the GitHub Actions workflow started you, STOP HERE.** The workflow performs the push and confirms it against the remote. Do not push, and do not leave anything running in the background.
 
-The 2026-07-10 Friday run was lost to a transient GitHub authorization blip: `git push` returned 403 ("Permission denied") for ~40 seconds, the run retried 4 times in that same window, gave up, and the issue missed Friday. The same token had write access minutes later. **Never give up on a push in under 30 minutes.**
+### STEP 11 — Push (only when running outside the workflow)
+
+**Read this before you push. An issue was lost here.**
+
+On 2026-08-21 the Friday run completed a full, verified newsletter, hit a 403 on `git push`, launched the backoff retry loop **as a background task**, and ended its turn four seconds later while the loop was still on its first sleep. The sandbox went idle. Thirty-one minutes later the agent resumed, never read the background task's output, reported *"push succeeded on retry"*, and sent a mobile notification saying the issue was live. The commit had never left the sandbox. The same thing happened on 08-07 and 08-14. Three complete issues were written and thrown away.
+
+Two rules follow from that, and they are absolute:
+
+1. **Run the push loop in the FOREGROUND.** Never `run_in_background`, never `&`. Blocking for 31 minutes is the intended behavior.
+2. **Confirm against the remote before claiming anything.** A push that returned 0 is not proof. `git ls-remote` is.
 
 ```bash
 git pull --rebase origin main
 PUSH_OK=""
-for wait in 0 60 120 240 480 960; do
-  sleep $wait
-  if git push origin main 2>&1; then PUSH_OK=1; break; fi
-  echo "Push failed; will retry after next backoff interval..."
+for wait in 0 30 60 120 240 480 960; do
+  [ "$wait" -gt 0 ] && sleep "$wait"
+  if git push origin main; then PUSH_OK=1; break; fi
+  echo "Push failed; retrying after the next backoff interval..."
   git pull --rebase origin main || true
 done
-[ -n "$PUSH_OK" ] || { echo "PUSH FAILED after ~31 minutes of backoff retries — likely real auth/permission problem, not transient"; exit 1; }
+[ -n "$PUSH_OK" ] || { echo "PUSH FAILED after ~31 minutes — real auth/permission problem, not transient"; exit 1; }
+
+# Do not skip this. The push exit code is not evidence.
+LOCAL=$(git rev-parse HEAD)
+REMOTE=$(git ls-remote origin refs/heads/main | cut -f1)
+[ "$LOCAL" = "$REMOTE" ] \
+  || { echo "PUSH LIED: origin/main is $REMOTE, expected $LOCAL"; exit 1; }
+echo "Confirmed on origin/main: $REMOTE"
 ```
+
+A repeated 403 across separate runs is **not** a transient blip — it means the credential is no longer authorized. Stop retrying and say so plainly rather than reporting success.
 
 ### STEP 12 — Final summary
 
 Print:
 - The 10 section headlines you produced
 - Commit hash: `git rev-parse HEAD`
-- The full `git push` output
-- Live URL: `https://shanmukund.github.io/rcm-newsletter/$HTML_FILE`
+- The `git ls-remote origin refs/heads/main` output proving the commit is on the remote
+- Live URL: `https://www.vaqyaweekly.com/$HTML_FILE`
+
+State only what you verified. If the push did not confirm, say the issue was **not** published and exit non-zero — a false success report costs a week, because the watchdog gets contradicted by your own notification.
 
 ---
 
 ## Hard rules — DO NOT
 
 - Skip the research step or reuse content from previous issues
+- Recalculate `NEWSLETTER_DATE`, the volume, or the issue number from today's date when a target date was supplied
 - Commit if any verification check fails — exit 1 instead so the failure is visible
 - Commit files other than the three listed (no `.log` files, drafts, or anything else)
-- Use `--no-verify`, `--force`, or any flag that bypasses checks
-- Recalculate `NEWSLETTER_DATE` from anything other than the bash logic in Step 1
+- Use `--force` or any flag that bypasses checks or rewrites published history
+- Background the push, or end a turn with a background task still running
+- Report a push, a publication, or a check as successful without having verified it in that same turn
 
 ---
 
-## Watchdog / verification layer (added 2026-07-10 after a silent Friday miss)
+## Watchdog / verification layer
 
-Friday publication is the commitment. The Saturday 9 AM routine run is **failure recovery, not a publication day** — a Friday miss is a P1 and should be backfilled the same day, not left for Saturday.
-
-Three independent layers watch every issue:
+Friday publication is the commitment. The Saturday 9 AM run is **failure recovery, not a publication day** — it regenerates *Friday's* issue and no-ops if Friday landed. A Friday miss is a P1.
 
 | Layer | What | When | Alerts |
 |---|---|---|---|
-| 1. Generator | claude.ai routine `trig_011MyvQ9AcDW2LQyHJNFTUxw` runs this file | Fri + Sat 9 AM Phoenix | — |
-| 2. Cloud watchdog | GitHub Action `.github/workflows/verify-newsletter.yml` — checks the expected `RCM_Weekly_Newsletter_<friday>.html` is committed AND returns HTTP 200 on www.vaqyaweekly.com | Fri 1 PM + Sat 10 AM Phoenix (cron, GitHub-hosted — independent of any local machine) | Opens/updates a `missed-publication` GitHub issue **and** fails the run — two email paths. Uses only the auto-issued `GITHUB_TOKEN` (fresh per run, never expires, no secrets to rotate). |
-| 3. Local subagent | Cowork scheduled task `verify-newsletter-published` (`~/.claude/scheduled-tasks/`) — fetches the live URL, checks origin/main, and on a miss immediately executes this file as a backfill for the missed date | Fri + Sat 1:30 PM local | Chat notification; auto-backfills on miss (runs only while the Cowork app is open — layer 2 is the machine-independent guarantee) |
+| 1. Generator | GitHub Action `.github/workflows/weekly-newsletter.yml` runs this file, then verifies the output and pushes it itself | Fri + Sat 9 AM Phoenix | Opens an `automation`/`urgent` issue on failure, and fails the run |
+| 2. Cloud watchdog | GitHub Action `.github/workflows/verify-newsletter.yml` — checks the expected `RCM_Weekly_Newsletter_<friday>.html` is committed AND returns HTTP 200 on www.vaqyaweekly.com | Fri 1 PM + Sat 10 AM Phoenix | Opens/updates a `missed-publication` issue **and** fails the run — two email paths |
 
-Manual fallback remains: GitHub Actions → "Weekly RCM Newsletter — Auto-Generate" → Run workflow (workflow_dispatch).
+Both layers run entirely in GitHub's cloud on the auto-issued `GITHUB_TOKEN`, independent of any local machine, any claude.ai routine, and any stored credential.
 
-**Credentials (hard rule — no expiring tokens in unattended automation):** the routine's git push uses a **classic GitHub PAT with No expiration** (`repo` scope, rotated 2026-07-10; lives only inside the trigger config, never in this repo). The GitHub Action watchdog uses the auto-issued `GITHUB_TOKEN` (fresh per run, never expires). If the routine ever hits an auth failure: regenerate a classic no-expiration token at github.com/settings/tokens and rotate it into the trigger via `RemoteTrigger action:update` — never use a fine-grained PAT (mandatory expiry = guaranteed future silent failure; this exact failure mode was the suspected cause of the 2026-07-10 miss).
+**Credentials (hard rule — no expiring or manually-rotated tokens in unattended automation):** everything uses the workflow's auto-issued `GITHUB_TOKEN` — minted fresh per run, scoped to this repo, never expires, nothing to rotate. **Do not reintroduce a personal access token.** The 2026-08 outage was a PAT stored in a claude.ai trigger config that stopped being authorized after 2026-07-31; three Fridays failed silently because nothing checked whether the push had actually landed. If you find yourself pasting a `ghp_…` token anywhere, stop — the answer is a workflow, not a token.
 
-If a watchdog fires: check the routine's run history on claude.ai for root cause, backfill via the override below, and close the GitHub issue only after the live URL returns 200.
+If a watchdog fires: open the failed Actions run, read which step failed, and re-run the generator with `newsletter_date` set to the missed Friday. Close the GitHub issue only after the live URL returns 200.
 
 ---
 
 ## Manual / backfill override
 
-When you need to generate an off-cycle issue (missed Friday, mid-week catch-up):
+To generate an off-cycle issue (missed Friday, mid-week catch-up), **use the workflow** — it applies the same verification and push confirmation as a scheduled run:
 
-1. Compute the target Friday's date in `YYYY-MM-DD` form.
-2. Start a Claude Cowork session attached to `shanmukund/rcm-newsletter`.
-3. Send the agent this message:
+> GitHub → Actions → **"Weekly RCM Newsletter — Auto-Generate"** → **Run workflow** → set **newsletter_date** to the target Friday (`YYYY-MM-DD`) → Run.
 
-> Set `NEWSLETTER_DATE_OVERRIDE=2026-MM-DD` then read `NEWSLETTER_PROMPT.md` from the repo root and execute it.
+The workflow sets `RUN_MODE=backfill` and proceeds identically to a scheduled run. It refuses to run on a non-Friday/Saturday unless you supply that date, so it can never invent one.
 
-The Step 1 bash logic picks up the override and proceeds with `RUN_MODE=backfill`. Everything else (research, generation, verification, commit) is identical to a scheduled run.
+To run it by hand in a local Claude Code session against this repo instead:
+
+> Set `NEWSLETTER_DATE_OVERRIDE=2026-MM-DD` then read `NEWSLETTER_PROMPT.md` from the repo root and execute it, including Step 11.

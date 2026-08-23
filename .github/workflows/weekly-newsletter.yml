@@ -1,9 +1,28 @@
 name: Weekly RCM Newsletter — Auto-Generate
 
+# PRIMARY GENERATOR (since 2026-08-22).
+#
+# History: generation lived on the claude.ai routine trig_011MyvQ9AcDW2LQyHJNFTUxw
+# from 2026-05-19 until 2026-08-22. That routine pushed with a personal access token
+# stored in its trigger config; the token stopped being authorized after 2026-07-31 and
+# every Friday run from 08-07 onward generated a complete newsletter, hit 403 on push,
+# and then reported success anyway. Three issues were written and lost inside dead
+# sandboxes. The routine is now disabled.
+#
+# This workflow pushes with the auto-issued GITHUB_TOKEN — minted fresh per run, never
+# expires, nothing to rotate. That failure mode cannot recur here.
+#
+# Design rules learned from that outage, do not remove:
+#   * Saturday computes FRIDAY's date. It is a retry of Friday, never its own issue.
+#   * The push happens in this workflow, in the foreground, with backoff — never inside
+#     the agent, and never as a background task.
+#   * The run is not green until origin/main actually contains the new commit.
+
 on:
   schedule:
-    - cron: '0 16 * * 5'
-    - cron: '0 16 * * 6'
+    # Cron is UTC. Phoenix is UTC-7 year-round (no DST).
+    - cron: '0 16 * * 5'   # Friday   9:00 AM Phoenix — primary
+    - cron: '0 16 * * 6'   # Saturday 9:00 AM Phoenix — retry of Friday (no-ops if Friday landed)
   workflow_dispatch:
     inputs:
       reason:
@@ -11,14 +30,19 @@ on:
         required: false
         default: 'Manual trigger'
       newsletter_date:
-        description: 'Override date (YYYY-MM-DD, blank = today)'
+        description: 'Backfill a specific Friday (YYYY-MM-DD, blank = auto)'
         required: false
         default: ''
+
+concurrency:
+  # Never let two generators run at once — a second run would rebase onto a half-pushed main.
+  group: newsletter-generate
+  cancel-in-progress: false
 
 jobs:
   generate-newsletter:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
 
     permissions:
       contents: write
@@ -39,17 +63,45 @@ jobs:
       - name: Compute newsletter date
         id: dates
         run: |
-          NEWSLETTER_DATE="${{ github.event.inputs.newsletter_date }}"
-          if [ -z "$NEWSLETTER_DATE" ]; then NEWSLETTER_DATE=$(date -u +%Y-%m-%d); fi
+          set -euo pipefail
+          OVERRIDE="${{ github.event.inputs.newsletter_date }}"
+          DOW=$(date -u +%u)   # 1=Mon ... 5=Fri 6=Sat 7=Sun
+
+          if [ -n "$OVERRIDE" ]; then
+            NEWSLETTER_DATE="$OVERRIDE"
+            RUN_MODE="backfill"
+          elif [ "$DOW" = "5" ]; then
+            NEWSLETTER_DATE=$(date -u +%Y-%m-%d)
+            RUN_MODE="primary"
+          elif [ "$DOW" = "6" ]; then
+            # Saturday is a RETRY of Friday. It must never mint a Saturday-dated issue —
+            # doing so publishes a duplicate and leaves the Friday slot empty forever.
+            NEWSLETTER_DATE=$(date -u -d "yesterday" +%Y-%m-%d)
+            RUN_MODE="backup"
+          else
+            echo "::error::Fired on day-of-week $DOW with no newsletter_date input. Refusing to guess a date."
+            exit 1
+          fi
+
+          # Every date field below derives from NEWSLETTER_DATE, never from "today".
           MONTH=$(date -u -d "$NEWSLETTER_DATE" +%-m)
           DAY=$(date -u -d "$NEWSLETTER_DATE" +%-d)
           ISSUE=$(( (DAY - 1) / 7 + 1 ))
-          echo "newsletter_date=$NEWSLETTER_DATE"        >> "$GITHUB_OUTPUT"
-          echo "volume=$MONTH"                           >> "$GITHUB_OUTPUT"
-          echo "issue=$ISSUE"                            >> "$GITHUB_OUTPUT"
-          echo "md_file=RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.md"     >> "$GITHUB_OUTPUT"
-          echo "html_file=RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.html" >> "$GITHUB_OUTPUT"
-          echo "Newsletter date: $NEWSLETTER_DATE  (Volume $MONTH, Issue $ISSUE)"
+          NEXT_FRIDAY=$(date -u -d "$NEWSLETTER_DATE + 7 days" +"%B %-d, %Y")
+          PRETTY=$(date -u -d "$NEWSLETTER_DATE" +"%B %-d, %Y")
+
+          {
+            echo "newsletter_date=$NEWSLETTER_DATE"
+            echo "run_mode=$RUN_MODE"
+            echo "volume=$MONTH"
+            echo "issue=$ISSUE"
+            echo "pretty=$PRETTY"
+            echo "next_friday=$NEXT_FRIDAY"
+            echo "md_file=RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.md"
+            echo "html_file=RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.html"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Mode=$RUN_MODE  Date=$NEWSLETTER_DATE  Volume=$MONTH  Issue=$ISSUE"
 
       - name: Skip if newsletter already exists
         id: check
@@ -57,11 +109,16 @@ jobs:
           HTML="${{ steps.dates.outputs.html_file }}"
           if [ -f "$HTML" ]; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
-            echo "Newsletter $HTML already exists — skipping generation."
+            echo "$HTML already exists — nothing to do (mode=${{ steps.dates.outputs.run_mode }})."
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
-            echo "Newsletter $HTML not found — proceeding with generation."
+            echo "$HTML not found — generating."
           fi
+
+      - name: Record baseline commit
+        id: baseline
+        if: steps.check.outputs.exists == 'false'
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Generate newsletter with Claude Code
         if: steps.check.outputs.exists == 'false'
@@ -71,77 +128,158 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: --dangerously-skip-permissions
           prompt: |
-            Generate the RCM Pulse Weekly newsletter for the issue below.
-            Follow ALL rules in .claude/rules/ exactly.
+            Read NEWSLETTER_PROMPT.md from the repo root and execute it. That file is the
+            single source of truth for this newsletter — follow it exactly, along with the
+            rules files in .claude/rules/ that it points to.
 
-            === DATES (DO NOT CHANGE THESE) ===
+            === DATES ALREADY COMPUTED — USE THESE VERBATIM ===
+            Skip Step 1 of NEWSLETTER_PROMPT.md. These values are authoritative:
+
+            Run mode        : ${{ steps.dates.outputs.run_mode }}
             Newsletter date : ${{ steps.dates.outputs.newsletter_date }}
+            Formatted date  : ${{ steps.dates.outputs.pretty }}
             Volume          : ${{ steps.dates.outputs.volume }}
             Issue           : ${{ steps.dates.outputs.issue }}
+            Next issue      : ${{ steps.dates.outputs.next_friday }}
             Markdown file   : ${{ steps.dates.outputs.md_file }}
             HTML file       : ${{ steps.dates.outputs.html_file }}
 
-            === STEPS ===
-            1. Run web searches across all 12 research areas in workflow.md — cover CMS/Medicare,
-               AAPC coding, AI/automation, payer policy, PA reform, revenue velocity, workflow
-               automation, healthcare IT, interoperability, independent practice trends, AND
-               specialty-specific RCM news (Primary Care, Cardiology, Orthopedics, Oncology, etc.)
+            Do not run `date` to derive any of these. Do not recalculate the volume or the
+            issue number from today's date — this run may be a backfill for an earlier week.
 
-            2. Write the Markdown file: ${{ steps.dates.outputs.md_file }}
+            === WHERE YOUR JOB ENDS ===
+            Execute Steps 2 through 10 of NEWSLETTER_PROMPT.md: idempotency check, research,
+            markdown, template selection, HTML, index.html, self-audit, verification gate,
+            and the commit.
 
-            3. Generate the HTML file: ${{ steps.dates.outputs.html_file }}
-               — read the most recent HTML file in the repo first and use it as the structural template
-               — apply the full design from design-template.md (colors, typography, components)
+            STOP after the commit. Do NOT push — this workflow pushes for you, in the
+            foreground, with backoff and remote confirmation. Do not start any background
+            task, and do not end your turn with work still running in one.
 
-            4. Update index.html:
-               — add the new issue entry at the TOP of the newsletter list
-               — use a descriptive title (NOT just "RCM Pulse Weekly") that names the 2–3 biggest stories
-               — set the correct date, volume, and issue number
-               — increment the Issues count stat by 1
+            If the verification gate in Step 9 fails, exit non-zero. Never commit a broken
+            issue, and never report success for something you did not verify.
 
-            5. Run the quality-control.md checklist. Fix anything that fails.
-
-            6. Commit ONLY these three files (nothing else — do not add any other files):
-               git add ${{ steps.dates.outputs.md_file }} ${{ steps.dates.outputs.html_file }} index.html
-               git commit -m "Add newsletter for ${{ steps.dates.outputs.newsletter_date }} (Volume ${{ steps.dates.outputs.volume }}, Issue ${{ steps.dates.outputs.issue }})"
-
-            IMPORTANT: Use the exact dates above. Do not infer or recalculate the date.
-            Do not skip the research step. Every section needs real, sourced statistics.
-            Do not reuse content from previous issues.
-
-      - name: Push to GitHub Pages
+      - name: Verify Claude actually produced the issue
+        id: verify
         if: steps.check.outputs.exists == 'false'
         run: |
-          git pull --rebase origin main
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          set -uo pipefail
+          MD="${{ steps.dates.outputs.md_file }}"
+          HTML="${{ steps.dates.outputs.html_file }}"
+          BASE="${{ steps.baseline.outputs.sha }}"
+          FAIL=0
+          note() { echo "::error::$1"; FAIL=1; }
 
-      - name: Confirm deployment
+          # This step exists because the agent is not a trustworthy reporter of its own
+          # output. Everything below is checked here, in the job, against the filesystem
+          # and against git — never against anything the agent said it did.
+
+          [ -f "$MD" ]   || note "$MD was never written"
+          [ -f "$HTML" ] || note "$HTML was never written"
+
+          if [ -f "$MD" ]; then
+            SZ=$(stat -c %s "$MD")
+            [ "$SZ" -ge 8000 ] || note "$MD is only ${SZ} bytes (need >= 8000) — stub, not an issue"
+          fi
+
+          if [ -f "$HTML" ]; then
+            SZ=$(stat -c %s "$HTML")
+            [ "$SZ" -ge 30000 ] || note "$HTML is only ${SZ} bytes (need >= 30000) — stub, not an issue"
+            for id in regulatory prior-auth ai-automation coding revenue-velocity \
+                      tech-spotlight compliance independent-practice specialty action-items; do
+              grep -q "id=\"$id\"" "$HTML" || note "$HTML is missing section #$id"
+            done
+            grep -q "${{ steps.dates.outputs.pretty }}" "$HTML" \
+              || note "$HTML does not carry the date '${{ steps.dates.outputs.pretty }}'"
+            grep -q "Volume ${{ steps.dates.outputs.volume }}, Issue ${{ steps.dates.outputs.issue }}" "$HTML" \
+              || note "$HTML is not stamped 'Volume ${{ steps.dates.outputs.volume }}, Issue ${{ steps.dates.outputs.issue }}'"
+          fi
+
+          # index.html must have gained a link to the new issue.
+          grep -q "$HTML" index.html || note "index.html has no link to $HTML"
+
+          # A commit must exist on top of the baseline, or there is nothing to push.
+          if [ "$(git rev-parse HEAD)" = "$BASE" ]; then
+            note "Claude made no commit — HEAD is still $BASE"
+          fi
+
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::warning::Uncommitted leftovers in the worktree:"
+            git status --short
+          fi
+
+          [ "$FAIL" -eq 0 ] || { echo "Verification FAILED — refusing to push."; exit 1; }
+          echo "Verification passed. Commit to push: $(git rev-parse HEAD)"
+
+      - name: Push to GitHub Pages (foreground, with backoff)
+        if: steps.check.outputs.exists == 'false'
         run: |
-          echo "Run complete."
-          echo "Latest commit: $(git log -1 --oneline)"
+          set -uo pipefail
+
+          # Runs in the FOREGROUND on purpose. The 2026-08-21 issue was lost because the
+          # agent backgrounded this loop and let its turn end while the retries were asleep.
+          PUSH_OK=""
+          for wait in 0 30 60 120 240 480 960; do
+            if [ "$wait" -gt 0 ]; then
+              echo "--- waiting ${wait}s before retry ---"
+              sleep "$wait"
+            fi
+            git pull --rebase origin main || echo "rebase failed, attempting push anyway"
+            if git push origin main; then PUSH_OK=1; break; fi
+            echo "push attempt failed at $(date -u)"
+          done
+
+          if [ -z "$PUSH_OK" ]; then
+            echo "::error::Push failed after ~31 minutes of backoff. That is an auth or permission problem, not a blip."
+            exit 1
+          fi
+
+          # Trust the remote, not the exit code. Confirm main really moved.
+          LOCAL=$(git rev-parse HEAD)
+          REMOTE=$(git ls-remote origin refs/heads/main | cut -f1)
+          echo "local  HEAD: $LOCAL"
+          echo "origin main: $REMOTE"
+          if [ "$LOCAL" != "$REMOTE" ]; then
+            echo "::error::Push reported success but origin/main is $REMOTE, not $LOCAL."
+            exit 1
+          fi
+          echo "Confirmed on origin/main: $REMOTE"
+
+      - name: Confirm published
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          echo "Published ${{ steps.dates.outputs.html_file }} (Volume ${{ steps.dates.outputs.volume }}, Issue ${{ steps.dates.outputs.issue }}, mode=${{ steps.dates.outputs.run_mode }})"
+          echo "Commit: $(git log -1 --oneline)"
+          echo "URL: https://www.vaqyaweekly.com/${{ steps.dates.outputs.html_file }}"
+          echo "Pages takes a minute or two to deploy; the watchdog re-checks the live URL later today."
 
       - name: Alert on failure
         if: failure()
         uses: actions/github-script@v7
         with:
           script: |
+            const date = '${{ steps.dates.outputs.newsletter_date }}' || 'unknown date';
+            const mode = '${{ steps.dates.outputs.run_mode }}' || 'unknown';
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `🚨 Newsletter automation failed — ${new Date().toISOString().slice(0,10)}`,
+              title: `🚨 Newsletter generation failed — ${date}`,
               body: [
-                '## Newsletter generation failed',
+                '## The generator run failed',
                 '',
+                `**Target issue:** ${date} (mode: ${mode})`,
                 `**Run:** [View logs](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
-                `**Triggered by:** ${context.eventName}`,
-                `**Date:** ${new Date().toUTCString()}`,
+                `**Failed at:** ${new Date().toUTCString()}`,
                 '',
-                '### Immediate action required',
-                '1. Click the run link above and check which step failed',
-                '2. If the Claude step failed: check that ANTHROPIC_API_KEY secret is valid',
-                '3. Trigger a manual run from the Actions tab once fixed',
+                '### Which step failed tells you what broke',
+                '- **Generate newsletter with Claude Code** — check the `ANTHROPIC_API_KEY` secret.',
+                '- **Verify Claude actually produced the issue** — the agent no-oped or wrote a stub. The error lines name the exact check that failed. Nothing was pushed; the repo is untouched.',
+                '- **Push to GitHub Pages** — 31 minutes of backoff did not clear it. Real permission problem, not a blip. Confirm the workflow still has `contents: write`.',
+                '',
+                '### Recover',
+                `Actions → "Weekly RCM Newsletter — Auto-Generate" → Run workflow, with **newsletter_date = ${date}**.`,
+                '',
+                'The Saturday 9 AM Phoenix run also retries Friday automatically, and no-ops if Friday landed.',
               ].join('\n'),
               labels: ['automation', 'urgent'],
             });
