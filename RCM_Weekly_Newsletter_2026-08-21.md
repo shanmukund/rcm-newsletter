@@ -1,6 +1,6 @@
 # RCM Pulse Weekly
 ## Revenue Cycle Management Intelligence for Medical Practices
-**August 22, 2026 | Volume 8, Issue 4**
+**August 21, 2026 | Volume 8, Issue 3**
 
 ---
 
@@ -553,7 +553,7 @@ Two proposals cut across every specialty in this table and deserve modeling rega
 
 ## Section 10 — This Week's Action Items
 
-### Ten Moves for the Week of August 22, 2026
+### Ten Moves for the Week of August 21, 2026
 
 1. **Calendar the September 14 comment deadline and assign an owner.** The CY 2027 PFS comment period closes in 23 days. At minimum, comment on modifier 25 if you bill same-day E/M with global-period procedures. A practice-specific comment quantifying patient impact carries disproportionate weight in the record.
 
@@ -597,4 +597,4 @@ Two proposals cut across every specialty in this table and deserve modeling rega
 **RCM Pulse Weekly** — Revenue Cycle Management Intelligence for Medical Practices
 Researched and compiled from public domain sources including CMS.gov, the Federal Register, AMA, AAPC, HFMA, MGMA, KLAS Research, PitchBook, Becker's Healthcare, Medical Economics, and payer policy portals.
 
-**Next issue: August 29, 2026**
+**Next issue: August 28, 2026**

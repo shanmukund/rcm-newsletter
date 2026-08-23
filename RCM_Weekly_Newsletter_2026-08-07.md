@@ -2,7 +2,7 @@
 
 **Revenue Cycle Management Intelligence for Medical Practices**
 
-August 7, 2026 · Volume 8, Issue 4
+August 7, 2026 · Volume 8, Issue 1
 
 ---
 
@@ -376,4 +376,4 @@ Independent physicians are not choosing employment. They are being outlasted by 
 
 Researched and compiled from public domain sources including CMS.gov, the Federal Register, AMA, AAPC, HFMA, MGMA, CAQH, KLAS Research, PitchBook, Kodiak Solutions, Experian Health, Becker's Healthcare, Medical Economics, and payer policy portals.
 
-Volume 8, Issue 4 · August 7, 2026 · **Next issue: August 14, 2026**
+Volume 8, Issue 1 · August 7, 2026 · **Next issue: August 14, 2026**

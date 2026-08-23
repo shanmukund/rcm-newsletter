@@ -1,7 +1,7 @@
 # RCM Pulse Weekly
 ## Revenue Cycle Management Intelligence for Medical Practices
 
-**August 14, 2026** | Volume 8, Issue 4
+**August 14, 2026** | Volume 8, Issue 2
 
 ---
 
@@ -414,4 +414,4 @@ For eight years, out-of-network arbitration was a large-practice instrument. At 
 
 Researched and compiled from public domain sources including CMS.gov, the Federal Register, AMA, AAPC, HFMA, MGMA, PAI-Avalere, Black Book Research, PitchBook, Becker's Healthcare, Medical Economics, and payer policy portals.
 
-Volume 8, Issue 4 • August 14, 2026 • **Next issue: August 21, 2026**
+Volume 8, Issue 2 • August 14, 2026 • **Next issue: August 21, 2026**
