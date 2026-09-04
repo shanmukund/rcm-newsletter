@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCM Pulse Weekly | September 4, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--color-bg: #FAFAFA;
+--color-surface: #FFFFFF;
+--color-text: #1A1A2E;
+--color-text-secondary: #4A4A68;
+--color-text-muted: #8888A0;
+--color-accent: #0F5FE0;
+--color-accent-light: #E8F0FE;
+--color-accent-dark: #0A4ABF;
+--color-border: #E8E8EE;
+--color-highlight: #FFF8E1;
+--color-highlight-border: #F5C518;
+--color-success: #0D9F6E;
+--color-success-light: #E6F9F1;
+--color-danger: #DC3545;
+--color-danger-light: #FDE8EA;
+--color-kpi-green: #0D9F6E;
+--color-kpi-amber: #D97706;
+--radius-sm: 6px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+--shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+--shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+--max-width: 720px;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+background-color: #ECEEF6;
+background-image:
+radial-gradient(ellipse 160% 32% at 50% 0%, rgba(15,95,224,0.10) 0%, transparent 65%),
+url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.3' fill='%230F5FE0' opacity='0.055'/%3E%3C/svg%3E");
+background-attachment: fixed;
+color: var(--color-text);
+line-height: 1.7;
+-webkit-font-smoothing: antialiased;
+padding: 48px 16px 72px;
+min-height: 100vh;
+}
+body::before {
+content: '';
+position: fixed;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, #0A4ABF 0%, #0F5FE0 55%, #60a5fa 100%);
+z-index: 999;
+}
+.newsletter-wrapper {
+max-width: var(--max-width);
+margin: 0 auto;
+padding: 0 32px;
+background: #ffffff;
+border-top: 3px solid var(--color-accent);
+border-radius: 0 0 8px 8px;
+box-shadow: 0 0 0 1px rgba(15,95,224,0.07), 0 8px 40px rgba(15,95,224,0.09), 0 2px 8px rgba(0,0,0,0.05);
+position: relative;
+z-index: 1;
+}
+#bubbles-bg {
+position: fixed; top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none; overflow: hidden; z-index: 0;
+}
+.bubble {
+position: absolute; bottom: -150px; border-radius: 50%; opacity: 0;
+animation: bubble-rise var(--dur, 14s) var(--delay, 0s) linear infinite;
+}
+@keyframes bubble-rise {
+0% { transform: translateY(0) translateX(0) scale(0.75); opacity: 0; }
+8% { opacity: var(--max-op, 0.16); }
+88% { opacity: var(--max-op, 0.16); }
+100% { transform: translateY(calc(-100vh - 200px)) translateX(var(--dx, 40px)) scale(1.15); opacity: 0; }
+}
+.header { padding: 48px 0 40px; text-align: center; border-bottom: 1px solid var(--color-border); }
+.header-brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.header-logo { width: 40px; height: 40px; background: var(--color-accent); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; letter-spacing: -0.5px; }
+.header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.5px; }
+.header-subtitle { font-size: 0.9rem; color: var(--color-text-muted); font-weight: 400; margin-top: 4px; }
+.header-meta { display: inline-flex; align-items: center; gap: 16px; margin-top: 16px; font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+.header-meta span { display: flex; align-items: center; gap: 4px; }
+.meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-muted); }
+.toc { padding: 32px 0; border-bottom: 1px solid var(--color-border); }
+.toc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 16px; }
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.toc-list li a { display: flex; align-items: baseline; gap: 12px; text-decoration: none; color: var(--color-text); font-size: 0.925rem; font-weight: 450; padding: 6px 0; transition: color 0.2s; }
+.toc-list li a:hover { color: var(--color-accent); }
+.toc-num { font-size: 0.75rem; font-weight: 600; color: var(--color-accent); min-width: 20px; }
+.section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+.section:last-of-type { border-bottom: none; }
+.section-number { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-accent); font-weight: 600; margin-bottom: 8px; }
+.section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.55rem; font-weight: 700; line-height: 1.3; color: var(--color-text); margin-bottom: 20px; letter-spacing: -0.3px; }
+.section h3 { font-size: 1rem; font-weight: 600; color: var(--color-text); margin-top: 32px; margin-bottom: 12px; }
+.section p { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 16px; }
+.section p strong { color: var(--color-text); font-weight: 600; }
+.section ul, .section ol { padding-left: 20px; margin-bottom: 16px; }
+.section li { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 10px; line-height: 1.65; }
+.section li strong { color: var(--color-text); font-weight: 600; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 20px; text-align: center; }
+.stat-card .stat-value { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; font-weight: 700; color: var(--color-accent); line-height: 1.1; }
+.stat-card .stat-value.danger { color: var(--color-danger); }
+.stat-card .stat-value.success { color: var(--color-success); }
+.stat-card .stat-label { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 6px; line-height: 1.4; }
+.callout { border-left: 3px solid var(--color-accent); background: var(--color-accent-light); padding: 16px 20px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 24px 0; }
+.callout p { font-size: 0.9rem; color: var(--color-text); margin: 0; font-weight: 500; line-height: 1.6; }
+.callout.warning { border-left-color: var(--color-highlight-border); background: var(--color-highlight); }
+.callout.action { border-left-color: var(--color-success); background: var(--color-success-light); }
+.callout-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 4px; display: block; }
+.callout .callout-label { color: var(--color-accent); }
+.callout.warning .callout-label { color: var(--color-kpi-amber); }
+.callout.action .callout-label { color: var(--color-success); }
+.table-wrap { overflow-x: auto; margin: 24px 0; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+thead { background: var(--color-bg); }
+th { padding: 12px 16px; text-align: left; font-weight: 600; color: var(--color-text); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid var(--color-border); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--color-border); color: var(--color-text-secondary); line-height: 1.5; }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--color-text); font-weight: 600; }
+.kpi-target { color: var(--color-kpi-green); font-weight: 600; }
+.kpi-warning { color: var(--color-kpi-amber); font-weight: 600; }
+.tech-stack { margin: 24px 0; display: flex; flex-direction: column; gap: 8px; }
+.stack-layer { display: flex; align-items: center; gap: 16px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.stack-label { min-width: 130px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 4px; text-align: center; }
+.stack-label.gen-ai { background: var(--color-text); color: #fff; }
+.stack-label.ai-ml { background: var(--color-accent); color: #fff; }
+.stack-label.rpa { background: var(--color-accent-light); color: var(--color-accent-dark); }
+.stack-desc { font-size: 0.88rem; color: var(--color-text-secondary); }
+.vendor-group { margin: 20px 0; }
+.vendor-group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 8px; }
+.vendor-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.vendor-tag { display: inline-block; padding: 5px 14px; border-radius: 20px; background: var(--color-accent-light); color: var(--color-accent-dark); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.01em; }
+.checklist { list-style: none; padding: 0; margin: 24px 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 0.925rem; color: var(--color-text-secondary); line-height: 1.55; }
+.checklist li:last-child { border-bottom: none; }
+.check-box { flex-shrink: 0; width: 20px; height: 20px; border: 2px solid var(--color-accent); border-radius: 4px; margin-top: 2px; }
+.checklist li strong { color: var(--color-text); }
+.big-stat { text-align: center; padding: 48px 24px; background: linear-gradient(135deg, #0A4ABF 0%, #0F5FE0 100%); border-radius: var(--radius-lg); margin: 32px 0; color: #fff; }
+.big-stat .stat-number { font-family: 'Playfair Display', Georgia, serif; font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+.big-stat .stat-desc { font-size: 0.95rem; opacity: 0.9; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+.sources { margin-top: 16px; padding-top: 16px; }
+.sources-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 6px; }
+.sources a { font-size: 0.8rem; color: var(--color-accent); text-decoration: none; transition: color 0.2s; }
+.sources a:hover { color: var(--color-accent-dark); text-decoration: underline; }
+.sources .sep { color: var(--color-text-muted); margin: 0 6px; font-size: 0.75rem; }
+.footer { padding: 40px 0 48px; text-align: center; color: var(--color-text-muted); font-size: 0.82rem; line-height: 1.7; }
+.footer-divider { width: 48px; height: 2px; background: var(--color-border); margin: 0 auto 24px; }
+.footer p { margin-bottom: 8px; }
+@media (max-width: 600px) {
+.newsletter-wrapper { padding: 0 20px; }
+.header { padding: 32px 0 28px; }
+.header h1 { font-size: 1.6rem; }
+.section { padding: 36px 0; }
+.section h2 { font-size: 1.3rem; }
+.stat-row { grid-template-columns: 1fr 1fr; }
+.stat-card .stat-value { font-size: 1.5rem; }
+.big-stat .stat-number { font-size: 2.2rem; }
+.big-stat { padding: 36px 20px; }
+.header-meta { flex-direction: column; gap: 4px; }
+.meta-dot { display: none; }
+.stack-label { min-width: 100px; font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+<canvas id="bubbles-bg" aria-hidden="true"></canvas>
+<div class="newsletter-wrapper">
+
+<header class="header">
+<div class="header-brand">
+<div class="header-logo">RP</div>
+<h1>RCM Pulse Weekly</h1>
+</div>
+<div class="header-subtitle">Revenue Cycle Management Intelligence for Medical Practices</div>
+<div class="header-meta">
+<span>September 4, 2026</span>
+<div class="meta-dot"></div>
+<span>Volume 9, Issue 1</span>
+</div>
+</header>
+
+<nav class="toc">
+<div class="toc-label">In This Issue</div>
+<ol class="toc-list">
+<li><a href="#regulatory"><span class="toc-num">01</span> Ten Days Left on the Last Open Comment Clock &mdash; and 119 Days Until Medicare Makes Two-Sided Risk Mandatory for Cardiology and Low Back Pain in 235&nbsp;Markets</a></li>
+<li><a href="#prior-auth"><span class="toc-num">02</span> The September 1 Payer Wave Lands: UnitedHealthcare Caps Five Lab Tests, Aetna Docks Radiology 15% Without &ldquo;Smart Dose,&rdquo; BCBS Michigan Starts Dismantling&nbsp;Incident-To</a></li>
+<li><a href="#ai-automation"><span class="toc-num">03</span> Autonomous Coding Is Now 44.8% of the AI-Coding Market and 97% Accurate in Production &mdash; 27 Days Before a 379-Code Retraining&nbsp;Event</a></li>
+<li><a href="#coding"><span class="toc-num">04</span> 379 New Codes Land on a Single Day: ICD-10-CM (190), ICD-10-PCS (101), and HCPCS Level II (88) All Turn Over October&nbsp;1</a></li>
+<li><a href="#revenue-velocity"><span class="toc-num">05</span> Expenses Per Physician Are Up 26.5% Against 9.1% Revenue Growth &mdash; Which Is Why 36% of Practices Named Automation Their Top Cost-Cutting&nbsp;Move</a></li>
+<li><a href="#tech-spotlight"><span class="toc-num">06</span> Technology Spotlight: The Agentic Buy-Side Gets Crowded &mdash; Candid Health&rsquo;s $120M, Raintree&rsquo;s Voice-Agent Acquisition, and an 86%-Denial-Reduction Platform Changing&nbsp;Hands</a></li>
+<li><a href="#compliance"><span class="toc-num">07</span> Compliance Corner: September Is the Last Outreach Month &mdash; Medicaid Community Engagement Starts January 1 in 43 States and&nbsp;DC</a></li>
+<li><a href="#independent-practice"><span class="toc-num">08</span> Independent Practice Watch: Three Administrative FTEs Per Physician &mdash; 40% of Practices Now Staff That Way Just to Answer&nbsp;Payers</a></li>
+<li><a href="#specialty"><span class="toc-num">09</span> Specialty RCM Spotlight: Radiology Loses 15% Without Dose Compliance, Cardiology and Low Back Pain Get Drafted Into Mandatory Risk, GI Gets Category I ESD&nbsp;Codes</a></li>
+<li><a href="#action-items"><span class="toc-num">10</span> This Week&rsquo;s Action Items</a></li>
+</ol>
+</nav>
+
+<!-- SECTION 01 -->
+<section class="section" id="regulatory">
+<div class="section-number">Section 01</div>
+<h2>Ten Days Left on the Last Open Comment Clock &mdash; and 119 Days Until Medicare Makes Two-Sided Risk Mandatory for Cardiology and Low Back Pain in 235 Markets</h2>
+<p>Two rulemaking clocks were running when this newsletter last published. One has since expired. The <strong>CY 2027 OPPS/ASC proposed rule (CMS-1850-P)</strong> closed for comment on <strong>August 31, 2026</strong> &mdash; four days ago. Whatever your practice did or did not file on the Inpatient-Only list, the ASC Covered Procedures List, and the proposed 340B repricing to ASP&minus;33.4%, that door is now shut until the final rule appears in November.</p>
+
+<p>One clock is still open, and it is the bigger one. The <strong>CY 2027 Medicare Physician Fee Schedule proposed rule (CMS-1848-P)</strong>, released July 14, closes for comment on <strong>September 14, 2026</strong> &mdash; <strong>ten days from today</strong>. It is the last opportunity to influence a rule that changes how nearly every physician service in Medicare is priced.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">10 days</div>
+<div class="stat-label">Left to comment on the CY 2027 Physician Fee Schedule (CMS-1848-P), closing September 14</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">$32.8409</div>
+<div class="stat-label">Proposed CY 2027 conversion factor for non-APM clinicians &mdash; down 1.68%</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">&minus;2.50%</div>
+<div class="stat-label">Expiration of the one-year WFTC payment increase on December 31, applied to both conversion factors</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">&plusmn;9%</div>
+<div class="stat-label">Mandatory payment adjustment range under the Ambulatory Specialty Model, live January 1, 2027</div>
+</div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>CY 2027 proposed</th><th>Change from CY 2026</th></tr></thead>
+<tbody>
+<tr><td><strong>Conversion factor &mdash; qualifying APM participants</strong></td><td>$33.1693</td><td class="kpi-warning">&minus;$0.40 / &minus;1.19%</td></tr>
+<tr><td><strong>Conversion factor &mdash; all other clinicians</strong></td><td>$32.8409</td><td class="kpi-warning">&minus;$0.56 / &minus;1.68%</td></tr>
+<tr><td><strong>Statutory update &mdash; QP / non-QP</strong></td><td class="kpi-target">+0.75% / +0.25%</td><td>&mdash;</td></tr>
+<tr><td><strong>Work RVU budget-neutrality adjustment</strong></td><td class="kpi-target">+0.53%</td><td>&mdash;</td></tr>
+<tr><td><strong>Expiration of the one-year WFTC increase</strong></td><td class="kpi-warning">&minus;2.50%</td><td>Applies to both conversion factors</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The arithmetic is worth stating plainly: CMS is applying a small positive statutory update on top of a 2.5% cliff. The one-year payment increase Congress provided for CY 2026 expires December 31, and nothing in this rule replaces it. That is the entire explanation for how a &ldquo;+0.75% update&rdquo; produces a <strong>&minus;1.19%</strong> conversion factor.</p>
+
+<h3>The Four Proposals That Change Practice Economics</h3>
+<p><strong>1. The modifier 25 stacking cut.</strong> When the same physician &mdash; or another physician in the same group &mdash; furnishes a separately identifiable office or outpatient E/M visit on the same day as a procedure carrying a 0-, 10-, or 90-day global period, Medicare would pay the <strong>most expensive service at 100% and every other service on that claim at 50%</strong>. CMS&rsquo;s stated rationale is overlapping physician work and practice expense. CMS is explicitly soliciting comment on whether <strong>25%</strong> would be the more accurate reduction &mdash; which is the single most answerable question in the entire rule, and the one where a specialty-specific comment letter has the clearest path to changing a number.</p>
+
+<p><strong>2. G2211 stops being a code and becomes a modifier.</strong> Rather than a flat-dollar add-on, the complexity add-on would convert to a <strong>two-digit modifier that increases the base E/M payment by 16%</strong> &mdash; the same percentage at every visit level. A second modifier, restricted to clinicians in the Medicare Shared Savings Program and the LEAD Model, would increase qualifying E/M payment by <strong>32%</strong>.</p>
+
+<p><strong>3. Practice expense methodology.</strong> CMS proposes to phase out its reliance on specialty-specific PE/hour data collected in <strong>2007 or earlier</strong>, replacing it with a &ldquo;PE stabilizer&rdquo; intended to damp volatility without anchoring to a two-decade-old benchmark.</p>
+
+<p><strong>4. Remote monitoring tightens.</strong> RTM would be limited to <strong>established patients only</strong>, would require a separately billable initiating visit, and would have to be delivered by <strong>employed staff rather than contractors</strong> &mdash; a direct hit to the outsourced-RPM-vendor model that many small practices adopted precisely because they could not staff it internally.</p>
+
+<p>CMS also proposes extending in-person visit waivers for mental health services in RHCs and FQHCs, and for non-behavioral telehealth, <strong>through December 31, 2027</strong>, aligning the regulatory calendar with the statutory telehealth extension enacted in February.</p>
+
+<h3>The Deadline No One Can Comment Their Way Out Of</h3>
+<p>While the comment window occupies everyone&rsquo;s attention, a <em>finalized</em> rule is already 119 days from taking effect. The <strong>Ambulatory Specialty Model (ASM)</strong> launches <strong>January 1, 2027</strong> &mdash; a mandatory, two-sided risk alternative payment model for specialists treating Medicare fee-for-service beneficiaries with <strong>heart failure</strong> and <strong>low back pain</strong> in outpatient settings.</p>
+
+<ul>
+<li><strong>235 core-based statistical areas</strong> and metropolitan divisions were selected &mdash; roughly <strong>25% of the country</strong></li>
+<li><strong>Participation is mandatory.</strong> There is no opt-out and no hardship exemption pathway</li>
+<li>Five performance years, <strong>2027&ndash;2031</strong>, with payment years <strong>2029&ndash;2033</strong></li>
+<li>Scoring across four MIPS-derived categories &mdash; Quality, Cost, Improvement Activities, Interoperability &mdash; benchmarked against regional peers</li>
+<li>Payment adjustments range from <strong>&minus;9% to +9%</strong></li>
+</ul>
+
+<p>The specialties pulled in are cardiology on the heart failure side, and pain management, interventional pain, neurosurgery, orthopedic surgery, and physical medicine and rehabilitation on the low back pain side.</p>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>A solo cardiologist practicing in one of the 235 selected CBSAs will be in a mandatory two-sided risk model on January 1, 2027, with a &plusmn;9% swing on Medicare Part B revenue and no application to submit, no hardship exemption to request, and no opt-out to file. If you have not checked your CBSA against the ASM participant list, that is the highest-consequence unopened item on your desk this week.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule" target="_blank">CMS &mdash; CY 2027 Physician Fee Schedule Proposed Rule Fact Sheet</a><span class="sep">&bull;</span>
+<a href="https://www.hklaw.com/en/insights/publications/2026/07/cms-issues-cy-2027-medicare-physician-fee-schedule-proposed-rule" target="_blank">Holland &amp; Knight &mdash; CMS Issues CY 2027 MPFS Proposed Rule</a><span class="sep">&bull;</span>
+<a href="https://www.mcdermottplus.com/insights/cms-releases-cy-2027-physician-fee-schedule-proposed-rule/" target="_blank">McDermott+ &mdash; CMS Releases CY 2027 PFS Proposed Rule</a><span class="sep">&bull;</span>
+<a href="https://www.cokergroup.com/insights/cms-2027-modifier-25-payment-cuts" target="_blank">Coker &mdash; CMS Proposes Major Cuts to Modifier-25 Billing for 2027</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/priorities/innovation/innovation-models/asm" target="_blank">CMS &mdash; Ambulatory Specialty Model</a><span class="sep">&bull;</span>
+<a href="https://www.facs.org/for-medical-professionals/news-publications/news-and-articles/bulletin/2026/january-2026-volume-111-issue-1/new-ambulatory-specialty-model-takes-effect-in-2027/" target="_blank">ACS &mdash; New Ambulatory Specialty Model Takes Effect in 2027</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/payment-reimbursement-and-managed-care/cy-2027-physician-fee-schedule-proposed-specialty-impact-tables/" target="_blank">HFMA &mdash; CY 2027 PFS Proposed Specialty Impact Tables</a>
+</div>
+</section>
+
+<!-- SECTION 02 -->
+<section class="section" id="prior-auth">
+<div class="section-number">Section 02</div>
+<h2>The September 1 Payer Wave Lands: UnitedHealthcare Caps Five Lab Tests, Aetna Docks Radiology 15% Without &ldquo;Smart Dose,&rdquo; BCBS Michigan Starts Dismantling Incident-To</h2>
+<p>September 1 is the busiest single payer effective date of the second half of the year, and this one was heavier than usual. Six payers moved policy inside a four-day window, and the changes are not administrative housekeeping &mdash; three of them change what a practice gets paid for work it is already doing.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">20</div>
+<div class="stat-label">Allergens per year &mdash; new UnitedHealthcare cap for patients 20 and older, effective September 1</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">&minus;15%</div>
+<div class="stat-label">Aetna payment reduction on radiology billed with modifier CT lacking &ldquo;Smart Dose&rdquo; compliance</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">80%</div>
+<div class="stat-label">Of the professional fee &mdash; where BCBS Michigan incident-to claims land on March 1, 2027</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">119 days</div>
+<div class="stat-label">Until four CMS-0057-F FHIR APIs must be operational, January 1, 2027</div>
+</div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Payer</th><th>Effective</th><th>What changed</th></tr></thead>
+<tbody>
+<tr><td><strong>UnitedHealthcare</strong></td><td class="kpi-warning">Sept 1 (commercial, exchange, MA); staggered Aug&ndash;Dec for Medicaid</td><td>Five new lab policies: allergen testing capped at <strong>20 allergens per year</strong> for patients 20+; hepatic fibrosis testing limited to <strong>once per six months</strong> for HBV, HCV, MASLD, or alcoholic hepatitis; <strong>non-reimbursement</strong> for in vitro chemotherapy sensitivity and resistance assays; testosterone testing excludes asymptomatic patients; vitamin B12 capped at <strong>once per three months</strong></td></tr>
+<tr><td><strong>Aetna</strong></td><td class="kpi-warning">Sept 1</td><td>Expanded Claim and Code Review Program with new claim edits; <strong>15% payment reduction</strong> for radiology services billed with modifier CT that do not meet &ldquo;Smart Dose&rdquo; standards</td></tr>
+<tr><td><strong>BCBS Michigan</strong></td><td class="kpi-warning">Sept 1 (Phase 1); March 1, 2027 (Phase 2)</td><td>Phase 1: non-physician providers billing incident-to must append <strong>modifier SA</strong>; claims still pay at the clinician rate but become ineligible for incentive programs. Phase 2: direct billing required for clinicians with their own NPI, incident-to claims drop to <strong>80% of the professional fee</strong>, and training-level clinicians lose office incident-to eligibility</td></tr>
+<tr><td><strong>BCBS Texas</strong></td><td class="kpi-warning">Sept 4</td><td><strong>24 lab-related policies</strong> updated &mdash; flow cytometry, PSA, allergen, hepatitis, thyroid, cardiovascular, micronutrient, drug testing, colorectal cancer screening</td></tr>
+<tr><td><strong>BCBS North Carolina</strong></td><td class="kpi-warning">Sept 1</td><td>Multiple/bilateral surgery restructured &mdash; outpatient facility: 100% / 50% / 50% / <strong>0% on the fourth and beyond</strong>; professional: 100% / 50% / <strong>25% on the third and beyond</strong></td></tr>
+<tr><td><strong>Molina Healthcare of Ohio</strong></td><td class="kpi-warning">Sept 1 (Medicaid)</td><td>New specialty medication site-of-care policy, gene therapy coverage for Otarmeni, revised buy-and-bill policies for multiple specialty drugs, updated duplicate-claims payment integrity policy</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The Michigan Change Is the One to Read Twice</h3>
+<p>Incident-to billing has been an economic assumption underneath NP and PA staffing models for two decades. BCBS Michigan is not eliminating it in one step &mdash; it is doing it in two, and Phase 1 is deliberately painless so that Phase 2 arrives inside an existing workflow. Appending modifier SA costs nothing on September 1. On <strong>March 1, 2027</strong>, the same claim, with the same modifier, pays <strong>80%</strong>.</p>
+
+<p>Any practice modeling NP/PA contribution margin on 100% incident-to reimbursement should re-run that model now, not in February. And the pattern matters more than the payer: when one Blues plan phases out incident-to economics, the others read the results.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Pull your top 20 lab CPT codes and check them against the new UnitedHealthcare frequency caps before the first denial batch posts. Allergen panels above 20 units per year, B12 more often than quarterly, and hepatic fibrosis testing inside six months will now deny &mdash; and a frequency denial after the fact costs far more to appeal than an order-set edit costs to build.</p>
+</div>
+
+<h3>The Federal Clock: 119 Days</h3>
+<p>The <strong>CMS-0057-F</strong> attestation deadline in HPMS passed on <strong>September 1</strong> &mdash; three days ago. That was the payer-side checkpoint. The provider-side consequence arrives <strong>January 1, 2027 &mdash; 119 days from today</strong>, when impacted payers must operate four FHIR APIs: <strong>Patient Access, Provider Access, Payer-to-Payer, and Prior Authorization</strong>.</p>
+
+<p>The Prior Authorization API is the one that changes daily work. It must support checking whether authorization is required, surfacing the specific documentation needed, electronic submission, and electronic receipt of the decision &mdash; all from inside the EHR or practice management system. The 2026 operational requirements are already live: <strong>72 hours for expedited</strong> and <strong>seven calendar days for standard</strong> decisions, specific denial reasons, and public reporting of approval rates, denial rates, appeal outcomes, and average decision times.</p>
+
+<p>Separately, the <strong>WISeR model</strong> continues in its ninth month, applying prior authorization or pre-payment review to <strong>13 service categories</strong> &mdash; including epidural steroid injections, cervical fusion, and skin substitutes &mdash; for Traditional Medicare patients in <strong>New Jersey, Ohio, Oklahoma, Texas, Arizona, and Washington</strong>, across four MAC jurisdictions. The model runs through <strong>December 31, 2031</strong>.</p>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.uhcprovider.com/content/dam/provider/docs/public/policies/mpub-archives/commercial/medical-policy-update-bulletin-september-2026.pdf" target="_blank">UnitedHealthcare &mdash; Commercial Medical Policy Update Bulletin, September 2026</a><span class="sep">&bull;</span>
+<a href="https://distilinfo.com/2026/09/02/payer-reimbursement-changes-september/" target="_blank">DistilINFO &mdash; 6 Payer Reimbursement Changes for September 2026</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/cms-interoperability-prior-authorization-final-rule-cms-0057-f" target="_blank">CMS &mdash; Interoperability and Prior Authorization Final Rule (CMS-0057-F)</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/priorities/electronic-prior-authorization/overview" target="_blank">CMS &mdash; Electronic Prior Authorization Overview</a><span class="sep">&bull;</span>
+<a href="https://www.health-samurai.io/articles/understanding-the-cms-0057-f-interoperability-and-prior-authorization-final-rule" target="_blank">Health Samurai &mdash; CMS-0057-F: Four FHIR APIs Due by 2027</a><span class="sep">&bull;</span>
+<a href="https://www.kff.org/medicare/examining-the-potential-impact-of-medicares-new-wiser-model/" target="_blank">KFF &mdash; Examining the Potential Impact of Medicare&rsquo;s New WISeR Model</a><span class="sep">&bull;</span>
+<a href="https://www.dlapiper.com/en/insights/publications/2026/01/cms-wiser-model" target="_blank">DLA Piper &mdash; CMS Launches WISeR Model</a>
+</div>
+</section>
+
+<!-- SECTION 03 -->
+<section class="section" id="ai-automation">
+<div class="section-number">Section 03</div>
+<h2>Autonomous Coding Is Now 44.8% of the AI-Coding Market and 97% Accurate in Production &mdash; 27 Days Before a 379-Code Retraining Event</h2>
+<p>Autonomous coding spent five years as the most-promised and least-deployed technology in the revenue cycle. The 2026 market data says that phase is over.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">$3.86B</div>
+<div class="stat-label">Global AI-in-medical-coding market in 2026, heading to $10.84B by 2034 at a 13.76% CAGR</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">44.8%</div>
+<div class="stat-label">Share of that market held by autonomous coding tools in 2026, growing at a 36.74% CAGR</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">97%</div>
+<div class="stat-label">Autonomous coding accuracy reported by R1 in production for ER and physician office visits</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">379</div>
+<div class="stat-label">New codes entering production October 1 &mdash; a model-retraining event, not just a coder-education one</div>
+</div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td><strong>Global AI-in-medical-coding market, 2026</strong></td><td>$3.86 billion</td></tr>
+<tr><td><strong>Projected 2034</strong></td><td class="kpi-target">$10.84 billion (13.76% CAGR)</td></tr>
+<tr><td><strong>Autonomous coding tools &mdash; share of that market in 2026</strong></td><td>44.8%</td></tr>
+<tr><td><strong>Autonomous coding tools &mdash; segment CAGR</strong></td><td class="kpi-target">36.74%</td></tr>
+<tr><td><strong>Healthcare providers &mdash; share of end-user market</strong></td><td>46.23%</td></tr>
+<tr><td><strong>North America &mdash; share of global medical coding market, 2026</strong></td><td>38.8%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The accuracy numbers have moved with the market. Current production deployments report <strong>98.5% E/M accuracy</strong>, <strong>98.5% CPT and modifier accuracy</strong>, and <strong>95.5% ICD accuracy</strong>, with autonomous coding rates up to <strong>85%</strong> and direct-to-bill rates above <strong>85%</strong> at roughly 95% accuracy without human intervention. R1 RCM reports agentic AI applications in production with select clients, including autonomous coding running at accuracy rates <strong>as high as 97%</strong> for service lines such as emergency room and physician office visits. Nym Health and Fathom remain the reference implementations, with Fathom the first autonomous coder in Epic&rsquo;s App Orchard.</p>
+
+<h3>The Question to Ask Your Vendor This Month</h3>
+<p>Here is the part the market data does not cover, and it is the reason this section is running 27 days before October 1 rather than in January.</p>
+
+<p><strong>An autonomous coder is a trained model.</strong> On October 1, <strong>379 new codes</strong> enter production across ICD-10-CM, ICD-10-PCS, and HCPCS Level II, with <strong>68 deletions</strong> alongside them. A human coder handles that with a training session and a reference card. A model handles it only if someone retrained it &mdash; and only if its fallback behavior on an unmapped or newly-deleted code routes the encounter to a human queue instead of guessing at the nearest neighbor.</p>
+
+<p>Three questions, in writing, to every autonomous coding and CDI vendor you use:</p>
+<ul>
+<li><strong>What is your FY 2027 model refresh date</strong>, and will it be in production before October 1 or after?</li>
+<li><strong>What is the fallback behavior</strong> when the model encounters a code deleted effective October 1, or a clinical concept that maps only to a new code?</li>
+<li><strong>What is your confidence-threshold policy during the transition</strong> &mdash; does the human-review rate rise automatically in October, and by how much?</li>
+</ul>
+
+<p>A vendor that cannot answer the second question has told you something important.</p>
+
+<h3>Meanwhile, Prior Authorization Automation Has Its Receipts</h3>
+<p>The clearest ROI in the automation stack this year is not coding &mdash; it is prior authorization, where the results are now specific enough to hold a vendor to:</p>
+<ul>
+<li><strong>68% of all orders cleared within one hour</strong> and nearly <strong>97% within one day</strong> under R1&rsquo;s prior authorization product, with an average auth-related denial rate <strong>below 1%</strong></li>
+<li>A Florida health system reports <strong>more than 99%</strong> of prior authorizations cleared within three days</li>
+<li><strong>WPS Health Solutions</strong>, on the payer side, cut average processing time for targeted services by <strong>30.27%</strong> by raising its straight-through processing rate and using AI to assist human reviewers</li>
+<li>Teams using voice AI report cutting administrative phone work by <strong>up to 60%</strong></li>
+</ul>
+
+<p>Against a baseline of <strong>13 hours per week</strong> that a physician and their staff spend on prior authorization for a single physician, those are not incremental numbers.</p>
+
+<div class="tech-stack">
+<div class="stack-layer gen-ai">
+<div class="stack-label">Generative AI</div>
+<div class="stack-desc">Appeal letter drafting, denial-reason interpretation, documentation gap detection, clinical summarization for medical necessity</div>
+</div>
+<div class="stack-layer ai-ml">
+<div class="stack-label">AI / ML</div>
+<div class="stack-desc">Autonomous coding, denial prediction, payer behavior modeling, propensity-to-pay scoring</div>
+</div>
+<div class="stack-layer rpa">
+<div class="stack-label">RPA</div>
+<div class="stack-desc">Eligibility checks, claim status polling, payment posting, worklist routing</div>
+</div>
+</div>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>Do not fund a new AI layer this quarter if your eligibility verification is still manual. Automated eligibility remains the cheapest and highest-yield automation available to a small practice, and every downstream AI investment inherits the error rate of the data underneath it.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.precedenceresearch.com/autonomous-coding-market" target="_blank">Precedence Research &mdash; Autonomous Coding Market Size 2026 to 2035</a><span class="sep">&bull;</span>
+<a href="https://www.fortunebusinessinsights.com/ai-in-medical-coding-market-117860" target="_blank">Fortune Business Insights &mdash; AI in Medical Coding Market</a><span class="sep">&bull;</span>
+<a href="https://www.grandviewresearch.com/industry-analysis/artificial-intelligence-ai-medical-coding-market-report" target="_blank">Grand View Research &mdash; AI in Medical Coding Market Report</a><span class="sep">&bull;</span>
+<a href="https://www.beckershospitalreview.com/healthcare-information-technology/ai/r1-rcm-acquiring-ai-platform/" target="_blank">Becker&rsquo;s Hospital Review &mdash; R1 RCM Acquiring AI Platform</a><span class="sep">&bull;</span>
+<a href="https://www.insighthealth.ai/blog/prior-authorization-appeal-ai" target="_blank">Insight Health &mdash; How AI Is Transforming Prior Authorization Appeals in 2026</a><span class="sep">&bull;</span>
+<a href="https://www.getprosper.ai/blog/ai-for-prior-authorization-tools" target="_blank">Prosper AI &mdash; AI Prior Authorization Tools 2026</a><span class="sep">&bull;</span>
+<a href="https://cureintent.com/prior-authorization-automation-2026/" target="_blank">Cureintent &mdash; Prior Authorization Automation 2026</a><span class="sep">&bull;</span>
+<a href="https://revcycleai.com/blog/rcm-ai-market-map/" target="_blank">RevCycleAI &mdash; 2026 RCM AI Market Map</a>
+</div>
+</section>
+
+<!-- SECTION 04 -->
+<section class="section" id="coding">
+<div class="section-number">Section 04</div>
+<h2>379 New Codes Land on a Single Day: ICD-10-CM (190), ICD-10-PCS (101), and HCPCS Level II (88) All Turn Over October 1</h2>
+<p>Most years, October 1 is an ICD-10 event. This year all three code sets that CMS controls turn over on the same date, and the HCPCS piece &mdash; posted quietly on <strong>August 18</strong> &mdash; is the one most practices have not scheduled for.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">27 days</div>
+<div class="stat-label">Until all three CMS-controlled code sets turn over on October 1, 2026</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">190</div>
+<div class="stat-label">New ICD-10-CM codes across 33 clinical topics, with 30 deletions and 4 revisions</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">88</div>
+<div class="stat-label">New HCPCS Level II codes posted August 18 &mdash; the update most practices have not calendared</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">79,256</div>
+<div class="stat-label">Total ICD-10-PCS codes in the FY 2027 set after 101 additions and 38 deletions</div>
+</div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Code set</th><th>New</th><th>Revised</th><th>Deleted</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>ICD-10-CM</strong></td><td>190</td><td>4</td><td>30</td><td>33 clinical topics, nearly every chapter</td></tr>
+<tr><td><strong>ICD-10-PCS</strong></td><td>101</td><td>3</td><td>38</td><td>50 in New Technology; set totals 79,256 codes</td></tr>
+<tr><td><strong>HCPCS Level II</strong></td><td>88</td><td>&mdash;</td><td>&mdash;</td><td>Posted Aug 18; 15 requested by individuals or manufacturers</td></tr>
+<tr><td><strong>Totals &mdash; effective October 1, 2026</strong></td><td class="kpi-warning">379</td><td class="kpi-warning">7</td><td class="kpi-warning">68</td><td class="kpi-warning">27 days from today</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>ICD-10-CM: Where the 190 Codes Actually Are</h3>
+<p>They are not evenly distributed, and one category dominates. <strong>Category O31.4 alone contributes 33 new codes</strong> for continuing pregnancy after vanishing twin syndrome of one or more fetuses, organized by trimester and encounter type. Beyond obstetrics:</p>
+<ul>
+<li><strong>Oncology</strong> &mdash; new secondary malignancy codes for metastatic sites including larynx, pharynx, and oral cavity, which previously required nonspecific codes</li>
+<li><strong>Cardiology</strong> &mdash; dilated cardiomyopathy now distinguishes familial and genetic forms; new codes capture arrhythmogenic cardiomyopathy, CPVT, Brugada syndrome, and ventricular bigeminy</li>
+<li><strong>Endocrine</strong> &mdash; <strong>E89.830</strong> and <strong>E89.838</strong> for hypoglycemia occurring after bariatric and other surgeries</li>
+<li><strong>BMI</strong> &mdash; <strong>Z68.18</strong> (BMI 18.4 or less, adult) and <strong>Z68.19</strong> (BMI 18.5&ndash;19.9, adult)</li>
+<li><strong>Infectious disease</strong> &mdash; <strong>Z86.17</strong>, personal history of <em>Clostridioides difficile</em> infection</li>
+<li><strong>Toxicology and public health</strong> &mdash; toxic effect of cycloparaffins, and medetomidine codes supporting overdose surveillance as medetomidine appears as an adulterant in the illicit fentanyl supply</li>
+<li><strong>Rare disease and other</strong> &mdash; dental-related sinusitis, VEXAS, Loeys-Dietz, Lynch syndrome</li>
+</ul>
+
+<h3>HCPCS Level II: The 88-Code Update Nobody Calendared</h3>
+<p>CMS posted the quarterly HCPCS Level II update on <strong>August 18</strong>, effective <strong>October 1</strong>. Among the <strong>88 new codes</strong>, 15 were requested by individuals or manufacturers and finalized by CMS. Notable additions with published fee amounts:</p>
+<ul>
+<li><strong>A2046</strong> &mdash; DermiSphere hDRT composite biodegradable wound dressing, per square centimeter</li>
+<li><strong>A4228</strong> &mdash; supplies for maintenance of a non-insulin device-drug combination infusion catheter, per week; average non-rural fee schedule amount approximately <strong>$124.54</strong></li>
+<li><strong>A6614</strong> &mdash; supplies and accessories for an external ocular negative pressure pump; 2026 fee schedule amount approximately <strong>$167.99</strong> per unit</li>
+</ul>
+
+<p>CMS is also adding <strong>19 new HCPCS Level II codes</strong> to the home health consolidated billing non-routine supply list effective October 1 &mdash; relevant to any practice that bills supplies for patients under a home health episode, because consolidated billing determines who may bill them at all.</p>
+
+<h3>CPT 2027 Publishes This Month</h3>
+<p>The AMA assigns the actual five-digit numbers when the CPT 2027 code set publishes in <strong>September 2026</strong> &mdash; this month. What is already known about January 1, 2027:</p>
+<ul>
+<li><strong>Maternity care services</strong> are restructured &mdash; the first substantive overhaul in roughly 30 years, intended to reflect team-based obstetric care and reporting across the full pregnancy spectrum</li>
+<li><strong>Nine new codes</strong> for open, laparoscopic, and thoracoscopic <strong>diaphragmatic hernia repair</strong></li>
+<li>New <strong>Category I</strong> reporting for <strong>endoscopic submucosal dissection</strong> in the upper and lower GI tract</li>
+<li><strong>92507 is deleted</strong>, replaced by a restructured set of speech-language pathology codes</li>
+<li><strong>28 new Category III codes</strong> accepted at the September 2025 Editorial Panel meeting, 11 of them for surface mesh representations and applications using digital 3D modeling</li>
+<li>Three new illustrations differentiating simple, intermediate, and complex <strong>wound repair</strong></li>
+</ul>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Run clearinghouse acceptance testing on October 1 dates of service for <strong>all three</strong> code sets &mdash; not just ICD-10-CM &mdash; before the last week of September. The most common October failure is not a rejected diagnosis code; it is a supply or device HCPCS code that was valid on September 30 and is not on October 1, sitting on an otherwise clean claim.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/medicare/coding-billing/icd-10-codes" target="_blank">CMS &mdash; ICD-10 Codes</a><span class="sep">&bull;</span>
+<a href="https://www.agshealth.com/blog/fy-2027-icd-10-cm-code-updates-what-coders-and-revenue-cycle-teams-need-to-know/" target="_blank">AGS Health &mdash; FY 2027 ICD-10-CM Code Updates</a><span class="sep">&bull;</span>
+<a href="https://acdis.org/articles/news-fy-2027-icd-10-pcs-code-set-and-guidelines-released" target="_blank">ACDIS &mdash; FY 2027 ICD-10-PCS Code Set and Guidelines Released</a><span class="sep">&bull;</span>
+<a href="https://www.aapc.com/blog/94169-fy-2027-icd-10-pcs-has-arrived/" target="_blank">AAPC &mdash; FY 2027 ICD-10-PCS Has Arrived</a><span class="sep">&bull;</span>
+<a href="https://www.aapc.com/blog/94356-cms-finalizes-october-2026-hcpcs-level-ii-changes/" target="_blank">AAPC &mdash; CMS Finalizes October 2026 HCPCS Level II Changes</a><span class="sep">&bull;</span>
+<a href="https://www.aapc.com/blog/94222-cms-updates-home-health-consolidated-billing-code-list/" target="_blank">AAPC &mdash; CMS Updates Home Health Consolidated Billing Code List</a><span class="sep">&bull;</span>
+<a href="https://www.ama-assn.org/practice-management/cpt/cpt-2027-maternity-care-services-code-changes" target="_blank">AMA &mdash; CPT 2027 Maternity Care Services Code Changes</a><span class="sep">&bull;</span>
+<a href="https://www.aapc.com/blog/93934-ama-adds-28-category-iii-codes-to-cpt-code-set/" target="_blank">AAPC &mdash; AMA Adds 28 Category III Codes to CPT Code Set</a>
+</div>
+</section>
+
+<!-- SECTION 05 -->
+<section class="section" id="revenue-velocity">
+<div class="section-number">Section 05</div>
+<h2>Expenses Per Physician Are Up 26.5% Against 9.1% Revenue Growth &mdash; Which Is Why 36% of Practices Named Automation Their Top Cost-Cutting Move</h2>
+<p>The velocity conversation has been a revenue conversation for three years: get the claim out clean, get it paid faster, work the denial. The 2026 MGMA data argues that the binding constraint has moved to the other side of the ledger.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">+26.5%</div>
+<div class="stat-label">Total expenses per physician versus pre-pandemic levels</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">+9.1%</div>
+<div class="stat-label">Revenue growth over the same period &mdash; a 17-point gap</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">36%</div>
+<div class="stat-label">Named automation their single biggest cost-cutting move for 2026</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">40%</div>
+<div class="stat-label">Of practices employ 3+ FTE administrative staff per physician just to manage payer rules</div>
+</div>
+</div>
+
+<p>A 17-point gap between expense growth and revenue growth cannot be closed by collecting faster. It gets closed by collecting the same dollars with less labor &mdash; which is precisely what practice leaders said they intend to do.</p>
+
+<h3>Where the 2026 Money Is Going</h3>
+<p><strong>Biggest new investment in 2026 budgets</strong> (MGMA Stat, October 2025 poll): workforce <strong>37%</strong>, health IT <strong>30%</strong>, revenue cycle <strong>12%</strong>, patient access <strong>12%</strong>, other <strong>9%</strong>.</p>
+
+<p><strong>Biggest cost-cutting move for 2026:</strong> automation <strong>36%</strong>, process fixes <strong>23%</strong>, hiring freeze or cuts <strong>18%</strong>, outsourcing <strong>14%</strong>, finding new vendors <strong>9%</strong>. Automation and process fixes together account for <strong>more than half</strong> of all responses &mdash; the first year that pairing has outweighed headcount reduction.</p>
+
+<p>Adoption is following. <strong>43%</strong> of groups added or expanded AI in 2024; by 2025, AI tools had edged out EHR usability as the top technology priority, and <strong>71%</strong> of practices reported using some form of AI in patient visits. <strong>36%</strong> of practice leaders said they would outsource or automate parts of RCM, with planned investment concentrated in agentic tools for benefits and eligibility, prior authorization, payer analytics, and coding support. RCM vacancies, meanwhile, remain among the hardest roles to fill.</p>
+
+<h3>Where You Should Be &mdash; 2026 KPI Targets</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>KPI</th><th>Industry reality</th><th>Your target</th></tr></thead>
+<tbody>
+<tr><td><strong>Days in A/R &mdash; solo / 1&ndash;3 providers</strong></td><td class="kpi-warning">45&ndash;55 typical</td><td class="kpi-target">&le; 45</td></tr>
+<tr><td><strong>Days in A/R &mdash; 4&ndash;10 providers</strong></td><td class="kpi-warning">40&ndash;48 typical</td><td class="kpi-target">&le; 40</td></tr>
+<tr><td><strong>Days in A/R &mdash; 10+ providers</strong></td><td class="kpi-warning">35&ndash;45 typical</td><td class="kpi-target">&le; 35</td></tr>
+<tr><td><strong>Days in A/R &mdash; top performers, any size</strong></td><td>&mdash;</td><td class="kpi-target">&lt; 25</td></tr>
+<tr><td><strong>Clean claim rate</strong></td><td>Industry benchmark 95%</td><td class="kpi-target">98&ndash;99%+</td></tr>
+<tr><td><strong>Initial denial rate</strong></td><td class="kpi-warning">11.8% average; 41% of providers above 10%</td><td class="kpi-target">&le; 5%</td></tr>
+<tr><td><strong>Medicare Advantage denial rate</strong></td><td class="kpi-warning">&gt; 17%, up 4.8% year over year</td><td class="kpi-target">Track separately from traditional Medicare</td></tr>
+<tr><td><strong>Administrative FTE per physician</strong></td><td class="kpi-warning">40% of practices at 3+</td><td class="kpi-target">Measure monthly; trend it down</td></tr>
+<tr><td><strong>A/R over 90 days</strong></td><td>Varies widely</td><td class="kpi-target">&le; 15% of total A/R</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>One relationship in that table is worth acting on directly: practices holding a clean claim rate <strong>above 95%</strong> consistently run days in A/R <strong>below 36</strong>. Clean claim rate is the upstream variable. A/R days is the reported one. If you can only fund one measurement discipline this quarter, measure and fix the first.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>The KPI that best predicts whether an independent practice survives the next three years is not days in A/R. It is <strong>administrative FTE per physician</strong> &mdash; because it is the only metric that captures the expense side of the 26.5%-versus-9.1% gap, and it is the one number that automation is capable of moving.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.mgma.com/mgma-stat/top-cost-cutting-moves-for-medical-practices-in-2026" target="_blank">MGMA Stat &mdash; Automation, Process Fixes Top List of Cost-Cutting Moves for 2026</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/where-medical-groups-are-putting-new-dollars-in-2026" target="_blank">MGMA Stat &mdash; Where Medical Groups Are Putting New Dollars in 2026 Budgets</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/federal-policy-resources/april-9-2026-regulatory-burden-report" target="_blank">MGMA &mdash; 2026 Regulatory Burden Report</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/revenue-growth-narrows-as-costs-climb-2026-squeeze" target="_blank">MGMA Stat &mdash; Revenue Growth Narrows as Costs Climb</a><span class="sep">&bull;</span>
+<a href="https://www.revenuesynergy.com/blog/2026-rcm-benchmarks.html" target="_blank">Revenue Synergy &mdash; 2026 RCM Benchmarks</a><span class="sep">&bull;</span>
+<a href="https://www.enjoincdi.com/blog/hospital-denial-rates-benchmarks-trends-what-the-data-shows-2026/" target="_blank">Enjoin &mdash; Hospital Denial Rates: Benchmarks and Trends (2026)</a><span class="sep">&bull;</span>
+<a href="https://www.aptarro.com/insights/us-healthcare-denial-rates-reimbursement-statistics" target="_blank">Aptarro &mdash; US Healthcare Denial Rates &amp; Reimbursement Statistics</a>
+</div>
+</section>
+
+<!-- SECTION 06 -->
+<section class="section" id="tech-spotlight">
+<div class="section-number">Section 06</div>
+<h2>Technology Spotlight: The Agentic Buy-Side Gets Crowded &mdash; Candid Health&rsquo;s $120M, Raintree&rsquo;s Voice-Agent Acquisition, and an 86%-Denial-Reduction Platform Changing Hands</h2>
+<p>The RCM deal sheet has a pattern this year that is worth naming: the buyers are no longer RCM companies buying capacity. They are <strong>software companies buying agents</strong> &mdash; and specifically, buying the ability to put an autonomous worker inside a workflow their customers already run.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">$120M</div>
+<div class="stat-label">Candid Health Series D, closed July 2026, to expand autonomous end-to-end billing</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">86%</div>
+<div class="stat-label">Denial reduction claimed by Exdion Healthcare, acquired by urgent-care platform Experity</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">5&times;</div>
+<div class="stat-label">Expansion of Raintree&rsquo;s AI Center of Excellence after acquiring Spike Technologies</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">&gt;90%</div>
+<div class="stat-label">Share of 2026 physician practice M&amp;A transactions driven by private equity</div>
+</div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Transaction</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td><strong>Candid Health &mdash; $120M Series D</strong></td><td>Closed July 2026 to expand Pulse 2.0, an autonomous platform running end-to-end billing from claim submission through denial management</td></tr>
+<tr><td><strong>Raintree Systems acquires Spike Technologies</strong></td><td>July 2026; embeds agentic voice agents natively inside a rehab/PT EMR to automate payer calls, prior authorization, eligibility, and claim follow-up. Raintree&rsquo;s AI Center of Excellence expanded fivefold</td></tr>
+<tr><td><strong>Experity acquires Exdion Healthcare</strong></td><td>GTCR-backed Experity reaches roughly 50% of U.S. urgent care centers; Exdion is an AI chart-to-cash platform claiming 86% denial reduction and autonomous claim processing</td></tr>
+<tr><td><strong>Adonis &mdash; $40M</strong></td><td>Raised to accelerate AI across the revenue cycle</td></tr>
+<tr><td><strong>R1 RCM</strong></td><td>Acquiring an AI platform to extend agentic applications already in production, including autonomous coding at up to 97% accuracy</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Why the Vertical EMR Buyers Matter More Than the Platform Buyers</h3>
+<p>Raintree and Experity are the interesting entries, and not because the checks were the largest. Both are <strong>specialty-vertical software companies with dense installed bases</strong> &mdash; rehab and physical therapy in one case, urgent care in the other &mdash; buying agentic capability to deliver <em>natively</em>, inside a system their customers already log into every morning.</p>
+
+<p>That is the delivery model that finally reaches a 6-physician practice. A small group will not run a procurement process for an autonomous coding vendor, negotiate an interface, and manage a second login. It will, however, turn on a feature its EMR vendor shipped. If your practice runs a specialty-specific EMR, the most consequential AI decision in your revenue cycle over the next 18 months will probably be made by your EMR vendor&rsquo;s corporate development team, not by you.</p>
+
+<p>Underneath all of it, <strong>private equity accounts for more than 90%</strong> of physician practice M&amp;A transactions in 2026 &mdash; the capital structure that is funding both sides of this market.</p>
+
+<h3>Ten Days Out: Becker&rsquo;s Health IT + Digital Health + RCM</h3>
+<p>Becker&rsquo;s 11th Annual Health IT + Digital Health + RCM Conference runs <strong>September 14&ndash;17 in Chicago</strong> &mdash; <strong>2,500+</strong> health system leaders, <strong>600+</strong> speakers, <strong>190+</strong> sessions, with agenda tracks on mastering denials and charge capture, RCM outsourcing decisions, and revenue cycle reinvention. It is also, conveniently, the same week the PFS comment window closes.</p>
+
+<div class="vendor-group">
+<div class="vendor-group-label">Deal activity in this issue</div>
+<div class="vendor-tags">
+<span class="vendor-tag">Candid Health</span>
+<span class="vendor-tag">Raintree Systems</span>
+<span class="vendor-tag">Spike Technologies</span>
+<span class="vendor-tag">Experity</span>
+<span class="vendor-tag">Exdion Healthcare</span>
+<span class="vendor-tag">Adonis</span>
+<span class="vendor-tag">R1 RCM</span>
+</div>
+</div>
+<div class="vendor-group">
+<div class="vendor-group-label">Autonomous coding reference implementations</div>
+<div class="vendor-tags">
+<span class="vendor-tag">Nym Health</span>
+<span class="vendor-tag">Fathom</span>
+<span class="vendor-tag">Waystar</span>
+<span class="vendor-tag">Epic</span>
+</div>
+</div>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>Before evaluating any standalone agentic RCM vendor this fall, ask your existing EMR or practice management vendor a single question: <em>what agentic capability are you shipping natively in the next 12 months, and at what price?</em> Half of the market is being resolved by acquisition rather than by procurement, and the answer may make your evaluation unnecessary.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://revcycleai.com/blog/candid-health-lands-120m-to-push-autonomous-billing-deeper/" target="_blank">RevCycleAI &mdash; Candid Health Lands $120M to Push Autonomous Billing Deeper</a><span class="sep">&bull;</span>
+<a href="https://revcycleai.com/blog/raintree-agentic-rcm-invisible-emr-therapycon-2026/" target="_blank">RevCycleAI &mdash; Raintree Launches Agentic RCM</a><span class="sep">&bull;</span>
+<a href="https://revcycleai.com/deals-and-raises/" target="_blank">RevCycleAI &mdash; The RCM Deal Market, Tracked</a><span class="sep">&bull;</span>
+<a href="https://www.techtarget.com/revcyclemanagement/news/366640740/Adonis-raises-40M-to-accelerate-AI-in-revenue-cycle" target="_blank">TechTarget &mdash; Adonis Raises $40M to Accelerate AI in Revenue Cycle</a><span class="sep">&bull;</span>
+<a href="https://www.beckershospitalreview.com/healthcare-information-technology/ai/r1-rcm-acquiring-ai-platform/" target="_blank">Becker&rsquo;s Hospital Review &mdash; R1 RCM Acquiring AI Platform</a><span class="sep">&bull;</span>
+<a href="https://www.beckershospitalreview.com/events/hit-rcm-2026/" target="_blank">Becker&rsquo;s &mdash; Health IT + RCM Conference 2026</a><span class="sep">&bull;</span>
+<a href="https://focusbankers.com/physician-practice-ma-multiples-2026/" target="_blank">FOCUS &mdash; Physician Practice M&amp;A Multiples 2026</a>
+</div>
+</section>
+
+<!-- SECTION 07 -->
+<section class="section" id="compliance">
+<div class="section-number">Section 07</div>
+<h2>Compliance Corner: September Is the Last Outreach Month &mdash; Medicaid Community Engagement Starts January 1 in 43 States and DC</h2>
+<p>Every compliance deadline in this issue is a paperwork problem except one. The Medicaid community engagement requirement is a <strong>cash flow</strong> problem, and the operational window to prepare for it closes this month.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">80</div>
+<div class="stat-label">Hours per month of community engagement required as a condition of Medicaid eligibility</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">43 + DC</div>
+<div class="stat-label">States required to implement the community engagement requirement</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">30 days</div>
+<div class="stat-label">Cure window an enrollee gets after a notice of noncompliance</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">10</div>
+<div class="stat-label">Price transparency civil monetary penalties CMS issued in 2025 &mdash; more than double the prior pace</div>
+</div>
+</div>
+
+<p>Under <strong>CMS-2454-IFC</strong>, beginning <strong>January 1, 2027 &mdash; 119 days from today</strong> &mdash; states must condition Medicaid eligibility for &ldquo;applicable individuals&rdquo; on demonstrated community engagement of <strong>80 hours per month</strong>. The requirement reaches non-pregnant adults <strong>aged 19 to 64</strong> who are not entitled to or enrolled in Medicare and who are eligible for or enrolled in the Medicaid adult group or certain section 1115 demonstrations. <strong>43 states and the District of Columbia</strong> cover those populations and will be required to implement.</p>
+
+<p>The timing detail that makes this a September story: states requiring an applicant to demonstrate <strong>one, two, or three months</strong> of community engagement at application had to begin outreach no later than <strong>September, August, or July 2026</strong> respectively. <strong>September 2026 is the final outreach month</strong> for any state on the shortest lookback. Some states &mdash; Nebraska among them &mdash; have already implemented early.</p>
+
+<h3>Why This Lands on the Revenue Cycle, Not on Compliance</h3>
+<p>When an enrollee cannot document 80 hours, the state must send a notice of noncompliance and allow <strong>30 calendar days</strong> to demonstrate compliance or that the requirement does not apply. Some portion of that population will not respond in time. For a practice, that produces the single worst pattern in accounts receivable: <strong>a patient who was covered at scheduling, uncovered at the date of service, and discovered at the 835.</strong></p>
+
+<p>Three controls, all front-end, all automatable:</p>
+<ul>
+<li><strong>Real-time eligibility at every touchpoint</strong> &mdash; scheduling, reminder, check-in, and again before claim submission. Not once at registration.</li>
+<li><strong>Retroactive eligibility recheck on the 30-day cure window.</strong> A patient disenrolled for nonresponse may be reinstated after curing. Do not write the balance to bad debt on day 31.</li>
+<li><strong>Financial-assistance and sliding-scale screening triggered by a coverage-lapse flag</strong>, not by a collections letter 90 days later.</li>
+</ul>
+
+<h3>The Rest of the Compliance Calendar</h3>
+<ul>
+<li><strong>Hospital price transparency</strong> enforcement has been live since <strong>April 1, 2026</strong>. The CY 2026 OPPS final rule eliminated the &ldquo;estimated allowed amount&rdquo; placeholder, added three data elements derived from <strong>12 to 15 months</strong> of actual claims history &mdash; median, 10th percentile, and 90th percentile charges &mdash; and requires a <strong>CEO or designated senior official to attest in writing</strong> that posted prices are true, accurate, and complete. CMS issued <strong>10 civil monetary penalties in 2025</strong>, more than double the prior annual pace.</li>
+<li><strong>TEFCA</strong> participation continues to earn additional points toward the Promoting Interoperability score for hospitals sharing data with public health agencies through the network.</li>
+<li><strong>42 CFR Part 2</strong> enforcement is tightening for substance use disorder records, adding documentation and consent obligations to behavioral health practices that already carry the highest denial rates in medicine.</li>
+</ul>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>Model the revenue exposure now. Take your Medicaid adult-group volume, apply a conservative disenrollment assumption, and multiply by your average charge. That figure is your Q1 2027 self-pay conversion &mdash; and unlike a rate cut, it arrives without a comment period, a transition year, or a notice to your practice.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/newsroom/press-releases/cms-launches-nationwide-framework-implement-medicaid-work-requirements" target="_blank">CMS &mdash; Launches Nationwide Framework to Implement Medicaid Work Requirements</a><span class="sep">&bull;</span>
+<a href="https://www.medicaid.gov/resources-for-states/working-families-tax-cut-legislation/community-engagement" target="_blank">Medicaid.gov &mdash; Community Engagement</a><span class="sep">&bull;</span>
+<a href="https://www.federalregister.gov/documents/2026/06/03/2026-11094/medicaid-program-community-engagement-requirement-for-certain-individuals" target="_blank">Federal Register &mdash; Medicaid Community Engagement Requirement for Certain Individuals</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/medicaid-community-engagement-requirement-certain-individuals-interim-final-rule-comment-period-cms" target="_blank">CMS &mdash; Medicaid Community Engagement Interim Final Rule (CMS-2454-IFC) Fact Sheet</a><span class="sep">&bull;</span>
+<a href="https://www.cbpp.org/research/health/states-need-more-time-to-prepare-for-medicaid-work-requirement" target="_blank">CBPP &mdash; States Need More Time to Prepare for Medicaid Work Requirement</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency" target="_blank">CMS &mdash; Hospital Price Transparency</a><span class="sep">&bull;</span>
+<a href="https://www.dentonshealthlaw.com/cms-enforcement-of-updated-hospital-price-transparency-requirements-to-begin-on-april-1-2026/" target="_blank">Dentons &mdash; CMS Enforcement of Updated Price Transparency Requirements Begins April 1, 2026</a>
+</div>
+</section>
+
+<!-- SECTION 08 -->
+<section class="section" id="independent-practice">
+<div class="section-number">Section 08</div>
+<h2>Independent Practice Watch: Three Administrative FTEs Per Physician &mdash; 40% of Practices Now Staff That Way Just to Answer Payers</h2>
+<p>There is a number in the MGMA data that describes independent practice economics better than any margin figure: <strong>40% of practices now employ three or more full-time administrative staff per physician</strong>, purely to manage payer rules, audits, appeals, and reporting requirements.</p>
+
+<p>Not per practice. Per physician.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">3+</div>
+<div class="stat-label">Administrative FTEs per physician at 40% of practices</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">95%</div>
+<div class="stat-label">Practice leaders reporting increased regulatory burden over the past three years</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">&gt;90%</div>
+<div class="stat-label">Of 2026 physician practice M&amp;A transactions driven by private equity</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">&ge;47%</div>
+<div class="stat-label">Physicians consolidated with hospital systems in 2024, from under 30% in 2012</div>
+</div>
+</div>
+
+<p>That ratio is the mechanism of consolidation. A three-physician group carrying nine administrative FTEs has a fixed-cost base that does not shrink when Medicare cuts the conversion factor 1.68%, and cannot be amortized across the volume a 400-physician group enjoys. Every incremental payer rule widens the gap, because compliance cost scales with the number of rules, not with the number of physicians.</p>
+
+<h3>The Consolidation Data Underneath It</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td><strong>Share of physician practice M&amp;A transactions driven by private equity, 2026</strong></td><td class="kpi-warning">&gt; 90%</td></tr>
+<tr><td><strong>Physicians at PE-owned practices, 2024</strong></td><td>6.5% (from 4.5% in 2022)</td></tr>
+<tr><td><strong>Practice acquisitions made by PE groups, 2019&ndash;2023</strong></td><td>65%</td></tr>
+<tr><td><strong>Physicians consolidated with hospital systems, 2024</strong></td><td class="kpi-warning">&ge; 47% (from &lt; 30% in 2012)</td></tr>
+<tr><td><strong>PE-acquired practice sites, 2012 &rarr; 2021</strong></td><td>816 sites / 119 MSAs &rarr; 5,779 sites / 307 MSAs</td></tr>
+<tr><td><strong>Outpatient practices acquired by PE in January 2026 alone</strong></td><td>&ge; 21</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>M&amp;A activity remains strong in 2026 despite elevated interest rates and continued normalization from the 2021&ndash;2022 peak. The buyer profile has narrowed rather than broadened.</p>
+
+<h3>How This Week&rsquo;s News Lands Differently on a Small Practice</h3>
+<ul>
+<li><strong>The Ambulatory Specialty Model is the harshest item in this issue for an independent specialist.</strong> A large cardiology group in a selected CBSA has an analytics team to model a &plusmn;9% adjustment. A two-cardiologist practice in the same CBSA is in the same mandatory two-sided risk model, with the same MIPS-derived scoring, and <strong>no hardship exemption</strong>.</li>
+<li><strong>The modifier 25 stacking cut targets the procedure-plus-visit practice.</strong> Dermatology, ENT, and podiatry take the largest projected hit &mdash; specialties disproportionately organized as small independent groups. The comment window closes September 14, and CMS asked a specific question about 25% versus 50%. That is an unusually answerable ask.</li>
+<li><strong>G2211&rsquo;s 32% ACO modifier is a reason to reopen the MSSP conversation.</strong> A 16% E/M uplift becomes 32% for Shared Savings Program and LEAD Model participants. For a primary care practice that has repeatedly declined ACO participation on administrative grounds, the arithmetic changed in July.</li>
+<li><strong>The incident-to unwind removes a staffing assumption, not just a payment.</strong> BCBS Michigan&rsquo;s Phase 2 drops incident-to claims to 80% of the professional fee on March 1, 2027. Practices whose NP and PA contribution margin assumes 100% should re-model now.</li>
+<li><strong>The 379-code turnover is a vendor question when you have no coding department.</strong> A large system retrains its coders. A 6-physician practice inherits whatever its EMR and clearinghouse shipped &mdash; which is why the three vendor questions in Section 03 matter more here than anywhere else.</li>
+<li><strong>Medicaid community engagement hits the practices with the thinnest cash buffers.</strong> Practices with high Medicaid adult-group mix and under 30 days cash on hand will feel a Q1 2027 self-pay conversion immediately.</li>
+</ul>
+
+<h3>Where You Should Be &mdash; Independent Practice Benchmarks</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>Typical independent practice</th><th>Where you should be</th></tr></thead>
+<tbody>
+<tr><td><strong>Administrative FTE per physician</strong></td><td class="kpi-warning">3+ at 40% of practices</td><td class="kpi-target">Measured monthly and trending down</td></tr>
+<tr><td><strong>ASM exposure</strong></td><td class="kpi-warning">Unchecked</td><td class="kpi-target">CBSA verified against the participant list this week</td></tr>
+<tr><td><strong>October 1 code readiness</strong></td><td class="kpi-warning">ICD-10-CM only</td><td class="kpi-target">All three code sets tested end-to-end by Sept 25</td></tr>
+<tr><td><strong>First-pass clean claim rate</strong></td><td>90&ndash;94%</td><td class="kpi-target">&ge; 95%, target 98%</td></tr>
+<tr><td><strong>Days in A/R (1&ndash;3 providers)</strong></td><td class="kpi-warning">45&ndash;55</td><td class="kpi-target">&le; 45, best-in-class &lt; 25</td></tr>
+<tr><td><strong>Initial denial rate</strong></td><td class="kpi-warning">9&ndash;12%; 41% of providers above 10%</td><td class="kpi-target">&le; 5%</td></tr>
+<tr><td><strong>Medicare Advantage denial rate</strong></td><td class="kpi-warning">&gt; 17%</td><td class="kpi-target">Tracked and contracted against separately</td></tr>
+<tr><td><strong>Eligibility verification</strong></td><td class="kpi-warning">Manual, at registration only</td><td class="kpi-target">Automated, at 3+ touchpoints including pre-submission</td></tr>
+<tr><td><strong>Medicaid eligibility recheck</strong></td><td class="kpi-warning">At registration</td><td class="kpi-target">Re-verified at DOS and again before claim submission</td></tr>
+<tr><td><strong>Days of cash on hand</strong></td><td class="kpi-warning">Often under 30</td><td class="kpi-target">&ge; 60 before Q1 2027</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Check your CBSA against the Ambulatory Specialty Model participant list this week if you employ a cardiologist, an interventional pain physician, an orthopedic surgeon, a neurosurgeon, or a PM&amp;R physician. It is a five-minute lookup with a &plusmn;9% consequence and no appeal.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.mgma.com/federal-policy-resources/april-9-2026-regulatory-burden-report" target="_blank">MGMA &mdash; 2026 Regulatory Burden Report</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/revenue-growth-narrows-as-costs-climb-2026-squeeze" target="_blank">MGMA Stat &mdash; Revenue Growth Narrows as Costs Climb</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/whos-buying-whos-selling-ownership-in-2026" target="_blank">MGMA &mdash; Who&rsquo;s Buying, Who&rsquo;s Selling: Ownership in 2026</a><span class="sep">&bull;</span>
+<a href="https://focusbankers.com/physician-practice-ma-multiples-2026/" target="_blank">FOCUS &mdash; Physician Practice M&amp;A Multiples 2026</a><span class="sep">&bull;</span>
+<a href="https://nihcm.org/publications/private-equity-ownership-of-physician-practices-is-rising" target="_blank">NIHCM &mdash; Private Equity Ownership of Physician Practices Is Rising</a><span class="sep">&bull;</span>
+<a href="https://www.gao.gov/products/gao-25-107450" target="_blank">GAO &mdash; Health Care Consolidation: Estimates of Physician Consolidation</a><span class="sep">&bull;</span>
+<a href="https://pestakeholder.org/news/private-equity-health-care-acquisitions-january-2026/" target="_blank">Private Equity Stakeholder Project &mdash; PE Health Care Acquisitions, January 2026</a><span class="sep">&bull;</span>
+<a href="https://www.medicaleconomics.com/view/best-of-2025-will-independent-thrive-or-die-off-in-2026-" target="_blank">Medical Economics &mdash; Will Independent Thrive or Die Off in 2026?</a>
+</div>
+</section>
+
+<!-- SECTION 09 -->
+<section class="section" id="specialty">
+<div class="section-number">Section 09</div>
+<h2>Specialty RCM Spotlight: Radiology Loses 15% Without Dose Compliance, Cardiology and Low Back Pain Get Drafted Into Mandatory Risk, GI Gets Category I ESD Codes, and Primary Care&rsquo;s G2211 Becomes a 32% ACO Modifier</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Specialty</th><th>This week&rsquo;s change</th><th>The number</th></tr></thead>
+<tbody>
+<tr><td><strong>Primary Care</strong></td><td>G2211 converts from flat add-on to a percentage modifier; enhanced modifier for ACO participants</td><td class="kpi-target">+16% / +32% in MSSP and LEAD</td></tr>
+<tr><td><strong>Cardiology</strong></td><td>Mandatory ASM heart failure arm; new FY 2027 cardiomyopathy codes</td><td class="kpi-warning">&plusmn;9% adjustment, 235 CBSAs, Jan 1, 2027</td></tr>
+<tr><td><strong>Orthopedics</strong></td><td>ASM low back pain arm; WISeR review on cervical fusion; overall PFS impact</td><td class="kpi-warning">&minus;7% overall; denial rates 14&ndash;22%</td></tr>
+<tr><td><strong>Oncology</strong></td><td>ASCO impact estimate; 340B repricing; new metastatic-site codes</td><td class="kpi-warning">&minus;1.5% hem/onc, +1.5% radiation oncology</td></tr>
+<tr><td><strong>Radiology</strong></td><td>Aetna dose-compliance reduction effective Sept 1</td><td class="kpi-warning">&minus;15% on modifier CT without Smart Dose</td></tr>
+<tr><td><strong>Gastroenterology</strong></td><td>New Category I ESD codes; G2211 replacement rework</td><td>Jan 1, 2027</td></tr>
+<tr><td><strong>Behavioral Health</strong></td><td>Telehealth secured through 2027; SBIRT and cessation join timed-code transition</td><td class="kpi-warning">Denial rates 20&ndash;30% &mdash; highest in medicine</td></tr>
+<tr><td><strong>OB / Maternal-Fetal</strong></td><td>CPT maternity restructure; 33 new vanishing-twin codes</td><td>First maternity overhaul in ~30 years</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Primary Care</h3>
+<p>The G2211 redesign is the most consequential primary care payment change in the proposed rule, and the ACO provision is the part that has not been widely modeled. Converting to a <strong>16% modifier</strong> applied uniformly across E/M levels replaces a flat dollar add-on &mdash; which advantages higher-level visits and disadvantages lower-level ones relative to today. The second modifier, restricted to <strong>Shared Savings Program and LEAD Model</strong> participants, pays <strong>32%</strong>. CMS is also proposing new codes for <strong>shared medical appointments</strong> and <strong>advance care planning</strong>. Primary care and internal medicine continue to carry the lowest denial rates in medicine at <strong>8&ndash;12%</strong>.</p>
+
+<h3>Cardiology</h3>
+<p>Two changes land simultaneously. First, the <strong>Ambulatory Specialty Model</strong> makes heart failure care a mandatory two-sided risk proposition in <strong>235 CBSAs</strong> starting January 1, 2027, with <strong>&minus;9% to +9%</strong> payment adjustments scored against regional peers on quality, cost, improvement activities, and interoperability. Second, on October 1, FY 2027 ICD-10-CM adds specificity that cardiology documentation is not currently written for: <strong>familial and genetic dilated cardiomyopathy</strong> distinguished from other forms, plus new codes for <strong>arrhythmogenic cardiomyopathy, CPVT, Brugada syndrome, and ventricular bigeminy</strong>. Cardiac and thoracic surgery show positive impacts in the CY 2027 specialty impact tables.</p>
+
+<h3>Orthopedics</h3>
+<p>Orthopedics remains the specialty carrying the largest projected downside in the CY 2027 rule at <strong>&minus;7% overall</strong>, and is the only specialty whose overall impact includes a malpractice-RVU cut. It is now also on both sides of the utilization-control apparatus: the <strong>ASM low back pain arm</strong> covers orthopedic surgery, neurosurgery, interventional pain, pain management, and PM&amp;R, while the <strong>WISeR model</strong> already applies prior authorization or pre-payment review to <strong>cervical fusion</strong> and <strong>epidural steroid injections</strong> in six states. Orthopedic denial rates run <strong>14&ndash;22%</strong>.</p>
+
+<h3>Oncology</h3>
+<p>ASCO estimates a <strong>1.5% overall reimbursement cut</strong> for hematology/oncology and a <strong>1.5% increase</strong> for radiation oncology in CY 2027. Separately, the CY 2027 OPPS proposed rule &mdash; now closed for comment &mdash; would cut 340B drug payment to <strong>ASP&minus;33.4%</strong> effective January 1, 2027, and raise the offsetting nondrug reduction from 0.5% to <strong>3%</strong> for 2027 through 2029. On the coding side, FY 2027 adds <strong>secondary malignancy codes for specific metastatic sites</strong> including larynx, pharynx, and oral cavity that previously required nonspecific codes &mdash; better documentation, and better denial defense on medical necessity. Practices should also note UnitedHealthcare&rsquo;s <strong>non-reimbursement of in vitro chemotherapy sensitivity and resistance assays</strong> effective September 1.</p>
+
+<h3>Radiology</h3>
+<p>The most immediately actionable item in this section. <strong>Aetna, effective September 1</strong>, applies a <strong>15% payment reduction</strong> to radiology services billed with modifier CT that do not meet &ldquo;Smart Dose&rdquo; standards compliance. This is a dose-registry and equipment-attestation problem masquerading as a billing problem, and the reduction applies claim by claim. On the fee schedule side, CY 2027 impact tables project roughly <strong>+2%</strong> for diagnostic radiology and nuclear medicine and roughly <strong>+3%</strong> for interventional radiology.</p>
+
+<h3>Gastroenterology</h3>
+<p>The AGA&rsquo;s read on the CY 2027 proposed rules is that they would <strong>reduce reimbursement for many GI services</strong>, alter complex-care payments, and introduce requirements affecting coding and billing workflow. The offsetting development is a coding win: CPT 2027 establishes <strong>Category I</strong> reporting for <strong>endoscopic submucosal dissection</strong> in both the upper and lower GI tract effective January 1, 2027 &mdash; moving ESD out of unlisted and Category III reporting. GI practices should also budget EHR and modifier-logic work for the G2211 replacement.</p>
+
+<h3>Behavioral Health</h3>
+<p>Behavioral health carries the <strong>highest denial rates in medicine at 20&ndash;30%</strong>, which makes every other change in this section secondary to denial management. The stability news is real: the Consolidated Appropriations Act, 2026, signed February 3, extended Medicare telehealth flexibilities through <strong>December 31, 2027</strong>, and CMS proposes extending the in-person visit waiver for mental health services in RHCs and FQHCs to match. For CY 2027, CMS proposes adding <strong>smoking and tobacco cessation</strong> and <strong>SBIRT</strong> services to the timed behavioral health code upward adjustment in its final transition year, and proposes keeping adaptive behavior codes <strong>97151&ndash;97158</strong> on the permanent telehealth list. Countering that: stricter <strong>42 CFR Part 2</strong> enforcement adds consent and documentation obligations.</p>
+
+<h3>OB / Maternal-Fetal Medicine</h3>
+<p>The largest single block of new ICD-10-CM codes this year belongs to obstetrics &mdash; <strong>33 new codes in category O31.4</strong> for continuing pregnancy after vanishing twin syndrome, stratified by trimester and encounter. Ninety-two days later, CPT 2027 restructures <strong>maternity care services</strong> for the first time in roughly three decades, effective January 1, 2027. An OB practice therefore faces two separate, unrelated code changes ninety days apart, and needs two separate testing cycles.</p>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.aafp.org/fpm/blogs/getting-paid/medicare-physician-fee-schedule-proposal-includes-changes-to-g2211-other-codes" target="_blank">AAFP FPM &mdash; Medicare PFS Proposal Includes Changes to G2211</a><span class="sep">&bull;</span>
+<a href="https://www.acc.org/Latest-in-Cardiology/Articles/2026/07/14/21/36/cms-releases-2027" target="_blank">ACC &mdash; CMS Releases 2027 Medicare Physician Fee Schedule Proposed Rule</a><span class="sep">&bull;</span>
+<a href="https://www.asco.org/news-initiatives/policy-news-analysis/medicare-physician-reimbursement-cut-proposed-2027" target="_blank">ASCO &mdash; 1.5% Reimbursement Cut Proposed for 2027</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/payment-reimbursement-and-managed-care/cy-2027-physician-fee-schedule-proposed-specialty-impact-tables/" target="_blank">HFMA &mdash; CY 2027 PFS Proposed Specialty Impact Tables</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/payment-reimbursement-and-managed-care/cms-2027-opps-proposed-rule-340b-imaging-payments/" target="_blank">HFMA &mdash; CMS&rsquo;s 2027 OPPS Proposed Rule Would Cut 340B and Imaging Payments</a><span class="sep">&bull;</span>
+<a href="https://distilinfo.com/2026/09/02/payer-reimbursement-changes-september/" target="_blank">DistilINFO &mdash; 6 Payer Reimbursement Changes for September 2026</a><span class="sep">&bull;</span>
+<a href="https://gastro.org/news/medicare-2027-proposed-payment-rules-what-gi-practices-should-watch-for/" target="_blank">AGA &mdash; Medicare 2027 Proposed Payment Rules: What GI Practices Should Watch For</a><span class="sep">&bull;</span>
+<a href="https://omnimd.com/blog/average-claim-denial-rates-by-specialty/" target="_blank">OmniMD &mdash; Average Claim Denial Rates by Specialty, 2026</a><span class="sep">&bull;</span>
+<a href="https://www.ama-assn.org/practice-management/cpt/cpt-2027-maternity-care-services-code-changes" target="_blank">AMA &mdash; CPT 2027 Maternity Care Services Code Changes</a>
+</div>
+</section>
+
+<!-- SECTION 10 -->
+<section class="section" id="action-items">
+<div class="section-number">Section 10</div>
+<h2>This Week&rsquo;s Action Items</h2>
+<p>Ten moves for the week of September 4, 2026 &mdash; each tied directly to something in this issue.</p>
+
+<ul class="checklist">
+<li><div class="check-box"></div><div><strong>Check your CBSA against the Ambulatory Specialty Model participant list &mdash; today.</strong> 235 CBSAs, mandatory participation, no opt-out, no hardship exemption, &plusmn;9% starting January 1, 2027. If you employ a cardiologist, orthopedic surgeon, neurosurgeon, interventional pain physician, or PM&amp;R physician, this is a five-minute lookup you cannot afford to defer.</div></li>
+<li><div class="check-box"></div><div><strong>File a PFS comment by September 14 &mdash; ten days.</strong> CMS asked directly whether the modifier 25 reduction should be <strong>25% instead of 50%</strong>. A specialty-specific letter with your own same-day E/M-plus-procedure volume attached is the single highest-leverage comment available this cycle.</div></li>
+<li><div class="check-box"></div><div><strong>Test all three code sets for October 1 dates of service, not just ICD-10-CM.</strong> 190 new ICD-10-CM, 101 new ICD-10-PCS, and <strong>88 new HCPCS Level II</strong> codes go live in <strong>27 days</strong>, with 68 deletions. Run clearinghouse acceptance testing before the last week of September.</div></li>
+<li><div class="check-box"></div><div><strong>Send three written questions to every autonomous coding and CDI vendor.</strong> FY 2027 model refresh date; fallback behavior on deleted and unmapped codes; confidence-threshold policy during October. A vendor that cannot answer the second question has answered it.</div></li>
+<li><div class="check-box"></div><div><strong>Rebuild your lab order sets against the new UnitedHealthcare frequency caps.</strong> 20 allergens per year, B12 quarterly, hepatic fibrosis semi-annually, no in vitro chemosensitivity assays. Effective September 1 &mdash; the first denial batch is already forming.</div></li>
+<li><div class="check-box"></div><div><strong>If you bill radiology under Aetna, verify Smart Dose compliance this week.</strong> A <strong>15% reduction</strong> on modifier CT claims lacking dose-standards compliance took effect September 1. This is fixed with equipment attestation and registry participation, not with an appeal.</div></li>
+<li><div class="check-box"></div><div><strong>Re-model NP and PA contribution margin at 80% of the professional fee.</strong> BCBS Michigan Phase 1 (modifier SA) is live; Phase 2 drops incident-to to <strong>80%</strong> on March 1, 2027. Phase 1 is free, which is exactly why it is easy to ignore.</div></li>
+<li><div class="check-box"></div><div><strong>Reopen the MSSP conversation if you are a primary care practice.</strong> The proposed G2211 modifier pays <strong>16%</strong> &mdash; or <strong>32%</strong> for Shared Savings Program and LEAD participants. If ACO participation was declined on administrative grounds, the arithmetic changed in July.</div></li>
+<li><div class="check-box"></div><div><strong>Model your Q1 2027 Medicaid self-pay conversion.</strong> Adult-group volume &times; a conservative disenrollment rate &times; average charge. Community engagement starts <strong>January 1, 2027</strong> in 43 states and DC, and <strong>September is the last outreach month</strong> for states on a three-month lookback. Then automate eligibility at three or more touchpoints, including pre-submission.</div></li>
+<li><div class="check-box"></div><div><strong>Start measuring administrative FTE per physician monthly.</strong> 40% of practices are at 3+. Expenses per physician are up <strong>26.5%</strong> against <strong>9.1%</strong> revenue growth. It is the only KPI in this issue that captures the expense side of that gap &mdash; and the only one automation can actually move.</div></li>
+</ul>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/priorities/innovation/innovation-models/asm" target="_blank">CMS &mdash; Ambulatory Specialty Model</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule" target="_blank">CMS &mdash; CY 2027 Physician Fee Schedule Proposed Rule Fact Sheet</a><span class="sep">&bull;</span>
+<a href="https://www.aapc.com/blog/94356-cms-finalizes-october-2026-hcpcs-level-ii-changes/" target="_blank">AAPC &mdash; CMS Finalizes October 2026 HCPCS Level II Changes</a><span class="sep">&bull;</span>
+<a href="https://distilinfo.com/2026/09/02/payer-reimbursement-changes-september/" target="_blank">DistilINFO &mdash; 6 Payer Reimbursement Changes for September 2026</a><span class="sep">&bull;</span>
+<a href="https://www.medicaid.gov/resources-for-states/working-families-tax-cut-legislation/community-engagement" target="_blank">Medicaid.gov &mdash; Community Engagement</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/top-cost-cutting-moves-for-medical-practices-in-2026" target="_blank">MGMA Stat &mdash; Automation, Process Fixes Top Cost-Cutting Moves for 2026</a>
+</div>
+</section>
+
+<!-- BIG STAT -->
+<div class="big-stat">
+<div class="stat-number">379</div>
+<div class="stat-desc"><strong>New codes. One day. Three code sets.</strong> On <strong>October 1, 2026 &mdash; 27 days from today</strong> &mdash; ICD-10-CM adds <strong>190</strong> new codes, ICD-10-PCS adds <strong>101</strong>, and HCPCS Level II adds <strong>88</strong>. Sixty-eight codes are deleted the same day, and the ICD-10-PCS set alone reaches <strong>79,256</strong> codes. Most practices have scheduled an ICD-10 refresher and nothing else &mdash; but the claim that fails on October 1 is rarely the one with an unfamiliar diagnosis. It is the clean claim carrying a supply or device HCPCS code that was valid on September 30. Ninety days later, on January 1, 2027, CPT 2027 restructures maternity care for the first time in three decades, the Ambulatory Specialty Model puts cardiology and low back pain into mandatory two-sided risk across 235 markets, four FHIR APIs come due, and Medicaid community engagement begins in 43 states. <strong>The fourth quarter of 2026 is not a coding update. It is a conversion.</strong></div>
+</div>
+
+<footer class="footer">
+<div class="footer-divider"></div>
+<p><strong>RCM Pulse Weekly</strong> &mdash; Revenue Cycle Management Intelligence for Medical Practices</p>
+<p>Researched and compiled from public domain sources including CMS.gov, Medicaid.gov, the Federal Register, AMA, AAPC, ACDIS, MGMA, HFMA, ASCO, ACC, AGA, GAO, KFF, Becker&rsquo;s Healthcare, Medical Economics, TechTarget, and payer policy portals.</p>
+<p>Volume 9, Issue 1 &bull; September 4, 2026 &bull; <strong>Next issue: September 11, 2026</strong></p>
+</footer>
+</div>
+<script>
+(function() {
+var bg = document.getElementById('bubbles-bg');
+if (!bg) return;
+var cv = document.createElement('canvas');
+cv.setAttribute('aria-hidden','true');
+cv.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:0;';
+bg.parentNode.replaceChild(cv, bg);
+var ctx = cv.getContext('2d');
+function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+var HUES = [0,20,45,80,160,200,250,280,320,345];
+function randHue() {
+return HUES[Math.floor(Math.random()*HUES.length)] + (Math.random()*24-12);
+}
+function makeBubble(fromBottom) {
+var r = 10 + Math.random() * 46;
+var x = r + Math.random() * (cv.width - 2*r);
+var y = fromBottom ? cv.height + r + Math.random()*180 : Math.random()*cv.height;
+return {
+x:x, y:y, r:r,
+hue: randHue(),
+sat: 78 + Math.random()*20,
+lit: 52 + Math.random()*20,
+op: 0.32 + Math.random()*0.26,
+vx: (Math.random()-0.5)*0.8,
+vy: -(0.38 + Math.random()*0.55)
+};
+}
+var bubbles = [];
+for (var i=0;i<28;i++) bubbles.push(makeBubble(false));
+var splats = [];
+var MAX_SPLATS = 220;
+function burst(cx, cy, hueA, hueB) {
+if (splats.length > MAX_SPLATS) return;
+var n = 7 + Math.floor(Math.random()*5);
+for (var k=0;k<n;k++) {
+var angle = Math.random()*Math.PI*2;
+var spd = 1.8 + Math.random()*3.8;
+var hueOptions = [hueA, hueB, (hueA+hueB)/2, hueA+60, hueB-60, hueA-45, hueB+45];
+var hue = hueOptions[Math.floor(Math.random()*hueOptions.length)];
+splats.push({
+x:cx, y:cy,
+r: 3 + Math.random()*9,
+hue: hue,
+sat: 85 + Math.random()*15,
+lit: 55 + Math.random()*25,
+vx: Math.cos(angle)*spd,
+vy: Math.sin(angle)*spd,
+op: 0.85,
+life: 1.0,
+decay: 0.016 + Math.random()*0.024
+});
+}
+}
+var last = 0;
+function tick(now) {
+var dt = Math.min((now - last)/16, 3);
+last = now;
+ctx.clearRect(0,0,cv.width,cv.height);
+for (var i=0;i<bubbles.length;i++) {
+var b = bubbles[i];
+b.x += b.vx*dt;
+b.y += b.vy*dt;
+if (b.x < -b.r) b.x = cv.width + b.r;
+if (b.x > cv.width+b.r) b.x = -b.r;
+if (b.y < -b.r) {
+var nb = makeBubble(true);
+bubbles[i] = nb;
+continue;
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+for (var j=i+1;j<bubbles.length;j++) {
+var a=bubbles[i], b=bubbles[j];
+var dx=b.x-a.x, dy=b.y-a.y;
+var dist=Math.sqrt(dx*dx+dy*dy);
+var minD=a.r+b.r;
+if (dist < minD && dist > 0.01) {
+burst((a.x+b.x)/2, (a.y+b.y)/2, a.hue, b.hue);
+var nx=dx/dist, ny=dy/dist;
+var dv = (a.vx-b.vx)*nx + (a.vy-b.vy)*ny;
+if (dv > 0) {
+a.vx -= dv*nx; a.vy -= dv*ny;
+b.vx += dv*nx; b.vy += dv*ny;
+}
+var sep=(minD-dist)/2+0.5;
+a.x -= nx*sep; a.y -= ny*sep;
+b.x += nx*sep; b.y += ny*sep;
+a.hue = randHue();
+b.hue = randHue();
+}
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+var b=bubbles[i];
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle = 'hsla('+b.hue+','+b.sat+'%,'+b.lit+'%,'+b.op+')';
+ctx.fill();
+var g=ctx.createRadialGradient(b.x-b.r*0.32,b.y-b.r*0.32,b.r*0.04,b.x,b.y,b.r);
+g.addColorStop(0,'rgba(255,255,255,0.30)');
+g.addColorStop(1,'rgba(255,255,255,0)');
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+}
+for (var i=splats.length-1;i>=0;i--) {
+var s=splats[i];
+s.x += s.vx*dt;
+s.y += s.vy*dt;
+s.vy += 0.05*dt;
+s.vx *= 0.97;
+s.life -= s.decay*dt;
+if (s.life<=0) { splats.splice(i,1); continue; }
+ctx.beginPath();
+ctx.arc(s.x,s.y,Math.max(0.5,s.r*s.life),0,Math.PI*2);
+ctx.fillStyle='hsla('+s.hue+','+s.sat+'%,'+s.lit+'%,'+(s.life*s.op)+')';
+ctx.fill();
+}
+requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
