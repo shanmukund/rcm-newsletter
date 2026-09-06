@@ -13,6 +13,8 @@ name: Weekly RCM Newsletter — Auto-Generate
 # expires, nothing to rotate. That failure mode cannot recur here.
 #
 # Design rules learned from that outage, do not remove:
+#   * All clocks are Phoenix (TZ is set workflow-wide). Never compute a date in UTC —
+#     a Friday run delayed past 5 PM Phoenix reads as Saturday in UTC and flips mode.
 #   * Saturday computes FRIDAY's date. It is a retry of Friday, never its own issue.
 #   * The push happens in this workflow, in the foreground, with backoff — never inside
 #     the agent, and never as a background task.
@@ -20,9 +22,20 @@ name: Weekly RCM Newsletter — Auto-Generate
 
 on:
   schedule:
-    # Cron is UTC. Phoenix is UTC-7 year-round (no DST).
-    - cron: '0 16 * * 5'   # Friday   9:00 AM Phoenix — primary
-    - cron: '0 16 * * 6'   # Saturday 9:00 AM Phoenix — retry of Friday (no-ops if Friday landed)
+    # Times below are PHOENIX. GitHub's cron field has no timezone option — it is the
+    # one thing here I cannot express in local time — so the numbers are offset by 7 to
+    # land on the Phoenix time named in each comment. Read the comment, not the numbers.
+    #
+    # Three Friday attempts, not one. Observed queue delay on this repo was 8h12m / 3h18m
+    # / 2h38m / 2h00m across Aug 28 - Sep 5 — every run fired late, none failed. A single
+    # scheduled time is therefore a guess at how long GitHub's queue will be that morning.
+    # Instead: fire three times across Friday morning. Whichever one the queue actually
+    # honours first publishes; the idempotency check makes the others exit in seconds.
+    # ':00' is the most contended minute on the scheduler, so all of these avoid it.
+    - cron: '23 11 * * 5'   # Friday   4:23 AM Phoenix
+    - cron: '23 13 * * 5'   # Friday   6:23 AM Phoenix
+    - cron: '23 15 * * 5'   # Friday   8:23 AM Phoenix
+    - cron: '23 14 * * 6'   # Saturday 7:23 AM Phoenix — last resort
   workflow_dispatch:
     inputs:
       reason:
@@ -33,6 +46,12 @@ on:
         description: 'Backfill a specific Friday (YYYY-MM-DD, blank = auto)'
         required: false
         default: ''
+
+env:
+  # Every shell in this workflow reads the clock in Phoenix. Nothing here computes a date
+  # in UTC. A Friday run delayed into the evening must still know it is Friday — reading
+  # the clock in UTC is what flipped the Aug 28 run into "Saturday backup" mode at 5:12 PM.
+  TZ: America/Phoenix
 
 concurrency:
   # Never let two generators run at once — a second run would rebase onto a half-pushed main.
@@ -64,31 +83,34 @@ jobs:
         id: dates
         run: |
           set -euo pipefail
+          echo "Clock: $(date +'%A %Y-%m-%d %I:%M %p %Z')"
+
           OVERRIDE="${{ github.event.inputs.newsletter_date }}"
-          DOW=$(date -u +%u)   # 1=Mon ... 5=Fri 6=Sat 7=Sun
+          DOW=$(date +%u)   # Phoenix day-of-week. 1=Mon ... 5=Fri 6=Sat 7=Sun
 
           if [ -n "$OVERRIDE" ]; then
             NEWSLETTER_DATE="$OVERRIDE"
             RUN_MODE="backfill"
           elif [ "$DOW" = "5" ]; then
-            NEWSLETTER_DATE=$(date -u +%Y-%m-%d)
+            # Friday in Phoenix is Friday, whatever time of day the queue got round to us.
+            NEWSLETTER_DATE=$(date +%Y-%m-%d)
             RUN_MODE="primary"
           elif [ "$DOW" = "6" ]; then
             # Saturday is a RETRY of Friday. It must never mint a Saturday-dated issue —
             # doing so publishes a duplicate and leaves the Friday slot empty forever.
-            NEWSLETTER_DATE=$(date -u -d "yesterday" +%Y-%m-%d)
+            NEWSLETTER_DATE=$(date -d "yesterday" +%Y-%m-%d)
             RUN_MODE="backup"
           else
-            echo "::error::Fired on day-of-week $DOW with no newsletter_date input. Refusing to guess a date."
+            echo "::error::Fired on Phoenix day-of-week $DOW with no newsletter_date input. Refusing to guess a date."
             exit 1
           fi
 
           # Every date field below derives from NEWSLETTER_DATE, never from "today".
-          MONTH=$(date -u -d "$NEWSLETTER_DATE" +%-m)
-          DAY=$(date -u -d "$NEWSLETTER_DATE" +%-d)
+          MONTH=$(date -d "$NEWSLETTER_DATE" +%-m)
+          DAY=$(date -d "$NEWSLETTER_DATE" +%-d)
           ISSUE=$(( (DAY - 1) / 7 + 1 ))
-          NEXT_FRIDAY=$(date -u -d "$NEWSLETTER_DATE + 7 days" +"%B %-d, %Y")
-          PRETTY=$(date -u -d "$NEWSLETTER_DATE" +"%B %-d, %Y")
+          NEXT_FRIDAY=$(date -d "$NEWSLETTER_DATE + 7 days" +"%B %-d, %Y")
+          PRETTY=$(date -d "$NEWSLETTER_DATE" +"%B %-d, %Y")
 
           {
             echo "newsletter_date=$NEWSLETTER_DATE"
@@ -226,7 +248,7 @@ jobs:
             fi
             git pull --rebase origin main || echo "rebase failed, attempting push anyway"
             if git push origin main; then PUSH_OK=1; break; fi
-            echo "push attempt failed at $(date -u)"
+            echo "push attempt failed at $(date +'%I:%M %p %Z')"
           done
 
           if [ -z "$PUSH_OK" ]; then
@@ -269,7 +291,7 @@ jobs:
                 '',
                 `**Target issue:** ${date} (mode: ${mode})`,
                 `**Run:** [View logs](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
-                `**Failed at:** ${new Date().toUTCString()}`,
+                `**Failed at:** ${new Date().toLocaleString('en-US', { timeZone: 'America/Phoenix', dateStyle: 'medium', timeStyle: 'short' })} Phoenix`,
                 '',
                 '### Which step failed tells you what broke',
                 '- **Generate newsletter with Claude Code** — check the `ANTHROPIC_API_KEY` secret.',

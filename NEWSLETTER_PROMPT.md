@@ -2,7 +2,7 @@
 
 This file is the **source of truth** for the weekly newsletter generation.
 
-- **The GitHub Actions workflow** `.github/workflows/weekly-newsletter.yml` (Fri + Sat 9 AM Phoenix) reads this file and executes it. To change how the newsletter is generated, edit this file and commit — no need to touch the workflow.
+- **The GitHub Actions workflow** `.github/workflows/weekly-newsletter.yml` (three Friday-morning attempts plus a Saturday last resort, all Phoenix) reads this file and executes it. To change how the newsletter is generated, edit this file and commit — no need to touch the workflow.
 - The workflow **computes the dates and performs the push itself**. When it invokes you it hands you the date, volume, and issue number; you skip Step 1 and stop after Step 10.
 - For **off-cycle backfills**, see the "Manual / backfill override" section at the bottom.
 - The claude.ai routine `trig_011MyvQ9AcDW2LQyHJNFTUxw` was the generator from 2026-05-19 until **2026-08-22, when it was disabled**. Do not re-enable it without reading the outage note in the watchdog section below.
@@ -22,15 +22,16 @@ You are generating an issue of the **RCM Pulse Weekly** newsletter for the GitHu
 Only when no date was supplied:
 
 ```bash
-TODAY_WD=$(date -u +%u)                                  # 1=Mon ... 7=Sun
+export TZ=America/Phoenix   # every clock read below is Phoenix. Never UTC.
+TODAY_WD=$(date +%u)                                     # 1=Mon ... 7=Sun
 
 if [ "$TODAY_WD" = "5" ]; then
   # Friday — newsletter is dated today
-  NEWSLETTER_DATE=$(date -u +%Y-%m-%d)
+  NEWSLETTER_DATE=$(date +%Y-%m-%d)
   RUN_MODE="primary"
 elif [ "$TODAY_WD" = "6" ]; then
   # Saturday — backup retry for yesterday's Friday. Never a Saturday-dated issue.
-  NEWSLETTER_DATE=$(date -u -d "yesterday" +%Y-%m-%d)
+  NEWSLETTER_DATE=$(date -d "yesterday" +%Y-%m-%d)
   RUN_MODE="backup"
 elif [ -n "$NEWSLETTER_DATE_OVERRIDE" ]; then
   # Manual / backfill override — see "Manual run" section
@@ -41,12 +42,12 @@ else
   exit 1
 fi
 
-MONTH=$(date -u -d "$NEWSLETTER_DATE" +%-m)
-DAY=$(date -u -d "$NEWSLETTER_DATE" +%-d)
+MONTH=$(date -d "$NEWSLETTER_DATE" +%-m)
+DAY=$(date -d "$NEWSLETTER_DATE" +%-d)
 ISSUE=$(( (DAY - 1) / 7 + 1 ))
 MD_FILE="RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.md"
 HTML_FILE="RCM_Weekly_Newsletter_${NEWSLETTER_DATE}.html"
-NEXT_FRIDAY=$(date -u -d "$NEWSLETTER_DATE + 7 days" +"%B %-d, %Y")
+NEXT_FRIDAY=$(date -d "$NEWSLETTER_DATE + 7 days" +"%B %-d, %Y")
 
 echo "Mode=$RUN_MODE  Date=$NEWSLETTER_DATE  Volume=$MONTH  Issue=$ISSUE"
 ```
@@ -215,10 +216,12 @@ Friday publication is the commitment. The Saturday 9 AM run is **failure recover
 
 | Layer | What | When | Alerts |
 |---|---|---|---|
-| 1. Generator | GitHub Action `.github/workflows/weekly-newsletter.yml` runs this file, then verifies the output and pushes it itself | Fri + Sat 9 AM Phoenix | Opens an `automation`/`urgent` issue on failure, and fails the run |
-| 2. Cloud watchdog | GitHub Action `.github/workflows/verify-newsletter.yml` — checks the expected `RCM_Weekly_Newsletter_<friday>.html` is committed AND returns HTTP 200 on www.vaqyaweekly.com | Fri 1 PM + Sat 10 AM Phoenix | Opens/updates a `missed-publication` issue **and** fails the run — two email paths |
+| 1. Generator | GitHub Action `.github/workflows/weekly-newsletter.yml` runs this file, then verifies the output and pushes it itself | Fri 4:23 / 6:23 / 8:23 AM, Sat 7:23 AM — Phoenix | Opens an `automation`/`urgent` issue on failure, and fails the run |
+| 2. Cloud watchdog | GitHub Action `.github/workflows/verify-newsletter.yml` — checks the expected `RCM_Weekly_Newsletter_<friday>.html` is committed AND returns HTTP 200 on www.vaqyaweekly.com | Fri 2:23 PM + Sat 11:23 AM Phoenix | Opens/updates a `missed-publication` issue **and** fails the run — two email paths |
 
 Both layers run entirely in GitHub's cloud on the auto-issued `GITHUB_TOKEN`, independent of any local machine, any claude.ai routine, and any stored credential.
+
+**Clocks are Phoenix, and scheduling is best-effort.** Every shell in both workflows runs with `TZ=America/Phoenix`; nothing computes a date in UTC. This is not cosmetic — GitHub's scheduler delivers scheduled runs late, and this repo measured delays of 8h12m, 3h18m, 2h38m and 2h00m between Aug 28 and Sep 5. A Friday run that lands in the evening must still know it is Friday; reading the clock in UTC is what mislabelled the Aug 28 issue as a "Saturday backup". That is also why Friday has **three** scheduled attempts rather than one — the queue decides which of them actually runs first, and the Step 2 idempotency check makes the rest exit in seconds.
 
 **Credentials (hard rule — no expiring or manually-rotated tokens in unattended automation):** everything uses the workflow's auto-issued `GITHUB_TOKEN` — minted fresh per run, scoped to this repo, never expires, nothing to rotate. **Do not reintroduce a personal access token.** The 2026-08 outage was a PAT stored in a claude.ai trigger config that stopped being authorized after 2026-07-31; three Fridays failed silently because nothing checked whether the push had actually landed. If you find yourself pasting a `ghp_…` token anywhere, stop — the answer is a workflow, not a token.
 
