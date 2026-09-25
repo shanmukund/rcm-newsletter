@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCM Pulse Weekly | September 25, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--color-bg: #FAFAFA;
+--color-surface: #FFFFFF;
+--color-text: #1A1A2E;
+--color-text-secondary: #4A4A68;
+--color-text-muted: #8888A0;
+--color-accent: #0F5FE0;
+--color-accent-light: #E8F0FE;
+--color-accent-dark: #0A4ABF;
+--color-border: #E8E8EE;
+--color-highlight: #FFF8E1;
+--color-highlight-border: #F5C518;
+--color-success: #0D9F6E;
+--color-success-light: #E6F9F1;
+--color-danger: #DC3545;
+--color-danger-light: #FDE8EA;
+--color-kpi-green: #0D9F6E;
+--color-kpi-amber: #D97706;
+--radius-sm: 6px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+--shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+--shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+--max-width: 720px;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+background-color: #ECEEF6;
+background-image:
+radial-gradient(ellipse 160% 32% at 50% 0%, rgba(15,95,224,0.10) 0%, transparent 65%),
+url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.3' fill='%230F5FE0' opacity='0.055'/%3E%3C/svg%3E");
+background-attachment: fixed;
+color: var(--color-text);
+line-height: 1.7;
+-webkit-font-smoothing: antialiased;
+padding: 48px 16px 72px;
+min-height: 100vh;
+}
+body::before {
+content: '';
+position: fixed;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, #0A4ABF 0%, #0F5FE0 55%, #60a5fa 100%);
+z-index: 999;
+}
+.newsletter-wrapper {
+max-width: var(--max-width);
+margin: 0 auto;
+padding: 0 32px;
+background: #ffffff;
+border-top: 3px solid var(--color-accent);
+border-radius: 0 0 8px 8px;
+box-shadow: 0 0 0 1px rgba(15,95,224,0.07), 0 8px 40px rgba(15,95,224,0.09), 0 2px 8px rgba(0,0,0,0.05);
+position: relative;
+z-index: 1;
+}
+#bubbles-bg {
+position: fixed; top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none; overflow: hidden; z-index: 0;
+}
+.bubble {
+position: absolute; bottom: -150px; border-radius: 50%; opacity: 0;
+animation: bubble-rise var(--dur, 14s) var(--delay, 0s) linear infinite;
+}
+@keyframes bubble-rise {
+0% { transform: translateY(0) translateX(0) scale(0.75); opacity: 0; }
+8% { opacity: var(--max-op, 0.16); }
+88% { opacity: var(--max-op, 0.16); }
+100% { transform: translateY(calc(-100vh - 200px)) translateX(var(--dx, 40px)) scale(1.15); opacity: 0; }
+}
+.header { padding: 48px 0 40px; text-align: center; border-bottom: 1px solid var(--color-border); }
+.header-brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.header-logo { width: 40px; height: 40px; background: var(--color-accent); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; letter-spacing: -0.5px; }
+.header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.5px; }
+.header-subtitle { font-size: 0.9rem; color: var(--color-text-muted); font-weight: 400; margin-top: 4px; }
+.header-meta { display: inline-flex; align-items: center; gap: 16px; margin-top: 16px; font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+.header-meta span { display: flex; align-items: center; gap: 4px; }
+.meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-muted); }
+.toc { padding: 32px 0; border-bottom: 1px solid var(--color-border); }
+.toc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 16px; }
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.toc-list li a { display: flex; align-items: baseline; gap: 12px; text-decoration: none; color: var(--color-text); font-size: 0.925rem; font-weight: 450; padding: 6px 0; transition: color 0.2s; }
+.toc-list li a:hover { color: var(--color-accent); }
+.toc-num { font-size: 0.75rem; font-weight: 600; color: var(--color-accent); min-width: 20px; }
+.section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+.section:last-of-type { border-bottom: none; }
+.section-number { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-accent); font-weight: 600; margin-bottom: 8px; }
+.section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.55rem; font-weight: 700; line-height: 1.3; color: var(--color-text); margin-bottom: 20px; letter-spacing: -0.3px; }
+.section h3 { font-size: 1rem; font-weight: 600; color: var(--color-text); margin-top: 32px; margin-bottom: 12px; }
+.section p { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 16px; }
+.section p strong { color: var(--color-text); font-weight: 600; }
+.section ul, .section ol { padding-left: 20px; margin-bottom: 16px; }
+.section li { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 10px; line-height: 1.65; }
+.section li strong { color: var(--color-text); font-weight: 600; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 20px; text-align: center; }
+.stat-card .stat-value { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; font-weight: 700; color: var(--color-accent); line-height: 1.1; }
+.stat-card .stat-value.danger { color: var(--color-danger); }
+.stat-card .stat-value.success { color: var(--color-success); }
+.stat-card .stat-label { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 6px; line-height: 1.4; }
+.callout { border-left: 3px solid var(--color-accent); background: var(--color-accent-light); padding: 16px 20px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 24px 0; }
+.callout p { font-size: 0.9rem; color: var(--color-text); margin: 0; font-weight: 500; line-height: 1.6; }
+.callout.warning { border-left-color: var(--color-highlight-border); background: var(--color-highlight); }
+.callout.action { border-left-color: var(--color-success); background: var(--color-success-light); }
+.callout-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 4px; display: block; }
+.callout .callout-label { color: var(--color-accent); }
+.callout.warning .callout-label { color: var(--color-kpi-amber); }
+.callout.action .callout-label { color: var(--color-success); }
+.table-wrap { overflow-x: auto; margin: 24px 0; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+thead { background: var(--color-bg); }
+th { padding: 12px 16px; text-align: left; font-weight: 600; color: var(--color-text); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid var(--color-border); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--color-border); color: var(--color-text-secondary); line-height: 1.5; }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--color-text); font-weight: 600; }
+.kpi-target { color: var(--color-kpi-green); font-weight: 600; }
+.kpi-warning { color: var(--color-kpi-amber); font-weight: 600; }
+.tech-stack { margin: 24px 0; display: flex; flex-direction: column; gap: 8px; }
+.stack-layer { display: flex; align-items: center; gap: 16px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.stack-label { min-width: 130px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 4px; text-align: center; }
+.stack-label.gen-ai { background: var(--color-text); color: #fff; }
+.stack-label.ai-ml { background: var(--color-accent); color: #fff; }
+.stack-label.rpa { background: var(--color-accent-light); color: var(--color-accent-dark); }
+.stack-desc { font-size: 0.88rem; color: var(--color-text-secondary); }
+.vendor-group { margin: 20px 0; }
+.vendor-group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 8px; }
+.vendor-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.vendor-tag { display: inline-block; padding: 5px 14px; border-radius: 20px; background: var(--color-accent-light); color: var(--color-accent-dark); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.01em; }
+.checklist { list-style: none; padding: 0; margin: 24px 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 0.925rem; color: var(--color-text-secondary); line-height: 1.55; }
+.checklist li:last-child { border-bottom: none; }
+.check-box { flex-shrink: 0; width: 20px; height: 20px; border: 2px solid var(--color-accent); border-radius: 4px; margin-top: 2px; }
+.checklist li strong { color: var(--color-text); }
+.big-stat { text-align: center; padding: 48px 24px; background: linear-gradient(135deg, #0A4ABF 0%, #0F5FE0 100%); border-radius: var(--radius-lg); margin: 32px 0; color: #fff; }
+.big-stat .stat-number { font-family: 'Playfair Display', Georgia, serif; font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+.big-stat .stat-desc { font-size: 0.95rem; opacity: 0.9; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+.sources { margin-top: 16px; padding-top: 16px; }
+.sources-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 6px; }
+.sources a { font-size: 0.8rem; color: var(--color-accent); text-decoration: none; transition: color 0.2s; }
+.sources a:hover { color: var(--color-accent-dark); text-decoration: underline; }
+.sources .sep { color: var(--color-text-muted); margin: 0 6px; font-size: 0.75rem; }
+.footer { padding: 40px 0 48px; text-align: center; color: var(--color-text-muted); font-size: 0.82rem; line-height: 1.7; }
+.footer-divider { width: 48px; height: 2px; background: var(--color-border); margin: 0 auto 24px; }
+.footer p { margin-bottom: 8px; }
+@media (max-width: 600px) {
+.newsletter-wrapper { padding: 0 20px; }
+.header { padding: 32px 0 28px; }
+.header h1 { font-size: 1.6rem; }
+.section { padding: 36px 0; }
+.section h2 { font-size: 1.3rem; }
+.stat-row { grid-template-columns: 1fr 1fr; }
+.stat-card .stat-value { font-size: 1.5rem; }
+.big-stat .stat-number { font-size: 2.2rem; }
+.big-stat { padding: 36px 20px; }
+.header-meta { flex-direction: column; gap: 4px; }
+.meta-dot { display: none; }
+.stack-label { min-width: 100px; font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+<canvas id="bubbles-bg" aria-hidden="true"></canvas>
+<div class="newsletter-wrapper">
+
+<header class="header">
+<div class="header-brand">
+<div class="header-logo">RP</div>
+<h1>RCM Pulse Weekly</h1>
+</div>
+<div class="header-subtitle">Revenue Cycle Management Intelligence for Medical Practices</div>
+<div class="header-meta">
+<span>September 25, 2026</span>
+<div class="meta-dot"></div>
+<span>Volume 9, Issue 4</span>
+</div>
+</header>
+
+<nav class="toc">
+<div class="toc-label">In This Issue</div>
+<ol class="toc-list">
+<li><a href="#regulatory"><span class="toc-num">01</span> Medicare Reprices 1,171 Lab Codes Downward: The Preliminary 2027 Lab Fee Schedule Averages 16% Below 2026, 775 Tests Take the Full 15% Cut &mdash; and the Comment Clock Runs Out Around October&nbsp;21</a></li>
+<li><a href="#prior-auth"><span class="toc-num">02</span> Aetna Folds Four Cancer Authorizations Into One, Cigna&rsquo;s Algorithm Keeps Downcoding Level 4 and 5 Visits &mdash; and Humana&rsquo;s 600,000 Non-Renewal Letters Are Dated October&nbsp;2</a></li>
+<li><a href="#ai-automation"><span class="toc-num">03</span> Oracle Pushes AI Upstream Into Scheduling and Financial Clearance &mdash; While Only 19% of Practices Already Using AI Say It Has Actually Reduced Their&nbsp;Work</a></li>
+<li><a href="#coding"><span class="toc-num">04</span> Six Days, Four Code Files: ICD-10-CM, ICD-10-PCS, the October HCPCS Quarterly, and New NCCI Edits All Turn Over on Thursday, October&nbsp;1</a></li>
+<li><a href="#revenue-velocity"><span class="toc-num">05</span> Patients Owe More and Pay Less: HCA Flags a Self-Pay Collections Slowdown as Members Slide From Silver to Bronze &mdash; and 32% of Groups See No-Shows&nbsp;Rising</a></li>
+<li><a href="#tech-spotlight"><span class="toc-num">06</span> Technology Spotlight: Black Book Ranks the 2027 Practice Stack as 70% Plan Revenue Cycle Automation Spend &mdash; and 85% Demand Measurable First-Year&nbsp;Results</a></li>
+<li><a href="#compliance"><span class="toc-num">07</span> Compliance Corner: OIG Finds Roughly Four in Five Sampled Medicare Advantage Diagnoses Unsupported &mdash; and the Documentation Standard Behind That Finding Lives in Your&nbsp;Charts</a></li>
+<li><a href="#independent-practice"><span class="toc-num">08</span> Independent Practice Watch: 94% Say Costs Are Outrunning Reimbursement, 72% Can&rsquo;t Keep Revenue Cycle Staff &mdash; and 1% of Physician Office Labs Helped Set Next Year&rsquo;s Lab&nbsp;Rates</a></li>
+<li><a href="#specialty"><span class="toc-num">09</span> Specialty RCM Spotlight: Oncology Gets a Single Authorization, Molecular Pathology Faces &minus;22%, ENT Fights Cigna&rsquo;s Downcoding, and Tele-Mental Health Keeps Its Waiver Through&nbsp;2027</a></li>
+<li><a href="#action-items"><span class="toc-num">10</span> This Week&rsquo;s Action Items</a></li>
+</ol>
+</nav>
+
+<!-- SECTION 01 -->
+<section class="section" id="regulatory">
+<div class="section-number">Section 01</div>
+<h2>Medicare Reprices 1,171 Lab Codes Downward: The Preliminary 2027 Lab Fee Schedule Averages 16% Below 2026, 775 Tests Take the Full 15% Cut &mdash; and the Comment Clock Runs Out Around October 21</h2>
+
+<p>On <strong>September 21, 2026</strong>, CMS posted the <strong>preliminary CY 2027 Clinical Laboratory Fee Schedule (CLFS) rates</strong> &mdash; the weighted median private-payer rates that will reset what Medicare pays for clinical diagnostic lab tests starting <strong>January 1, 2027</strong>. The data comes from the second full reporting cycle required under the <strong>Protecting Access to Medicare Act of 2014 (PAMA)</strong>, and CMS&rsquo;s conclusion is blunt: Medicare has been paying roughly <strong>16% more</strong> for lab services than private payers do.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">1,171</div>
+<div class="stat-label">Lab codes whose private-payer median came in below the 2026 Medicare rate (of 1,528 with a calculated median)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">~16%</div>
+<div class="stat-label">Average amount by which preliminary rates fall below 2026 Medicare rates</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">775</div>
+<div class="stat-label">Lab tests that would take the maximum 15% cut in 2027</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">$1B</div>
+<div class="stat-label">Estimated annual Medicare savings, per CMS</div>
+</div>
+</div>
+
+<p>Of the <strong>1,947 HCPCS codes</strong> on the fee schedule, <strong>1,528</strong> had enough reported data to calculate a weighted median. Of those, <strong>1,171 came in lower</strong> than the 2026 Medicare rate, <strong>186 came in higher</strong>, and <strong>169 were unchanged</strong>. The rates were computed from <strong>6,304 laboratories</strong> after exclusions (6,411 submitted), using private-payer data collected January 1 through June 30, 2025 and reported May 1 through July 31, 2026.</p>
+
+<h3>The 15% Cap Is What Keeps This From Being a Cliff</h3>
+<p>The realized cut in 2027 will be smaller than the raw data implies, because 2026 federal budget legislation capped CLFS reductions at <strong>15% per year for 2027 through 2029</strong>. That cap is doing a lot of work. Before it is applied, the category-level reductions look like this:</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Test category</th><th>Uncapped change vs. 2026</th><th>What it means for 2027</th></tr></thead>
+<tbody>
+<tr><td><strong>Genomic sequencing</strong></td><td class="kpi-warning">&minus;23%</td><td>Capped at &minus;15% in 2027; remainder lands in 2028</td></tr>
+<tr><td><strong>Molecular pathology</strong></td><td class="kpi-warning">&minus;22%</td><td>Capped at &minus;15% in 2027; remainder lands in 2028</td></tr>
+<tr><td><strong>Microbiology</strong></td><td class="kpi-warning">&minus;19.3%</td><td>Capped at &minus;15% in 2027</td></tr>
+<tr><td><strong>Immunology</strong></td><td class="kpi-warning">&minus;19.3%</td><td>Capped at &minus;15% in 2027</td></tr>
+<tr><td><strong>Chemistry</strong></td><td class="kpi-warning">&minus;16%</td><td>Capped at &minus;15% in 2027</td></tr>
+<tr><td><strong>Proprietary lab analyses</strong></td><td>&minus;2.4%</td><td>Passes through largely intact</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Read that table as a <strong>three-year glide path, not a one-year event</strong>. A code whose private-payer median sits 23% below its current Medicare rate takes 15% in 2027 and the balance in 2028. Any practice running an in-office lab &mdash; chemistry panels in primary care, urinalysis and cultures in urology, molecular testing in oncology, GI pathogen panels &mdash; should be modeling 2027 <em>and</em> 2028 now, because the 2028 number is already visible in this data.</p>
+
+<div class="callout warning">
+<span class="callout-label">Comment Deadline</span>
+<p>CMS is accepting written comments on the preliminary rates for <strong>30 days</strong> &mdash; roughly through <strong>October 21, 2026</strong> &mdash; by email to <strong>CLFS_Annual_Public_Meeting@cms.hhs.gov</strong>. Final rates publish in <strong>November</strong>. If a code you bill at volume came in with a median that looks wrong for your market, this is the only window to say so with data.</p>
+</div>
+
+<h3>The Legislative Track</h3>
+<p>The bipartisan <strong>RESULTS Act (H.R. 5269)</strong>, cosponsored by <strong>62 Republicans and 59 Democrats</strong>, would replace the 15% annual cap with a <strong>5% cap</strong>. It has not moved. Until it does, budget against the 15% figure.</p>
+
+<h3>Meanwhile, October 1 Arrives Without a Shutdown</h3>
+<p>One thing practices do <em>not</em> have to plan for next week: a Medicare claims hold. Congress cleared a continuing resolution on <strong>September 1</strong> &mdash; <strong>370&ndash;48</strong> in the House after a <strong>90&ndash;6</strong> Senate vote &mdash; and the President signed it on <strong>September 2</strong>, funding the government through <strong>December 11, 2026</strong>. Last year&rsquo;s 43-day shutdown began on October 1 and briefly froze telehealth claims; this year, October 1 is a normal claims day. Medicare telehealth flexibilities, extended by the Consolidated Appropriations Act, 2026, run through <strong>December 31, 2027</strong>. The next funding cliff is <strong>77 days</strong> away.</p>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/newsroom/fact-sheets/preliminary-calendar-year-cy-2027-medicare-clinical-laboratory-fee-schedule-payment-rates" target="_blank">CMS &mdash; Preliminary CY 2027 Medicare CLFS Payment Rates Fact Sheet</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/newsroom/press-releases/cms-announces-new-preliminary-medicare-payment-rates-laboratory-services-saving-taxpayers-estimated" target="_blank">CMS &mdash; New Preliminary Medicare Payment Rates for Laboratory Services</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/payment-reimbursement-and-managed-care/2027-medicare-lab-fee-schedule-cuts/" target="_blank">HFMA &mdash; 2027 Medicare Lab Fee Schedule Points to 15% Cuts Across Many Test Codes</a><span class="sep">&bull;</span>
+<a href="https://www.beckershospitalreview.com/finance/cms-eyes-medicare-pay-cuts-for-1100-lab-codes-8-things-to-know/" target="_blank">Becker&rsquo;s &mdash; CMS Eyes Medicare Pay Cuts for 1,100+ Lab Codes</a><span class="sep">&bull;</span>
+<a href="https://clpmag.com/lab-management/cms-releases-preliminary-2027-clfs-rates-caps-payment-reductions/" target="_blank">CLP Magazine &mdash; CMS Releases Preliminary 2027 CLFS Rates</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/medicare/payment/fee-schedules/clinical-laboratory-fee-schedule-clfs" target="_blank">CMS &mdash; Clinical Laboratory Fee Schedule</a><span class="sep">&bull;</span>
+<a href="https://www.astho.org/advocacy/federal-government-affairs/leg-alerts/2026/summary-of-fy27-continuing-resolution/" target="_blank">ASTHO &mdash; Summary of FY27 Continuing Resolution</a><span class="sep">&bull;</span>
+<a href="https://www.pyapc.com/insights/medicare-extends-telehealth-coverage-through-2027-updates-and-reminders-for-providers/" target="_blank">PYA &mdash; Medicare Extends Telehealth Coverage Through 2027</a>
+</div>
+</section>
+
+<!-- SECTION 02 -->
+<section class="section" id="prior-auth">
+<div class="section-number">Section 02</div>
+<h2>Aetna Folds Four Cancer Authorizations Into One, Cigna&rsquo;s Algorithm Keeps Downcoding Level 4 and 5 Visits &mdash; and Humana&rsquo;s 600,000 Non-Renewal Letters Are Dated October 2</h2>
+
+<p>Last week this newsletter covered UnitedHealthcare&rsquo;s October 1 removal of prior authorization on roughly 1,700 codes. This week the payer story splits three ways: one insurer consolidating authorizations, one insurer automating payment reductions, and one insurer shrinking its Medicare Advantage footprint. All three change what your front desk and billing team do in the fourth quarter.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value success">4 &rarr; 1</div>
+<div class="stat-label">Average separate prior authorizations per Aetna member with cancer, now bundled into one</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">~25%</div>
+<div class="stat-label">Share of eligible members who used bundled cancer authorizations in Aetna&rsquo;s pilot</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">600,000</div>
+<div class="stat-label">Humana Medicare Advantage members in plans exiting for 2027</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">1 in 8</div>
+<div class="stat-label">Standard prior authorization requests denied in government programs last year</div>
+</div>
+</div>
+
+<h3>Aetna: One Authorization for the Whole Cancer Treatment Plan</h3>
+<p>Aetna is <strong>bundling separate prior authorizations for cancer treatment</strong> &mdash; chemotherapy, immunotherapy, and radiation oncology services &mdash; together with the associated imaging, including <strong>MRI and CT</strong>. Providers previously submitted an average of <strong>four separate prior authorizations per Aetna member with cancer</strong>. The pilot, launched last summer for <strong>lung, breast, and prostate cancers</strong>, saw nearly <strong>25%</strong> of eligible members use the bundle.</p>
+
+<p>The bundle became available to <strong>Medicaid members in eligible states on September 2</strong>, with the fall rollout covering <strong>Oklahoma, Illinois, Maryland, New Jersey, Virginia, Florida, Kentucky, and West Virginia</strong>. Full rollout to <strong>Medicare and commercial members</strong> is planned for the <strong>first half of 2027</strong>. Aetna covers 26 million members. Separately, insurers participating in the HHS prior authorization pledge have cut <strong>11% of preapprovals</strong> since last summer.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>A bundled authorization changes the unit of work, not just the count. An oncology authorization coordinator who used to work four requests per patient now works one larger, more clinically complete request &mdash; which means the documentation has to be assembled <em>up front</em> for the whole treatment plan. Practices that build the packet once, at the treatment-planning visit, will get the benefit. Practices that keep submitting piecemeal will not.</p>
+</div>
+
+<h3>Cigna: The Downcoding Policy Is Now a Year Old and Still Running</h3>
+<p>Cigna&rsquo;s <strong>E/M Coding Accuracy Policy (R49)</strong>, in effect since <strong>October 1, 2025</strong>, allows the payer to <strong>automatically reduce level 4 and 5 E/M claims by one level</strong> when its claims algorithm decides the submitted diagnoses do not support the complexity billed. The codes in scope are <strong>99204, 99205, 99214, 99215, 99244, and 99245</strong>. On <strong>September 3, 2026</strong>, the American Academy of Otolaryngology&ndash;Head and Neck Surgery submitted formal opposition letters to Cigna challenging the policy. Several Blue Cross Blue Shield licensees have acknowledged similar recoding practices in specific situations.</p>
+
+<p>The practical point: a downcoded claim is <strong>paid</strong>, not denied, so it rarely appears on a denial report. The only way to see it is <strong>payment variance analysis</strong> &mdash; comparing the CPT billed to the CPT adjudicated on the 835. If your denial dashboard is clean and your Cigna E/M revenue per visit is falling, this is why.</p>
+
+<h3>Humana: 600,000 Members, Letters Dated October 2</h3>
+<p>Humana confirmed on its <strong>July 29</strong> earnings call that Medicare Advantage plan exits for 2027 will affect about <strong>600,000 members</strong> &mdash; roughly <strong>8% of its 7.2 million</strong> MA members &mdash; concentrated in plans rated <strong>3.5 stars or lower</strong>. Federally required non-renewal notices are dated <strong>October 2</strong>, and Medicare open enrollment runs <strong>October 15 through December 7</strong>. Humana recaptured just over <strong>40%</strong> of members affected by its 2025 exits and expects a similar share this time.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Pull your active Humana MA patients by plan ID now and cross-reference against the exiting plans in your market. For every patient in an exiting plan, January 1 means a new payer, a new eligibility record, possibly a new prior authorization for an in-progress treatment course, and a new network status for your practice. Flag those accounts for <strong>re-verification at the first January visit</strong> &mdash; not at the first denial.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.healthcaredive.com/news/cvs-aetna-cancer-prior-authorization-bundles-expansion/830700/" target="_blank">Healthcare Dive &mdash; CVS Aetna Streamlines Cancer Prior Authorizations</a><span class="sep">&bull;</span>
+<a href="https://www.aetna.com/insights/news/aetna-announces-progress-on-industry-leading-efforts-to-simplify-prior-authorization.html" target="_blank">Aetna &mdash; Progress on Efforts to Simplify Prior Authorization</a><span class="sep">&bull;</span>
+<a href="https://www.aetna.com/content/dam/aetna/pdfs/olu/officelink-updates-september-2026-olu.pdf" target="_blank">Aetna &mdash; September 2026 OfficeLink Updates</a><span class="sep">&bull;</span>
+<a href="https://www.aafp.org/fpm/blogs/getting-paid/cigna-downcoding-em" target="_blank">AAFP FPM &mdash; Cigna&rsquo;s Downcoding Policy Gets Pushback</a><span class="sep">&bull;</span>
+<a href="https://www.healthleadersmedia.com/revenue-cycle/cigna-intends-unilaterally-downcode-em-claims" target="_blank">HealthLeaders &mdash; Cigna Intends to Unilaterally Downcode E/M Claims</a><span class="sep">&bull;</span>
+<a href="https://www.entbillingservices.com/resources/weekly-news/aetna-cigna-ent-downcoding-em-2026" target="_blank">ENT Billing Services &mdash; Aetna and Cigna Downcoding ENT E/M Visits</a><span class="sep">&bull;</span>
+<a href="https://www.healthcarefinancenews.com/news/humana-exit-notices-loom-600000-medicare-advantage-members" target="_blank">Healthcare Finance News &mdash; Humana Exit Notices Loom for 600,000 MA Members</a><span class="sep">&bull;</span>
+<a href="https://www.beckerspayer.com/payer/medicare-advantage/humana-to-exit-medicare-advantage-plans-covering-600000-members-in-2027/" target="_blank">Becker&rsquo;s Payer Issues &mdash; Humana to Exit MA Plans Covering 600,000 Members</a><span class="sep">&bull;</span>
+<a href="https://www.medicare.gov/health-drug-plans/open-enrollment" target="_blank">Medicare.gov &mdash; Open Enrollment</a>
+</div>
+</section>
+
+<!-- SECTION 03 -->
+<section class="section" id="ai-automation">
+<div class="section-number">Section 03</div>
+<h2>Oracle Pushes AI Upstream Into Scheduling and Financial Clearance &mdash; While Only 19% of Practices Already Using AI Say It Has Actually Reduced Their Work</h2>
+
+<p>At its Health and Life Sciences Summit in Orlando on <strong>September 23, 2026</strong>, <strong>Oracle Health</strong> announced a set of AI capabilities spanning <strong>scheduling, financial clearance, clinical documentation, charge capture, billing, and payment</strong>. The framing was explicit: move AI <em>upstream</em>, to catch denials, missing information, authorization problems, and inaccurate charges before they become rework. The capabilities are planned for general availability &ldquo;in the coming months.&rdquo;</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">19%</div>
+<div class="stat-label">Current AI users at physician practices reporting meaningful net work reduction (Black Book)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">96%</div>
+<div class="stat-label">AI evaluators who require integration with existing systems</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">89%</div>
+<div class="stat-label">Who require defined performance metrics before expanding an AI deployment</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">5</div>
+<div class="stat-label">Named Oracle Health AI revenue cycle capabilities announced September 23</div>
+</div>
+</div>
+
+<h3>What Oracle Actually Announced</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Capability</th><th>Cycle stage</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><strong>Autonomous prior authorization</strong></td><td>Front end</td><td>Evaluates payer criteria, retrieves documentation rules, pre-populates clinical fields, attaches chart evidence</td></tr>
+<tr><td><strong>Clinical documentation integrity</strong></td><td>Mid-cycle</td><td>Analyzes notes in real time against reimbursement criteria and flags gaps</td></tr>
+<tr><td><strong>Charge capture &amp; integrity</strong></td><td>Mid-cycle</td><td>Reads procedural narratives and service codes to prevent revenue leakage</td></tr>
+<tr><td><strong>Autonomous professional fee coding</strong></td><td>Mid-cycle</td><td>Suggests CPT, HCPCS, and ICD-10 codes inside the coder workflow</td></tr>
+<tr><td><strong>Automated appeal management</strong></td><td>Back end</td><td>Evaluates remittance advice, isolates underpayments, compiles appeal packets</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>No customer names, performance metrics, or dates were attached. That is not unusual for a conference announcement, but it matters for how you file it: this is a <strong>roadmap</strong>, not a result. Note also where the list starts &mdash; with prior authorization &mdash; and where it ends &mdash; with <em>underpayment</em> detection rather than denial appeals. That last detail lines up with the Cigna downcoding problem in Section 02: the revenue a practice loses to a paid-but-reduced claim is invisible to a denial-centric workflow.</p>
+
+<h3>The Number That Should Anchor Every AI Conversation This Fall</h3>
+<p>Black Book&rsquo;s September 2026 preconference flash survey of <strong>1,184 physician-practice executives</strong>, released <strong>September 24</strong> ahead of next week&rsquo;s MGMA Annual Conference, found that <strong>only 19% of current AI users report meaningful net work reduction</strong>. Buyers have responded by raising the bar: <strong>96%</strong> of AI evaluators require integration with existing systems, <strong>89%</strong> require defined performance metrics before expanding, and <strong>85%</strong> require <strong>measurable first-year productivity outcomes</strong>. A companion Black Book survey of <strong>1,919 clinicians</strong> found <strong>81%</strong> require daily workarounds and <strong>65%</strong> lose <strong>30 or more minutes a day</strong> to avoidable digital work.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>Black Book&rsquo;s own summary puts it precisely: the conversation &ldquo;has shifted from what a system can do to what work the organization can actually stop doing after implementation.&rdquo; That is the right procurement question. Before you sign, write down the specific task, the FTE hours it consumes today, and who stops doing it on go-live day. If the vendor cannot help you fill in that last column, the 81% will stay at 81%.</p>
+</div>
+
+<h3>The Coding-Intensity Side Effect</h3>
+<p>Ambient documentation is the AI category that <em>has</em> produced measurable change &mdash; and payers have noticed what it changed. Across large health systems adopting ambient scribes, visits have shifted toward higher-intensity E/M codes; one system saw a <strong>5% increase in Level 5 encounters</strong>, worth more than <strong>$1,000 per provider per month</strong>. One 2026 study projected up to <strong>$2.3 billion</strong> in added healthcare costs industry-wide. Payers are answering with the automated downcoding described in Section 02. The operational lesson: if an ambient tool raises your level-of-service mix, your <strong>documentation has to support the new level on audit</strong>, because the payer&rsquo;s algorithm will test it.</p>
+
+<h3>The Automation Stack, Late September 2026</h3>
+<div class="tech-stack">
+<div class="stack-layer">
+<div class="stack-label gen-ai">Generative AI</div>
+<div class="stack-desc">Ambient documentation, appeal packet assembly, clinical-evidence extraction for bundled authorizations, payer correspondence summarization</div>
+</div>
+<div class="stack-layer">
+<div class="stack-label ai-ml">AI / ML</div>
+<div class="stack-desc">Autonomous professional fee coding, CDI gap detection, charge capture integrity, underpayment and downcoding detection, denial prediction</div>
+</div>
+<div class="stack-layer">
+<div class="stack-label rpa">RPA</div>
+<div class="stack-desc">Eligibility re-verification for plan changes, prior authorization status checks, payment posting, claim status inquiry, statement cycles</div>
+</div>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.oracle.com/news/announcement/oracle-health-advances-revenue-cycle-management-with-ai-2026-09-23/" target="_blank">Oracle &mdash; Oracle Health Advances Revenue Cycle Management with AI</a><span class="sep">&bull;</span>
+<a href="https://hitconsultant.net/2026/09/23/oracle-health-unveils-upstream-ai-revenue-cycle-management-portfolio/" target="_blank">HIT Consultant &mdash; Oracle Health Unveils Upstream AI Revenue Cycle Portfolio</a><span class="sep">&bull;</span>
+<a href="https://www.prnewswire.com/news-releases/oracle-health-advances-revenue-cycle-management-with-ai-302887644.html" target="_blank">PR Newswire &mdash; Oracle Health Advances Revenue Cycle Management with AI</a><span class="sep">&bull;</span>
+<a href="https://www.financialcontent.com/article/accwirecq-2026-9-24-black-book-announces-top-medical-group-technology-and-services-vendors-as-physician-practices-accelerate-2027-technology-ai-and-outsourcing-decisions" target="_blank">Black Book Research &mdash; Top Medical Group Technology and Services Vendors for 2027</a><span class="sep">&bull;</span>
+<a href="https://www.techtarget.com/revcyclemanagement/feature/How-AI-scribes-are-shifting-coding-intensity-reimbursement" target="_blank">TechTarget &mdash; How AI Scribes Are Shifting Coding Intensity</a><span class="sep">&bull;</span>
+<a href="https://www.statnews.com/2026/04/08/insurers-providers-agree-ai-scribes-raise-health-care-costs/" target="_blank">STAT &mdash; Insurers, Hospitals Agree AI Scribes Raise Medical Bills</a><span class="sep">&bull;</span>
+<a href="https://www.trillianthealth.com/market-research/studies/outpatient-coding-intensity-increases-as-hospitals-adopt-ai-enabled-scribing" target="_blank">Trilliant Health &mdash; Outpatient Coding Intensity After AI Scribing</a>
+</div>
+</section>
+
+<!-- SECTION 04 -->
+<section class="section" id="coding">
+<div class="section-number">Section 04</div>
+<h2>Six Days, Four Code Files: ICD-10-CM, ICD-10-PCS, the October HCPCS Quarterly, and New NCCI Edits All Turn Over on Thursday, October 1</h2>
+
+<p>October 1, 2026 falls on a <strong>Thursday</strong>. That is the effective date for four separate code-file changes, each governed by <strong>date of service</strong>, not date of submission. Services on Wednesday, September 30 use the old files regardless of when they are billed; services on Thursday use the new ones.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">6</div>
+<div class="stat-label">Days until October 1, 2026 &mdash; a Thursday</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">4</div>
+<div class="stat-label">Code files changing: ICD-10-CM, ICD-10-PCS, HCPCS Level II quarterly, NCCI PTP edits</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">100+</div>
+<div class="stat-label">New FY 2027 ICD-10-PCS procedure codes</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">19</div>
+<div class="stat-label">New HCPCS codes added to the home health consolidated billing supply list</div>
+</div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>File</th><th>Posted</th><th>Effective</th><th>Who it hits</th></tr></thead>
+<tbody>
+<tr><td><strong>FY 2027 ICD-10-CM</strong></td><td>Summer 2026 (with 2027 Conversion Table)</td><td class="kpi-warning">October 1, 2026</td><td>Every practice</td></tr>
+<tr><td><strong>FY 2027 ICD-10-PCS</strong> (100+ new codes)</td><td>Summer 2026</td><td class="kpi-warning">October 1, 2026</td><td>Inpatient coders; surgeons whose hospital coding drives co-management</td></tr>
+<tr><td><strong>October 2026 HCPCS Level II quarterly</strong></td><td>Alpha-numeric file updated September 10, 2026</td><td class="kpi-warning">October 1, 2026</td><td>Drugs, biologicals, supplies, DME</td></tr>
+<tr><td><strong>NCCI PTP practitioner edits, Q4</strong></td><td>September 1, 2026</td><td class="kpi-warning">October 1, 2026</td><td>Every practice billing code pairs</td></tr>
+<tr><td><strong>UHC MA Observation &amp; Discharge policy</strong></td><td>UHC reimbursement bulletin</td><td class="kpi-warning">October 1, 2026</td><td>Hospitalists; any practice billing observation care to UHC MA</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The Three-Day Readiness Test</h3>
+<p>Last week&rsquo;s issue walked through the ICD-10-CM deletions and demotions in detail (I42.0, Z68.1, the S23.42 series). This week the question is narrower: <strong>is the new code set actually installed and working?</strong> With six days left, there is time for exactly one round of testing.</p>
+
+<ul>
+<li><strong>Monday&ndash;Tuesday:</strong> Confirm with your EHR and PM vendors, in writing, that the FY 2027 ICD-10-CM file and the October HCPCS file are loaded to production and will activate by date of service. Ask whether the NCCI Q4 edits are loaded into your claim scrubber &mdash; many practice scrubbers lag the CMS posting.</li>
+<li><strong>Wednesday:</strong> Build test claims with an October 1 date of service using at least one new ICD-10-CM code and one deleted code. The new code should pass; the deleted code should be stopped by your scrubber, not by the payer.</li>
+<li><strong>Thursday onward:</strong> Pull a daily rejection report by reason code for the first ten business days of October. Code-set rejections cluster in the first week; the practices that catch them early re-bill in days instead of weeks.</li>
+</ul>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>The October HCPCS quarterly is where <strong>drug and biological codes</strong> change mid-year. Any practice buying and billing drugs &mdash; oncology, rheumatology, ophthalmology, urology, allergy &mdash; should reconcile its chargemaster against the October file before the first infusion day in October. A J-code that changed on October 1 and still sits in your fee schedule under the old descriptor is a denial on your highest-dollar claim line.</p>
+</div>
+
+<h3>Downcoding Makes Your E/M Documentation a Coding Update, Too</h3>
+<p>Cigna&rsquo;s R49 policy (Section 02) targets <strong>99204, 99205, 99214, 99215, 99244, and 99245</strong> based on the diagnoses on the claim. That turns <strong>diagnosis specificity into an E/M payment variable</strong>. A level 4 visit coded with a vague or unspecified diagnosis is the claim an algorithm downcodes; the same visit coded with the specific, supported comorbidities the physician actually addressed is the claim that holds. The October 1 ICD-10-CM update adds specificity in several areas &mdash; use it.</p>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/medicare/coding-billing/icd-10-codes" target="_blank">CMS &mdash; ICD-10 Codes (2027 Files and Conversion Table)</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/medicare/coding-billing/healthcare-common-procedure-system/quarterly-update" target="_blank">CMS &mdash; HCPCS Quarterly Update</a><span class="sep">&bull;</span>
+<a href="https://www.hhs.gov/guidance/document/october-2026-healthcare-common-procedure-coding-system-hcpcs-quarterly-update-reminder" target="_blank">HHS Guidance Portal &mdash; October 2026 HCPCS Quarterly Update Reminder</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/files/document/mm14510-hcpcs-codes-used-home-health-consolidated-billing-enforcement-october-2026-quarterly-update.pdf" target="_blank">CMS MLN MM14510 &mdash; Home Health Consolidated Billing, October 2026</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-procedure-procedure-ptp-edits" target="_blank">CMS &mdash; Medicare NCCI PTP Edits</a><span class="sep">&bull;</span>
+<a href="https://www.aapc.com/blog/94356-cms-finalizes-october-2026-hcpcs-level-ii-changes/" target="_blank">AAPC &mdash; CMS Finalizes October 2026 HCPCS Level II Changes</a><span class="sep">&bull;</span>
+<a href="https://www.aapc.com/codes/exclusives/transmittals/october-2026-2027-file-update-of-the-international-classification-of-diseases-tenth-revision-clinical-modification-icd-10-cm-8164" target="_blank">AAPC &mdash; CMS Transmittal: October 2026 ICD-10-CM File Update</a><span class="sep">&bull;</span>
+<a href="https://www.uhcprovider.com/en/policies-protocols/medicare-advantage-policies/medicare-advantage-reimbursement-policies.html" target="_blank">UHCprovider.com &mdash; Medicare Advantage Reimbursement Policies</a>
+</div>
+</section>
+
+<!-- SECTION 05 -->
+<section class="section" id="revenue-velocity">
+<div class="section-number">Section 05</div>
+<h2>Patients Owe More and Pay Less: HCA Flags a Self-Pay Collections Slowdown as Members Slide From Silver to Bronze &mdash; and 32% of Groups See No-Shows Rising</h2>
+
+<p>Speaking at the <strong>Jefferies Healthcare Services and Technology Conference</strong> in Nashville on <strong>September 15</strong>, HCA Healthcare CFO <strong>Mike Marks</strong> described a pattern every practice billing office will recognize: patients are <strong>owing more</strong> because of benefit design across employer plans, Medicare Advantage, and the exchanges &mdash; including movement <strong>from silver to bronze plans</strong> &mdash; but they are <strong>not paying more</strong>. HCA has seen a <strong>slowdown in its ability to collect out-of-pocket amounts</strong>, which it attributes to energy costs, premiums, and inflation.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">32%</div>
+<div class="stat-label">Medical groups reporting higher no-show rates year to date vs. 2025 (MGMA Stat)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">91%</div>
+<div class="stat-label">Practice executives naming denials and payment delays a top 2027 improvement priority</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">94%</div>
+<div class="stat-label">Practices reporting rising expenses without comparable reimbursement growth</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">37%</div>
+<div class="stat-label">Prioritizing patient access and scheduling technology for 2027</div>
+</div>
+</div>
+
+<p>When the largest hospital operator in the country says its self-pay collections are slowing, a physician practice with a fraction of HCA&rsquo;s patient financial services capacity should assume the same is happening to it &mdash; and that it is happening faster. An <strong>August 11 MGMA Stat poll</strong> found <strong>32%</strong> of medical groups reporting higher no-show rates year to date, <strong>58%</strong> about the same, and only <strong>10%</strong> lower. Higher patient cost-sharing shows up first as a missed appointment and second as an unpaid balance.</p>
+
+<h3>The Bronze-Plan Problem Is a Timing Problem</h3>
+<p>A patient who moved from a silver to a bronze exchange plan for 2026 has a larger deductible, and the deductible resets January 1. That makes <strong>October through December the months when bronze-plan patients have finally met, or nearly met, their deductibles</strong> &mdash; and January through March the months when they owe the most per visit. Two practical consequences:</p>
+<ul>
+<li><strong>Q4 is the window for deferred care.</strong> Patients who have met their deductible are the ones most likely to schedule the procedure they postponed. Outreach to those patients before December 31 is revenue that disappears on January 1.</li>
+<li><strong>Q1 needs estimates at scheduling, not at check-in.</strong> The January patient with a reset deductible needs to hear the number before the visit, with a payment plan option, or the visit becomes a no-show or a bad-debt balance.</li>
+</ul>
+
+<h3>Where You Should Be &mdash; Patient Financial KPIs</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>Warning zone</th><th>Target</th></tr></thead>
+<tbody>
+<tr><td>Days in A/R</td><td class="kpi-warning">&gt; 45</td><td class="kpi-target">&lt; 35</td></tr>
+<tr><td>Patient A/R share of total A/R</td><td class="kpi-warning">&gt; 30%</td><td class="kpi-target">&lt; 20%</td></tr>
+<tr><td>Point-of-service collection rate (on known patient responsibility)</td><td class="kpi-warning">&lt; 50%</td><td class="kpi-target">&ge; 70%</td></tr>
+<tr><td>Estimates delivered before the visit</td><td class="kpi-warning">&lt; 50% of scheduled visits</td><td class="kpi-target">&ge; 90%</td></tr>
+<tr><td>Card on file / payment plan at estimate</td><td class="kpi-warning">Ad hoc</td><td class="kpi-target">Standard workflow</td></tr>
+<tr><td>No-show rate</td><td class="kpi-warning">&gt; 10%</td><td class="kpi-target">&lt; 5%</td></tr>
+<tr><td>First-pass denial rate</td><td class="kpi-warning">&gt; 10%</td><td class="kpi-target">&lt; 5%</td></tr>
+<tr><td>Patient bad debt (% of net patient revenue)</td><td class="kpi-warning">&gt; 5%</td><td class="kpi-target">&lt; 3%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Automate the reminder, the estimate, and the payment link as one message, sent 72 hours before the visit. Each of the three on its own is a known workflow; combined, they convert a no-show risk into a scheduled payment. It is the cheapest revenue velocity project available to a practice this quarter.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.beckershospitalreview.com/finance/hca-cfo-patients-owe-more-pay-less-amid-economic-strain/" target="_blank">Becker&rsquo;s &mdash; HCA CFO: Patients Owe More, Pay Less Amid Economic Strain</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/about-1-in-3-medical-groups-see-higher-no-shows-in-2026-as-patients-face-higher-costs" target="_blank">MGMA Stat &mdash; About 1 in 3 Medical Groups See Higher No-Shows in 2026</a><span class="sep">&bull;</span>
+<a href="https://www.financialcontent.com/article/accwirecq-2026-9-24-black-book-announces-top-medical-group-technology-and-services-vendors-as-physician-practices-accelerate-2027-technology-ai-and-outsourcing-decisions" target="_blank">Black Book Research &mdash; 2027 Medical Group Technology Priorities</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/operating-costs-keep-climbing-for-medical-practices-in-2026" target="_blank">MGMA &mdash; Operating Costs Keep Climbing for Medical Practices in 2026</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/fast-finance/health-systems-boost-front-end-collections/" target="_blank">HFMA &mdash; Health Systems Boost Front-End Collections</a><span class="sep">&bull;</span>
+<a href="https://www.jpmorgan.com/payments/newsroom/trends-healthcare-payments-2026" target="_blank">J.P. Morgan &mdash; 2026 Healthcare Payments Trends</a>
+</div>
+</section>
+
+<!-- SECTION 06 -->
+<section class="section" id="tech-spotlight">
+<div class="section-number">Section 06</div>
+<h2>Black Book Ranks the 2027 Practice Stack as 70% Plan Revenue Cycle Automation Spend &mdash; and 85% Demand Measurable First-Year Results</h2>
+
+<p>Black Book Research&rsquo;s <strong>September 24</strong> release names its top-rated medical group technology and services vendors, drawn from 2026 evaluation studies covering <strong>9,018 medical practices</strong>, alongside a flash survey of <strong>1,184 practice executives</strong> on what they plan to buy in 2027. The spending intentions are clear &mdash; and so is the skepticism.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value success">70%</div>
+<div class="stat-label">Practices planning revenue cycle automation investments</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">78%</div>
+<div class="stat-label">Reviewing cybersecurity or managed IT services</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">11%</div>
+<div class="stat-label">Anticipating a major EHR or practice management replacement</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">78%</div>
+<div class="stat-label">Of major platform replacement evaluations running longer than prior purchases</div>
+</div>
+</div>
+
+<h3>What Practices Plan to Buy</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>2027 technology intention</th><th>Share of practices</th></tr></thead>
+<tbody>
+<tr><td>Revenue cycle automation</td><td class="kpi-target">70%</td></tr>
+<tr><td>Cybersecurity / managed IT services</td><td>78%</td></tr>
+<tr><td>Value-based care technology</td><td>41%</td></tr>
+<tr><td>Patient access / scheduling technology</td><td>37%</td></tr>
+<tr><td>AI-enabled administrative or clinical workflows</td><td>32%</td></tr>
+<tr><td>Analytics / financial intelligence</td><td>19%</td></tr>
+<tr><td>Outsourced administrative functions</td><td>16%</td></tr>
+<tr><td>Major EHR / PM replacement</td><td>11%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The buying timeline is slow and getting slower: <strong>17%</strong> expect a selection by Q1 2027, <strong>20%</strong> in Q2, and <strong>33%</strong> anticipate a purchase in late 2027. <strong>93%</strong> favor solutions that integrate with their existing environment, and <strong>70%</strong> prioritize a documented implementation and migration approach.</p>
+
+<h3>Black Book&rsquo;s Top-Rated Vendors, by Category</h3>
+<div class="vendor-group">
+<div class="vendor-group-label">Revenue Cycle &amp; Claims Automation</div>
+<div class="vendor-tags">
+<span class="vendor-tag">MedEvolve</span><span class="vendor-tag">Notable</span><span class="vendor-tag">Waystar</span><span class="vendor-tag">Infinx</span><span class="vendor-tag">RapidClaims</span>
+</div>
+</div>
+<div class="vendor-group">
+<div class="vendor-group-label">Denial Prevention &amp; Payer Connectivity</div>
+<div class="vendor-tags">
+<span class="vendor-tag">AKASA</span><span class="vendor-tag">Availity</span><span class="vendor-tag">InstaMed by J.P. Morgan</span><span class="vendor-tag">MD Clarity</span>
+</div>
+</div>
+<div class="vendor-group">
+<div class="vendor-group-label">Practice Management &amp; Clinical Systems</div>
+<div class="vendor-tags">
+<span class="vendor-tag">NextGen Healthcare</span><span class="vendor-tag">ModMed</span><span class="vendor-tag">Modio Health</span><span class="vendor-tag">InteliChart</span><span class="vendor-tag">Luma Health</span><span class="vendor-tag">RevSpring</span>
+</div>
+</div>
+<div class="vendor-group">
+<div class="vendor-group-label">Coding &amp; RCM Services</div>
+<div class="vendor-tags">
+<span class="vendor-tag">IKS Health</span><span class="vendor-tag">Omega Healthcare</span>
+</div>
+</div>
+<div class="vendor-group">
+<div class="vendor-group-label">September Deals &amp; Launches</div>
+<div class="vendor-tags">
+<span class="vendor-tag">Oracle Health</span><span class="vendor-tag">R1 / Humata Health</span><span class="vendor-tag">Savista / ABW Medical</span><span class="vendor-tag">Juno Health / SlicedHealth</span><span class="vendor-tag">ECLAT evaire Recover</span><span class="vendor-tag">Penguin Ai</span>
+</div>
+</div>
+
+<h3>The Deal Worth Watching Close</h3>
+<p><strong>R1&rsquo;s acquisition of Humata Health</strong>, announced in August, is expected to close at the <strong>end of the third quarter</strong> &mdash; which is next week. Humata&rsquo;s agentic prior authorization technology reports a <strong>96% first-pass approval rate</strong>, a <strong>30% reduction in write-offs</strong>, and an <strong>83% reduction in rescheduled appointments</strong>. It will be folded into R1&rsquo;s Phare OS. Combined with Oracle&rsquo;s autonomous prior authorization announcement and Infinx&rsquo;s Black Book ranking, prior authorization is now the most crowded AI category in the revenue cycle &mdash; arriving just as UnitedHealthcare, Aetna, and the CMS-0057-F API mandate shrink the manual version of the work.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>Elsewhere in September: <strong>Savista</strong> acquired <strong>ABW Medical</strong> to expand ambulatory revenue cycle services; <strong>Juno Health</strong> partnered with <strong>SlicedHealth</strong> to embed revenue cycle tools in Juno EHR; and <strong>ECLAT Health Solutions</strong> launched <strong>evaire Recover</strong>, an agentic AI platform for A/R and denials. Next week&rsquo;s <strong>MGMA Annual Conference</strong> (September 27&ndash;30, San Antonio &mdash; the association&rsquo;s 100th year) is where most of these vendors will be pitching. Bring the Black Book 85% standard with you: measurable first-year productivity, in writing.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.financialcontent.com/article/accwirecq-2026-9-24-black-book-announces-top-medical-group-technology-and-services-vendors-as-physician-practices-accelerate-2027-technology-ai-and-outsourcing-decisions" target="_blank">Black Book Research &mdash; Top Medical Group Technology and Services Vendors, 2027 Priorities</a><span class="sep">&bull;</span>
+<a href="https://www.accessnewswire.com/newsroom/en/healthcare-and-pharmaceutical/black-book-announces-top-medical-group-technology-and-services-vendor-1226626" target="_blank">ACCESS Newswire &mdash; Black Book 2027 Medical Group Technology &amp; Outsourcing Priorities</a><span class="sep">&bull;</span>
+<a href="https://www.globenewswire.com/news-release/2026/08/18/3346895/0/en/r1-to-acquire-humata-health-enhancing-phare-os-with-ai-powered-prior-authorization-automation-and-payer-provider-collaboration.html" target="_blank">GlobeNewswire &mdash; R1 to Acquire Humata Health</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/r1-drills-down-on-ai-prior-authorizations-with-humata-buy/828382/" target="_blank">Healthcare Dive &mdash; R1 Drills Down on AI Prior Authorizations With Humata Buy</a><span class="sep">&bull;</span>
+<a href="https://www.healthitanswers.net/health-it-business-news-september-24-2026/" target="_blank">Health IT Answers &mdash; Health IT Business News, September 24, 2026</a><span class="sep">&bull;</span>
+<a href="https://www.healthitanswers.net/health-it-product-news-report-september-2026/" target="_blank">Health IT Answers &mdash; Health IT Product News Report, September 2026</a><span class="sep">&bull;</span>
+<a href="https://www.medicaleconomics.com/view/10-mgma-2026-sessions-physicians-can-t-afford-to-miss" target="_blank">Medical Economics &mdash; 10 MGMA 2026 Sessions Physicians Can&rsquo;t Afford to Miss</a>
+</div>
+</section>
+
+<!-- SECTION 07 -->
+<section class="section" id="compliance">
+<div class="section-number">Section 07</div>
+<h2>OIG Finds Roughly Four in Five Sampled Medicare Advantage Diagnoses Unsupported &mdash; and the Documentation Standard Behind That Finding Lives in Your Charts</h2>
+
+<p>On <strong>September 17, 2026</strong>, the HHS Office of Inspector General published compliance audits finding that Medicare Advantage plans operated by <strong>Humana</strong> and <strong>UnitedHealthcare</strong> received an estimated <strong>$177.8 million</strong> in overpayments for <strong>2020 and 2021</strong> after submitting diagnosis codes not supported by patients&rsquo; medical records.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">$177.8M</div>
+<div class="stat-label">Estimated MA overpayments at HumanaChoice and UnitedHealthcare of Wisconsin, 2020&ndash;2021</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">178 / 220</div>
+<div class="stat-label">HumanaChoice sampled enrollee-years not supported by medical records</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">183 / 250</div>
+<div class="stat-label">UnitedHealthcare of Wisconsin sampled enrollee-years unsupported</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">11</div>
+<div class="stat-label">High-risk diagnosis groups OIG examined</div>
+</div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Plan</th><th>Unsupported sample</th><th>Extrapolated overpayment</th></tr></thead>
+<tbody>
+<tr><td><strong>HumanaChoice (H5216)</strong></td><td class="kpi-warning">178 of 220 (81%)</td><td>~$130.9 million</td></tr>
+<tr><td><strong>UnitedHealthcare of Wisconsin</strong></td><td class="kpi-warning">183 of 250 (73%)</td><td>~$47 million</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>OIG examined <strong>11 groups of high-risk diagnosis codes</strong>, including <strong>acute stroke, heart attack, embolism, and sepsis</strong> &mdash; the conditions most often coded from a historical problem list rather than from a current, treated encounter. Both insurers said the methodology was skewed toward finding overpayments and that they do not plan to refund. Earlier in 2026, OIG issued similar audits of Blue Cross Blue Shield of Alabama, Gateway Health Plan, and Priority Health.</p>
+
+<h3>Why a Payer Audit Is a Practice Compliance Issue</h3>
+<p>Medicare Advantage risk-adjustment diagnoses are <strong>drawn from provider encounter records</strong> &mdash; the physician claim and the note behind it. The plan bears the refund; the practice bears the consequences that follow: more chart retrieval requests, more retrospective risk-adjustment reviews, and more payer scrutiny of diagnoses that appear on a claim without a matching assessment and plan in the note. The documentation standard is the same one CMS applies in RADV audits: a diagnosis counts if the record shows it was <strong>monitored, evaluated, assessed, or treated</strong> at that encounter.</p>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>The four named conditions are exactly the ones that tend to be mis-carried in ambulatory records: &ldquo;history of stroke&rdquo; coded as <em>acute</em> stroke, a months-old MI still coded as acute, a resolved embolism still on the problem list. Run a query this week for acute stroke, acute MI, and embolism codes on office-visit claims. Every hit without a same-encounter assessment and plan is a finding waiting to happen &mdash; and, with the ambient-scribe coding intensity trend in Section 03, one more reason payers are pulling charts.</p>
+</div>
+
+<h3>The Rest of the Compliance Calendar</h3>
+<p>CMS separately barred <strong>11 medical supply companies</strong> with more than <strong>$3.4 billion</strong> in suspected fraudulent billing in 2025 and 2026 from future Medicare Advantage and Part D payments &mdash; a reminder that DME referral relationships deserve an annual review.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Item</th><th>Date</th><th>Days from today</th></tr></thead>
+<tbody>
+<tr><td>FY 2027 ICD-10-CM/PCS, October HCPCS, NCCI Q4 edits</td><td>October 1, 2026</td><td class="kpi-warning">6</td></tr>
+<tr><td>Humana MA non-renewal notices</td><td>Dated October 2, 2026</td><td class="kpi-warning">7</td></tr>
+<tr><td>Medicare open enrollment</td><td>October 15 &ndash; December 7, 2026</td><td>20</td></tr>
+<tr><td>Preliminary CY 2027 CLFS comment window closes</td><td>~October 21, 2026</td><td class="kpi-warning">~26</td></tr>
+<tr><td>CY 2027 PFS and CLFS final rates expected</td><td>November 2026</td><td>~40</td></tr>
+<tr><td>Continuing resolution expires</td><td>December 11, 2026</td><td>77</td></tr>
+<tr><td>CMS-0057-F payer FHIR APIs; CPT 2027</td><td>January 1, 2027</td><td class="kpi-warning">98</td></tr>
+<tr><td>Medicare telehealth flexibilities expire</td><td>December 31, 2027</td><td>462</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>On price transparency, the Transparency in Coverage proposed rule (CMS-9882-P) would move payer in-network rate and out-of-network allowed-amount files from <strong>monthly to quarterly</strong> updates and organize them by provider network rather than by plan. Comments closed February 23, 2026; a final rule has not yet been published. When it is, payer MRFs become a more usable benchmark for your own contract rates.</p>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://oig.hhs.gov/reports/all/2026/medicare-advantage-compliance-audit-of-specific-diagnosis-codes-that-humanachoice-contract-h5216-submitted-to-cms/" target="_blank">HHS OIG &mdash; MA Compliance Audit of Diagnosis Codes, HumanaChoice (H5216)</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/hhs-oig-audit-humana-unitedhealthcare-medicare-advantage-upcoding-overpayments/830632/" target="_blank">Healthcare Dive &mdash; Federal Watchdog Accuses Humana, UnitedHealthcare MA Plans of Upcoding</a><span class="sep">&bull;</span>
+<a href="https://www.startribune.com/federal-audit-seeks-47m-refund-from-unitedhealthcare/601890001" target="_blank">Star Tribune &mdash; Federal Audit Seeks $47M Refund From UnitedHealthcare</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/physician-news-announcements" target="_blank">CMS &mdash; Physician News &amp; Announcements</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/cms-interoperability-prior-authorization-final-rule-cms-0057-f" target="_blank">CMS &mdash; Interoperability and Prior Authorization Final Rule (CMS-0057-F)</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/price-transparency/transparency-in-coverage-proposed-rule-tic-files/" target="_blank">HFMA &mdash; Transparency in Coverage Proposed Rule Aims to Make Price Files More Usable</a><span class="sep">&bull;</span>
+<a href="https://www.segalco.com/consulting-insights/proposed-rule-on-healthcare-price-transparency-disclosures/" target="_blank">Segal &mdash; Proposed Rule on Healthcare Price Transparency</a>
+</div>
+</section>
+
+<!-- SECTION 08 -->
+<section class="section" id="independent-practice">
+<div class="section-number">Section 08</div>
+<h2>94% Say Costs Are Outrunning Reimbursement, 72% Can&rsquo;t Keep Revenue Cycle Staff &mdash; and 1% of Physician Office Labs Helped Set Next Year&rsquo;s Lab Rates</h2>
+
+<p>Black Book&rsquo;s September flash survey is a practice-side survey, and its operational findings read like a portrait of the independent group:</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">94%</div>
+<div class="stat-label">Rising expenses without comparable reimbursement growth</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">89%</div>
+<div class="stat-label">Name payer administrative requirements a significant burden</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">72%</div>
+<div class="stat-label">Struggle to recruit or retain revenue cycle personnel</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">58%</div>
+<div class="stat-label">Struggle with disconnected systems and duplicate data entry</div>
+</div>
+</div>
+
+<p>Add <strong>82%</strong> citing staffing shortages or labor costs and <strong>79%</strong> reporting increased concern about cybersecurity risk. Only <strong>16%</strong> are considering outsourcing administrative functions &mdash; which means the other 84% intend to solve a staffing problem with the staff they have, plus software.</p>
+
+<h3>How This Week&rsquo;s News Lands on a Small Practice</h3>
+<p><strong>The lab fee schedule was set without you.</strong> Only about <strong>1% of physician office labs</strong> reported private-payer data in this cycle, compared with roughly <strong>2%</strong> of all Medicare Part B labs and fewer than <strong>20%</strong> of hospital outreach labs; hospital outreach labs made up <strong>13.6%</strong> of all reporting labs. The rates your in-office lab will be paid in 2027 were derived largely from independent and hospital labs with very different cost structures and payer contracts. A small practice running CBCs, metabolic panels, and urinalysis in-house will absorb up to a 15% cut on rates it had essentially no role in setting. Run the in-office lab P&amp;L against the capped 2027 rates and the 2028 remainder before renewing analyzer leases or reagent contracts.</p>
+
+<p><strong>Downcoding hits hardest where there is no one to catch it.</strong> A health system has a payer-contracting team running payment variance reports. A four-physician practice has a biller who posts the 835 and moves on. Cigna&rsquo;s R49 reductions are paid claims &mdash; they do not generate a denial for anyone to work. The small practice is the one least equipped to notice.</p>
+
+<p><strong>Humana&rsquo;s MA exits cost a small practice proportionally more.</strong> A practice with a concentrated Medicare panel in a market where Humana is exiting can see a meaningful share of its patients change payers on January 1. Each one is a re-verification, a new card, and potentially a new authorization for an ongoing treatment course.</p>
+
+<p><strong>The retention finding is the one to act on.</strong> When <strong>72%</strong> of practices can&rsquo;t keep revenue cycle staff, every workflow that depends on one experienced biller&rsquo;s memory is a single point of failure. Documenting payer-specific rules &mdash; UHC&rsquo;s code-and-plan PA list, Aetna&rsquo;s oncology bundle, Cigna&rsquo;s R49 codes &mdash; in a shared payer matrix is the lowest-cost retention insurance available.</p>
+
+<h3>Where You Should Be &mdash; Independent Practice Benchmarks</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>Where most independents are</th><th>Where you should be</th></tr></thead>
+<tbody>
+<tr><td>Days in A/R</td><td class="kpi-warning">42&ndash;50</td><td class="kpi-target">&lt; 35</td></tr>
+<tr><td>First-pass denial rate</td><td class="kpi-warning">10&ndash;14%</td><td class="kpi-target">&lt; 8%</td></tr>
+<tr><td>Payment variance review (billed vs. adjudicated CPT)</td><td class="kpi-warning">Never or ad hoc</td><td class="kpi-target">Monthly, by payer</td></tr>
+<tr><td>Point-of-service collection on known patient balances</td><td class="kpi-warning">30&ndash;50%</td><td class="kpi-target">&ge; 70%</td></tr>
+<tr><td>Cost to collect</td><td class="kpi-warning">5&ndash;8% of net revenue</td><td class="kpi-target">&lt; 4%</td></tr>
+<tr><td>Documented payer rules matrix</td><td class="kpi-warning">In one person&rsquo;s head</td><td class="kpi-target">Shared, updated monthly</td></tr>
+<tr><td>In-office lab margin modeled at 2027 rates</td><td class="kpi-warning">Not modeled</td><td class="kpi-target">Modeled for 2027 and 2028</td></tr>
+<tr><td>AI tools with a named FTE-hour reduction target</td><td class="kpi-warning">None</td><td class="kpi-target">Every tool, measured at 90 days</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout action">
+<span class="callout-label">What to Prioritize Next</span>
+<p>(1) Confirm the October 1 code files are live and test them this week; (2) run a Cigna payment variance report on 99214/99215 for the last six months; (3) pull Humana MA patients in exiting plans and flag them for January re-verification; (4) model your in-office lab at the capped 2027 rates and submit a comment if a high-volume code looks wrong; (5) write down every payer rule your best biller knows.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.financialcontent.com/article/accwirecq-2026-9-24-black-book-announces-top-medical-group-technology-and-services-vendors-as-physician-practices-accelerate-2027-technology-ai-and-outsourcing-decisions" target="_blank">Black Book Research &mdash; September 2026 Practice Executive Flash Survey</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/payment-reimbursement-and-managed-care/2027-medicare-lab-fee-schedule-cuts/" target="_blank">HFMA &mdash; 2027 Medicare Lab Fee Schedule Cuts</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/medicare/payment/fee-schedules/clinical-laboratory-fee-schedule/clfs-pama-reporting-resources" target="_blank">CMS &mdash; CLFS &amp; PAMA Reporting and Resources</a><span class="sep">&bull;</span>
+<a href="https://www.aafp.org/fpm/blogs/getting-paid/cigna-downcoding-em" target="_blank">AAFP FPM &mdash; Cigna&rsquo;s Downcoding Policy</a><span class="sep">&bull;</span>
+<a href="https://www.healthcarefinancenews.com/news/humana-plans-exit-some-ma-markets-next-year-affecting-600000-members" target="_blank">Healthcare Finance News &mdash; Humana Plans to Exit Some MA Markets</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/operating-costs-keep-climbing-for-medical-practices-in-2026" target="_blank">MGMA &mdash; Operating Costs Keep Climbing in 2026</a>
+</div>
+</section>
+
+<!-- SECTION 09 -->
+<section class="section" id="specialty">
+<div class="section-number">Section 09</div>
+<h2>Oncology Gets a Single Authorization, Molecular Pathology Faces &minus;22%, ENT Fights Cigna&rsquo;s Downcoding, and Tele-Mental Health Keeps Its Waiver Through 2027</h2>
+
+<p>This week&rsquo;s specialty picture is driven by three cross-cutting events &mdash; the preliminary lab fee schedule, Aetna&rsquo;s oncology bundle, and Cigna&rsquo;s E/M downcoding &mdash; landing unevenly across service lines.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Specialty</th><th>This week&rsquo;s update</th><th>Data point</th><th>Priority action</th></tr></thead>
+<tbody>
+<tr><td><strong>Primary Care</strong></td><td>In-office chemistry and immunology labs face capped CLFS cuts; Cigna R49 targets 99214/99215</td><td class="kpi-warning">Chemistry &minus;16%, capped at &minus;15%</td><td>Model in-office lab margin at 2027 rates; run Cigna E/M payment variance</td></tr>
+<tr><td><strong>Cardiology</strong></td><td>OIG&rsquo;s high-risk diagnosis groups include heart attack, embolism, and stroke; UHC removes PA on cardiology codes October 1</td><td class="kpi-warning">73&ndash;81% of sampled MA enrollee-years unsupported</td><td>Audit acute MI and embolism codes on office claims for same-visit assessment and plan</td></tr>
+<tr><td><strong>Orthopedics</strong></td><td>UHC PA removal on arthroscopy, fracture care, and injections takes effect; Humana MA exits shift surgical patients&rsquo; payers January 1</td><td>600,000 Humana MA members changing plans</td><td>Re-verify authorization status for surgeries scheduled after January 1 on exiting-plan patients</td></tr>
+<tr><td><strong>Oncology</strong></td><td>Aetna bundles chemotherapy, immunotherapy, radiation, and MRI/CT into one authorization; Medicaid now, Medicare and commercial in 1H 2027</td><td class="kpi-target">4 authorizations &rarr; 1</td><td>Build the full treatment-plan authorization packet at the planning visit</td></tr>
+<tr><td><strong>Radiology</strong></td><td>Cancer-related MRI and CT fold into Aetna&rsquo;s oncology bundle; 2027 OPPS proposes PFS-equivalent rates for certain non-contrast imaging in off-campus hospital departments</td><td>Site-neutral imaging proposal pending final rule</td><td>Confirm imaging is covered under the ordering oncologist&rsquo;s bundle before requesting a separate auth</td></tr>
+<tr><td><strong>Pathology / Molecular Labs</strong></td><td>Largest uncapped CLFS reductions of any category</td><td class="kpi-warning">Genomic &minus;23%, molecular &minus;22%</td><td>Comment by ~October 21; model the 2028 remainder above the 15% cap</td></tr>
+<tr><td><strong>Gastroenterology</strong></td><td>Microbiology panels (including in-house GI pathogen testing) face CLFS reductions; UHC removes colonoscopy and endoscopy PA October 1</td><td class="kpi-warning">Microbiology &minus;19.3%, capped at &minus;15%</td><td>Re-price in-house pathogen panel economics; update scheduling scripts</td></tr>
+<tr><td><strong>Neurology</strong></td><td>Consult codes 99244 and 99245 are within Cigna&rsquo;s R49 downcoding scope; OIG&rsquo;s acute stroke finding applies to follow-up visit coding</td><td>6 E/M codes in R49 scope</td><td>Code &ldquo;history of stroke&rdquo; (Z86.73) rather than acute stroke on follow-up visits</td></tr>
+<tr><td><strong>Mental / Behavioral Health</strong></td><td>Medicare in-person requirement for tele-mental health waived through December 31, 2027; audio-only permitted through the same date</td><td class="kpi-target">462 days of waiver remaining</td><td>Plan 2028 in-person visit capacity now; patients who start tele-mental health by 12/31/2027 skip the initial six-month in-person visit</td></tr>
+<tr><td><strong>Otolaryngology</strong></td><td>AAO-HNS filed formal opposition to Cigna&rsquo;s R49 downcoding policy on September 3</td><td>Policy in force since October 1, 2025</td><td>Pull 12 months of Cigna level 4/5 remittances and quantify downcoded dollars</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>Oncology is on both sides of this week&rsquo;s news. Aetna&rsquo;s bundle is the most meaningful prior authorization simplification any oncology practice has seen this year, and molecular pathology and genomic sequencing face the steepest lab fee reductions. A community oncology practice with an in-house molecular lab should treat the two as one budget conversation: authorization labor goes down, lab margin goes down, and the net depends on its own mix.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.healthcaredive.com/news/cvs-aetna-cancer-prior-authorization-bundles-expansion/830700/" target="_blank">Healthcare Dive &mdash; CVS Aetna Streamlines Cancer Prior Authorizations</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/payment-reimbursement-and-managed-care/2027-medicare-lab-fee-schedule-cuts/" target="_blank">HFMA &mdash; 2027 Medicare Lab Fee Schedule Cuts by Category</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/hhs-oig-audit-humana-unitedhealthcare-medicare-advantage-upcoding-overpayments/830632/" target="_blank">Healthcare Dive &mdash; OIG Audit of Humana, UnitedHealthcare MA Plans</a><span class="sep">&bull;</span>
+<a href="https://www.entbillingservices.com/resources/weekly-news/aetna-cigna-ent-downcoding-em-2026" target="_blank">ENT Billing Services &mdash; Cigna Downcoding ENT E/M Visits</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/calendar-year-2027-hospital-outpatient-prospective-payment-system-opps-ambulatory-surgical-center" target="_blank">CMS &mdash; CY 2027 OPPS/ASC Proposed Rule (CMS-1850-P)</a><span class="sep">&bull;</span>
+<a href="https://www.psychiatry.org/Psychiatrists/Practice/Telepsychiatry/Blog/Medicare-Telehealth-Updates-What-Psychiatrists-Nee" target="_blank">APA &mdash; Medicare Telehealth Updates for Psychiatrists</a><span class="sep">&bull;</span>
+<a href="https://telehealth.hhs.gov/providers/billing-and-reimbursement/medicare-payment-policies" target="_blank">Telehealth.HHS.gov &mdash; Medicare Payment Policies</a><span class="sep">&bull;</span>
+<a href="https://humanmedicalbilling.com/blog/unitedhealthcare-prior-authorization-changes-october-1/" target="_blank">Human Medical Billing &mdash; UnitedHealthcare Prior Authorization Changes: Oct. 1</a>
+</div>
+</section>
+
+<!-- SECTION 10 -->
+<section class="section" id="action-items">
+<div class="section-number">Section 10</div>
+<h2>This Week&rsquo;s Action Items</h2>
+<p>Ten moves for the week of September 25, 2026 &mdash; each tied directly to something in this issue.</p>
+
+<ul class="checklist">
+<li><div class="check-box"></div><div><strong>Test the October 1 code files before Thursday.</strong> Get written confirmation from your EHR and PM vendors that FY 2027 ICD-10-CM, the October HCPCS quarterly, and the NCCI Q4 edits are in production. Submit a test claim dated October 1 with one new code and one deleted code; your scrubber, not the payer, should stop the deleted one.</div></li>
+<li><div class="check-box"></div><div><strong>Reconcile drug codes against the October HCPCS file.</strong> Oncology, rheumatology, ophthalmology, urology, and allergy practices: check every J-code in your fee schedule against the October update before the first October infusion day.</div></li>
+<li><div class="check-box"></div><div><strong>Run a Cigna payment variance report on level 4 and 5 E/M.</strong> Compare billed versus adjudicated CPT on 99204, 99205, 99214, 99215, 99244, and 99245 for the last six months. Downcoded claims are paid, not denied &mdash; they will not appear on your denial dashboard.</div></li>
+<li><div class="check-box"></div><div><strong>Model your in-office lab at the preliminary 2027 CLFS rates.</strong> Apply the capped 15% reduction to 2027 and the remainder to 2028. If a high-volume code&rsquo;s median looks wrong for your market, email CLFS_Annual_Public_Meeting@cms.hhs.gov by about October 21.</div></li>
+<li><div class="check-box"></div><div><strong>Flag Humana MA patients in exiting plans.</strong> Non-renewal notices are dated October 2. Pull patients by plan ID, identify those in exiting plans, and tag their accounts for eligibility and authorization re-verification at the first January visit.</div></li>
+<li><div class="check-box"></div><div><strong>Oncology: move authorization packet assembly to the treatment-planning visit.</strong> Aetna&rsquo;s bundle covers chemotherapy, immunotherapy, radiation, and related MRI/CT in one request &mdash; Medicaid now, Medicare and commercial in the first half of 2027. Build the full packet once.</div></li>
+<li><div class="check-box"></div><div><strong>Audit acute stroke, acute MI, and embolism codes on office-visit claims.</strong> These are among OIG&rsquo;s high-risk groups. Any hit without a same-encounter assessment and plan should be recoded to the appropriate history code and the template fixed.</div></li>
+<li><div class="check-box"></div><div><strong>Combine reminder, estimate, and payment link into one pre-visit message.</strong> With HCA reporting slowing self-pay collections and 32% of groups seeing more no-shows, send all three 72 hours out &mdash; and run Q4 outreach to patients who have met their deductibles.</div></li>
+<li><div class="check-box"></div><div><strong>Write a one-line FTE-hour target for every AI tool you are evaluating at MGMA.</strong> Only 19% of AI users report meaningful net work reduction. Name the task, the hours it takes today, and who stops doing it on go-live day &mdash; then measure at 90 days.</div></li>
+<li><div class="check-box"></div><div><strong>Document your best biller&rsquo;s payer rules in a shared matrix.</strong> With 72% of practices struggling to retain revenue cycle staff, record UHC&rsquo;s code-and-plan PA lists, Aetna&rsquo;s oncology bundle, Cigna&rsquo;s R49 codes, and your Humana exit list where the whole team can see them.</div></li>
+</ul>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/medicare/coding-billing/icd-10-codes" target="_blank">CMS &mdash; ICD-10 Codes</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/medicare/coding-billing/healthcare-common-procedure-system/quarterly-update" target="_blank">CMS &mdash; HCPCS Quarterly Update</a><span class="sep">&bull;</span>
+<a href="https://www.aafp.org/fpm/blogs/getting-paid/cigna-downcoding-em" target="_blank">AAFP FPM &mdash; Cigna&rsquo;s Downcoding Policy</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/newsroom/fact-sheets/preliminary-calendar-year-cy-2027-medicare-clinical-laboratory-fee-schedule-payment-rates" target="_blank">CMS &mdash; Preliminary CY 2027 CLFS Payment Rates</a><span class="sep">&bull;</span>
+<a href="https://www.healthcarefinancenews.com/news/humana-exit-notices-loom-600000-medicare-advantage-members" target="_blank">Healthcare Finance News &mdash; Humana Exit Notices</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/cvs-aetna-cancer-prior-authorization-bundles-expansion/830700/" target="_blank">Healthcare Dive &mdash; Aetna Cancer Prior Authorization Bundles</a><span class="sep">&bull;</span>
+<a href="https://oig.hhs.gov/reports/all/2026/medicare-advantage-compliance-audit-of-specific-diagnosis-codes-that-humanachoice-contract-h5216-submitted-to-cms/" target="_blank">HHS OIG &mdash; HumanaChoice Diagnosis Code Audit</a><span class="sep">&bull;</span>
+<a href="https://www.beckershospitalreview.com/finance/hca-cfo-patients-owe-more-pay-less-amid-economic-strain/" target="_blank">Becker&rsquo;s &mdash; HCA CFO: Patients Owe More, Pay Less</a><span class="sep">&bull;</span>
+<a href="https://www.financialcontent.com/article/accwirecq-2026-9-24-black-book-announces-top-medical-group-technology-and-services-vendors-as-physician-practices-accelerate-2027-technology-ai-and-outsourcing-decisions" target="_blank">Black Book Research &mdash; 2027 Practice Technology Survey</a>
+</div>
+</section>
+
+<!-- BIG STAT -->
+<div class="big-stat">
+<div class="stat-number">19%</div>
+<div class="stat-desc"><strong>The share of physician practices already using AI that say it has meaningfully reduced their work.</strong> Black Book&rsquo;s September survey of <strong>1,184 practice executives</strong> found <strong>70%</strong> planning revenue cycle automation investments for 2027 &mdash; and only <strong>19%</strong> of current AI users reporting a meaningful net reduction in work. The same week, Oracle Health announced five AI revenue cycle capabilities, R1 prepared to close its agentic prior authorization acquisition, and payers answered ambient-scribe coding intensity with algorithmic downcoding. The technology is arriving on schedule. The measurable relief, for four out of five practices, is not. With costs outrunning reimbursement at <strong>94%</strong> of practices and <strong>72%</strong> unable to keep revenue cycle staff, the only AI worth buying in 2027 is the one that comes with a named task, a baseline number of hours, and someone who stops doing that work on go-live day.</div>
+</div>
+
+<footer class="footer">
+<div class="footer-divider"></div>
+<p><strong>RCM Pulse Weekly</strong> &mdash; Revenue Cycle Management Intelligence for Medical Practices</p>
+<p>Researched and compiled from public domain sources including CMS.gov, HHS OIG, Congress, AAPC, HFMA, MGMA, AAFP, APA, Black Book Research, Oracle, Aetna, UnitedHealthcare, Becker&rsquo;s Healthcare, Healthcare Dive, Healthcare Finance News, HIT Consultant, TechTarget, GlobeNewswire, and payer policy portals.</p>
+<p>Volume 9, Issue 4 &bull; September 25, 2026 &bull; <strong>Next issue: October 2, 2026</strong></p>
+</footer>
+</div>
+<script>
+(function() {
+var bg = document.getElementById('bubbles-bg');
+if (!bg) return;
+var cv = document.createElement('canvas');
+cv.setAttribute('aria-hidden','true');
+cv.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:0;';
+bg.parentNode.replaceChild(cv, bg);
+var ctx = cv.getContext('2d');
+function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+var HUES = [0,20,45,80,160,200,250,280,320,345];
+function randHue() {
+return HUES[Math.floor(Math.random()*HUES.length)] + (Math.random()*24-12);
+}
+function makeBubble(fromBottom) {
+var r = 10 + Math.random() * 46;
+var x = r + Math.random() * (cv.width - 2*r);
+var y = fromBottom ? cv.height + r + Math.random()*180 : Math.random()*cv.height;
+return {
+x:x, y:y, r:r,
+hue: randHue(),
+sat: 78 + Math.random()*20,
+lit: 52 + Math.random()*20,
+op: 0.32 + Math.random()*0.26,
+vx: (Math.random()-0.5)*0.8,
+vy: -(0.38 + Math.random()*0.55)
+};
+}
+var bubbles = [];
+for (var i=0;i<28;i++) bubbles.push(makeBubble(false));
+var splats = [];
+var MAX_SPLATS = 220;
+function burst(cx, cy, hueA, hueB) {
+if (splats.length > MAX_SPLATS) return;
+var n = 7 + Math.floor(Math.random()*5);
+for (var k=0;k<n;k++) {
+var angle = Math.random()*Math.PI*2;
+var spd = 1.8 + Math.random()*3.8;
+var hueOptions = [hueA, hueB, (hueA+hueB)/2, hueA+60, hueB-60, hueA-45, hueB+45];
+var hue = hueOptions[Math.floor(Math.random()*hueOptions.length)];
+splats.push({
+x:cx, y:cy,
+r: 3 + Math.random()*9,
+hue: hue,
+sat: 85 + Math.random()*15,
+lit: 55 + Math.random()*25,
+vx: Math.cos(angle)*spd,
+vy: Math.sin(angle)*spd,
+op: 0.85,
+life: 1.0,
+decay: 0.016 + Math.random()*0.024
+});
+}
+}
+var last = 0;
+function tick(now) {
+var dt = Math.min((now - last)/16, 3);
+last = now;
+ctx.clearRect(0,0,cv.width,cv.height);
+for (var i=0;i<bubbles.length;i++) {
+var b = bubbles[i];
+b.x += b.vx*dt;
+b.y += b.vy*dt;
+if (b.x < -b.r) b.x = cv.width + b.r;
+if (b.x > cv.width+b.r) b.x = -b.r;
+if (b.y < -b.r) {
+var nb = makeBubble(true);
+bubbles[i] = nb;
+continue;
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+for (var j=i+1;j<bubbles.length;j++) {
+var a=bubbles[i], b=bubbles[j];
+var dx=b.x-a.x, dy=b.y-a.y;
+var dist=Math.sqrt(dx*dx+dy*dy);
+var minD=a.r+b.r;
+if (dist < minD && dist > 0.01) {
+burst((a.x+b.x)/2, (a.y+b.y)/2, a.hue, b.hue);
+var nx=dx/dist, ny=dy/dist;
+var dv = (a.vx-b.vx)*nx + (a.vy-b.vy)*ny;
+if (dv > 0) {
+a.vx -= dv*nx; a.vy -= dv*ny;
+b.vx += dv*nx; b.vy += dv*ny;
+}
+var sep=(minD-dist)/2+0.5;
+a.x -= nx*sep; a.y -= ny*sep;
+b.x += nx*sep; b.y += ny*sep;
+a.hue = randHue();
+b.hue = randHue();
+}
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+var b=bubbles[i];
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle = 'hsla('+b.hue+','+b.sat+'%,'+b.lit+'%,'+b.op+')';
+ctx.fill();
+var g=ctx.createRadialGradient(b.x-b.r*0.32,b.y-b.r*0.32,b.r*0.04,b.x,b.y,b.r);
+g.addColorStop(0,'rgba(255,255,255,0.30)');
+g.addColorStop(1,'rgba(255,255,255,0)');
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+}
+for (var i=splats.length-1;i>=0;i--) {
+var s=splats[i];
+s.x += s.vx*dt;
+s.y += s.vy*dt;
+s.vy += 0.05*dt;
+s.vx *= 0.97;
+s.life -= s.decay*dt;
+if (s.life<=0) { splats.splice(i,1); continue; }
+ctx.beginPath();
+ctx.arc(s.x,s.y,Math.max(0.5,s.r*s.life),0,Math.PI*2);
+ctx.fillStyle='hsla('+s.hue+','+s.sat+'%,'+s.lit+'%,'+(s.life*s.op)+')';
+ctx.fill();
+}
+requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
