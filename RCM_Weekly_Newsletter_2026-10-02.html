@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCM Pulse Weekly | October 2, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--color-bg: #FAFAFA;
+--color-surface: #FFFFFF;
+--color-text: #1A1A2E;
+--color-text-secondary: #4A4A68;
+--color-text-muted: #8888A0;
+--color-accent: #0F5FE0;
+--color-accent-light: #E8F0FE;
+--color-accent-dark: #0A4ABF;
+--color-border: #E8E8EE;
+--color-highlight: #FFF8E1;
+--color-highlight-border: #F5C518;
+--color-success: #0D9F6E;
+--color-success-light: #E6F9F1;
+--color-danger: #DC3545;
+--color-danger-light: #FDE8EA;
+--color-kpi-green: #0D9F6E;
+--color-kpi-amber: #D97706;
+--radius-sm: 6px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+--shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+--shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+--max-width: 720px;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+background-color: #ECEEF6;
+background-image:
+radial-gradient(ellipse 160% 32% at 50% 0%, rgba(15,95,224,0.10) 0%, transparent 65%),
+url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.3' fill='%230F5FE0' opacity='0.055'/%3E%3C/svg%3E");
+background-attachment: fixed;
+color: var(--color-text);
+line-height: 1.7;
+-webkit-font-smoothing: antialiased;
+padding: 48px 16px 72px;
+min-height: 100vh;
+}
+body::before {
+content: '';
+position: fixed;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, #0A4ABF 0%, #0F5FE0 55%, #60a5fa 100%);
+z-index: 999;
+}
+.newsletter-wrapper {
+max-width: var(--max-width);
+margin: 0 auto;
+padding: 0 32px;
+background: #ffffff;
+border-top: 3px solid var(--color-accent);
+border-radius: 0 0 8px 8px;
+box-shadow: 0 0 0 1px rgba(15,95,224,0.07), 0 8px 40px rgba(15,95,224,0.09), 0 2px 8px rgba(0,0,0,0.05);
+position: relative;
+z-index: 1;
+}
+#bubbles-bg {
+position: fixed; top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none; overflow: hidden; z-index: 0;
+}
+.bubble {
+position: absolute; bottom: -150px; border-radius: 50%; opacity: 0;
+animation: bubble-rise var(--dur, 14s) var(--delay, 0s) linear infinite;
+}
+@keyframes bubble-rise {
+0% { transform: translateY(0) translateX(0) scale(0.75); opacity: 0; }
+8% { opacity: var(--max-op, 0.16); }
+88% { opacity: var(--max-op, 0.16); }
+100% { transform: translateY(calc(-100vh - 200px)) translateX(var(--dx, 40px)) scale(1.15); opacity: 0; }
+}
+.header { padding: 48px 0 40px; text-align: center; border-bottom: 1px solid var(--color-border); }
+.header-brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.header-logo { width: 40px; height: 40px; background: var(--color-accent); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; letter-spacing: -0.5px; }
+.header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.5px; }
+.header-subtitle { font-size: 0.9rem; color: var(--color-text-muted); font-weight: 400; margin-top: 4px; }
+.header-meta { display: inline-flex; align-items: center; gap: 16px; margin-top: 16px; font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+.header-meta span { display: flex; align-items: center; gap: 4px; }
+.meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-muted); }
+.toc { padding: 32px 0; border-bottom: 1px solid var(--color-border); }
+.toc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 16px; }
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.toc-list li a { display: flex; align-items: baseline; gap: 12px; text-decoration: none; color: var(--color-text); font-size: 0.925rem; font-weight: 450; padding: 6px 0; transition: color 0.2s; }
+.toc-list li a:hover { color: var(--color-accent); }
+.toc-num { font-size: 0.75rem; font-weight: 600; color: var(--color-accent); min-width: 20px; }
+.section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+.section:last-of-type { border-bottom: none; }
+.section-number { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-accent); font-weight: 600; margin-bottom: 8px; }
+.section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.55rem; font-weight: 700; line-height: 1.3; color: var(--color-text); margin-bottom: 20px; letter-spacing: -0.3px; }
+.section h3 { font-size: 1rem; font-weight: 600; color: var(--color-text); margin-top: 32px; margin-bottom: 12px; }
+.section p { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 16px; }
+.section p strong { color: var(--color-text); font-weight: 600; }
+.section ul, .section ol { padding-left: 20px; margin-bottom: 16px; }
+.section li { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 10px; line-height: 1.65; }
+.section li strong { color: var(--color-text); font-weight: 600; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 20px; text-align: center; }
+.stat-card .stat-value { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; font-weight: 700; color: var(--color-accent); line-height: 1.1; }
+.stat-card .stat-value.danger { color: var(--color-danger); }
+.stat-card .stat-value.success { color: var(--color-success); }
+.stat-card .stat-label { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 6px; line-height: 1.4; }
+.callout { border-left: 3px solid var(--color-accent); background: var(--color-accent-light); padding: 16px 20px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 24px 0; }
+.callout p { font-size: 0.9rem; color: var(--color-text); margin: 0; font-weight: 500; line-height: 1.6; }
+.callout.warning { border-left-color: var(--color-highlight-border); background: var(--color-highlight); }
+.callout.action { border-left-color: var(--color-success); background: var(--color-success-light); }
+.callout-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 4px; display: block; }
+.callout .callout-label { color: var(--color-accent); }
+.callout.warning .callout-label { color: var(--color-kpi-amber); }
+.callout.action .callout-label { color: var(--color-success); }
+.table-wrap { overflow-x: auto; margin: 24px 0; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+thead { background: var(--color-bg); }
+th { padding: 12px 16px; text-align: left; font-weight: 600; color: var(--color-text); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid var(--color-border); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--color-border); color: var(--color-text-secondary); line-height: 1.5; }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--color-text); font-weight: 600; }
+.kpi-target { color: var(--color-kpi-green); font-weight: 600; }
+.kpi-warning { color: var(--color-kpi-amber); font-weight: 600; }
+.tech-stack { margin: 24px 0; display: flex; flex-direction: column; gap: 8px; }
+.stack-layer { display: flex; align-items: center; gap: 16px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.stack-label { min-width: 130px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 4px; text-align: center; }
+.stack-label.gen-ai { background: var(--color-text); color: #fff; }
+.stack-label.ai-ml { background: var(--color-accent); color: #fff; }
+.stack-label.rpa { background: var(--color-accent-light); color: var(--color-accent-dark); }
+.stack-desc { font-size: 0.88rem; color: var(--color-text-secondary); }
+.vendor-group { margin: 20px 0; }
+.vendor-group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 8px; }
+.vendor-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.vendor-tag { display: inline-block; padding: 5px 14px; border-radius: 20px; background: var(--color-accent-light); color: var(--color-accent-dark); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.01em; }
+.checklist { list-style: none; padding: 0; margin: 24px 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 0.925rem; color: var(--color-text-secondary); line-height: 1.55; }
+.checklist li:last-child { border-bottom: none; }
+.check-box { flex-shrink: 0; width: 20px; height: 20px; border: 2px solid var(--color-accent); border-radius: 4px; margin-top: 2px; }
+.checklist li strong { color: var(--color-text); }
+.big-stat { text-align: center; padding: 48px 24px; background: linear-gradient(135deg, #0A4ABF 0%, #0F5FE0 100%); border-radius: var(--radius-lg); margin: 32px 0; color: #fff; }
+.big-stat .stat-number { font-family: 'Playfair Display', Georgia, serif; font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+.big-stat .stat-desc { font-size: 0.95rem; opacity: 0.9; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+.sources { margin-top: 16px; padding-top: 16px; }
+.sources-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 6px; }
+.sources a { font-size: 0.8rem; color: var(--color-accent); text-decoration: none; transition: color 0.2s; }
+.sources a:hover { color: var(--color-accent-dark); text-decoration: underline; }
+.sources .sep { color: var(--color-text-muted); margin: 0 6px; font-size: 0.75rem; }
+.footer { padding: 40px 0 48px; text-align: center; color: var(--color-text-muted); font-size: 0.82rem; line-height: 1.7; }
+.footer-divider { width: 48px; height: 2px; background: var(--color-border); margin: 0 auto 24px; }
+.footer p { margin-bottom: 8px; }
+@media (max-width: 600px) {
+.newsletter-wrapper { padding: 0 20px; }
+.header { padding: 32px 0 28px; }
+.header h1 { font-size: 1.6rem; }
+.section { padding: 36px 0; }
+.section h2 { font-size: 1.3rem; }
+.stat-row { grid-template-columns: 1fr 1fr; }
+.stat-card .stat-value { font-size: 1.5rem; }
+.big-stat .stat-number { font-size: 2.2rem; }
+.big-stat { padding: 36px 20px; }
+.header-meta { flex-direction: column; gap: 4px; }
+.meta-dot { display: none; }
+.stack-label { min-width: 100px; font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+<canvas id="bubbles-bg" aria-hidden="true"></canvas>
+<div class="newsletter-wrapper">
+
+<header class="header">
+<div class="header-brand">
+<div class="header-logo">RP</div>
+<h1>RCM Pulse Weekly</h1>
+</div>
+<div class="header-subtitle">Revenue Cycle Management Intelligence for Medical Practices</div>
+<div class="header-meta">
+<span>October 2, 2026</span>
+<div class="meta-dot"></div>
+<span>Volume 10, Issue 1</span>
+</div>
+</header>
+
+<nav class="toc">
+<div class="toc-label">In This Issue</div>
+<ol class="toc-list">
+<li><a href="#regulatory"><span class="toc-num">01</span> Medicare Finalizes GLOBE: A Mandatory Five-Year Part B Drug Model Tied to 19 Countries&rsquo; Prices Starts January 1 in Areas Holding 25% of Original Medicare &mdash; With Savings Cut From $2.3 Billion a Year to $80&nbsp;Million</a></li>
+<li><a href="#prior-auth"><span class="toc-num">02</span> Thirteen Days to Open Enrollment: Insurers Pull Out of Hundreds of Counties, 33 Health Systems Break With MA Plans &mdash; and Only 7% of Practices Say Prior Auth Got Faster This&nbsp;Year</a></li>
+<li><a href="#ai-automation"><span class="toc-num">03</span> Payers Deny Less Up Front and Claw Back More Later &mdash; While 34% of Medical Groups Have Already Built Their Own AI Tools&nbsp;In-House</a></li>
+<li><a href="#coding"><span class="toc-num">04</span> Week One on the New Code Sets: Medicare Puts Duplicate Labs on Notice, NCCI v32.3 Goes Live, and 91 Days Remain Until CPT&nbsp;2027</a></li>
+<li><a href="#revenue-velocity"><span class="toc-num">05</span> Initial Denials Fall to 10.63% &mdash; and 60-Day Cash Still Drops: Kodiak Data Shows Clawbacks Rising to 1.57% of Revenue as One in Three Insured Adults Carries Medical&nbsp;Debt</a></li>
+<li><a href="#tech-spotlight"><span class="toc-num">06</span> Technology Spotlight: CMS Hires H1 for a $77.6 Million National Provider Directory as Medicare Plan Finder Starts Publishing MA Directories This&nbsp;Month</a></li>
+<li><a href="#compliance"><span class="toc-num">07</span> Compliance Corner: Specialty Societies Say Insurers Lost About a Quarter of IDR Line Items by Default &mdash; as the IDR Gateway Opens and the Fee Drops to&nbsp;$15</a></li>
+<li><a href="#independent-practice"><span class="toc-num">08</span> Independent Practice Watch: At MGMA&rsquo;s 100th Conference, 97% Report Higher Operating Costs and 89% Rank Reimbursement a Top-Three&nbsp;Worry</a></li>
+<li><a href="#specialty"><span class="toc-num">09</span> Specialty RCM Spotlight: Oncology, Rheumatology and Ophthalmology Enter GLOBE, Cardiac CT Loses Up to 68% in Real Terms, and Orthopedics Watches 637 More Procedures Leave the Inpatient-Only&nbsp;List</a></li>
+<li><a href="#action-items"><span class="toc-num">10</span> This Week&rsquo;s Action Items</a></li>
+</ol>
+</nav>
+
+<!-- SECTION 01 -->
+<section class="section" id="regulatory">
+<div class="section-number">Section 01</div>
+<h2>Medicare Finalizes GLOBE: A Mandatory Five-Year Part B Drug Model Tied to 19 Countries&rsquo; Prices Starts January 1 in Areas Holding 25% of Original Medicare &mdash; With Savings Cut From $2.3 Billion a Year to $80 Million</h2>
+
+<p>On <strong>September 30, 2026</strong>, CMS finalized the <strong>Global Benchmark for Efficient Drug Pricing (GLOBE) Model</strong> &mdash; a <strong>mandatory</strong>, five-year test that links Medicare Part B payment for certain high-spend physician-administered drugs to net prices in <strong>19 developed countries</strong>, including Canada, France, Germany, Japan, and the United Kingdom. Earlier September issues of this newsletter tracked GLOBE as a pending proposal. It is now a rule, and it starts in <strong>91 days</strong>.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">25%</div>
+<div class="stat-label">Share of Original Medicare beneficiaries living in the randomly selected GLOBE geographic areas</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">19</div>
+<div class="stat-label">Reference countries used to set international price benchmarks</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">$80M</div>
+<div class="stat-label">CMS&rsquo;s projected annual Part B savings, down from about $2.3 billion in the proposal</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">Apr 1, 2027</div>
+<div class="stat-label">Date lower GLOBE coinsurance begins for beneficiaries</div>
+</div>
+</div>
+
+<h3>What Is in Scope</h3>
+<p>GLOBE applies to <strong>single-source drugs and sole-source biologicals</strong> in <strong>oncology, rheumatology, immunology, ophthalmology, and endocrinology</strong> with <strong>more than $100 million</strong> in annual Original Medicare spending. Excluded: biosimilars, reference biologicals once a biosimilar enters the market, orphan-only drugs, plasma-derived products, certain cell and gene therapies, and drugs already under negotiated prices.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>GLOBE milestone</th><th>Date</th></tr></thead>
+<tbody>
+<tr><td>Final rule</td><td>September 30, 2026</td></tr>
+<tr><td>Model start (delayed from October 2026 in the proposal)</td><td class="kpi-warning">January 1, 2027</td></tr>
+<tr><td>Lower beneficiary coinsurance begins</td><td class="kpi-warning">April 1, 2027</td></tr>
+<tr><td>Model performance period ends</td><td>March 31, 2032</td></tr>
+<tr><td>Rebate reconciliation ends</td><td>March 31, 2034</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>How the Money Moves</h3>
+<p>The mechanism is a <strong>manufacturer rebate</strong>: drugmakers pay rebates into the Medicare Supplementary Medical Insurance Trust Fund based on the gap between U.S. and international net-price benchmarks. On the provider side, CMS adjusts what Medicare pays &mdash; per the final rule, the <strong>allowed amount minus the GLOBE coinsurance amount</strong>, subject to other adjustments. In plain terms: in a GLOBE area, beginning April 1, 2027, the patient&rsquo;s coinsurance on a GLOBE drug falls, and the claim must be adjudicated on that lower coinsurance figure.</p>
+
+<p>The savings estimate collapsed between proposal and final. CMS now projects about <strong>$80 million a year</strong> in Part B savings and <strong>$440 million through 2034</strong>, against roughly <strong>$2.3 billion a year</strong> in the proposal. Total beneficiary savings are estimated at <strong>$111 million</strong> ($50 million in coinsurance, $61 million in premiums).</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>The smaller savings number does not shrink the billing work. A practice in a GLOBE area that infuses an in-scope oncology or rheumatology drug will see a new coinsurance calculation on its Medicare remits starting April 1, 2027, and its secondary-payer and patient statements must match. Practices outside the selected areas bill exactly as before &mdash; which is why the first task is simply to find out whether your ZIP codes are in.</p>
+</div>
+
+<h3>The Rest of the 2027 Federal Calendar</h3>
+<p>MGMA&rsquo;s <strong>September 28</strong> federal outlook laid out what practices should plan against:</p>
+<ul>
+<li><strong>Proposed 2027 conversion factor:</strong> $32.84 for most physicians (a <strong>1.68%</strong> cut) and $33.17 for qualifying APM participants (a 1.19% cut), as the temporary 2.5% bump for 2026 expires. The final rule is expected in <strong>November</strong>.</li>
+<li><strong>Federal funding expires December 11, 2026</strong> &mdash; 70 days from today.</li>
+<li><strong>Medicaid work requirements</strong> must be implemented by <strong>January 1, 2027</strong>.</li>
+<li><strong>Electronic prior authorization</strong> requirements for impacted payers apply from <strong>January 1, 2027</strong>.</li>
+<li><strong>Medicare telehealth</strong> flexibilities are extended through <strong>December 31, 2027</strong>.</li>
+<li><strong>HIPAA claims attachment</strong> standard compliance: <strong>May 2028</strong>.</li>
+</ul>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>Two numbers hit on January 1: a proposed 1.68% conversion-factor cut and, in GLOBE areas, a new drug payment model. Neither is in your 2027 budget yet if you built it before September. Rebuild the Medicare line of the budget before the final fee schedule lands in November.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.ajmc.com/view/cms-finalizes-mandatory-globe-model-to-test-lower-part-b-drug-costs" target="_blank">AJMC &mdash; CMS Finalizes Mandatory GLOBE Model to Test Lower Part B Drug Costs</a><span class="sep">&bull;</span>
+<a href="https://public-inspection.federalregister.gov/2026-20281.pdf" target="_blank">Federal Register &mdash; Global Benchmark for Efficient Drug Pricing (GLOBE) Model</a><span class="sep">&bull;</span>
+<a href="https://www.modernhealthcare.com/politics-regulation/mh-cms-globe-medicare-part-b-drug-model/" target="_blank">Modern Healthcare &mdash; CMS Finalizes GLOBE Medicare Part B Drug Price Model</a><span class="sep">&bull;</span>
+<a href="https://www.managedhealthcareexecutive.com/view/final-globe-drug-model-projects-much-smaller-savings-while-2027-part-d-premiums-split" target="_blank">Managed Healthcare Executive &mdash; Final GLOBE Model Projects Much Smaller Savings</a><span class="sep">&bull;</span>
+<a href="https://www.medicaleconomics.com/view/mgma-outlines-2027-pay-cut-end-of-mips-and-other-federal-changes-coming-for-physicians" target="_blank">Medical Economics &mdash; MGMA Outlines 2027 Pay Cut, End of MIPS and Other Federal Changes</a>
+</div>
+</section>
+
+<!-- SECTION 02 -->
+<section class="section" id="prior-auth">
+<div class="section-number">Section 02</div>
+<h2>Thirteen Days to Open Enrollment: Insurers Pull Out of Hundreds of Counties, 33 Health Systems Break With MA Plans &mdash; and Only 7% of Practices Say Prior Auth Got Faster This Year</h2>
+
+<p>On <strong>September 28</strong>, CMS released the 2027 Medicare Advantage and Part D landscape and called it stable: weighted average MA premiums are projected to fall <strong>16.5%</strong>, from $14.37 to $12.00, and <strong>99%</strong> of beneficiaries will have at least one MA plan. Underneath the headline, the payer mix your front desk verifies in January is moving.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">5,532</div>
+<div class="stat-label">MA plans for 2027, down from 5,553</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">344</div>
+<div class="stat-label">Counties Centene is exiting, the largest pullback of any insurer</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">33</div>
+<div class="stat-label">Health systems that have ended or are ending MA contracts in 2026</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">7%</div>
+<div class="stat-label">Practices reporting faster prior authorization turnaround in 2026 (MGMA)</div>
+</div>
+</div>
+
+<h3>Who Is Pulling Back</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Insurer</th><th>Counties exited for 2027</th><th>Plans removed (approx.)</th></tr></thead>
+<tbody>
+<tr><td><strong>Centene</strong></td><td class="kpi-warning">344</td><td>~3,000</td></tr>
+<tr><td><strong>CVS / Aetna</strong></td><td class="kpi-warning">103</td><td>&mdash;</td></tr>
+<tr><td><strong>UnitedHealthcare</strong></td><td class="kpi-warning">63</td><td>~690</td></tr>
+<tr><td><strong>Elevance</strong></td><td class="kpi-warning">56</td><td>~150</td></tr>
+<tr><td><strong>Humana</strong></td><td>&mdash;</td><td>~2,400</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><em>Source: Healthcare Dive analysis of the CMS 2027 landscape, September 29.</em> CMS projects about <strong>34 million</strong> MA enrollees in 2027 &mdash; roughly <strong>2 million fewer</strong> &mdash; with maximum out-of-pocket limits rising about <strong>10%</strong> on average and Part D deductibles about <strong>30%</strong>. That last pair matters to collections: higher out-of-pocket ceilings mean more patient responsibility on Medicare-age accounts next year.</p>
+
+<h3>The Network Side</h3>
+<p>At least <strong>33 health systems</strong> have ended or are ending in-network MA contracts in 2026, several effective <strong>October 1</strong> &mdash; two weeks before open enrollment opens <strong>October 15</strong> (it runs through <strong>December 7</strong>). Examples include Ohio State Wexner and The James dropping Humana individual MA plans, NewYork-Presbyterian exiting most UnitedHealthcare MA plans absent a deal by September 30, and NKC Health, Valley Health, and Norman Regional leaving UnitedHealthcare. Systems cite <strong>prior authorization denials and slow payment</strong>.</p>
+
+<p>A <strong>Health Affairs</strong> study published <strong>September 29</strong> puts the brinkmanship in context: across nearly <strong>15,000</strong> hospital-insurer relationships from August 2021 through July 2025, only <strong>8%</strong> of contract disputes went public, <strong>28%</strong> of those ended in an actual network exit, and <strong>2%</strong> of all relationships broke up.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>For an independent practice, a hospital&rsquo;s MA exit is a referral problem before it is a billing problem. If your surgeons, oncologists, or imaging partners are leaving a plan your patients are in, the downstream prior authorization and out-of-network exposure lands on your patients&rsquo; January claims.</p>
+</div>
+
+<h3>Prior Authorization Has Not Sped Up</h3>
+<p>MGMA&rsquo;s <strong>September 1</strong> poll asked whether prior authorization turnaround improved in 2026 versus 2025: <strong>44%</strong> said slower, <strong>40%</strong> about the same, <strong>7%</strong> faster, <strong>9%</strong> unsure (178 responses). This is despite federal requirements, effective January 1, 2026, that impacted payers respond within <strong>72 hours</strong> for expedited and <strong>seven calendar days</strong> for standard non-drug requests. <strong>61%</strong> of practices access <strong>seven or more payer portals every week</strong>. Medicare Advantage ranked as the most burdensome payer type. Practices that did get faster cited reduced authorization lists, electronic submission tools, and internal workflow redesign.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Before October 15, build a one-page list of the MA plans in your market that (a) are exiting your county, (b) have lost a major health system from network, or (c) are new for 2027. Give it to schedulers and patient-financial staff so patients asking &ldquo;will you still take my plan?&rdquo; get an accurate answer during open enrollment.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/newsroom/press-releases/medicare-advantage-medicare-prescription-drug-programs-expected-remain-stable-2027" target="_blank">CMS &mdash; Medicare Advantage and Part D Expected to Remain Stable in 2027</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/medicare-advantage-cuts-2027-cms-landscape/831563/" target="_blank">Healthcare Dive &mdash; How Much Insurers Are Cutting MA Plans for 2027</a><span class="sep">&bull;</span>
+<a href="https://www.beckershospitalreview.com/finance/medicare-advantage-looks-stable-for-2027-underneath-its-shifting/" target="_blank">Becker&rsquo;s &mdash; Medicare Advantage Looks Stable for 2027. Underneath, It&rsquo;s Shifting</a><span class="sep">&bull;</span>
+<a href="https://www.medicaldaily.com/health-systems-dropping-medicare-advantage-open-enrollment-2027-478986" target="_blank">Medical Daily &mdash; 33 Health Systems Split With MA Insurers</a><span class="sep">&bull;</span>
+<a href="https://techtarget.com/revcyclemanagement/news/366651481/8-of-hospital-insurer-contract-disputes-go-public-study" target="_blank">TechTarget &mdash; 8% of Hospital-Insurer Contract Disputes Go Public</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/fewer-than-1-in-10-see-prior-auth-turnarounds-faster" target="_blank">MGMA &mdash; Fewer Than 1 in 10 Practices See Faster Prior Auth Turnarounds in 2026</a>
+</div>
+</section>
+
+<!-- SECTION 03 -->
+<section class="section" id="ai-automation">
+<div class="section-number">Section 03</div>
+<h2>Payers Deny Less Up Front and Claw Back More Later &mdash; While 34% of Medical Groups Have Already Built Their Own AI Tools In-House</h2>
+
+<p>Two data points from the last ten days frame the AI question for practices this fall. First, payers are shifting where they find money &mdash; away from front-end denials and toward post-payment recovery, the part of the cycle where automated record review scales best. Second, practices are not waiting for vendors: a third have already built their own AI tools.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">34%</div>
+<div class="stat-label">Medical groups that have used AI to build an app or workflow tool in-house (MGMA, September 22)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">1.57%</div>
+<div class="stat-label">Payer clawbacks as a share of revenue, up from 1.38% (Kodiak)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">10&ndash;20%</div>
+<div class="stat-label">Denial-rate reductions health systems report from AI (ISG)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">20&ndash;40%</div>
+<div class="stat-label">Coding productivity gains reported from AI-assisted documentation and coding (ISG)</div>
+</div>
+</div>
+
+<h3>The Payer Side Moved First</h3>
+<p>Revenue cycle leaders increasingly describe an AI &ldquo;arms race&rdquo;: payers ingest claims at scale, flag outlier patterns, request records, and then use AI to read those records against coverage rules and contract language. Kodiak Solutions&rsquo; first-half 2026 data (Section 05) shows the result &mdash; fewer initial denials, more clawbacks. A modifier error on a high-volume service can now trigger automated recoupment across an entire patient population, not a single denial on a single claim.</p>
+
+<h3>Practices Are Building, Not Just Buying</h3>
+<p>MGMA&rsquo;s <strong>September 22</strong> poll (228 responses) asked whether practices had used AI to build an app or workflow tool in-house: <strong>34%</strong> yes, <strong>8%</strong> tried but didn&rsquo;t launch, <strong>54%</strong> no. The tools respondents built were mostly operational: <strong>scheduling, prior authorization, dashboards, inventory, coding support, and patient intake</strong>. MGMA&rsquo;s guidance before building: assess whether the tool touches patient data, map every data flow (including the AI provider), prototype on synthetic data, put ownership in writing, plan for record retention and auditability, and confirm your insurance covers homegrown tools.</p>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>A homegrown prior authorization tracker or coding helper is a business associate question, an audit-trail question, and a key-person question all at once. If the staff member who built it leaves, who maintains it? Write the owner, the data it touches, and the fallback process down before it goes into daily use.</p>
+</div>
+
+<h3>What the Vendor Side Says It Delivers</h3>
+<p>At Becker&rsquo;s IT + Revenue Cycle Conference, ISG&rsquo;s healthcare lead reported health systems seeing <strong>10&ndash;20%</strong> denial-rate reductions, <strong>30&ndash;50%</strong> fewer manual touches, prior authorization turnaround cut from <strong>days to hours</strong>, and <strong>20&ndash;40%</strong> coding productivity gains. Bain and KLAS research finds buyers generally want <strong>3x or better ROI</strong> with a short time to value. R1&rsquo;s new <strong>Phare UM</strong> (September 17) applies AI to flag medical-necessity denial risk while the patient is still in the hospital &mdash; part of the industry&rsquo;s shift from back-end remediation to front- and mid-cycle prevention.</p>
+
+<h3>The Automation Stack, Early October 2026</h3>
+<div class="tech-stack">
+<div class="stack-layer">
+<div class="stack-label gen-ai">Generative AI</div>
+<div class="stack-desc">Appeal letters citing contract language, record-request response packets, payer correspondence summarization, in-house tool building</div>
+</div>
+<div class="stack-layer">
+<div class="stack-label ai-ml">AI / ML</div>
+<div class="stack-desc">Post-payment recoupment risk scoring, medical-necessity denial prediction, autonomous coding, underpayment detection</div>
+</div>
+<div class="stack-layer">
+<div class="stack-label rpa">RPA</div>
+<div class="stack-desc">MA plan re-verification for 2027 changes, payer portal status checks across 7+ portals, payment posting, clawback reconciliation</div>
+</div>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.mgma.com/mgma-stat/would-you-vibe-code-an-ehr-with-ai" target="_blank">MGMA &mdash; Would You DIY an EHR With AI?</a><span class="sep">&bull;</span>
+<a href="https://www.techtarget.com/revcyclemanagement/news/366651012/Insurers-deny-less-just-to-claw-back-more-later-analysis" target="_blank">TechTarget &mdash; Insurers Deny Less Just to Claw Back More Later</a><span class="sep">&bull;</span>
+<a href="https://www.beckershospitalreview.com/finance/revenue-cycle-management/the-other-side-of-the-claim-is-already-using-ai-what-payer-adoption-means-for-hospital-revenue-cycle-strategy/" target="_blank">Becker&rsquo;s &mdash; The Other Side of the Claim Is Already Using AI</a><span class="sep">&bull;</span>
+<a href="https://finance.yahoo.com/healthcare/articles/ai-delivering-measurable-value-across-191500676.html" target="_blank">ISG via Yahoo Finance &mdash; AI Is Delivering Measurable Value Across Healthcare Revenue Cycle</a><span class="sep">&bull;</span>
+<a href="https://www.techtarget.com/revcyclemanagement/news/366650556/R1-adds-AI-utilization-management-for-denial-prevention" target="_blank">TechTarget &mdash; R1 Adds AI Utilization Management for Denial Prevention</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/artificial-intelligence-claims-review-payers-providers/730872/" target="_blank">Healthcare Dive &mdash; &ldquo;AI Arms Race&rdquo; in Claims Review</a>
+</div>
+</section>
+
+<!-- SECTION 04 -->
+<section class="section" id="coding">
+<div class="section-number">Section 04</div>
+<h2>Week One on the New Code Sets: Medicare Puts Duplicate Labs on Notice, NCCI v32.3 Goes Live, and 91 Days Remain Until CPT 2027</h2>
+
+<p>The October 1 changeover happened yesterday. This week&rsquo;s coding job is no longer readiness &mdash; it is <strong>watching the first remits</strong> and catching problems before they compound.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">190</div>
+<div class="stat-label">New FY 2027 ICD-10-CM codes now in effect (with 30 deleted and 4 revised)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">60</div>
+<div class="stat-label">New codes in Chapter 19 (injury, poisoning), the largest single increase</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">Mod 91</div>
+<div class="stat-label">Required when a repeat lab test on the same day is medically necessary</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">91 days</div>
+<div class="stat-label">Until CPT 2027 and the 2027 HCPCS annual update take effect</div>
+</div>
+</div>
+
+<h3>What Went Live October 1</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>File</th><th>What changed</th><th>What to watch on remits</th></tr></thead>
+<tbody>
+<tr><td><strong>FY 2027 ICD-10-CM</strong></td><td>190 new, 30 deleted, 4 revised codes; largest gains in Chapters 19 (60), 15 (44) and 13 (31)</td><td>Rejections for deleted codes still in favorites lists or problem lists</td></tr>
+<tr><td><strong>NCCI PTP v32.3</strong> (practitioner and hospital outpatient)</td><td>Quarterly additions, deletions, and modifier-indicator revisions</td><td>New bundling denials on code pairs that paid in September</td></tr>
+<tr><td><strong>NCCI MUE quarterly</strong></td><td>Practitioner, outpatient hospital, and DME unit limits revised</td><td>Unit-limit denials on injectables and therapy codes</td></tr>
+<tr><td><strong>HCPCS Level II quarterly</strong></td><td>October drug and supply code changes</td><td>Unlisted-drug denials where a new specific code now exists</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>New ICD-10-CM specificity includes dedicated codes for hereditary cancer syndromes &mdash; <strong>Lynch syndrome, familial BRCA1/BRCA2, and Li-Fraumeni</strong> &mdash; which previously shared a single &ldquo;genetic susceptibility&rdquo; code. Oncology, GI, and genetic counseling practices should confirm these codes are mapped in their EHR problem lists, not just the billing system.</p>
+
+<h3>Medicare&rsquo;s October 1 Lab Reminder</h3>
+<p>The <strong>October 1 MLN Connects</strong> newsletter reminds practitioners that MACs <strong>deny duplicate lab tests that are not medically necessary</strong> &mdash; its example is a second vitamin D test &mdash; and that <strong>modifier 91</strong> must be used when a repeat clinical diagnostic lab test on the same day <em>is</em> medically necessary. Modifier 91 may not be used when a test is repeated because of equipment or specimen problems, or to confirm an initial result. CMS also advises against ordering individual tests that duplicate components of a panel already ordered. Separately, MLN flagged a <strong>January 2027</strong> update to the lab NCD edit software adding and deleting ICD-10-CM codes &mdash; a reason to re-check diagnosis pairing on your highest-volume NCD-governed labs (lipid panels, A1c, TSH, PSA) in December.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Pull every lab claim with modifier 91 from the last 90 days and every same-day duplicate CPT without it. Duplicates without 91 are denials waiting to happen; 91s attached to a re-run for a bad specimen are an audit finding.</p>
+</div>
+
+<h3>The Next Changeover Is Already Scheduled</h3>
+<p>CPT 2027 &mdash; including the new AI service codes and the global maternity restructure covered in September &mdash; takes effect <strong>January 1, 2027</strong>, <strong>91 days</strong> from today. The proposed fee schedule values the G2211 complexity add-on at roughly <strong>$16</strong> per use. Any practice that saw a spike in deleted-code or NCCI rejections this week should use that list as the test script for its January cutover.</p>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/medicare/coding-billing/icd-10-codes" target="_blank">CMS &mdash; ICD-10 Codes</a><span class="sep">&bull;</span>
+<a href="https://www.aapc.com/blog/94184-sneak-a-peek-at-the-2027-icd-10-cm-updates/" target="_blank">AAPC &mdash; Sneak a Peek at the 2027 ICD-10-CM Updates</a><span class="sep">&bull;</span>
+<a href="https://wellsky.com/blog/whats-changing-in-the-fiscal-year-fy2027-icd-10-cm-code-update/" target="_blank">WellSky &mdash; What&rsquo;s Changing in the FY2027 ICD-10-CM Code Update</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-procedure-procedure-ptp-edits" target="_blank">CMS &mdash; Medicare NCCI PTP Edits</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-medically-unlikely-edits-mues" target="_blank">CMS &mdash; Medicare NCCI Medically Unlikely Edits</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/training-education/medicare-learning-network/newsletter/mln-connects-newsletter-october-1-2026" target="_blank">CMS &mdash; MLN Connects Newsletter, October 1, 2026</a><span class="sep">&bull;</span>
+<a href="https://med.noridianmedicare.com/web/jeb/topics/modifiers/91" target="_blank">Noridian &mdash; Modifier 91</a>
+</div>
+</section>
+
+<!-- SECTION 05 -->
+<section class="section" id="revenue-velocity">
+<div class="section-number">Section 05</div>
+<h2>Initial Denials Fall to 10.63% &mdash; and 60-Day Cash Still Drops: Kodiak Data Shows Clawbacks Rising to 1.57% of Revenue as One in Three Insured Adults Carries Medical Debt</h2>
+
+<p>Kodiak Solutions&rsquo; first-half 2026 benchmark, drawn from revenue cycle data on <strong>2,400 hospitals and 375,000 physicians</strong> and published <strong>September 23</strong>, contains the most counterintuitive number of the quarter: denials got better, and cash got worse.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value success">10.63%</div>
+<div class="stat-label">Initial denial rate, H1 2026 (down from 12.00%)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">1.57%</div>
+<div class="stat-label">Payer clawbacks as a share of revenue (up from 1.38%)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">96.74%</div>
+<div class="stat-label">60-day cash performance (down from 100.28%)</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">19.98%</div>
+<div class="stat-label">Initial denial rate for private payers (down from 21.44%)</div>
+</div>
+</div>
+
+<h3>The Kodiak Numbers</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric (H1 2026 vs. H1 2025)</th><th>2025</th><th>2026</th><th>Direction</th></tr></thead>
+<tbody>
+<tr><td>Initial denial rate</td><td>12.00%</td><td>10.63%</td><td class="kpi-target">Better</td></tr>
+<tr><td>Final denial write-offs (% of net revenue)</td><td>3.31%</td><td>3.07%</td><td class="kpi-target">Better</td></tr>
+<tr><td>Payer clawbacks (% of revenue)</td><td>1.38%</td><td>1.57%</td><td class="kpi-warning">Worse</td></tr>
+<tr><td>60-day cash performance</td><td>100.28%</td><td>96.74%</td><td class="kpi-warning">Worse</td></tr>
+<tr><td>Private payer initial denial rate</td><td>21.44%</td><td>19.98%</td><td class="kpi-target">Better</td></tr>
+<tr><td>MA initial inpatient denial rate</td><td>10.75%</td><td>9.15%</td><td class="kpi-target">Better</td></tr>
+<tr><td>Final MA denial rate vs. Traditional Medicare</td><td>&mdash;</td><td>3.76% vs. 2.22%</td><td class="kpi-warning">MA still 1.7x</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The takeaway: a denial dashboard alone no longer measures payer friction. Money that used to be withheld at the front door is now being paid and then <strong>recouped</strong> &mdash; which shows up as negative adjustments, offsets on later remits, and A/R that looks clean but nets less.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>Add a &ldquo;net collected after recoupment&rdquo; line to your monthly KPI pack. Track recoupments by payer, by CPT, and by reason code, and age them like denials. If your initial denial rate is falling and your collection rate is flat or falling, clawbacks are the first place to look.</p>
+</div>
+
+<h3>The Patient-Side Drag</h3>
+<p>The <strong>Commonwealth Fund</strong>&rsquo;s survey released <strong>September 17&ndash;18</strong> found <strong>one in three</strong> privately insured working-age adults carrying medical debt. About half of them owe <strong>$2,000 or more</strong>; <strong>43%</strong> attribute the debt to doctor&rsquo;s office visits; <strong>37%</strong> drained savings; <strong>30%</strong> delayed needed care. Pair that with MA out-of-pocket maximums rising about <strong>10%</strong> for 2027 (Section 02), and patient balances are getting larger while patients&rsquo; capacity to pay shrinks.</p>
+
+<h3>Where You Should Be &mdash; Cash KPIs</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>KPI</th><th>Warning zone</th><th>Target</th></tr></thead>
+<tbody>
+<tr><td>Initial denial rate</td><td class="kpi-warning">&gt; 10%</td><td class="kpi-target">&lt; 5%</td></tr>
+<tr><td>Recoupments as % of payments</td><td class="kpi-warning">Not tracked</td><td class="kpi-target">Tracked monthly, &lt; 1%</td></tr>
+<tr><td>Net collection rate</td><td class="kpi-warning">&lt; 95%</td><td class="kpi-target">&ge; 96%</td></tr>
+<tr><td>Days in A/R</td><td class="kpi-warning">&gt; 45</td><td class="kpi-target">&lt; 35</td></tr>
+<tr><td>Point-of-service collection on known balances</td><td class="kpi-warning">&lt; 50%</td><td class="kpi-target">&ge; 70%</td></tr>
+<tr><td>Payment plans offered before statement 2</td><td class="kpi-warning">Never</td><td class="kpi-target">Every balance &gt; $500</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.techtarget.com/revcyclemanagement/news/366651012/Insurers-deny-less-just-to-claw-back-more-later-analysis" target="_blank">TechTarget &mdash; Insurers Deny Less Just to Claw Back More Later</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/insurance-doesnt-protect-us-adults-from-medical-debt-commonwealth-fund/830784/" target="_blank">Healthcare Dive &mdash; Insurance Doesn&rsquo;t Protect US Adults From Medical Debt</a><span class="sep">&bull;</span>
+<a href="https://time.com/article/2026/09/17/having-health-insurance-doesnt-prevent-medical-debt/" target="_blank">TIME &mdash; Having Health Insurance Doesn&rsquo;t Prevent Medical Debt</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/medicare-advantage-cuts-2027-cms-landscape/831563/" target="_blank">Healthcare Dive &mdash; MA Cuts for 2027</a>
+</div>
+</section>
+
+<!-- SECTION 06 -->
+<section class="section" id="tech-spotlight">
+<div class="section-number">Section 06</div>
+<h2>CMS Hires H1 for a $77.6 Million National Provider Directory as Medicare Plan Finder Starts Publishing MA Directories This Month</h2>
+
+<p>Bad provider data is a revenue cycle cost hiding in plain sight: wrong addresses on payer directories send patients to the wrong place, mismatched NPIs and taxonomy codes trigger credentialing and enrollment denials, and outdated network status produces out-of-network surprises. CMS is now building national infrastructure to fix it.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value">$77.6M</div>
+<div class="stat-label">Five-year H1 contract for National Provider Directory IT development</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">13</div>
+<div class="stat-label">Bidders competing for the award</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">30 days</div>
+<div class="stat-label">Deadline for MA plans to update directories after a change</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">31</div>
+<div class="stat-label">New data elements in USCDI Version 7</div>
+</div>
+</div>
+
+<h3>What Happened</h3>
+<p>On <strong>September 24</strong>, H1 Insights won a five-year, <strong>$77,635,070</strong> contract to provide IT development for the CMS <strong>National Provider Directory (NPD)</strong>, beating 12 other bidders. On <strong>September 29</strong>, CMS also selected H1 for ground-truth data sourcing and licensing, plus data aggregation, quality, and assurance services &mdash; sourcing authoritative data, normalizing and validating it, and enriching and correcting provider records.</p>
+
+<p>In parallel, CMS is moving <strong>Medicare Advantage provider directories</strong> onto <strong>Medicare Plan Finder</strong>. Plans had an executive attestation deadline of <strong>September 1, 2026</strong> for contract year 2027, production deployment begins in <strong>October 2026</strong>, and the program transitions to <strong>FHIR-based submissions in 2027</strong>. Plans must update directories within <strong>30 days</strong> of a change, each record carries a &ldquo;lastUpdatedOn&rdquo; timestamp CMS uses to verify compliance, and a CEO, CFO, or COO must certify accuracy. CMS may suppress a plan&rsquo;s directory from Plan Finder if validation thresholds are not met. CMS validates format and refresh &mdash; <strong>not</strong> whether a provider actually practices at a listed location.</p>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>Plans are on the hook, but they get their data from you. Every location, NPI, accepting-new-patients flag, and departed provider you fail to report becomes a wrong listing on a federal website patients use during open enrollment &mdash; which starts October 15.</p>
+</div>
+
+<h3>Other Infrastructure News</h3>
+<ul>
+<li><strong>ONC&rsquo;s</strong> September quarterly: <strong>USCDI v7</strong> adds <strong>31 data elements</strong> and two data classes; real-time prescription benefit tools must be certified as part of the Base EHR definition by <strong>2028</strong>; the ONC final rule enables certified EHRs to submit prior authorizations electronically.</li>
+<li><strong>Oracle Health</strong> will implement <strong>ID.me</strong> digital identity verification across its solutions &mdash; relevant to patient portal registration and online payment fraud.</li>
+<li><strong>OpenEvidence</strong> raised <strong>$250 million</strong> at a <strong>$15 billion</strong> valuation, a signal of how much capital clinical AI is drawing next to revenue cycle AI.</li>
+</ul>
+
+<div class="vendor-group">
+<div class="vendor-group-label">Vendors in This Week&rsquo;s Infrastructure News</div>
+<div class="vendor-tags">
+<span class="vendor-tag">H1</span><span class="vendor-tag">Oracle Health</span><span class="vendor-tag">ID.me</span><span class="vendor-tag">OpenEvidence</span><span class="vendor-tag">R1 (Phare UM)</span>
+</div>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.manilatimes.net/2026/09/29/tmt-newswire/globenewswire/h1-selected-by-cms-to-help-build-a-trusted-national-foundation-for-provider-information/2435242" target="_blank">GlobeNewswire via Manila Times &mdash; H1 Selected by CMS for National Provider Information</a><span class="sep">&bull;</span>
+<a href="https://orangeslices.ai/h1-insights-beats-out-12-to-win-78m-cms-national-provider-directory-npd-it-development-contract/" target="_blank">OrangeSlices &mdash; H1 Wins $78M CMS NPD Contract</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/files/document/mpf-provider-directory-implementation-office-hours-qa-09162026-final-pdf.pdf" target="_blank">CMS &mdash; MPF Provider Directory Implementation Office Hours Q&amp;A</a><span class="sep">&bull;</span>
+<a href="https://candorhealth.com/blog/cms-is-publishing-your-provider-directory-publicly-daily-and-by-name" target="_blank">Candor Health &mdash; CMS Is Publishing Your Provider Directory</a><span class="sep">&bull;</span>
+<a href="https://healthit.gov/coordinators-quarterly-september-2026" target="_blank">ONC &mdash; Coordinator&rsquo;s Quarterly, September 2026</a><span class="sep">&bull;</span>
+<a href="https://histalk2.com/2026/09/29/news-9-30-26/" target="_blank">HIStalk &mdash; News 9/30/26</a>
+</div>
+</section>
+
+<!-- SECTION 07 -->
+<section class="section" id="compliance">
+<div class="section-number">Section 07</div>
+<h2>Specialty Societies Say Insurers Lost About a Quarter of IDR Line Items by Default &mdash; as the IDR Gateway Opens and the Fee Drops to $15</h2>
+
+<p>On <strong>September 25</strong>, the American College of Emergency Physicians, American College of Radiology, and American Society of Anesthesiologists sent Congress an analysis of the <strong>No Surprises Act</strong> independent dispute resolution (IDR) process arguing that payer behavior &mdash; not provider abuse &mdash; drives most provider wins.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">~25%</div>
+<div class="stat-label">Disputed line items in 2025 that insurers lost by default</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">85%</div>
+<div class="stat-label">Provider win rate in finalized federal payment determinations</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">8.2%</div>
+<div class="stat-label">Line items where the payer&rsquo;s offer was $1 or less</div>
+</div>
+<div class="stat-card">
+<div class="stat-value success">$15</div>
+<div class="stat-label">Reduced per-party IDR administrative fee (from $115)</div>
+</div>
+</div>
+
+<h3>What the Analysis Says</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Finding</th><th>Figure</th></tr></thead>
+<tbody>
+<tr><td>Line items insurers lost by default (2025)</td><td>~25%</td></tr>
+<tr><td>Line items with payer offers at or below the QPA (excluding defaults)</td><td>Nearly 40%</td></tr>
+<tr><td>Line items with payer offers of $1 or less</td><td class="kpi-warning">8.2%</td></tr>
+<tr><td>Provider win rate in finalized determinations</td><td class="kpi-target">85%</td></tr>
+<tr><td>Typical award vs. QPA</td><td>2.5x&ndash;4x</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Critics point to a Georgetown estimate of <strong>$22 billion</strong> in additional costs from the IDR system over four years. The societies&rsquo; reply is that payers who skip participation or submit nominal offers are choosing to lose.</p>
+
+<h3>The Operational Changes</h3>
+<ul>
+<li><strong>IDR Gateway:</strong> CMS opened account registration in mid-September for the centralized IDR Gateway, which replaces single-use web forms and will formally open later in 2026. It adds standardized remittance codes indicating claim eligibility and documentation of open negotiation before formal IDR.</li>
+<li><strong>New arbiter:</strong> HHS certified <strong>Physio Solutions</strong> as the <strong>17th</strong> certified IDR entity as dispute volume surges.</li>
+<li><strong>Lower fee:</strong> The administrative fee falls to <strong>$15 per party</strong>, from $115 (per MGMA&rsquo;s federal outlook).</li>
+<li><strong>Enforcement gap:</strong> Courts remain split on whether providers can sue to collect unpaid awards &mdash; the Fifth Circuit says no, and the Supreme Court declined review in January; a 2023 clinician survey found <strong>52%</strong> of awards went unpaid.</li>
+</ul>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>If your practice bills out-of-network emergency, anesthesia, radiology, or other NSA-protected services, register on the IDR Gateway now, track every award&rsquo;s 30-day payment deadline, and log unpaid awards by payer. The documentation is your leverage in any complaint or future enforcement action.</p>
+</div>
+
+<h3>Also on the Calendar</h3>
+<p>Medicare Plan Finder&rsquo;s MA directory publication (Section 06) makes directory accuracy a compliance item for practices, too: an inaccurate listing that sends a patient to an out-of-network location can become a surprise-billing dispute.</p>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://techtarget.com/revcyclemanagement/news/366651432/New-analysis-points-finger-at-payers-for-IDR-problems" target="_blank">TechTarget &mdash; New Analysis Points Finger at Payers for IDR Problems</a><span class="sep">&bull;</span>
+<a href="https://www.techtarget.com/healthcarepayers/news/366649867/New-IDR-portal-sign-ups-open-for-No-Surprises-Act-disputes" target="_blank">TechTarget &mdash; New IDR Portal Sign-Ups Open for No Surprises Act Disputes</a><span class="sep">&bull;</span>
+<a href="https://www.aha.org/news/headline/2026-09-16-centralized-platform-managing-independent-dispute-resolutions-opens" target="_blank">AHA &mdash; Centralized Platform for Managing IDRs Opens</a><span class="sep">&bull;</span>
+<a href="https://www.hfma.org/payment-reimbursement-and-managed-care/no-surprises-act-idr-enforcement-uncertain-after-supreme-court-declines-review/" target="_blank">HFMA &mdash; No Surprises Act IDR Enforcement Uncertain After Supreme Court Declines Review</a><span class="sep">&bull;</span>
+<a href="https://www.medicaleconomics.com/view/mgma-outlines-2027-pay-cut-end-of-mips-and-other-federal-changes-coming-for-physicians" target="_blank">Medical Economics &mdash; MGMA Outlines 2027 Federal Changes</a>
+</div>
+</section>
+
+<!-- SECTION 08 -->
+<section class="section" id="independent-practice">
+<div class="section-number">Section 08</div>
+<h2>At MGMA&rsquo;s 100th Conference, 97% Report Higher Operating Costs and 89% Rank Reimbursement a Top-Three Worry</h2>
+
+<p>Black Book Research surveyed attendees at the <strong>MGMA Annual Conference</strong> in San Antonio (<strong>September 27&ndash;30</strong>) &mdash; a quarter of them CFOs, finance directors, and revenue cycle leaders, and a fifth physician owners and medical directors. The results, released <strong>September 29</strong>, describe practices heading into 2027 under pressure from every direction at once.</p>
+
+<div class="stat-row">
+<div class="stat-card">
+<div class="stat-value danger">97%</div>
+<div class="stat-label">Report higher year-to-date operating costs than at this point in 2025</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">90%</div>
+<div class="stat-label">Rank patient coverage, affordability, and continuity among top-three concerns</div>
+</div>
+<div class="stat-card">
+<div class="stat-value danger">89%</div>
+<div class="stat-label">Rank reimbursement and financial sustainability among top-three concerns</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">87%</div>
+<div class="stat-label">Rank IT performance and technology-enabled administrative relief among top-three concerns</div>
+</div>
+</div>
+
+<h3>A Decade of the Same Answer</h3>
+<p>MGMA marked ten years of its weekly Stat poll on <strong>September 29</strong> &mdash; more than <strong>380,000</strong> responses. The trend lines independent practices will recognize: the share saying prior authorization requirements increased ran <strong>82%</strong> in 2016 and <strong>90%</strong> by 2019 and has stayed high; <strong>84%</strong> in 2026 say costs are outpacing revenue (after 92% in 2024); most groups have gone <strong>years without a commercial payer rate increase</strong>; and MGMA&rsquo;s federal outlook found <strong>90%</strong> of practices report patients shifting to MA and <strong>79%</strong> report negative effects from it.</p>
+
+<h3>How This Week Lands on a Small Practice</h3>
+<ul>
+<li><strong>MA market churn costs proportionally more.</strong> A small practice with a concentrated Medicare panel feels every county exit and every network breakup in January re-verification work &mdash; with no payer-contracting team to absorb it.</li>
+<li><strong>Clawbacks are invisible without reporting.</strong> A health system tracks recoupments by payer. A three-physician practice usually sees them only as a mysteriously short deposit.</li>
+<li><strong>Building your own tools is real &mdash; and risky.</strong> The 34% building in-house AI tools includes small groups whose one tech-savvy administrator is now also the developer. That is a single point of failure.</li>
+<li><strong>The conversion factor cut is not a rounding error.</strong> A 1.68% cut on a practice with $2 million in Medicare revenue is about $33,600 &mdash; roughly the cost of part of a billing FTE.</li>
+</ul>
+
+<h3>Where You Should Be &mdash; Independent Practice Benchmarks</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>Where most independents are</th><th>Where you should be</th></tr></thead>
+<tbody>
+<tr><td>Initial denial rate</td><td class="kpi-warning">10&ndash;14%</td><td class="kpi-target">&lt; 5%</td></tr>
+<tr><td>Recoupments tracked by payer and reason</td><td class="kpi-warning">Not tracked</td><td class="kpi-target">Monthly</td></tr>
+<tr><td>Days in A/R</td><td class="kpi-warning">42&ndash;50</td><td class="kpi-target">&lt; 35</td></tr>
+<tr><td>Payer portals worked weekly</td><td class="kpi-warning">7+ (61% of practices)</td><td class="kpi-target">Consolidated through a clearinghouse or RPA</td></tr>
+<tr><td>Commercial contracts reviewed for rate escalators</td><td class="kpi-warning">Years since last increase</td><td class="kpi-target">Every contract reviewed annually</td></tr>
+<tr><td>2027 budget reflects the proposed CF cut</td><td class="kpi-warning">Not modeled</td><td class="kpi-target">Modeled at &minus;1.68%</td></tr>
+<tr><td>In-house AI tools with a named owner and fallback</td><td class="kpi-warning">Undocumented</td><td class="kpi-target">Written owner, data map, fallback</td></tr>
+<tr><td>MA plan list for open enrollment</td><td class="kpi-warning">None</td><td class="kpi-target">Distributed to front desk by October 15</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout action">
+<span class="callout-label">What to Prioritize Next</span>
+<p>(1) Model the 1.68% conversion-factor cut against 2027 Medicare revenue; (2) add a recoupment line to the monthly KPI pack; (3) send a rate-increase request to every commercial payer whose contract has not moved in two years; (4) document every in-house AI tool&rsquo;s owner and data flow; (5) publish an MA plan cheat sheet for open enrollment.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://healthtechnologynet.com/2026/09/29/mgma-attendees-signal-intensifying-financial-coverage-and-technology-pressures-for-medical-practices-entering-2027/" target="_blank">Health Technology Net &mdash; MGMA Attendees Signal Intensifying Financial, Coverage and Technology Pressures</a><span class="sep">&bull;</span>
+<a href="https://www.accessnewswire.com/newsroom/en/healthcare-and-pharmaceutical/mgma-attendees-signal-intensifying-financial-coverage-and-technology-1228406" target="_blank">ACCESS Newswire &mdash; MGMA 2026: Reimbursement, Coverage &amp; IT Outlook</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/mgma-stat-at-10-decade-of-change" target="_blank">MGMA &mdash; MGMA Stat at 10: A Decade of Change</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/most-medical-groups-have-gone-years-without-a-commercial-payer-rate-increase" target="_blank">MGMA &mdash; Most Medical Groups Have Gone Years Without a Commercial Payer Rate Increase</a><span class="sep">&bull;</span>
+<a href="https://www.medicaleconomics.com/view/mgma-outlines-2027-pay-cut-end-of-mips-and-other-federal-changes-coming-for-physicians" target="_blank">Medical Economics &mdash; MGMA Outlines 2027 Federal Changes</a>
+</div>
+</section>
+
+<!-- SECTION 09 -->
+<section class="section" id="specialty">
+<div class="section-number">Section 09</div>
+<h2>Oncology, Rheumatology and Ophthalmology Enter GLOBE, Cardiac CT Loses Up to 68% in Real Terms, and Orthopedics Watches 637 More Procedures Leave the Inpatient-Only List</h2>
+
+<p>This week&rsquo;s specialty picture is driven by the GLOBE final rule, the October 1 code sets, and the proposed 2027 fee schedule &mdash; landing unevenly across service lines.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Specialty</th><th>This week&rsquo;s update</th><th>Data point</th><th>Priority action</th></tr></thead>
+<tbody>
+<tr><td><strong>Primary Care</strong></td><td>Proposed 2027 CF cut; G2211 add-on valued around $16; new-patient waits longer at 28% of groups; Medicaid work requirements start by January 1</td><td class="kpi-warning">&minus;1.68% proposed CF</td><td>Model 2027 Medicare revenue; prepare front desk for Medicaid eligibility churn in January</td></tr>
+<tr><td><strong>Cardiology</strong></td><td>Journal of Cardiovascular CT study (September 30): inflation-adjusted Medicare pay for cardiac CT fell 27&ndash;68% from 2010 to 2026 while CCTA volume rose 408% (2013&ndash;2024)</td><td class="kpi-warning">CCTA &minus;68.3% real</td><td>Re-check CCTA cost per study against payment before 2027 volume planning</td></tr>
+<tr><td><strong>Orthopedics</strong></td><td>Year two of three of CMS&rsquo;s inpatient-only list phase-out; EBRI site-neutral analysis renews ASC vs. HOPD debate</td><td>637 procedures leaving IPO list</td><td>Confirm site-of-service and prior auth rules per payer for newly eligible outpatient cases</td></tr>
+<tr><td><strong>Oncology</strong></td><td>GLOBE finalized: in-scope Part B oncology drugs in selected areas get international benchmark rebates; coinsurance falls April 1, 2027</td><td>25% of Original Medicare in GLOBE areas</td><td>Confirm whether your ZIP codes are in GLOBE; flag in-scope drugs in the charge master</td></tr>
+<tr><td><strong>Rheumatology / Immunology</strong></td><td>High-spend biologics without biosimilar competition fall within GLOBE scope</td><td>&gt;$100M Medicare spend threshold</td><td>List infused biologics that cross the threshold; plan for new coinsurance math</td></tr>
+<tr><td><strong>Ophthalmology</strong></td><td>Single-source intravitreal drugs above the spend threshold fall within GLOBE scope</td><td>5 therapeutic classes in GLOBE</td><td>Update patient estimates for April 1, 2027 coinsurance changes</td></tr>
+<tr><td><strong>Radiology</strong></td><td>ACR co-signed the IDR analysis; 85% provider win rate in finalized determinations</td><td class="kpi-target">~25% of line items lost by payer default</td><td>Register on the IDR Gateway; track 30-day award payment deadlines</td></tr>
+<tr><td><strong>Mental / Behavioral Health</strong></td><td>Medicare telehealth flexibilities run through December 31, 2027; psychotherapy codes are shielded from the 2.5% efficiency adjustment</td><td class="kpi-target">0% efficiency cut on psychotherapy</td><td>Keep POS 10 and audio-only modifiers clean; plan 2028 in-person capacity</td></tr>
+<tr><td><strong>Gastroenterology</strong></td><td>New ICD-10-CM codes for Lynch syndrome now in effect; endoscopy codes remain under the 2.5% efficiency adjustment</td><td>Dedicated Lynch syndrome code live October 1</td><td>Update surveillance colonoscopy diagnosis mapping for hereditary risk</td></tr>
+<tr><td><strong>Pathology / Lab</strong></td><td>MLN reminder: duplicate tests denied unless medically necessary; modifier 91 for valid same-day repeats</td><td>Lab NCD edits update January 2027</td><td>Audit modifier 91 use; check panel/component duplication</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>GLOBE is the first mandatory payment model to touch infusion revenue directly, and it lands on the same practices &mdash; community oncology, rheumatology, retina &mdash; that already carry the largest buy-and-bill exposure. The billing change is a coinsurance change, but the cash risk is patient collections: a lower coinsurance figure on the Medicare remit that does not match the estimate, the secondary claim, or the statement creates rework on every infusion visit.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.ajmc.com/view/cms-finalizes-mandatory-globe-model-to-test-lower-part-b-drug-costs" target="_blank">AJMC &mdash; CMS Finalizes Mandatory GLOBE Model</a><span class="sep">&bull;</span>
+<a href="https://www.auntminnie.com/clinical-news/ct/article/15836358/medicare-payment-for-cardiac-ct-declining" target="_blank">AuntMinnie &mdash; Medicare Payment for Cardiac CT Declining</a><span class="sep">&bull;</span>
+<a href="https://www.techtarget.com/revcyclemanagement/news/366651324/Site-neutral-payments-could-save-over-12B" target="_blank">TechTarget &mdash; Site-Neutral Payments Could Save Over $12B</a><span class="sep">&bull;</span>
+<a href="https://www.medicaleconomics.com/view/mgma-outlines-2027-pay-cut-end-of-mips-and-other-federal-changes-coming-for-physicians" target="_blank">Medical Economics &mdash; MGMA Outlines 2027 Federal Changes</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/new-patient-wait-times-largely-hold-flat-in-2026-as-some-groups-add-providers-in-bid-to-meet-demand" target="_blank">MGMA &mdash; New-Patient Wait Times in 2026</a><span class="sep">&bull;</span>
+<a href="https://practicesol.com/single-post/behavioral-health-spared-from-2026-medicare-efficiency-cut" target="_blank">Practice Solutions &mdash; Behavioral Health Spared From 2026 Medicare Efficiency Cut</a><span class="sep">&bull;</span>
+<a href="https://techtarget.com/revcyclemanagement/news/366651432/New-analysis-points-finger-at-payers-for-IDR-problems" target="_blank">TechTarget &mdash; New Analysis Points Finger at Payers for IDR Problems</a><span class="sep">&bull;</span>
+<a href="https://gastro.org/news/cms-finalizes-payment-policies-for-2026/" target="_blank">AGA &mdash; CMS Finalizes Payment Policies for 2026</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/training-education/medicare-learning-network/newsletter/mln-connects-newsletter-october-1-2026" target="_blank">CMS &mdash; MLN Connects, October 1, 2026</a>
+</div>
+</section>
+
+<!-- SECTION 10 -->
+<section class="section" id="action-items">
+<div class="section-number">Section 10</div>
+<h2>This Week&rsquo;s Action Items</h2>
+<p>Ten moves for the week of October 2, 2026 &mdash; each tied directly to something in this issue.</p>
+
+<ul class="checklist">
+<li><div class="check-box"></div><div><strong>Find out whether you are in a GLOBE area.</strong> Check your service ZIP codes against the final rule&rsquo;s selected geographies, then list every in-scope Part B drug you administer (oncology, rheumatology, immunology, ophthalmology, endocrinology; &gt;$100M Medicare spend).</div></li>
+<li><div class="check-box"></div><div><strong>Rebuild the 2027 Medicare budget line.</strong> Apply the proposed 1.68% conversion-factor cut now and update it when the final fee schedule lands in November.</div></li>
+<li><div class="check-box"></div><div><strong>Publish an MA open-enrollment cheat sheet by October 15.</strong> List plans exiting your county, plans that lost a major health system from network, and new 2027 plans. Give it to schedulers and financial counselors.</div></li>
+<li><div class="check-box"></div><div><strong>Add recoupments to your KPI pack.</strong> Track clawbacks by payer, CPT, and reason code monthly, and report &ldquo;net collected after recoupment&rdquo; alongside the denial rate.</div></li>
+<li><div class="check-box"></div><div><strong>Work the first October remits for code-set rejections.</strong> Pull every rejection citing a deleted ICD-10-CM code or a new NCCI v32.3 edit since October 1 and fix the source (favorites lists, templates, charge master) &mdash; then save the list as your CPT 2027 test script.</div></li>
+<li><div class="check-box"></div><div><strong>Audit modifier 91.</strong> Find same-day duplicate lab CPTs without 91 and 91s attached to specimen re-runs; correct both before the MAC does.</div></li>
+<li><div class="check-box"></div><div><strong>Verify your directory data with every MA plan.</strong> Plan Finder is publishing MA directories now. Confirm locations, NPIs, accepting-new-patients status, and departed providers.</div></li>
+<li><div class="check-box"></div><div><strong>Register on the IDR Gateway.</strong> If you bill NSA-protected out-of-network services, create the account, log each award&rsquo;s 30-day payment deadline, and track unpaid awards by payer.</div></li>
+<li><div class="check-box"></div><div><strong>Document every in-house AI tool.</strong> For each homegrown scheduling, PA, or coding tool, write down the owner, data touched, AI provider, and the manual fallback.</div></li>
+<li><div class="check-box"></div><div><strong>Request rate increases from stagnant commercial contracts.</strong> Any contract that has not moved in two years gets a written escalator request this quarter, backed by your 2026 cost increase.</div></li>
+</ul>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://public-inspection.federalregister.gov/2026-20281.pdf" target="_blank">Federal Register &mdash; GLOBE Model</a><span class="sep">&bull;</span>
+<a href="https://www.medicaleconomics.com/view/mgma-outlines-2027-pay-cut-end-of-mips-and-other-federal-changes-coming-for-physicians" target="_blank">Medical Economics &mdash; MGMA Outlines 2027 Federal Changes</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/medicare-advantage-cuts-2027-cms-landscape/831563/" target="_blank">Healthcare Dive &mdash; MA Cuts for 2027</a><span class="sep">&bull;</span>
+<a href="https://www.techtarget.com/revcyclemanagement/news/366651012/Insurers-deny-less-just-to-claw-back-more-later-analysis" target="_blank">TechTarget &mdash; Insurers Deny Less, Claw Back More</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/medicare/coding-billing/national-correct-coding-initiative-ncci-edits/medicare-ncci-procedure-procedure-ptp-edits" target="_blank">CMS &mdash; Medicare NCCI PTP Edits</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/training-education/medicare-learning-network/newsletter/mln-connects-newsletter-october-1-2026" target="_blank">CMS &mdash; MLN Connects, October 1, 2026</a><span class="sep">&bull;</span>
+<a href="https://candorhealth.com/blog/cms-is-publishing-your-provider-directory-publicly-daily-and-by-name" target="_blank">Candor Health &mdash; CMS Is Publishing Your Provider Directory</a><span class="sep">&bull;</span>
+<a href="https://www.techtarget.com/healthcarepayers/news/366649867/New-IDR-portal-sign-ups-open-for-No-Surprises-Act-disputes" target="_blank">TechTarget &mdash; New IDR Portal Sign-Ups Open</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/would-you-vibe-code-an-ehr-with-ai" target="_blank">MGMA &mdash; Would You DIY an EHR With AI?</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/mgma-stat/most-medical-groups-have-gone-years-without-a-commercial-payer-rate-increase" target="_blank">MGMA &mdash; Years Without a Commercial Payer Rate Increase</a>
+</div>
+</section>
+
+<!-- BIG STAT -->
+<div class="big-stat">
+<div class="stat-number">7%</div>
+<div class="stat-desc"><strong>The share of medical practices that say prior authorization got faster in 2026.</strong> Nine months after federal rules required impacted payers to answer standard requests within seven days and expedited requests within 72 hours, MGMA&rsquo;s September poll found <strong>44%</strong> of practices saying turnaround got <em>slower</em>, <strong>40%</strong> saying nothing changed, and just <strong>7%</strong> reporting improvement. Over the same period, payers cut initial denials to <strong>10.63%</strong> while lifting clawbacks to <strong>1.57%</strong> of revenue, <strong>33</strong> health systems walked away from MA contracts over authorization and slow payment, and <strong>97%</strong> of practices at MGMA&rsquo;s 100th conference reported higher operating costs. Rules on paper have not reached the front desk. Until they do, the practices that win are the ones measuring their own turnaround, their own recoupments, and their own portal hours &mdash; and taking those numbers to every payer contract negotiation.</div>
+</div>
+
+<footer class="footer">
+<div class="footer-divider"></div>
+<p><strong>RCM Pulse Weekly</strong> &mdash; Revenue Cycle Management Intelligence for Medical Practices</p>
+<p>Researched and compiled from public domain sources including CMS.gov, the Federal Register, ONC, AAPC, AHA, HFMA, MGMA, AGA, Black Book Research, Kodiak Solutions, the Commonwealth Fund, Health Affairs, ISG, H1, R1, Becker&rsquo;s Healthcare, Healthcare Dive, Modern Healthcare, Medical Economics, TechTarget, AJMC, GlobeNewswire, and payer policy portals.</p>
+<p>Volume 10, Issue 1 &bull; October 2, 2026 &bull; <strong>Next issue: October 9, 2026</strong></p>
+</footer>
+</div>
+<script>
+(function() {
+var bg = document.getElementById('bubbles-bg');
+if (!bg) return;
+var cv = document.createElement('canvas');
+cv.setAttribute('aria-hidden','true');
+cv.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:0;';
+bg.parentNode.replaceChild(cv, bg);
+var ctx = cv.getContext('2d');
+function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+var HUES = [0,20,45,80,160,200,250,280,320,345];
+function randHue() {
+return HUES[Math.floor(Math.random()*HUES.length)] + (Math.random()*24-12);
+}
+function makeBubble(fromBottom) {
+var r = 10 + Math.random() * 46;
+var x = r + Math.random() * (cv.width - 2*r);
+var y = fromBottom ? cv.height + r + Math.random()*180 : Math.random()*cv.height;
+return {
+x:x, y:y, r:r,
+hue: randHue(),
+sat: 78 + Math.random()*20,
+lit: 52 + Math.random()*20,
+op: 0.32 + Math.random()*0.26,
+vx: (Math.random()-0.5)*0.8,
+vy: -(0.38 + Math.random()*0.55)
+};
+}
+var bubbles = [];
+for (var i=0;i<28;i++) bubbles.push(makeBubble(false));
+var splats = [];
+var MAX_SPLATS = 220;
+function burst(cx, cy, hueA, hueB) {
+if (splats.length > MAX_SPLATS) return;
+var n = 7 + Math.floor(Math.random()*5);
+for (var k=0;k<n;k++) {
+var angle = Math.random()*Math.PI*2;
+var spd = 1.8 + Math.random()*3.8;
+var hueOptions = [hueA, hueB, (hueA+hueB)/2, hueA+60, hueB-60, hueA-45, hueB+45];
+var hue = hueOptions[Math.floor(Math.random()*hueOptions.length)];
+splats.push({
+x:cx, y:cy,
+r: 3 + Math.random()*9,
+hue: hue,
+sat: 85 + Math.random()*15,
+lit: 55 + Math.random()*25,
+vx: Math.cos(angle)*spd,
+vy: Math.sin(angle)*spd,
+op: 0.85,
+life: 1.0,
+decay: 0.016 + Math.random()*0.024
+});
+}
+}
+var last = 0;
+function tick(now) {
+var dt = Math.min((now - last)/16, 3);
+last = now;
+ctx.clearRect(0,0,cv.width,cv.height);
+for (var i=0;i<bubbles.length;i++) {
+var b = bubbles[i];
+b.x += b.vx*dt;
+b.y += b.vy*dt;
+if (b.x < -b.r) b.x = cv.width + b.r;
+if (b.x > cv.width+b.r) b.x = -b.r;
+if (b.y < -b.r) {
+var nb = makeBubble(true);
+bubbles[i] = nb;
+continue;
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+for (var j=i+1;j<bubbles.length;j++) {
+var a=bubbles[i], b=bubbles[j];
+var dx=b.x-a.x, dy=b.y-a.y;
+var dist=Math.sqrt(dx*dx+dy*dy);
+var minD=a.r+b.r;
+if (dist < minD && dist > 0.01) {
+burst((a.x+b.x)/2, (a.y+b.y)/2, a.hue, b.hue);
+var nx=dx/dist, ny=dy/dist;
+var dv = (a.vx-b.vx)*nx + (a.vy-b.vy)*ny;
+if (dv > 0) {
+a.vx -= dv*nx; a.vy -= dv*ny;
+b.vx += dv*nx; b.vy += dv*ny;
+}
+var sep=(minD-dist)/2+0.5;
+a.x -= nx*sep; a.y -= ny*sep;
+b.x += nx*sep; b.y += ny*sep;
+a.hue = randHue();
+b.hue = randHue();
+}
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+var b=bubbles[i];
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle = 'hsla('+b.hue+','+b.sat+'%,'+b.lit+'%,'+b.op+')';
+ctx.fill();
+var g=ctx.createRadialGradient(b.x-b.r*0.32,b.y-b.r*0.32,b.r*0.04,b.x,b.y,b.r);
+g.addColorStop(0,'rgba(255,255,255,0.30)');
+g.addColorStop(1,'rgba(255,255,255,0)');
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+}
+for (var i=splats.length-1;i>=0;i--) {
+var s=splats[i];
+s.x += s.vx*dt;
+s.y += s.vy*dt;
+s.vy += 0.05*dt;
+s.vx *= 0.97;
+s.life -= s.decay*dt;
+if (s.life<=0) { splats.splice(i,1); continue; }
+ctx.beginPath();
+ctx.arc(s.x,s.y,Math.max(0.5,s.r*s.life),0,Math.PI*2);
+ctx.fillStyle='hsla('+s.hue+','+s.sat+'%,'+s.lit+'%,'+(s.life*s.op)+')';
+ctx.fill();
+}
+requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
