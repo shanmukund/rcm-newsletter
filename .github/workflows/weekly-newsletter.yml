@@ -280,28 +280,66 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const date = '${{ steps.dates.outputs.newsletter_date }}' || 'unknown date';
+            const { owner, repo } = context.repo;
+            const date = '${{ steps.dates.outputs.newsletter_date }}' || 'unknown';
             const mode = '${{ steps.dates.outputs.run_mode }}' || 'unknown';
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `🚨 Newsletter generation failed — ${date}`,
-              body: [
-                '## The generator run failed',
-                '',
-                `**Target issue:** ${date} (mode: ${mode})`,
-                `**Run:** [View logs](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
-                `**Failed at:** ${new Date().toLocaleString('en-US', { timeZone: 'America/Phoenix', dateStyle: 'medium', timeStyle: 'short' })} Phoenix`,
-                '',
-                '### Which step failed tells you what broke',
-                '- **Generate newsletter with Claude Code** — check the `ANTHROPIC_API_KEY` secret.',
-                '- **Verify Claude actually produced the issue** — the agent no-oped or wrote a stub. The error lines name the exact check that failed. Nothing was pushed; the repo is untouched.',
-                '- **Push to GitHub Pages** — 31 minutes of backoff did not clear it. Real permission problem, not a blip. Confirm the workflow still has `contents: write`.',
-                '',
-                '### Recover',
-                `Actions → "Weekly RCM Newsletter — Auto-Generate" → Run workflow, with **newsletter_date = ${date}**.`,
-                '',
-                'The Saturday 9 AM Phoenix run also retries Friday automatically, and no-ops if Friday landed.',
-              ].join('\n'),
-              labels: ['automation', 'urgent'],
+            const html = '${{ steps.dates.outputs.html_file }}';
+            const when = new Date().toLocaleString('en-US', { timeZone: 'America/Phoenix', dateStyle: 'medium', timeStyle: 'short' }) + ' Phoenix';
+
+            // Friday fires three attempts. An early one failing is NOT news if a later one
+            // already published -- and a standing pile of false "urgent" tickets is
+            // indistinguishable from a dead pipeline, which is worse than no alerting at
+            // all. On Oct 16 and Oct 23 the first attempt failed, the issue went out on
+            // time anyway, and each morning still raised an urgent ticket. So: check the
+            // branch before saying anything.
+            if (html) {
+              try {
+                await github.rest.repos.getContent({ owner, repo, path: html, ref: 'main' });
+                core.notice(html + ' is already on main -- this attempt failed but the issue IS published. No alert raised.');
+                return;
+              } catch (e) {
+                if (e.status !== 404) throw e;
+              }
+            }
+
+            const body = [
+              '## A generator attempt failed and the issue is still not published',
+              '',
+              '**Target issue:** ' + date + ' (mode: ' + mode + ')',
+              '**Run:** [View logs](https://github.com/' + owner + '/' + repo + '/actions/runs/' + context.runId + ')',
+              '**Failed at:** ' + when,
+              '',
+              'This ticket is raised only when the expected file is **absent from `main` at',
+              'the moment of failure**. Later attempts may still rescue the morning on their',
+              'own -- if the issue is live by end of day, close this.',
+              '',
+              '### Which step failed tells you what broke',
+              '- **Generate newsletter with Claude Code** -- the agent run itself failed. Check the `ANTHROPIC_API_KEY` secret and the action logs. This was the failing step on Oct 9, 16 and 23.',
+              '- **Verify Claude actually produced the issue** -- the agent no-oped or wrote a stub. The error lines name the exact check. Nothing was pushed; the repo is untouched.',
+              '- **Push to GitHub Pages** -- 31 minutes of backoff did not clear it. A real permission problem, not a blip. Confirm the workflow still has `contents: write`.',
+              '',
+              '### Recover',
+              'Actions -> "Weekly RCM Newsletter -- Auto-Generate" -> Run workflow, with **newsletter_date = ' + date + '**.',
+              '',
+              'Remaining automatic attempts: the later Friday runs (6:23 and 8:23 AM Phoenix)',
+              'and the Saturday 7:23 AM retry, each of which no-ops once the issue lands.',
+            ].join('\n');
+
+            // Fold repeat failures for one date into a single thread. Oct 9 opened three
+            // separate urgent tickets for what was one bad morning.
+            const open = await github.rest.issues.listForRepo({
+              owner, repo, state: 'open', labels: 'automation',
             });
+            const match = open.data.find(i => i.title.includes(date));
+            if (match) {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number: match.number,
+                body: 'Another attempt failed at ' + when + ', issue still not on \`main\`.\n\n' + body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner, repo,
+                title: 'Newsletter generation failed — ' + date,
+                body, labels: ['automation', 'urgent'],
+              });
+            }
