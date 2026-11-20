@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCM Pulse Weekly | November 20, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--color-bg: #FAFAFA;
+--color-surface: #FFFFFF;
+--color-text: #1A1A2E;
+--color-text-secondary: #4A4A68;
+--color-text-muted: #8888A0;
+--color-accent: #0F5FE0;
+--color-accent-light: #E8F0FE;
+--color-accent-dark: #0A4ABF;
+--color-border: #E8E8EE;
+--color-highlight: #FFF8E1;
+--color-highlight-border: #F5C518;
+--color-success: #0D9F6E;
+--color-success-light: #E6F9F1;
+--color-danger: #DC3545;
+--color-danger-light: #FDE8EA;
+--color-kpi-green: #0D9F6E;
+--color-kpi-amber: #D97706;
+--radius-sm: 6px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+--shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+--shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+--max-width: 720px;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+background-color: #ECEEF6;
+background-image:
+radial-gradient(ellipse 160% 32% at 50% 0%, rgba(15,95,224,0.10) 0%, transparent 65%),
+url("data:image/svg+xml,%3Csvg width='28' height='28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.3' fill='%230F5FE0' opacity='0.055'/%3E%3C/svg%3E");
+background-attachment: fixed;
+color: var(--color-text);
+line-height: 1.7;
+-webkit-font-smoothing: antialiased;
+padding: 48px 16px 72px;
+min-height: 100vh;
+}
+body::before {
+content: '';
+position: fixed;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, #0A4ABF 0%, #0F5FE0 55%, #60a5fa 100%);
+z-index: 999;
+}
+.newsletter-wrapper {
+max-width: var(--max-width);
+margin: 0 auto;
+padding: 0 32px;
+background: #ffffff;
+border-top: 3px solid var(--color-accent);
+border-radius: 0 0 8px 8px;
+box-shadow: 0 0 0 1px rgba(15,95,224,0.07), 0 8px 40px rgba(15,95,224,0.09), 0 2px 8px rgba(0,0,0,0.05);
+position: relative;
+z-index: 1;
+}
+#bubbles-bg {
+position: fixed; top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none; overflow: hidden; z-index: 0;
+}
+.bubble {
+position: absolute; bottom: -150px; border-radius: 50%; opacity: 0;
+animation: bubble-rise var(--dur, 14s) var(--delay, 0s) linear infinite;
+}
+@keyframes bubble-rise {
+0% { transform: translateY(0) translateX(0) scale(0.75); opacity: 0; }
+8% { opacity: var(--max-op, 0.16); }
+88% { opacity: var(--max-op, 0.16); }
+100% { transform: translateY(calc(-100vh - 200px)) translateX(var(--dx, 40px)) scale(1.15); opacity: 0; }
+}
+.header { padding: 48px 0 40px; text-align: center; border-bottom: 1px solid var(--color-border); }
+.header-brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.header-logo { width: 40px; height: 40px; background: var(--color-accent); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; letter-spacing: -0.5px; }
+.header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.5px; }
+.header-subtitle { font-size: 0.9rem; color: var(--color-text-muted); font-weight: 400; margin-top: 4px; }
+.header-meta { display: inline-flex; align-items: center; gap: 16px; margin-top: 16px; font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+.header-meta span { display: flex; align-items: center; gap: 4px; }
+.meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-muted); }
+.toc { padding: 32px 0; border-bottom: 1px solid var(--color-border); }
+.toc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 16px; }
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.toc-list li a { display: flex; align-items: baseline; gap: 12px; text-decoration: none; color: var(--color-text); font-size: 0.925rem; font-weight: 450; padding: 6px 0; transition: color 0.2s; }
+.toc-list li a:hover { color: var(--color-accent); }
+.toc-num { font-size: 0.75rem; font-weight: 600; color: var(--color-accent); min-width: 20px; }
+.section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+.section:last-of-type { border-bottom: none; }
+.section-number { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-accent); font-weight: 600; margin-bottom: 8px; }
+.section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.55rem; font-weight: 700; line-height: 1.3; color: var(--color-text); margin-bottom: 20px; letter-spacing: -0.3px; }
+.section h3 { font-size: 1rem; font-weight: 600; color: var(--color-text); margin-top: 32px; margin-bottom: 12px; }
+.section p { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 16px; }
+.section p strong { color: var(--color-text); font-weight: 600; }
+.section ul, .section ol { padding-left: 20px; margin-bottom: 16px; }
+.section li { font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 10px; line-height: 1.65; }
+.section li strong { color: var(--color-text); font-weight: 600; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 20px; text-align: center; }
+.stat-card .stat-value { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; font-weight: 700; color: var(--color-accent); line-height: 1.1; }
+.stat-card .stat-value.danger { color: var(--color-danger); }
+.stat-card .stat-value.success { color: var(--color-success); }
+.stat-card .stat-label { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 6px; line-height: 1.4; }
+.callout { border-left: 3px solid var(--color-accent); background: var(--color-accent-light); padding: 16px 20px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 24px 0; }
+.callout p { font-size: 0.9rem; color: var(--color-text); margin: 0; font-weight: 500; line-height: 1.6; }
+.callout.warning { border-left-color: var(--color-highlight-border); background: var(--color-highlight); }
+.callout.action { border-left-color: var(--color-success); background: var(--color-success-light); }
+.callout-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 4px; display: block; }
+.callout .callout-label { color: var(--color-accent); }
+.callout.warning .callout-label { color: var(--color-kpi-amber); }
+.callout.action .callout-label { color: var(--color-success); }
+.table-wrap { overflow-x: auto; margin: 24px 0; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+thead { background: var(--color-bg); }
+th { padding: 12px 16px; text-align: left; font-weight: 600; color: var(--color-text); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid var(--color-border); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--color-border); color: var(--color-text-secondary); line-height: 1.5; }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--color-text); font-weight: 600; }
+.kpi-target { color: var(--color-kpi-green); font-weight: 600; }
+.kpi-warning { color: var(--color-kpi-amber); font-weight: 600; }
+.tech-stack { margin: 24px 0; display: flex; flex-direction: column; gap: 8px; }
+.stack-layer { display: flex; align-items: center; gap: 16px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.stack-label { min-width: 130px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 4px; text-align: center; }
+.stack-label.gen-ai { background: var(--color-text); color: #fff; }
+.stack-label.ai-ml { background: var(--color-accent); color: #fff; }
+.stack-label.rpa { background: var(--color-accent-light); color: var(--color-accent-dark); }
+.stack-desc { font-size: 0.88rem; color: var(--color-text-secondary); }
+.vendor-group { margin: 20px 0; }
+.vendor-group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 8px; }
+.vendor-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.vendor-tag { display: inline-block; padding: 5px 14px; border-radius: 20px; background: var(--color-accent-light); color: var(--color-accent-dark); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.01em; }
+.checklist { list-style: none; padding: 0; margin: 24px 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 0.925rem; color: var(--color-text-secondary); line-height: 1.55; }
+.checklist li:last-child { border-bottom: none; }
+.check-box { flex-shrink: 0; width: 20px; height: 20px; border: 2px solid var(--color-accent); border-radius: 4px; margin-top: 2px; }
+.checklist li strong { color: var(--color-text); }
+.big-stat { text-align: center; padding: 48px 24px; background: linear-gradient(135deg, #0A4ABF 0%, #0F5FE0 100%); border-radius: var(--radius-lg); margin: 32px 0; color: #fff; }
+.big-stat .stat-number { font-family: 'Playfair Display', Georgia, serif; font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+.big-stat .stat-desc { font-size: 0.95rem; opacity: 0.9; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+.sources { margin-top: 16px; padding-top: 16px; }
+.sources-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; margin-bottom: 6px; }
+.sources a { font-size: 0.8rem; color: var(--color-accent); text-decoration: none; transition: color 0.2s; }
+.sources a:hover { color: var(--color-accent-dark); text-decoration: underline; }
+.sources .sep { color: var(--color-text-muted); margin: 0 6px; font-size: 0.75rem; }
+.footer { padding: 40px 0 48px; text-align: center; color: var(--color-text-muted); font-size: 0.82rem; line-height: 1.7; }
+.footer-divider { width: 48px; height: 2px; background: var(--color-border); margin: 0 auto 24px; }
+.footer p { margin-bottom: 8px; }
+@media (max-width: 600px) {
+.newsletter-wrapper { padding: 0 20px; }
+.header { padding: 32px 0 28px; }
+.header h1 { font-size: 1.6rem; }
+.section { padding: 36px 0; }
+.section h2 { font-size: 1.3rem; }
+.stat-row { grid-template-columns: 1fr 1fr; }
+.stat-card .stat-value { font-size: 1.5rem; }
+.big-stat .stat-number { font-size: 2.2rem; }
+.big-stat { padding: 36px 20px; }
+.header-meta { flex-direction: column; gap: 4px; }
+.meta-dot { display: none; }
+.stack-label { min-width: 100px; font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+<canvas id="bubbles-bg" aria-hidden="true"></canvas>
+<div class="newsletter-wrapper">
+
+<header class="header">
+<div class="header-brand">
+<div class="header-logo">RP</div>
+<h1>RCM Pulse Weekly</h1>
+</div>
+<div class="header-subtitle">Revenue Cycle Management Intelligence for Medical Practices</div>
+<div class="header-meta">
+<span>November 20, 2026</span>
+<div class="meta-dot"></div>
+<span>Volume 11, Issue 3</span>
+</div>
+</header>
+
+<nav class="toc">
+<div class="toc-label">In This Issue</div>
+<ol class="toc-list">
+<li><a href="#regulatory"><span class="toc-num">01</span> CRUSH Anti-Fraud Rule Targets $90 Billion in Medicare Savings &mdash; CMS-6098-P Released November 16 with 30-Day Enrollment Reporting and MA Cross-Enrollment Requirements</a></li>
+<li><a href="#prior-auth"><span class="toc-num">02</span> 42 Days to FHIR PA API Mandate &mdash; One Year of Payer PA Commitments: Cigna Standardizes 70%, Aetna Hits 88%, Only 36% of Providers Believe Payers Deliver</a></li>
+<li><a href="#ai-automation"><span class="toc-num">03</span> Agentic AI in RCM: What&rsquo;s Actually Running in Production &mdash; AGS Health Deploys Denial Agent, QWay Analysis Separates Signal From Noise</a></li>
+<li><a href="#coding"><span class="toc-num">04</span> CPT 2027 Final Countdown: AAPC Webinar in 5 Days, CDM Audit Window Closing, and Q3 2026 HCPCS Drug Decisions Posted</a></li>
+<li><a href="#revenue-velocity"><span class="toc-num">05</span> Kodiak H1 2026 Data: Initial Denials Down to 10.63% but Final Commercial Denials Up 9.1% &mdash; MGMA Reports 48% of Revenue Leaks Come From Denials</a></li>
+<li><a href="#tech-spotlight"><span class="toc-num">06</span> Technology Spotlight: VisiQuate Acquires Artiva HCx &mdash; KLAS #1 Analytics Platform Adds Execution Layer; Children&rsquo;s Mercy Outsources 473 RCM Roles</a></li>
+<li><a href="#compliance"><span class="toc-num">07</span> Compliance Corner: CRUSH Comment Deadline January 19, 340B Billing Modifiers JG/TB/XX Due January 1, and RPM/RTM Initiating Visit Rule Takes Effect</a></li>
+<li><a href="#independent-practice"><span class="toc-num">08</span> Independent Practice Watch: 30% of H1 2026 Healthcare Bankruptcies Are Physician Practices &mdash; Congressional Pay Reform Advances as Only Structural Relief</a></li>
+<li><a href="#specialty"><span class="toc-num">09</span> Specialty RCM Spotlight: 340B Oncology Impact, Cardiology Pay Reform Push, Primary Care RPM/RTM Rule, Orthopedics Year-End ASC Velocity</a></li>
+<li><a href="#action-items"><span class="toc-num">10</span> This Week&rsquo;s Action Items &mdash; 8 Steps Before November 27</a></li>
+</ol>
+</nav>
+
+<!-- Section 01: Regulatory -->
+<section class="section" id="regulatory">
+<div class="section-number">Section 01</div>
+<h2>CRUSH Anti-Fraud Rule Targets $90 Billion in Medicare Savings &mdash; CMS-6098-P Released November 16 With 30-Day Enrollment Reporting and MA Cross-Enrollment Requirements</h2>
+
+<p>CMS released the Comprehensive Regulations to Uncover Suspicious Healthcare (CRUSH) proposed rule (CMS-6098-P) on November 16, 2026, targeting an estimated $90 billion in taxpayer savings through the most significant overhaul of Medicare and Medicaid enrollment oversight in a generation. The rule would impose a universal 30-day deadline for all provider enrollment changes, require providers billing Medicare Advantage to also enroll in Original Medicare, expand CMS&rsquo;s authority to deny or revoke enrollment based on fraud risk assessments, and mandate MA organizations to submit fraud referrals. Comment period closes January 19, 2027.</p>
+
+<div class="stat-row">
+<div class="stat-card"><div class="stat-value success">$90B</div><div class="stat-label">CMS estimated taxpayer savings from the CRUSH proposed rule (CMS-6098-P)</div></div>
+<div class="stat-card"><div class="stat-value">30 days</div><div class="stat-label">Proposed universal deadline for all Medicare enrollment change reporting</div></div>
+<div class="stat-card"><div class="stat-value danger">ASP&minus;28%</div><div class="stat-label">New 340B drug payment rate in CY 2027 OPPS (down from ASP+6%)</div></div>
+<div class="stat-card"><div class="stat-value danger">Jan 19</div><div class="stat-label">Comment deadline for CRUSH proposed rule; CMS moratoria extended through Nov 2026</div></div>
+</div>
+
+<h3>CRUSH Rule: Key Provisions for Physician Practices</h3>
+<p>The CRUSH proposed rule (CMS-6098-P) affects physician practices across four operational dimensions:</p>
+<ul>
+<li><strong>Enrollment reporting:</strong> A unified 30-day deadline would replace the current split between 30- and 90-day reporting windows for different types of enrollment changes. If finalized, the effective date would be two years post-publication &mdash; but practices should begin auditing their enrollment change tracking processes now.</li>
+<li><strong>MA cross-enrollment:</strong> Providers billing Medicare Advantage plans would be required to also enroll in Original Medicare. For independent practices billing primarily through commercial MA contracts, this represents a new compliance requirement. Many already have dual enrollment; those that don&rsquo;t should assess the administrative pathway.</li>
+<li><strong>Fraud risk revocation:</strong> CMS would gain authority to deny or revoke Medicare enrollment when it determines a party poses an undue fraud, waste, or abuse risk &mdash; a standard that is broader than current grounds for revocation. Practices with unusual billing patterns should ensure documentation systems can withstand this level of scrutiny.</li>
+<li><strong>Extended moratoria:</strong> CMS extended the home health and hospice moratoria on November 13, 2026. The moratorium on certain DMEPOS suppliers ended August 27, 2026.</li>
+</ul>
+
+<h3>340B: ASP Minus 28% Takes Effect January 1</h3>
+<p>The CY 2027 OPPS/ASC final rule (Federal Register: November 6, 2026) finalizes 340B-acquired drug reimbursement at ASP minus 28% &mdash; a reduction from the current ASP plus 6%. The proposed cut had been deeper (ASP minus 33.4%), and the final rule offsets the drug payment reduction with a 7.50% increase to the OPPS conversion factor for non-drug services. CMS estimates the drug payment policy will reduce OPPS drug payments by approximately $4.65 billion in 2027.</p>
+
+<p>Billing teams must configure three new modifiers by January 1:</p>
+<ul>
+<li><strong>JG</strong> &mdash; 340B-acquired drugs subject to the payment reduction</li>
+<li><strong>TB</strong> &mdash; 340B-acquired drugs exempt from the reduction (continuing at ASP+6%)</li>
+<li><strong>XX</strong> &mdash; All non-340B drugs</li>
+</ul>
+
+<div class="callout warning">
+<span class="callout-label">Warning</span>
+<p>The JG/TB/XX modifier transition is a hard-deadline billing change. Practices and hospital outpatient departments that submit 340B drug claims without the correct modifier after January 1 will receive incorrect payment and face retroactive adjustment exposure. Begin billing system configuration now.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/newsroom/press-releases/cms-crush-proposed-rule-aims-reap-nearly-90-billion-taxpayers-savings-targeting-fraud-across" target="_blank">CMS &mdash; CRUSH Proposed Rule Press Release (CMS-6098-P)</a><span class="sep">&bull;</span>
+<a href="https://www.aha.org/news/headline/2026-11-17-cms-issues-proposed-rule-crush-initiative-addressing-fraud" target="_blank">AHA &mdash; CMS Issues Proposed CRUSH Rule</a><span class="sep">&bull;</span>
+<a href="https://foleyhoag.com/news-and-insights/publications/alerts-and-updates/2026/november/cms-crush-proposed-rule-builds-on-new-exclusion-and-enrollment-authorities-raising-the-stakes-for/" target="_blank">Foley Hoag &mdash; CRUSH Proposed Rule Analysis</a><span class="sep">&bull;</span>
+<a href="https://www.federalregister.gov/documents/2026/11/06/2026-22739/medicare-program-hospital-outpatient-prospective-payment" target="_blank">Federal Register &mdash; CY 2027 OPPS/ASC Final Rule</a><span class="sep">&bull;</span>
+<a href="https://advis.com/340b/cy-2027-opps-340b-payment-cuts/" target="_blank">Advis &mdash; CY 2027 OPPS 340B Payment Cuts</a><span class="sep">&bull;</span>
+<a href="https://www.hklaw.com/en/insights/publications/2026/11/cms-issues-sweeping-cy-2027-hospital-opps-asc-final-rule" target="_blank">Holland &amp; Knight &mdash; Sweeping CY 2027 OPPS/ASC Final Rule</a>
+</div>
+</section>
+
+<!-- Section 02: Prior Auth -->
+<section class="section" id="prior-auth">
+<div class="section-number">Section 02</div>
+<h2>42 Days to FHIR PA API Mandate &mdash; One Year of Payer PA Commitments: Cigna Standardizes 70%, Aetna Leads at 88%, but Only 36% of Providers Believe Payers Reliably Deliver</h2>
+
+<p>The CMS-0057-F FHIR Prior Authorization API mandate is now 42 days from enforcement. This week also marks the one-year progress point for the AHIP and BCBSA industry-wide PA commitment. Cigna has standardized approximately 70% of its prior authorization volume; Aetna reports 88% and leads all major payers; Humana has eliminated one-third of outpatient prior authorizations; UHC removed requirements for 231 procedures in December 2025 and committed to cutting 30% more by year-end 2026. But an Aetna-run provider survey found that only 36% of providers believe payers reliably follow through on their commitments &mdash; a credibility gap that underscores why the federal mandate matters.</p>
+
+<div class="stat-row">
+<div class="stat-card"><div class="stat-value danger">42</div><div class="stat-label">Days until CMS-0057-F FHIR PA API mandate takes effect (January 1, 2027)</div></div>
+<div class="stat-card"><div class="stat-value success">88%</div><div class="stat-label">Aetna&rsquo;s share of PA volume standardized electronically (highest of major payers)</div></div>
+<div class="stat-card"><div class="stat-value danger">36%</div><div class="stat-label">Providers who believe payers reliably deliver on PA reform commitments (Aetna provider survey)</div></div>
+<div class="stat-card"><div class="stat-value success">95%</div><div class="stat-label">Humana&rsquo;s target: deciding 95% of complete electronic PA requests within one business day</div></div>
+</div>
+
+<h3>One Year of PA Commitments: Progress and Gaps</h3>
+<p>The 2025 AHIP-BCBSA voluntary commitment created a framework for payers to standardize electronic PA submissions and process at least 80% of electronic approvals in real time by 2027. Major-payer self-reported progress one year in:</p>
+<ul>
+<li><strong>Aetna:</strong> 88% of PA volume standardized; first large payer to integrate medical and pharmacy decisions into single condition-specific reviews.</li>
+<li><strong>Cigna:</strong> Standardized more than 70% of PA volume; reduced total medical PA volume by approximately 15%.</li>
+<li><strong>Humana:</strong> Eliminated about one-third of outpatient prior authorizations, including colonoscopies and certain imaging; committed to 95% one-business-day decision rate on complete electronic requests.</li>
+<li><strong>UHC:</strong> Dropped 231 procedures from PA requirements in December 2025; committed to eliminating 30% more by end of 2026; December 1 expansion removes PA for select under-18 services.</li>
+</ul>
+<p>The critical qualifier: these figures are self-reported. The 36% provider trust figure suggests the operational experience on the ground differs substantially from announced commitments. The FHIR PA API mandate is a structural enforcement mechanism that makes real-time PA data availability verifiable &mdash; which is precisely why the January 1 deadline matters beyond compliance.</p>
+
+<h3>RPM/RTM: New Patient Requirements Effective January 1</h3>
+<p>Buried in the CY 2027 PFS final rule but equally important for PA-adjacent workflows: Remote Therapeutic Monitoring (RTM) is now limited to established patients starting January 1, 2027. This matches the existing established-patient requirement for RPM. Additionally, billing for a new RPM or RTM patient requires a face-to-face initiating visit (in-person or telehealth) that includes a discussion of remote monitoring before billing can begin. Patients already enrolled before January 1 are grandfathered in.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Contact your EHR vendor this week and confirm: (1) Is FHIR PA API integration active for your top 5 payers? (2) Have you verified your 278 prior authorization transactions are routing through FHIR endpoints rather than legacy EDI? (3) Are RTM patient panels documented as established patients with initiating visits on file? All three take weeks to fix &mdash; 42 days is not a comfortable runway.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.beckerspayer.com/policy-updates/insurers-prior-authorization-commitments-1-year-in/" target="_blank">Becker&rsquo;s Payer Issues &mdash; PA Commitments One Year In</a><span class="sep">&bull;</span>
+<a href="https://www.fiercehealthcare.com/payers/unitedhealthcare-aetna-tout-progress-standardize-prior-authorization-part-industry-wide" target="_blank">Fierce Healthcare &mdash; Payer PA Standardization Progress</a><span class="sep">&bull;</span>
+<a href="https://distilinfo.com/2026/05/07/prior-authorization-reform-key-updates-for-2026/" target="_blank">DistilINFO &mdash; Prior Authorization Reform 2026</a><span class="sep">&bull;</span>
+<a href="https://www.nixonpeabody.com/insights/alerts/2026/11/09/cms-finalizes-2027-medicare-rpm-rtm-changes-direct-employee-rule-delayed-to-2029" target="_blank">Nixon Peabody &mdash; CMS Finalizes 2027 RPM/RTM Changes</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/priorities/electronic-prior-authorization/overview" target="_blank">CMS &mdash; Electronic Prior Authorization Overview</a>
+</div>
+</section>
+
+<!-- Section 03: AI & Automation -->
+<section class="section" id="ai-automation">
+<div class="section-number">Section 03</div>
+<h2>Agentic AI in RCM: What&rsquo;s Actually Running in Production &mdash; AGS Health Deploys Denial Agent, QWay Analysis Separates Signal From Noise, and William Blair Calls AI Adoption a Market Inflection</h2>
+
+<p>The revenue cycle AI market in late 2026 has an increasingly clear fault line: a small set of vendors deploying narrowly scoped, production-grade agentic AI on specific RCM tasks versus a much larger set marketing fully autonomous &ldquo;agentic RCM&rdquo; that is not yet running at scale. AGS Health deployed agentic workflow solutions in mid-October 2026 targeting denial management. A QWay Healthcare independent analysis finds that agentic AI is delivering solid, production-grade results in prior authorization, mid-cycle coding, and denial analytics &mdash; but that fully autonomous, end-to-end RCM with no human in the loop is &ldquo;still mostly marketing.&rdquo; William Blair&rsquo;s new research report identifies AI RCM adoption as a market inflection point.</p>
+
+<div class="stat-row">
+<div class="stat-card"><div class="stat-value danger">15%</div><div class="stat-label">Share of providers with fully integrated AI across standard RCM operations (Experian Health, 2026)</div></div>
+<div class="stat-card"><div class="stat-value danger">48%</div><div class="stat-label">Revenue cycle leaks attributed to denials and appeals (MGMA Stat poll, Jan 2026)</div></div>
+<div class="stat-card"><div class="stat-value">Mid-Oct</div><div class="stat-label">When AGS Health deployed agentic workflow solutions for denial management (2026)</div></div>
+<div class="stat-card"><div class="stat-value">3&ndash;6 mo</div><div class="stat-label">Typical full RCM automation deployment timeline for a multi-specialty practice</div></div>
+</div>
+
+<h3>What Agentic AI Is Actually Doing in RCM Today</h3>
+<p>The honest picture from independent sources:</p>
+
+<p><strong>Working at scale in production:</strong></p>
+<ul>
+<li>Pre-submission denial prevention: AI agents checking claims before submission against payer-specific edits, flagging denial risk before the claim is filed</li>
+<li>Prior authorization intake: agents validating coverage requirements and documentation against payer rules at point of order</li>
+<li>Mid-cycle coding: AI-assisted coding review with human exception handling for complex encounters</li>
+<li>Denial analytics: root-cause analysis and denial pattern identification across payer populations</li>
+</ul>
+
+<p><strong>Still emerging:</strong></p>
+<ul>
+<li>Fully autonomous appeals generation without human review</li>
+<li>End-to-end agentic billing with no human in any workflow step</li>
+<li>Cross-payer policy intelligence that adapts in real time to LCD changes</li>
+</ul>
+
+<p>The strategic shift is from post-denial recovery (wait for the denial, work the appeal) to pre-submission prevention (catch the denial risk before the claim is submitted). Innovaccer&rsquo;s analysis frames this as the central value of autonomous agents: intervention shifts from 90-day recovery queues to real-time prevention. AGS Health&rsquo;s mid-October deployment targets this exact model.</p>
+
+<div class="tech-stack">
+<div class="stack-layer">
+<div class="stack-label gen-ai">Gen AI</div>
+<div class="stack-desc">Autonomous appeals generation, natural language payer logic reconstruction, documentation improvement suggestions</div>
+</div>
+<div class="stack-layer">
+<div class="stack-label ai-ml">AI / ML</div>
+<div class="stack-desc">Pre-submission denial prevention, prior authorization intake, mid-cycle coding, denial analytics &mdash; production-grade today</div>
+</div>
+<div class="stack-layer">
+<div class="stack-label rpa">Automation</div>
+<div class="stack-desc">Eligibility verification, claim status checks, payment posting, denial routing &mdash; mature and widely deployed</div>
+</div>
+</div>
+
+<div class="callout">
+<span class="callout-label">Bottom Line</span>
+<p>The 15% AI integration rate across standard RCM operations is the most important benchmark to internalize. It means 85% of practices are still running legacy workflows on tasks where AI-assisted alternatives are commercially available. For denial prevention, eligibility verification, and prior authorization, the technology gap is not theoretical &mdash; it is producing measurable Days in AR differences between practices that have adopted and those that haven&rsquo;t.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://qwayhealthcare.ai/insights/agentic-ai-healthcare-revenue-cycle-whats-actually-real-in-2026/" target="_blank">QWay Healthcare &mdash; Agentic AI in Revenue Cycle: What&rsquo;s Real in 2026</a><span class="sep">&bull;</span>
+<a href="https://www.healthcareittoday.com/2026/04/02/how-agentic-ai-is-reshaping-the-future-of-revenue-cycle-management-and-the-work-behind-it/" target="_blank">Healthcare IT Today &mdash; Agentic AI and RCM Future</a><span class="sep">&bull;</span>
+<a href="https://www.williamblair.com/-/media/downloads/eqr/2026/williamblair_the-growing-importance-of-ai-in-the-revenue-cycle-management.pdf" target="_blank">William Blair &mdash; Growing Importance of AI in RCM</a><span class="sep">&bull;</span>
+<a href="https://innovaccer.ai/blogs/denial-management-solutions-for-revenue-cycle-teams-2026" target="_blank">Innovaccer &mdash; Denial Management Solutions 2026</a><span class="sep">&bull;</span>
+<a href="https://www.experian.com/blogs/healthcare/state-of-claims-2026-why-denials-remain-an-uphill-climb/" target="_blank">Experian Health &mdash; State of Claims 2026</a><span class="sep">&bull;</span>
+<a href="https://www.onixnet.com/blog/the-2026-paradigm-shift-agentic-ai-in-healthcare-revenue-cycle-management/" target="_blank">Onixnet &mdash; Agentic AI in RCM 2026 Paradigm Shift</a>
+</div>
+</section>
+
+<!-- Section 04: Coding -->
+<section class="section" id="coding">
+<div class="section-number">Section 04</div>
+<h2>CPT 2027 Final Countdown: AAPC Webinar in 5 Days, CDM Audit Window Closing, and Q3 2026 HCPCS Drug Decisions Posted</h2>
+
+<p>The CPT 2027 preparation window is closing. AAPC&rsquo;s CPT 2027 Coding Updates webinar is scheduled for November 25 &mdash; five days from today. This is the most important CPT 2027 planning resource available, and registration should be complete now. CMS has posted its final determinations for the Third Quarter 2026 HCPCS Level II drug and biological coding applications, adding new drug codes that take effect January 1. And the 340B billing modifier transition (JG/TB/XX) adds a parallel CDM update requirement that must be completed before December 31.</p>
+
+<div class="stat-row">
+<div class="stat-card"><div class="stat-value danger">Nov 25</div><div class="stat-label">AAPC CPT 2027 Coding Updates webinar &mdash; 5 days away; register now</div></div>
+<div class="stat-card"><div class="stat-value danger">Jan 1</div><div class="stat-label">Effective date for CPT 2027, 340B modifiers, E/M complexity modifier, and RPM/RTM rule changes</div></div>
+<div class="stat-card"><div class="stat-value">Q3 2026</div><div class="stat-label">CMS posted final HCPCS Level II drug coding decisions for quarterly cycle</div></div>
+<div class="stat-card"><div class="stat-value">418</div><div class="stat-label">Total CPT code changes in CPT 2026 (288 new, 46 revised, 84 deleted) &mdash; expect similar scale for 2027</div></div>
+</div>
+
+<h3>CDM Audit: Four Action Areas Before January 1</h3>
+<p>For billing teams running CPT 2027 preparation in parallel with 340B modifier compliance, the four CDM audit priorities for the remaining six weeks of 2026 are:</p>
+<ol>
+<li><strong>CPT deletions and replacements:</strong> Identify any CPT 2026 codes in your CDM scheduled for deletion in CPT 2027. Claims submitted after January 1 with deleted codes will reject at the clearinghouse level. AAPC&rsquo;s November 25 webinar will provide the definitive deletions list.</li>
+<li><strong>340B modifier assignment:</strong> Map all outpatient drug NDCs in your CDM to their 340B status (JG-eligible, TB-eligible, or XX). This requires coordination between pharmacy, billing, and IT &mdash; start now.</li>
+<li><strong>E/M complexity modifier documentation:</strong> The new CMS E/M complexity modifier takes effect January 1. Update your charge entry rules to flag eligible encounters and ensure documentation templates support the longitudinal care requirement.</li>
+<li><strong>Q3 2026 HCPCS drug code additions:</strong> Verify that any new drug codes from the Q3 2026 CMS determination are in your CDM if applicable to your specialty. Oncology, rheumatology, and infusion centers are most likely affected.</li>
+</ol>
+
+<h3>JW/JZ Modifier Compliance: Year-End Drug Wastage Audit</h3>
+<p>CMS&rsquo;s JW/JZ modifier policy for discarded single-dose drugs and biologicals is frequently underaudited. The JW modifier reports discarded amounts from a single-use vial that are billed for reimbursement; JZ confirms no drug was discarded. With the transition to JG/TB/XX for 340B drugs, billing teams should conduct a year-end audit to ensure JW/JZ compliance is not disrupted by the modifier transition workflow.</p>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Register for the AAPC November 25 CPT 2027 webinar today if not already done. Run a CDM audit this week that covers all four action areas above. For practices with 340B programs, assign a specific team member to own the JG/TB/XX modifier mapping &mdash; this cannot be a last-week-of-December project.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.aapc.com/codes/coding-newsletters/articles" target="_blank">AAPC &mdash; CPT 2027 Coding Updates Webinar</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/files/document/2026-hcpcs-application-summary-quarter-3-2026-drugs-biologicals.pdf" target="_blank">CMS &mdash; Q3 2026 HCPCS Drug and Biological Coding Decisions</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/files/document/jw-modifier-and-jz-modifier-policy-hcpcs-codes.pdf" target="_blank">CMS &mdash; JW and JZ Modifier Policy</a><span class="sep">&bull;</span>
+<a href="https://advis.com/340b/cy-2027-opps-340b-payment-cuts/" target="_blank">Advis &mdash; 340B Billing Modifiers</a><span class="sep">&bull;</span>
+<a href="https://www.ama-assn.org/amaone/cpt-current-procedural-terminology" target="_blank">AMA &mdash; CPT Code Information</a><span class="sep">&bull;</span>
+<a href="https://www.cms.gov/medicare/coding-billing/icd-10-codes" target="_blank">CMS &mdash; ICD-10 Coordination and Maintenance</a>
+</div>
+</section>
+
+<!-- Section 05: Revenue Velocity -->
+<section class="section" id="revenue-velocity">
+<div class="section-number">Section 05</div>
+<h2>Kodiak H1 2026 Data: Initial Denials Down to 10.63% but Final Commercial Denials Up 9.1% &mdash; MGMA Reports 48% of Revenue Cycle Leaks Come From Denials</h2>
+
+<p>New Kodiak Solutions data covering 375,000 physicians in H1 2026 reveals a bifurcated denial market: initial claim denial rates fell to 10.63% (down from 12.00% in H1 2025), suggesting payer-side investments in eligibility verification and electronic claims processing are having some effect. But final commercial denial rates increased 9.1% year over year &mdash; a signal that payers are denying less initially but increasing post-payment recovery activity. The TriZetto analysis of 630 million claims found an average denial rate of 14.6%, nearly three times the 5% industry benchmark. MGMA&rsquo;s January 2026 Stat poll found that 48% of revenue cycle revenue leaks come from denials and appeals.</p>
+
+<div class="stat-row">
+<div class="stat-card"><div class="stat-value success">10.63%</div><div class="stat-label">H1 2026 initial claim denial rate (down from 12.00% in H1 2025, Kodiak / 375,000 physicians)</div></div>
+<div class="stat-card"><div class="stat-value danger">+9.1%</div><div class="stat-label">Increase in final commercial denial rate H1 2026 vs. H1 2025 (Kodiak)</div></div>
+<div class="stat-card"><div class="stat-value danger">14.6%</div><div class="stat-label">Average denial rate across 630 million claims (TriZetto &mdash; nearly 3&times; the 5% benchmark)</div></div>
+<div class="stat-card"><div class="stat-value danger">48%</div><div class="stat-label">Revenue cycle leaks from denials and appeals (MGMA Stat poll, January 2026)</div></div>
+</div>
+
+<h3>The Bifurcated Denial Market: What It Means</h3>
+<p>The divergence between lower initial denial rates and higher final denial rates describes a specific payer strategy: pay first, claw back later. Post-payment recovery activity &mdash; medical necessity reviews, coordination of benefits audits, and clinical documentation requests initiated after payment &mdash; is becoming a larger share of payer-to-provider financial friction. This is harder for practices to track than upfront denials because it doesn&rsquo;t appear in the same AR metrics.</p>
+
+<p>For year-end revenue velocity, the practical implications are:</p>
+<ul>
+<li><strong>Track post-payment recoveries separately.</strong> If your practice cannot distinguish post-payment claw-backs from initial denials in your reporting, you&rsquo;re likely underestimating the true cost of payer disputes.</li>
+<li><strong>Build a Q4 priority queue.</strong> With six weeks left in 2026, work all claims 60+ days outstanding by payer bucket. Claims with commercial payers where the final denial rate is rising deserve priority attention &mdash; these are increasingly likely to result in final non-payment if unworked before year-end.</li>
+<li><strong>Patient deductible opportunity.</strong> Patients who have met their 2026 out-of-pocket maximums represent your highest-probability Q4 collection opportunity. Run a list from your PM system this week.</li>
+</ul>
+
+<h3>KPI Benchmarks: The Six-Week Sprint Targets</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>H1 2026 Actual (Kodiak)</th><th>Industry Target</th><th>Best-in-Class</th></tr></thead>
+<tbody>
+<tr><td><strong>Initial denial rate</strong></td><td>10.63%</td><td class="kpi-warning">&lt;5%</td><td class="kpi-target">&lt;3%</td></tr>
+<tr><td><strong>Final denial rate (commercial)</strong></td><td>Rising 9.1% YoY</td><td class="kpi-warning">&lt;3%</td><td class="kpi-target">&lt;2%</td></tr>
+<tr><td><strong>Clean claim rate</strong></td><td>~88% (industry avg)</td><td class="kpi-warning">≥95%</td><td class="kpi-target">≥98%</td></tr>
+<tr><td><strong>Days in AR</strong></td><td>35&ndash;50 days</td><td class="kpi-warning">&lt;38 days</td><td class="kpi-target">&lt;30 days</td></tr>
+<tr><td><strong>Net collection rate</strong></td><td>90&ndash;94%</td><td class="kpi-warning">≥96%</td><td class="kpi-target">≥98%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Pull your November 1 AR aging report and sort by payer. Identify all commercial payer claims 60+ days outstanding. Create a priority work queue: (1) all claims &gt;$500 that are 60&ndash;90 days, (2) all claims with known high-volume commercial payers that have increased post-payment recovery activity. Set a goal to clear 25% of this queue before the Thanksgiving holiday slowdown.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.kodiaksolutions.com/" target="_blank">Kodiak Solutions &mdash; H1 2026 Denial Data</a><span class="sep">&bull;</span>
+<a href="https://www.trizettoprovider.com/resource-library/a-clean-claim-isnt-a-fully-paid-claim" target="_blank">TriZetto &mdash; A Clean Claim Isn&rsquo;t a Fully Paid Claim</a><span class="sep">&bull;</span>
+<a href="https://www.mgma.com/sponsored-solutions/your-best-biller-cant-fix-your-denial-rate-alone" target="_blank">MGMA &mdash; Your Best Biller Can&rsquo;t Fix Your Denial Rate Alone</a><span class="sep">&bull;</span>
+<a href="https://www.experian.com/content/dam/noindex/na/us/healthcare/state-of-claims-2026.pdf" target="_blank">Experian Health &mdash; State of Claims 2026</a><span class="sep">&bull;</span>
+<a href="https://www.physicianspractice.com/view/denial-rates-are-rising-here-s-how-to-fight-back" target="_blank">Physicians Practice &mdash; Denial Rates Are Rising</a>
+</div>
+</section>
+
+<!-- Section 06: Technology Spotlight -->
+<section class="section" id="tech-spotlight">
+<div class="section-number">Section 06</div>
+<h2>Technology Spotlight: VisiQuate Acquires Artiva HCx &mdash; KLAS #1 Analytics Platform Adds Execution Layer; Children&rsquo;s Mercy Outsources 473 RCM Roles in Accelerating Health System Trend</h2>
+
+<p>The revenue cycle technology market this week is defined by consolidation between analytics intelligence and workflow execution. VisiQuate &mdash; KLAS #1 in RCM analytics with a 92/100 performance score &mdash; acquired Artiva HCx from Finvi (closing October 20, announced November 4), adding an insurance follow-up, denial management, and collections workflow platform to its intelligence foundation. Children&rsquo;s Mercy announced the outsourcing of 473 revenue cycle roles in the latest signal that health systems are industrializing RCM operations rather than staffing them internally.</p>
+
+<div class="stat-row">
+<div class="stat-card"><div class="stat-value success">92/100</div><div class="stat-label">VisiQuate KLAS performance score for RCM analytics (Black Book #1 2026)</div></div>
+<div class="stat-card"><div class="stat-value danger">473</div><div class="stat-label">Revenue cycle roles outsourced by Children&rsquo;s Mercy (November 2026)</div></div>
+<div class="stat-card"><div class="stat-value">142</div><div class="stat-label">RCM and HCIT transactions closed in H1 2026 (RevCycleAI deal tracker)</div></div>
+<div class="stat-card"><div class="stat-value">Oct 20</div><div class="stat-label">VisiQuate / Artiva HCx deal close date (announced November 4)</div></div>
+</div>
+
+<h3>VisiQuate + Artiva HCx: Analytics Meets Execution</h3>
+<p>The strategic rationale is explicit in VisiQuate&rsquo;s announcement: connect analytics with execution. The combined platform pairs VisiQuate&rsquo;s data ontology and revenue intelligence with Artiva HCx&rsquo;s workflow routing for insurance follow-up, denial management, and collections &mdash; covering the full cycle from insight generation to work execution. VisiQuate earned KLAS&rsquo;s #1 position in both RCM analytics and CFO command center categories in Black Book&rsquo;s 2026 rankings, bringing an external validation score of 92/100.</p>
+
+<p>For practices and health systems that use separate analytics and workflow tools, this acquisition represents a market signal: the category boundary between RCM intelligence and RCM execution is dissolving. Single-platform buyers will increasingly be choosing combined analytics-execution solutions rather than best-of-breed point tools.</p>
+
+<p>Finvi &mdash; the seller &mdash; is a New Mountain Capital portfolio company with a 50-year legacy in accounts receivable management. The divestiture of Artiva HCx allows Finvi to focus on its core third-party collections market while VisiQuate deepens its healthcare RCM footprint.</p>
+
+<h3>Health System RCM Outsourcing: Children&rsquo;s Mercy and the Trend</h3>
+<p>Children&rsquo;s Mercy&rsquo;s outsourcing of 473 revenue cycle roles continues a pattern visible across health systems in 2026. The same week, Grady Health System and Ensemble Health Partners announced a new RCM partnership &mdash; Ensemble managing revenue cycle operations for a major safety-net system. RevCycleAI&rsquo;s deal tracker shows 142 RCM and HCIT transactions in H1 2026, pace for the highest annual volume since 2022. For independent practices evaluating their own build-vs.-buy-vs.-outsource decisions, the health system outsourcing trend provides a useful reference: even organizations with 400+ dedicated RCM staff are concluding that outsourced specialist platforms outperform in-house operations on key metrics.</p>
+
+<div class="vendor-group">
+<div class="vendor-group-label">Leading RCM Analytics &amp; Execution Platforms (Black Book 2026)</div>
+<div class="vendor-tags">
+<span class="vendor-tag">VisiQuate + Artiva HCx</span>
+<span class="vendor-tag">Waystar Agentic AI</span>
+<span class="vendor-tag">R1 Phare OS</span>
+<span class="vendor-tag">Ensemble Health Partners</span>
+<span class="vendor-tag">Experian Health</span>
+<span class="vendor-tag">Nthrive</span>
+</div>
+</div>
+
+<div class="callout">
+<span class="callout-label">Key Insight</span>
+<p>For practices evaluating vendors, independent KLAS validation is the most reliable third-party benchmark available. If a vendor cannot point to a KLAS score or Black Book ranking, ask why. A 92-point KLAS score is more reliable than a startup&rsquo;s pitch deck, and a combined analytics-execution platform earning that score represents a qualitatively different risk profile than assembling the same capability from multiple point tools.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.healthcareittoday.com/2026/11/12/visiquate-acquires-artiva-hcx-leantaas-brings-ambient-intelligence-to-iqueue/" target="_blank">Healthcare IT Today &mdash; VisiQuate Acquires Artiva HCx</a><span class="sep">&bull;</span>
+<a href="https://www.citybiz.co/article/929181/visiquate-adds-artiva-hcx-workflow-technology-to-its-revenue-cycle-intelligence-platform/" target="_blank">CityBiz &mdash; VisiQuate Adds Artiva HCx Workflow Technology</a><span class="sep">&bull;</span>
+<a href="https://www.citybiz.co/?p=929337" target="_blank">CityBiz &mdash; Finvi Sells Artiva HCx Business to VisiQuate</a><span class="sep">&bull;</span>
+<a href="https://revcycleai.com/deals-and-raises/" target="_blank">RevCycleAI &mdash; Deals and Raises 2026</a><span class="sep">&bull;</span>
+<a href="https://hl.com/about-us/transactions/finvi-visiquate-nmc-akkr/" target="_blank">Houlihan Lokey &mdash; Advises Finvi on Artiva HCx Divestiture</a>
+</div>
+</section>
+
+<!-- Section 07: Compliance -->
+<section class="section" id="compliance">
+<div class="section-number">Section 07</div>
+<h2>Compliance Corner: CRUSH Comment Deadline January 19, 340B Billing Modifiers Due January 1, RPM/RTM Initiating Visit Rule Takes Effect, and Three December 31 Deadlines</h2>
+
+<p>Four compliance timelines require immediate attention: the CRUSH proposed rule (CMS-6098-P) comment window closing January 19, 2027; the 340B billing modifier transition (JG/TB/XX) with a hard January 1 implementation deadline; the RPM/RTM established-patient and initiating-visit requirements effective January 1, 2027; and three December 31 deadlines that arrive in 41 days.</p>
+
+<div class="stat-row">
+<div class="stat-card"><div class="stat-value danger">Jan 19</div><div class="stat-label">Comment deadline for CRUSH proposed rule (CMS-6098-P) &mdash; regulations.gov</div></div>
+<div class="stat-card"><div class="stat-value danger">Jan 1</div><div class="stat-label">340B billing modifiers JG/TB/XX, RPM/RTM new patient rules, CPT 2027 all take effect</div></div>
+<div class="stat-card"><div class="stat-value success">2029</div><div class="stat-label">When CMS direct employee staffing rule for RPM takes effect (delayed; third-party contracting OK through Dec 31, 2028)</div></div>
+<div class="stat-card"><div class="stat-value danger">Dec 31</div><div class="stat-label">Three simultaneous deadlines: Medicare participation, MIPS virtual group election, year-end RPM patient panel review</div></div>
+</div>
+
+<h3>CRUSH Rule: What to Read and What to Comment On</h3>
+<p>The comment period for CRUSH runs through January 19, 2027. The provisions with the broadest practical impact on physician practices:</p>
+<ul>
+<li><strong>30-day enrollment reporting:</strong> If finalized, this would require practices to notify CMS of any ownership change, practice location change, group practice affiliation change, or other enrollment modification within 30 days. Many practices currently operate on the 90-day window and have informal processes that wouldn&rsquo;t meet a 30-day standard. Practices with high turnover, multi-site operations, or frequent physician group changes should comment specifically on operational feasibility.</li>
+<li><strong>MA cross-enrollment:</strong> Independent practices that bill exclusively through Medicare Advantage contracts may not be enrolled in Original Medicare. This provision, if finalized, would require that enrollment. Comments should address the administrative burden and timeline feasibility for practices in this situation.</li>
+</ul>
+
+<h3>340B Billing Modifiers: A Hard Deadline</h3>
+<p>The JG/TB/XX modifier transition is unusual in healthcare compliance because it has no grace period. Claims submitted after January 1 with 340B drugs and no modifier &mdash; or with the wrong modifier &mdash; will be processed incorrectly. For hospital outpatient billing teams, this is a TPA/split-billing workflow change. For independent practices using 340B pricing through a contract pharmacy or infusion center arrangement, verify with your pharmacy team that the modifier mapping is correct before the first January claim.</p>
+
+<h3>RPM/RTM New Requirements: Established Patient and Initiating Visit</h3>
+<p>Effective January 1, 2027:</p>
+<ul>
+<li>RTM is limited to established patients (matching RPM&rsquo;s existing requirement). A patient is established if the billing practitioner, or a practitioner in the same group practice, has provided professional services within the past three years.</li>
+<li>New RPM or RTM patients require a face-to-face initiating visit (in-person or telehealth) that includes a discussion of remote monitoring before billing can begin.</li>
+<li>Patients already enrolled in RPM or RTM before January 1, 2027, are grandfathered &mdash; no initiating visit required retroactively.</li>
+<li>The direct employee staffing rule was finalized but delayed to January 1, 2029. Third-party contracted RPM/RTM vendors remain compliant through December 31, 2028.</li>
+</ul>
+
+<div class="callout action">
+<span class="callout-label">Action Required</span>
+<p>Complete all four compliance actions before December 31: (1) configure JG/TB/XX modifiers in billing systems; (2) file Medicare participation decision for CY 2027; (3) submit MIPS virtual group election at qpp.cms.gov if applicable; (4) audit RPM/RTM patient panel for established-patient status and initiating visit documentation.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/newsroom/press-releases/cms-crush-proposed-rule-aims-reap-nearly-90-billion-taxpayers-savings-targeting-fraud-across" target="_blank">CMS &mdash; CRUSH Proposed Rule (CMS-6098-P)</a><span class="sep">&bull;</span>
+<a href="https://www.nixonpeabody.com/insights/alerts/2026/11/09/cms-finalizes-2027-medicare-rpm-rtm-changes-direct-employee-rule-delayed-to-2029" target="_blank">Nixon Peabody &mdash; CMS Finalizes RPM/RTM Changes</a><span class="sep">&bull;</span>
+<a href="https://www.medicalbillersandcoders.com/blog/cy-2027-rpm-rtm-billing-changes/" target="_blank">Medical Billers and Coders &mdash; CY 2027 RPM RTM Billing Changes</a><span class="sep">&bull;</span>
+<a href="https://advis.com/340b/cy-2027-opps-340b-payment-cuts/" target="_blank">Advis &mdash; 340B Modifier Guidance</a><span class="sep">&bull;</span>
+<a href="https://qpp.cms.gov" target="_blank">CMS &mdash; QPP Portal</a><span class="sep">&bull;</span>
+<a href="https://www.lathropgpm.com/insights/someones-got-a-crush-on-you-cms-proposed-rule-would-make-substantial-changes-to-fraud-and-abuse-enforcement/" target="_blank">Lathrop GPM &mdash; CRUSH Proposed Rule Analysis</a>
+</div>
+</section>
+
+<!-- Section 08: Independent Practice Watch -->
+<section class="section" id="independent-practice">
+<div class="section-number">Section 08</div>
+<h2>Physician Practice Bankruptcies Surge to 30% of H1 2026 Healthcare Filings &mdash; Congressional Pay Reform Advances as Only Structural Relief</h2>
+
+<p>Clinics and physician groups accounted for nearly 30% of healthcare bankruptcy filings in the first half of 2026 and are on pace for the highest annual total since 2019 (Medical Economics). The Veradigm 2026 survey found that 94% of independent practices have been approached about acquisition or consolidation in the past two years &mdash; a figure that reveals the structural financial pressure creating those conversations. CMS projects 2.7% practice cost growth in 2026 while the CY 2027 physician fee schedule cut removes $23,600 per $1 million in annual Medicare revenue. The only near-term structural relief in view is congressional: an AMA-led coalition of 62 organizations is pushing to include physician payment reform in any year-end legislative package.</p>
+
+<div class="stat-row">
+<div class="stat-card"><div class="stat-value danger">~30%</div><div class="stat-label">Share of H1 2026 healthcare bankruptcies from clinics and physician groups (Medical Economics)</div></div>
+<div class="stat-card"><div class="stat-value danger">94%</div><div class="stat-label">Independent practices approached about acquisition or consolidation in past 2 years (Veradigm 2026)</div></div>
+<div class="stat-card"><div class="stat-value danger">2.7%</div><div class="stat-label">CMS projected physician practice cost growth in 2026 (while revenue faces cuts)</div></div>
+<div class="stat-card"><div class="stat-value">62</div><div class="stat-label">Organizations in the AMA-led coalition urging Congress to pass physician payment reform</div></div>
+</div>
+
+<h3>Congressional Pay Reform: What&rsquo;s on the Table</h3>
+<p>The year-end legislative package is the likeliest vehicle for any 2026 physician payment action. The AMA-led coalition of 62 organizations is advocating for two specific actions:</p>
+<ul>
+<li><strong>1-year extension of the 2.5% temporary payment boost:</strong> The 2026 temporary increase expires December 31. Without a congressional extension, the 2027 conversion factor drops to $32.6286 for non-APM participants (a 2.36% cut). An extension would hold the effective rate at $33.4009.</li>
+<li><strong>Provider Reimbursement Stability Act (H.R.&nbsp;8163):</strong> This would give CMS more flexibility to adjust physician payment while capping year-to-year rate volatility. It&rsquo;s a structural change rather than a one-year patch. The Data-Driven Performance Payment System Act would replace MIPS with a more stable framework &mdash; estimated at $12,800 per physician annually in MIPS administrative cost savings.</li>
+</ul>
+<p>The CRUSH proposed rule adds a new cost dimension for independent practices: if MA cross-enrollment is finalized, practices billing primarily through MA contracts will face a new administrative enrollment requirement. This provision merits a comment, specifically on implementation timeline and operational burden.</p>
+
+<h3>Where You Should Be: Independent Practice Q4 Benchmarks</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>KPI</th><th>H1 2026 Actual</th><th>Independent Practice Target</th><th>Action if Below Target</th></tr></thead>
+<tbody>
+<tr><td><strong>Initial denial rate</strong></td><td>10.63% (national avg)</td><td class="kpi-warning">&lt;7%</td><td>Audit top 5 denial codes; fix root causes</td></tr>
+<tr><td><strong>Net collection rate</strong></td><td>90&ndash;94%</td><td class="kpi-warning">≥96%</td><td>Identify payer buckets with lowest net collection</td></tr>
+<tr><td><strong>Days in AR</strong></td><td>35&ndash;50 (avg)</td><td class="kpi-warning">&lt;38 days</td><td>Work 60+ day claims before year-end</td></tr>
+<tr><td><strong>Revenue visibility</strong></td><td>24% complete (Veradigm)</td><td class="kpi-warning">≥80%</td><td>Build 4 tracking reports: charge lag, claim response, denial root cause, write-off rate</td></tr>
+<tr><td><strong>Practice cost growth</strong></td><td>2.7% CMS projection</td><td class="kpi-warning">Offset with revenue automation</td><td>Identify one manual process to automate before Q1 2027</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+<span class="callout-label">Where You Should Be</span>
+<p>If your practice is in the 94% that have been approached about acquisition, the financial metrics that determine your leverage in that conversation &mdash; net collection rate, Days in AR, clean claim rate &mdash; are also the metrics that determine whether you stay independent. A practice generating $2M annually with a 96% net collection rate and 35 Days in AR is a fundamentally different acquisition conversation than one at 90% and 48 days. The difference is roughly $120,000 in annual recovered revenue. That gap is achievable in one year with focused RCM improvement.</p>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.medicaleconomics.com/view/why-are-claims-being-denied-in-2026-services-not-covered-now-tops-the-list" target="_blank">Medical Economics &mdash; Why Physician Group Bankruptcies Are Rising</a><span class="sep">&bull;</span>
+<a href="https://veradigm.com/img/resource-veradigm-state-of-independent-practice-2026-wp.pdf" target="_blank">Veradigm &mdash; State of the Independent Practice in 2026</a><span class="sep">&bull;</span>
+<a href="https://www.ama-assn.org/health-care-advocacy/advocacy-update/nov-13-2026-national-advocacy-update" target="_blank">AMA &mdash; National Advocacy Update November 13, 2026</a><span class="sep">&bull;</span>
+<a href="https://www.healthcaredive.com/news/doctor-pay-price-transparency-congress-healthcare-agenda-bills-legislation/825457/" target="_blank">Healthcare Dive &mdash; Doc Pay, Price Transparency on Congress Healthcare Agenda</a><span class="sep">&bull;</span>
+<a href="https://www.statnews.com/2026/09/24/patients-first-act-congress-moves-on-doctor-pay-medicare-reform/" target="_blank">STAT News &mdash; Patients First Act</a>
+</div>
+</section>
+
+<!-- Section 09: Specialty RCM Spotlight -->
+<section class="section" id="specialty">
+<div class="section-number">Section 09</div>
+<h2>Specialty RCM Spotlight: 340B Oncology Impact, Cardiology Congressional Pay Push, Primary Care RPM/RTM Initiating Visit, Orthopedics Year-End ASC Velocity</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Specialty</th><th>Key Development</th><th>Action</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Primary Care</strong></td>
+<td>RTM now limited to established patients effective Jan 1; new RTM patients require face-to-face initiating visit; E/M complexity modifier documentation should cover 65&ndash;75% of established patient panel</td>
+<td>Audit RTM patient panels for established-patient status; document initiating visits for any new RPM/RTM enrollments; build E/M modifier documentation templates for qualifying chronic-condition encounters</td>
+</tr>
+<tr>
+<td><strong>Cardiology</strong></td>
+<td>340B drug billing transition: JG modifier for infusion drugs subject to reduction effective Jan 1; Congressional E/M modifier reform could add 45&ndash;60% boost to longitudinal CHF/arrhythmia management encounters if passed</td>
+<td>Update 340B infusion billing workflows for JG/TB/XX by Dec 31; model E/M modifier revenue impact for high-volume longitudinal cardiology patients; submit comments to AMA coalition</td>
+</tr>
+<tr>
+<td><strong>Orthopedics</strong></td>
+<td>Year-end ASC case velocity: patients who&rsquo;ve met 2026 out-of-pocket maximums are ideal Q4 surgical candidates before deductibles reset Jan 1; expanded ASC-eligible procedures from CY 2027 OPPS</td>
+<td>Contact high-deductible patients who&rsquo;ve met OOP max for elective joint/spine cases; verify updated ASC-eligible procedure list from OPPS final rule is in CDM</td>
+</tr>
+<tr>
+<td><strong>Oncology</strong></td>
+<td>340B impact is largest in oncology: $4.65B total OPPS drug payment reduction; JG modifier implementation required for affected drugs; drug price negotiation framework may further shift Part B drug economics in 2027</td>
+<td>Complete 340B billing system update for JG/TB/XX modifiers by Dec 31; review Part B drug acquisition cost strategy against ASP minus 28% economics; assess impact of drug negotiation framework on infusion drug revenue</td>
+</tr>
+<tr>
+<td><strong>Radiology</strong></td>
+<td>AI imaging CPT codes payer LCDs still developing; Q3 2026 HCPCS updates include imaging-related drug and contrast codes; year-end is final chance to audit AI imaging code billings and ensure LCD coverage exists</td>
+<td>Verify payer LCD status before billing Category I AI imaging codes for 2026; review Q3 drug coding decisions for radiopharmaceuticals; conduct Q4 audit of modifier 26/TC splits</td>
+</tr>
+<tr>
+<td><strong>Mental Health</strong></td>
+<td>RTM new established-patient and initiating-visit rules affect behavioral health remote monitoring; direct employee rule delayed to 2029 preserves third-party contracting flexibility; CoCM codes G0568&ndash;G0570 billing established</td>
+<td>Audit behavioral health RTM patient panels for established-patient status; document initiating visits for new remote monitoring patients; confirm CoCM billing workflows are live</td>
+</tr>
+<tr>
+<td><strong>Neurology</strong></td>
+<td>RPM for chronic neurological conditions (MS, epilepsy, Parkinson&rsquo;s) now requires established-patient relationship and face-to-face initiating visit effective Jan 1; EEG coding updates from 2026 set</td>
+<td>Build initiating visit documentation templates for RPM patient onboarding; confirm established-patient status for all current remote monitoring patients; verify EEG billing codes against 2026 CPT set</td>
+</tr>
+<tr>
+<td><strong>Gastroenterology</strong></td>
+<td>Q4 2026 is last reporting period for colonoscopy follow-up interval quality measure in ASQRP (removed starting 2027); year-end deductible opportunity for colonoscopy scheduling</td>
+<td>File final Q4 colonoscopy follow-up interval measure data; accelerate scheduling for patients who&rsquo;ve met 2026 deductibles; retire quality reporting workflow after Dec 31</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.medicalbillersandcoders.com/blog/cy-2027-rpm-rtm-billing-changes/" target="_blank">Medical Billers and Coders &mdash; CY 2027 RPM RTM Billing Changes</a><span class="sep">&bull;</span>
+<a href="https://advis.com/340b/cy-2027-opps-340b-payment-cuts/" target="_blank">Advis &mdash; 340B OPPS Payment Cuts</a><span class="sep">&bull;</span>
+<a href="https://www.acc.org/Latest-in-Cardiology/Articles/2026/11/05/14/15/CMS-Releases-Final-2027-Medicare-Physician-Fee-Schedule-and-Hospital-OPPS-Rules" target="_blank">ACC &mdash; CMS Final 2027 PFS and OPPS Rules</a><span class="sep">&bull;</span>
+<a href="https://annexmed.com/radiology-cpt-code-updates-2026" target="_blank">AnnexMed &mdash; Radiology CPT Updates 2026</a><span class="sep">&bull;</span>
+<a href="https://medsolercm.com/blog/mental-health-cpt-codes" target="_blank">MedSoler RCM &mdash; Mental Health CPT Codes</a><span class="sep">&bull;</span>
+<a href="https://www.beckersasc.com/asc-news/what-cms-final-opps-2027-rule-means-for-asc-leaders-more-cases-less-pay/" target="_blank">Becker&rsquo;s ASC &mdash; OPPS 2027 Final Rule</a><span class="sep">&bull;</span>
+<a href="https://www.sprypt.com/blog/clean-claim-rate-vs-denial-rate-by-specialty" target="_blank">Sprypt &mdash; Clean Claim Rate vs. Denial Rate by Specialty</a>
+</div>
+</section>
+
+<!-- Section 10: Action Items -->
+<section class="section" id="action-items">
+<div class="section-number">Section 10</div>
+<h2>This Week&rsquo;s Action Items &mdash; 8 Steps Before November 27</h2>
+
+<ul class="checklist">
+<li>
+<div class="check-box"></div>
+<div><strong>Configure 340B billing modifiers by December 31.</strong> Assign a team owner for the JG/TB/XX modifier mapping in your billing system today. This is a hard January 1 deadline with no grace period. Claims with 340B drugs submitted after January 1 without the correct modifier will be paid at the wrong rate.</div>
+</li>
+<li>
+<div class="check-box"></div>
+<div><strong>Read and assess CRUSH proposed rule (CMS-6098-P).</strong> Review the CMS press release and law firm analyses. Assess: (a) Do you bill Medicare Advantage without Original Medicare enrollment? (b) Can your practice meet 30-day enrollment change reporting? Submit comments through regulations.gov before January 19, 2027.</div>
+</li>
+<li>
+<div class="check-box"></div>
+<div><strong>Register for AAPC CPT 2027 webinar &mdash; 5 days.</strong> The November 25 AAPC webinar is the essential CPT 2027 preparation resource. Begin CDM audit this week for codes expected to change in January.</div>
+</li>
+<li>
+<div class="check-box"></div>
+<div><strong>Audit RPM/RTM patient panel before January 1.</strong> Identify all patients currently in remote monitoring programs. For each: (a) confirm established-patient status (professional services within 3 years), (b) document initiating visit on file. New patients after January 1 need a face-to-face initiating visit before billing starts.</div>
+</li>
+<li>
+<div class="check-box"></div>
+<div><strong>Year-end denial sprint.</strong> Pull November AR by commercial payer, sort by denial age. Build a priority work queue: all claims over $500 at 60&ndash;90 days. Work the queue before Thanksgiving &mdash; holiday-week volume drops create a natural catch-up window.</div>
+</li>
+<li>
+<div class="check-box"></div>
+<div><strong>Patient deductible opportunity &mdash; this week.</strong> Identify patients who have met their 2026 out-of-pocket maximums in your PM system. Contact them proactively about elective procedures and outstanding balances before deductibles reset January 1. This is your highest-probability Q4 collection and scheduling opportunity.</div>
+</li>
+<li>
+<div class="check-box"></div>
+<div><strong>Advocate for physician pay reform.</strong> The AMA coalition&rsquo;s window for year-end legislative action closes before Christmas. Contact your specialty society or state medical association to add your voice to the congressional push. If the 2.5% temporary boost is not extended, model your January 1 revenue impact now.</div>
+</li>
+<li>
+<div class="check-box"></div>
+<div><strong>December 31 triple-check.</strong> Set three calendar reminders for December 31: (a) CY 2027 Medicare participation decision submission, (b) MIPS virtual group election at qpp.cms.gov, (c) RPM/RTM patient panel review for established-patient documentation. All three have no extensions.</div>
+</li>
+</ul>
+
+<div class="sources">
+<div class="sources-label">Sources</div>
+<a href="https://www.cms.gov/newsroom/press-releases/cms-crush-proposed-rule-aims-reap-nearly-90-billion-taxpayers-savings-targeting-fraud-across" target="_blank">CMS &mdash; CRUSH Proposed Rule</a><span class="sep">&bull;</span>
+<a href="https://www.aapc.com/codes/coding-newsletters/articles" target="_blank">AAPC &mdash; CPT 2027 Webinar</a><span class="sep">&bull;</span>
+<a href="https://www.ama-assn.org/health-care-advocacy/advocacy-update/nov-13-2026-national-advocacy-update" target="_blank">AMA &mdash; National Advocacy Update November 2026</a><span class="sep">&bull;</span>
+<a href="https://qpp.cms.gov" target="_blank">CMS &mdash; QPP Portal</a><span class="sep">&bull;</span>
+<a href="https://www.medicalbillersandcoders.com/blog/cy-2027-rpm-rtm-billing-changes/" target="_blank">Medical Billers and Coders &mdash; RPM RTM 2027 Changes</a><span class="sep">&bull;</span>
+<a href="https://advis.com/340b/cy-2027-opps-340b-payment-cuts/" target="_blank">Advis &mdash; 340B Modifier Guidance</a>
+</div>
+</section>
+
+<div class="big-stat">
+<div class="stat-number">$90 Billion</div>
+<div class="stat-desc">CMS&rsquo;s projected taxpayer savings from the CRUSH proposed rule (CMS-6098-P), released November 16, 2026 &mdash; representing the most aggressive fraud enforcement framework proposed in Medicare history. The rule would impose universal 30-day enrollment reporting, require MA-billing providers to enroll in Original Medicare, and give CMS direct authority to revoke enrollment based on fraud risk assessments. For the 94% of independent practices approached about consolidation, the CRUSH rule adds another compliance layer to the financial calculus of staying independent. Comment deadline: January 19, 2027.</div>
+</div>
+<p style="text-align:center;font-size:0.78rem;color:var(--color-text-muted);margin-top:8px;">Source: CMS Press Release &mdash; CRUSH Proposed Rule (CMS-6098-P), November 16, 2026 &bull; Veradigm State of the Independent Practice in 2026</p>
+
+<footer class="footer">
+<div class="footer-divider"></div>
+<p><strong>RCM Pulse Weekly</strong> &mdash; Revenue Cycle Management Intelligence for Medical Practices</p>
+<p>Volume 11, Issue 3 &bull; November 20, 2026</p>
+<p>Next issue: November 27, 2026</p>
+<p style="margin-top:16px;font-size:0.76rem;">This newsletter aggregates publicly available information from government sources, professional associations, and industry publications. It does not constitute legal, compliance, or billing advice. Verify all regulatory and coding information against official CMS publications before implementation.</p>
+</footer>
+
+</div>
+<script>
+(function() {
+var bg = document.getElementById('bubbles-bg');
+if (!bg) return;
+var cv = document.createElement('canvas');
+cv.setAttribute('aria-hidden','true');
+cv.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:0;';
+bg.parentNode.replaceChild(cv, bg);
+var ctx = cv.getContext('2d');
+function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+var HUES = [0,20,45,80,160,200,250,280,320,345];
+function randHue() {
+return HUES[Math.floor(Math.random()*HUES.length)] + (Math.random()*24-12);
+}
+function makeBubble(fromBottom) {
+var r = 10 + Math.random() * 46;
+var x = r + Math.random() * (cv.width - 2*r);
+var y = fromBottom ? cv.height + r + Math.random()*180 : Math.random()*cv.height;
+return {
+x:x, y:y, r:r,
+hue: randHue(),
+sat: 78 + Math.random()*20,
+lit: 52 + Math.random()*20,
+op: 0.32 + Math.random()*0.26,
+vx: (Math.random()-0.5)*0.8,
+vy: -(0.38 + Math.random()*0.55)
+};
+}
+var bubbles = [];
+for (var i=0;i<28;i++) bubbles.push(makeBubble(false));
+var splats = [];
+var MAX_SPLATS = 220;
+function burst(cx, cy, hueA, hueB) {
+if (splats.length > MAX_SPLATS) return;
+var n = 7 + Math.floor(Math.random()*5);
+for (var k=0;k<n;k++) {
+var angle = Math.random()*Math.PI*2;
+var spd = 1.8 + Math.random()*3.8;
+var hueOptions = [hueA, hueB, (hueA+hueB)/2, hueA+60, hueB-60, hueA-45, hueB+45];
+var hue = hueOptions[Math.floor(Math.random()*hueOptions.length)];
+splats.push({
+x:cx, y:cy,
+r: 3 + Math.random()*9,
+hue: hue,
+sat: 85 + Math.random()*15,
+lit: 55 + Math.random()*25,
+vx: Math.cos(angle)*spd,
+vy: Math.sin(angle)*spd,
+op: 0.85,
+life: 1.0,
+decay: 0.016 + Math.random()*0.024
+});
+}
+}
+var last = 0;
+function tick(now) {
+var dt = Math.min((now - last)/16, 3);
+last = now;
+ctx.clearRect(0,0,cv.width,cv.height);
+for (var i=0;i<bubbles.length;i++) {
+var b = bubbles[i];
+b.x += b.vx*dt;
+b.y += b.vy*dt;
+if (b.x < -b.r) b.x = cv.width + b.r;
+if (b.x > cv.width+b.r) b.x = -b.r;
+if (b.y < -b.r) {
+var nb = makeBubble(true);
+bubbles[i] = nb;
+continue;
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+for (var j=i+1;j<bubbles.length;j++) {
+var a=bubbles[i], b=bubbles[j];
+var dx=b.x-a.x, dy=b.y-a.y;
+var dist=Math.sqrt(dx*dx+dy*dy);
+var minD=a.r+b.r;
+if (dist < minD && dist > 0.01) {
+burst((a.x+b.x)/2, (a.y+b.y)/2, a.hue, b.hue);
+var nx=dx/dist, ny=dy/dist;
+var dv = (a.vx-b.vx)*nx + (a.vy-b.vy)*ny;
+if (dv > 0) {
+a.vx -= dv*nx; a.vy -= dv*ny;
+b.vx += dv*nx; b.vy += dv*ny;
+}
+var sep=(minD-dist)/2+0.5;
+a.x -= nx*sep; a.y -= ny*sep;
+b.x += nx*sep; b.y += ny*sep;
+a.hue = randHue();
+b.hue = randHue();
+}
+}
+}
+for (var i=0;i<bubbles.length;i++) {
+var b=bubbles[i];
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle = 'hsla('+b.hue+','+b.sat+'%,'+b.lit+'%,'+b.op+')';
+ctx.fill();
+var g=ctx.createRadialGradient(b.x-b.r*0.32,b.y-b.r*0.32,b.r*0.04,b.x,b.y,b.r);
+g.addColorStop(0,'rgba(255,255,255,0.30)');
+g.addColorStop(1,'rgba(255,255,255,0)');
+ctx.beginPath();
+ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+ctx.fillStyle=g;
+ctx.fill();
+}
+for (var i=splats.length-1;i>=0;i--) {
+var s=splats[i];
+s.x += s.vx*dt;
+s.y += s.vy*dt;
+s.vy += 0.05*dt;
+s.vx *= 0.97;
+s.life -= s.decay*dt;
+if (s.life<=0) { splats.splice(i,1); continue; }
+ctx.beginPath();
+ctx.arc(s.x,s.y,Math.max(0.5,s.r*s.life),0,Math.PI*2);
+ctx.fillStyle='hsla('+s.hue+','+s.sat+'%,'+s.lit+'%,'+(s.life*s.op)+')';
+ctx.fill();
+}
+requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
